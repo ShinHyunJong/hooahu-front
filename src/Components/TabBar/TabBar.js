@@ -32,6 +32,12 @@ class TabBar extends Component {
             );
           })}
         </ul>
+        <div className="tabBar__user">
+          <div className="tabBar__user__signIn">SIGN IN</div>
+          <span className="tabBar__user__icon">
+            <i className="xi-user-o" />
+          </span>
+        </div>
       </nav>
     );
   }

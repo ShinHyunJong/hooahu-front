@@ -6,7 +6,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { TabBar } from "../../Components";
+import { TabBar, BoxList } from "../../Components";
+// import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
 
@@ -28,9 +29,75 @@ class HomePage extends Component {
   render() {
     return (
       <div className="homePage">
-        <div className="homePage__header">
+        <header>
           <TabBar />
+        </header>
+        <div className="homePage__header">
+          <div className="homePage__header__title">
+            <h1 className="homePage__header__title__text">HOOAH!U</h1>
+            <h4 className="homePage__header__title__subTitle">
+              Platform for U.S ARMY
+            </h4>
+          </div>
+
+          <div className="homePage__header__box">
+            <div className="homePage__header__box__hotTopic">
+              <div className="homePage__header__box__hotTopic__content">
+                <h3 className="homePage__header__box__hotTopic__content__title">
+                  Hot Topic
+                </h3>
+                {/* <BoxList list={list.hotTopic} /> */}
+                <p className="homePage__header__box__newDiscussion__content__text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Mauris ullamcorper commodo mauris nec facilisis. Donec quis
+                  porta tellus, nec interdum dui. Morbi non consequat ipsum.
+                  Donec a risus volutpat, vestibulum mi ac, egestas mauris.
+                  Aliquam malesuada porta urna at rhoncus. Nunc ut mattis massa.
+                  Donec vel risus sit amet quam viverra consectetur. Lorem ipsum
+                  dolor sit amet, consectetur adipiscing elit.
+                </p>
+              </div>
+            </div>
+            <div className="homePage__header__box__newDiscussion">
+              <div className="homePage__header__box__newDiscussion__content">
+                <h3 className="homePage__header__box__newDiscussion__content__title">
+                  New Discussion
+                </h3>
+                <p className="homePage__header__box__newDiscussion__content__text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Mauris ullamcorper commodo mauris nec facilisis. Donec quis
+                  porta tellus, nec interdum dui. Morbi non consequat ipsum.
+                  Donec a risus volutpat, vestibulum mi ac, egestas mauris.
+                  Aliquam malesuada porta urna at rhoncus. Nunc ut mattis massa.
+                  Donec vel risus sit amet quam viverra consectetur. Lorem ipsum
+                  dolor sit amet, consectetur adipiscing elit.
+                </p>
+              </div>
+            </div>
+            <div className="homePage__header__box__featuredPlace">
+              <div className="homePage__header__box__featuredPlace__content">
+                <h3 className="homePage__header__box__featuredPlace__content__title">
+                  Featured Place
+                </h3>
+                <p className="homePage__header__box__featuredPlace__content__text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Mauris ullamcorper commodo mauris nec facilisis. Donec quis
+                  porta tellus, nec interdum dui. Morbi non consequat ipsum.
+                  Donec a risus volutpat, vestibulum mi ac, egestas mauris.
+                  Aliquam malesuada porta urna at rhoncus. Nunc ut mattis massa.
+                  Donec vel risus sit amet quam viverra consectetur. Lorem ipsum
+                  dolor sit amet, consectetur adipiscing elit.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="homePage__header__down">
+            <span className="homePage__header__down__icon">
+              <i className="xi-angle-down" />
+            </span>
+          </div>
         </div>
+        <div className="homePage__body" />
       </div>
     );
   }

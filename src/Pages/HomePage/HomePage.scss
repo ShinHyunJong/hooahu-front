@@ -2,3 +2,115 @@
 * Author: @nayunhwan (github.com/nayunhwan)
 * Email: nayunhwan.dev@mgail.com
 */
+.homePage {
+  &__header {
+    width: 100%;
+    height: 650px;
+    background: url("./Assets/Images/background.jpg") no-repeat center center
+      fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    &__title {
+      padding-top: 15rem;
+      padding-left: 10rem;
+      &__text {
+        font-size: 4.5rem;
+        color: white;
+        display: inline;
+      }
+      &__subTitle {
+        margin-top: 0;
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: white;
+        display: block;
+      }
+    }
+    &__down {
+      float: left;
+      padding-top: 21%;
+      padding-left: 14%;
+
+      &__icon {
+        font-size: 3rem;
+        color: #252525;
+      }
+    }
+    &__box {
+      margin-top: 3%;
+      overflow: hidden;
+      float: right;
+      width: 70%;
+      height: 330px;
+      background: #252525;
+      opacity: 0.9;
+      display: flex;
+      flex-direction: row;
+      &__hotTopic {
+        display: flex;
+        flex: 1;
+        &__content {
+          border-right: 1px solid #838383;
+          margin-top: 30px;
+          margin-bottom: 30px;
+          flex: 1;
+          &__title {
+            font-weight: bold;
+
+            margin-left: 8%;
+            color: white;
+          }
+          &__text {
+            margin-left: 8%;
+            margin-right: 8%;
+            color: white;
+          }
+        }
+      }
+      &__newDiscussion {
+        flex: 1;
+        display: flex;
+
+        &__content {
+          border-right: 1px solid #838383;
+          flex: 1;
+          margin-top: 30px;
+          margin-bottom: 30px;
+          &__title {
+            font-weight: bold;
+            margin-left: 8%;
+            color: white;
+          }
+          &__text {
+            margin-left: 8%;
+            color: white;
+            margin-right: 8%;
+          }
+        }
+      }
+      &__featuredPlace {
+        flex: 1;
+        display: flex;
+        &__content {
+          flex: 1;
+          margin-top: 30px;
+          margin-bottom: 30px;
+          &__title {
+            font-weight: bold;
+
+            margin-left: 8%;
+            color: white;
+          }
+          &__text {
+            margin-left: 8%;
+            color: white;
+            margin-right: 8%;
+          }
+        }
+      }
+    }
+  }
+}

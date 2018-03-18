@@ -3,10 +3,10 @@
 * Email: nayunhwan.dev@mgail.com
 */
 .tabBar {
-  position: fixed;
   box-sizing: border-box;
-  z-index: 1000;
   width: 100%;
+  z-index: 1000;
+  position: fixed;
   background: transparent;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
   display: flex;
@@ -24,8 +24,29 @@
 
     &__item {
       display: flex;
+      cursor: pointer;
       align-items: center;
       margin-right: 1rem;
+      color: white;
+    }
+    &__item:hover {
+      color: #c2947a;
+    }
+  }
+
+  &__user {
+    display: flex;
+    flex: 0.3;
+    flex-direction: row;
+    align-items: center;
+    &__icon {
+      flex: 1;
+      font-size: 2rem;
+      color: white;
+    }
+    &__signIn {
+      flex: 1;
+      color: white;
     }
   }
 }
