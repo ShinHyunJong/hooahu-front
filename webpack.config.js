@@ -30,6 +30,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.json$/,
+        loader: "json-loader"
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: "file-loader?name=/public/icons/[name].[ext]"
       }

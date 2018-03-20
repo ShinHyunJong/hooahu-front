@@ -1,0 +1,49 @@
+{
+  "editorChoice": [
+    {
+      "name": "Trauks of Dynasty",
+      "places": [
+        {
+          "name": "Kim Koo Museum",
+          "content": "Hey, you",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02=779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "name": "Sajik Park",
+          "content": "Hey, you",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02=779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        }
+      ],
+      "image_url": "htttpsfasdfasdf",
+      "price": 3000,
+      "days": "2day",
+      "area": "area2",
+      "distance": "2km",
+      "description": "blablalba",
+      "concept": {
+        "calm": 3,
+        "sightSeeing": 1,
+        "dandy": 2,
+        "food": 2,
+        "activity": 2,
+        "luxury": 2,
+        "love": 1,
+        "party": 2
+      }
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
 import { TabBar, BoxList } from "../../Components";
+import ec from "../../Json/ec";
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
