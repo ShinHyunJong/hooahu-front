@@ -3,6 +3,11 @@
 * Email: nayunhwan.dev@mgail.com
 */
 .homePage {
+  &__tabBar {
+    &__list {
+      color: $white-color;
+    }
+  }
   &__header {
     width: 100%;
     height: 650px;

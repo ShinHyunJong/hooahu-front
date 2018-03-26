@@ -1,0 +1,40 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@mgail.com
+*/
+
+.signUp {
+  &__content {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    &__title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      &__button {
+        margin-top: 10px;
+        width: 150px;
+        height: 55px;
+        border: 0px !important;
+        background-color: $sub-color !important;
+        border-radius: 75px !important;
+
+        &__text {
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.route-wrapper {
+  position: relative;
+}
+
+.route-wrapper > div {
+  position: absolute;
+}

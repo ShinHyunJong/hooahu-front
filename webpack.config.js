@@ -26,8 +26,17 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
+        loaders: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+          "sass?sourceMap"
+        ],
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loaders: ["style-loader", "css-loader"]
       },
       {
         test: /\.json$/,

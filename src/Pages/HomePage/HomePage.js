@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
 import { TabBar, BoxList } from "../../Components";
 import ec from "../../Json/ec";
+import { Button } from "reactstrap";
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
@@ -31,7 +32,7 @@ class HomePage extends Component {
     return (
       <div className="homePage">
         <header>
-          <TabBar />
+          <TabBar listClassName="homePage__tabBar__list" />
         </header>
         <div className="homePage__header">
           <div className="homePage__header__title">
@@ -40,7 +41,6 @@ class HomePage extends Component {
               Platform for U.S ARMY
             </h4>
           </div>
-
           <div className="homePage__header__box">
             <div className="homePage__header__box__hotTopic">
               <div className="homePage__header__box__hotTopic__content">
@@ -98,7 +98,9 @@ class HomePage extends Component {
             </span>
           </div>
         </div>
-        <div className="homePage__body" />
+        <div className="homePage__body">
+          <Button color="danger">테스트</Button>
+        </div>
       </div>
     );
   }

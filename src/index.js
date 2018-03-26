@@ -1,12 +1,12 @@
 // React Common Modules
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import Reducer from './Reducers/Reducer';
+import thunkMiddleware from "redux-thunk";
+import createLogger from "redux-logger";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import Reducer from "./Reducers/Reducer";
 
 const loggerMiddleware = createLogger();
 
@@ -18,15 +18,15 @@ const createStoreWithMiddleware = applyMiddleware(
 let store = createStoreWithMiddleware(Reducer);
 
 // Main SCSS
-import './index.scss';
+import "./index.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Root React Component
-import App from './App';
-
+import App from "./App";
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

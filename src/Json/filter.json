@@ -1,0 +1,68 @@
+{
+  "concept": [
+    {
+      "label": "All",
+      "clicked": false
+    },
+    {
+      "label": "Calm",
+      "clicked": false
+    },
+    {
+      "label": "ThrillKiller",
+      "clicked": false
+    },
+    {
+      "label": "SightSeeing",
+      "clicked": false
+    },
+    {
+      "label": "Swagger",
+      "clicked": false
+    },
+    {
+      "label": "Dandy",
+      "clicked": false
+    },
+    {
+      "label": "Romantic",
+      "clicked": false
+    },
+    {
+      "label": "Gourmand",
+      "clicked": false
+    },
+    {
+      "label": "PartyAnimal",
+      "clicked": false
+    }
+  ],
+  "day": [
+    {
+      "label": "1Day",
+      "clicked": false
+    },
+    {
+      "label": "2Day",
+      "clicked": false
+    },
+    {
+      "label": "3Day",
+      "clicked": false
+    }
+  ],
+  "area": [
+    {
+      "label": "Area1",
+      "clicked": true
+    },
+    {
+      "label": "Area2",
+      "clicked": false
+    },
+    {
+      "label": "Area3",
+      "clicked": false
+    }
+  ]
+}

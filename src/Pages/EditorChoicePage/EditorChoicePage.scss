@@ -1,0 +1,47 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@mgail.com
+*/
+.editorChoice {
+  &__content {
+    padding-top: 80px;
+
+    &__filter {
+      border-right: 1px $border-color solid;
+
+      &__row {
+        margin-top: 10px;
+
+        &__checkBox {
+          margin-top: 1.5rem;
+          margin-right: 20px;
+        }
+      }
+    }
+
+    &__list {
+      &__header {
+        height: 60px;
+        display: flex;
+        align-items: flex-end;
+        border-bottom: 1px $border-color solid;
+
+        &__tab {
+          cursor: pointer;
+          margin-left: 2rem;
+
+          &__selected {
+            cursor: pointer;
+            margin-left: 2rem;
+            border-bottom: 3px $sub-color solid;
+          }
+        }
+      }
+
+      &__body {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
