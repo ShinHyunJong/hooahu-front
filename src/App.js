@@ -14,6 +14,9 @@ import {
   HomePage,
   SignUpPage,
   SignUpUserName,
+  SignUpUnit,
+  SignUpEmail,
+  SignUpChoose,
   EditorChoicePage
 } from "./Pages/";
 
@@ -35,6 +38,10 @@ class App extends Component {
           <div>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/signup" component={SignUpPage} />
+            <Route path="/signup/choose" component={SignUpChoose} />
+            <Route path="/signup/email" component={SignUpEmail} />
+            <Route path="/signup/username" component={SignUpUserName} />
+            <Route path="/signup/unit" component={SignUpUnit} />
             <Route path="/editor_choice" component={EditorChoicePage} />
           </div>
         </Router>

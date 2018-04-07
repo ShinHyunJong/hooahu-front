@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Link, Route } from "react-router-dom";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { NavBar, RoundButton } from "../../Components";
+import { NavBar } from "../../Components";
 import { Container, Row, Col, Button } from "reactstrap";
 import TextField from "material-ui/TextField";
 import { RadioButton, RadioButtonGroup } from "material-ui/RadioButton";
@@ -55,28 +55,39 @@ class SignUpPage extends Component {
   render() {
     return (
       <div>
-        <Container className="signUp">
+        <Container className="signUpChoose">
           <NavBar />
-          <Row className="signUp__content">
-            <div className="signUp__content__title">
-              <Link to="/signup/username">
-                <RoundButton
-                  text="Sign up with Facebook"
-                  icon="xi-facebook-official"
-                  className="signUp__content__title__buttonF"
-                  textClassName="signUp__content__title__textF"
-                  iconClassName="signUp__content__title__iconF"
-                />
-              </Link>
+          <Row className="signUpChoose__content">
+            <div className="signUpChoose__content__title">
+              <h1 className="signUpChoose__content__title__text">
+                Who are you?
+              </h1>
 
-              <Link to="/signup/choose">
-                <RoundButton
-                  text="Sign up with Email"
-                  icon="xi-mail"
-                  className="signUp__content__title__button"
-                  textClassName="signUp__content__title__text"
-                  iconClassName="signUp__content__title__icon"
+              <RadioButtonGroup
+                name="shipSpeed"
+                defaultSelected="Military Personnel"
+                style={styles.block}
+              >
+                <RadioButton
+                  value="Military Personnel"
+                  label="Military Personnel"
+                  style={styles.radioButton}
+                  labelStyle={styles.label}
                 />
+                <RadioButton
+                  value="Civilian"
+                  label="Civilian"
+                  style={styles.radioButton}
+                  labelStyle={styles.labelCivilian}
+                />
+              </RadioButtonGroup>
+
+              <Link to="/signup/email">
+                <Button className="signUpChoose__content__title__button">
+                  <span className="signUpChoose__content__title__button__text">
+                    Next
+                  </span>
+                </Button>
               </Link>
             </div>
           </Row>

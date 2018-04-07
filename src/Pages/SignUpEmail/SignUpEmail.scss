@@ -2,12 +2,13 @@
 * Author: @nayunhwan (github.com/nayunhwan)
 * Email: nayunhwan.dev@mgail.com
 */
+
 /*
 * Author: @nayunhwan (github.com/nayunhwan)
 * Email: nayunhwan.dev@mgail.com
 */
 
-.signUpUserName {
+.signUpEmail {
   &__content {
     display: flex;
     height: 100vh;
@@ -21,16 +22,11 @@
 
       &__input {
         margin-top: 2rem;
-
-        &__sub {
-          margin-top: 0.5rem;
-        }
       }
 
       &__text {
         color: $dark-gray;
       }
-
       &__button {
         background-color: $sub-color !important;
       }

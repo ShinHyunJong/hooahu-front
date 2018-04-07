@@ -16,16 +16,33 @@
       flex-direction: column;
 
       &__button {
-        margin-top: 10px;
-        width: 150px;
-        height: 55px;
-        border: 0px !important;
         background-color: $sub-color !important;
-        border-radius: 75px !important;
+      }
 
-        &__text {
-          color: black;
-        }
+      &__buttonF {
+        background-color: #3b5998 !important;
+      }
+
+      &__text {
+        color: $dark-gray;
+      }
+
+      &__textF {
+        color: white;
+      }
+
+      &__iconF {
+        color: white;
+        font-size: 2rem;
+      }
+
+      &__icon {
+        color: $dark-gray;
+        font-size: 2rem;
+      }
+
+      &__input {
+        width: 550px;
       }
     }
   }
