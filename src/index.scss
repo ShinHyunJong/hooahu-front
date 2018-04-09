@@ -7,8 +7,17 @@
 @import "./Pages/index";
 @import "./Components/index";
 
+html {
+}
+
 body {
   margin: 0 auto;
+  a:hover {
+    text-decoration: none;
+  }
+  p {
+    margin: 0;
+  }
 }
 
 ::placeholder {

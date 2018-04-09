@@ -28,11 +28,11 @@ const styles = {
   },
   label: {
     width: 200,
-    fontSize: 24,
+    fontSize: 18,
     color: "#9b9b9b"
   },
   labelCivilian: {
-    fontSize: 22,
+    fontSize: 18,
     color: "#9b9b9b"
   }
 };
@@ -43,20 +43,40 @@ const mapStateToProps = state => {
   };
 };
 
-class SignUpPage extends Component {
+class SignUpChoose extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      status: "Military"
+    };
   }
 
-  componentDidMount() {
-    this.props.dispatch(DefaultActionCreator.action());
-  }
+  handleChoose = (event, value) => {
+    this.setState({ status: value });
+  };
+
+  handleNext = () => {
+    if (this.state.status === "Military") {
+      this.props.history.push({
+        pathname: "/signup/email",
+        state: { type: this.state.status }
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/signup/civ",
+        state: { type: this.state.status }
+      });
+    }
+  };
+
+  componentDidMount() {}
 
   render() {
+    console.log(this.state.status);
     return (
       <div>
         <Container className="signUpChoose">
-          <NavBar />
+          <NavBar menuVisible={true} />
           <Row className="signUpChoose__content">
             <div className="signUpChoose__content__title">
               <h1 className="signUpChoose__content__title__text">
@@ -65,30 +85,32 @@ class SignUpPage extends Component {
 
               <RadioButtonGroup
                 name="shipSpeed"
-                defaultSelected="Military Personnel"
+                valueSelected={this.state.status}
+                onChange={this.handleChoose}
                 style={styles.block}
               >
                 <RadioButton
-                  value="Military Personnel"
+                  value="Military"
                   label="Military Personnel"
                   style={styles.radioButton}
                   labelStyle={styles.label}
                 />
                 <RadioButton
-                  value="Civilian"
+                  value="Civ"
                   label="Civilian"
                   style={styles.radioButton}
                   labelStyle={styles.labelCivilian}
                 />
               </RadioButtonGroup>
 
-              <Link to="/signup/email">
-                <Button className="signUpChoose__content__title__button">
-                  <span className="signUpChoose__content__title__button__text">
-                    Next
-                  </span>
-                </Button>
-              </Link>
+              <Button
+                className="signUpChoose__content__title__button"
+                onClick={this.handleNext}
+              >
+                <span className="signUpChoose__content__title__button__text">
+                  Next
+                </span>
+              </Button>
             </div>
           </Row>
         </Container>
@@ -97,7 +119,7 @@ class SignUpPage extends Component {
   }
 }
 
-SignUpPage.defaultProps = defaultProps;
-SignUpPage.propTypes = propTypes;
+SignUpChoose.defaultProps = defaultProps;
+SignUpChoose.propTypes = propTypes;
 
-export default connect(mapStateToProps)(SignUpPage);
+export default connect(mapStateToProps)(SignUpChoose);

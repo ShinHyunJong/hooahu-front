@@ -4,25 +4,30 @@
 */
 .roundButton {
   &__content {
-    margin-top: 10px;
     background-color: $sub-color;
     width: 300px !important;
     height: 60px !important;
-    border: 0px !important ;
     border-radius: 75px !important;
 
     &__wrapper {
       display: flex;
       align-items: center;
-      justify-content: center;
 
-      &__icon {
-        font-size: 2rem;
+      &__iconArea {
+        flex: 0.3;
+
+        &__icon {
+          font-size: 2rem;
+          margin-right: 10px;
+        }
       }
 
-      &__text {
-        margin-left: 7px;
-        font-size: 1rem;
+      &__textArea {
+        flex: 2;
+        &__text {
+          padding-right: 10px;
+          font-size: 1rem;
+        }
       }
     }
   }

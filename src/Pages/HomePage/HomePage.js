@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { TabBar, BoxList } from "../../Components";
+import { NavBar, BoxList } from "../../Components";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
 // import list from "../../Json/HotTopic.json";
@@ -32,7 +32,7 @@ class HomePage extends Component {
     return (
       <div className="homePage">
         <header>
-          <TabBar listClassName="homePage__tabBar__list" />
+          <NavBar listClassName="homePage__tabBar__list" />
         </header>
         <div className="homePage__header">
           <div className="homePage__header__title">

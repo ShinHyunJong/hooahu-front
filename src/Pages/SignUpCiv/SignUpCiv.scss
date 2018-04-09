@@ -3,46 +3,34 @@
 * Email: nayunhwan.dev@mgail.com
 */
 
-.signUpChoose {
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@mgail.com
+*/
+
+.signUpCiv {
   &__content {
     display: flex;
     height: 100vh;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     &__title {
       display: flex;
       justify-content: center;
       align-items: center;
+      color: $dark-gray;
       flex-direction: column;
-
-      &__text {
-        color: $dark-gray;
-      }
-
-      &__input {
-        width: 550px;
-      }
-
       &__button {
-        margin-top: 10px;
-        width: 300px !important;
-        height: 60px !important;
+        margin-top: 2rem !important;
+        height: 55px;
         border: 0px !important;
         background-color: $sub-color !important;
         border-radius: 75px !important;
-
         &__text {
           color: $dark-gray;
         }
       }
     }
   }
-}
-
-.route-wrapper {
-  position: relative;
-}
-
-.route-wrapper > div {
-  position: absolute;
 }

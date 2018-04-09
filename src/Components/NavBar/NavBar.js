@@ -2,6 +2,7 @@
 // If you want to make other Component, Copy and Refactor this Component.
 
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -15,7 +16,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import PropTypes from "prop-types";
+import cx from "classnames";
 
 const defaultProps = {};
 const propTypes = {};
@@ -33,41 +34,31 @@ class NavBar extends Component {
       <Navbar className="navBar" light expand="md" fixed="top">
         <NavbarBrand href="/">Hooah!U</NavbarBrand>
         <NavbarToggler onClick={this.props.toggle} />
+
         <Collapse isOpen={this.props.isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="/">GUIDE</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">Editor's Choice</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">PLACE LIST</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">COMMUNITY</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">FORUM</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">ABOUT US</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">SUPPORT</NavLink>
-            </NavItem>
-            {/* <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown> */}
-          </Nav>
+          {this.props.menuVisible === true ? null : (
+            <Nav className={cx("ml-auto", "navBar__items")} navbar>
+              <NavItem>
+                <NavLink href="/">FEED</NavLink>
+              </NavItem>
+              <Link to="/editor_choice">
+                <NavItem>
+                  <NavLink>EDITOR'S CHOICE</NavLink>
+                </NavItem>
+              </Link>
+              <NavItem>
+                <NavLink href="/">PLACE LIST</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/">ABOUT US</NavLink>
+              </NavItem>
+              <Link to="/signup">
+                <NavItem>
+                  <NavLink href="/">SIGN IN</NavLink>
+                </NavItem>
+              </Link>
+            </Nav>
+          )}
         </Collapse>
       </Navbar>
     );

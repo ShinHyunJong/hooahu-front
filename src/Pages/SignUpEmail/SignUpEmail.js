@@ -28,27 +28,62 @@ const styles = {
 class SignUpEmail extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
   }
+
+  handleNext = () => {
+    this.props.history.push({
+      pathname: "/signup/username",
+      state: {
+        type: this.props.location.state.type,
+        c_type: this.props.location.state.c_type,
+        email: this.state.email,
+        password: this.state.password
+      }
+    });
+  };
+
+  handleEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handlePassword = e => {
+    this.setState({ password: e.target.value });
+  };
 
   render() {
     return (
       <Container className="signUpEmail">
-        <NavBar />
+        <NavBar menuVisible={true} />
         <Row className="signUpEmail__content">
           <div className="signUpEmail__content__title">
             <h1 className="signUpEmail__content__title__text">
               What is your email?
             </h1>
-            <div className="signUpEmail__content__title__input">
-              <RoundInput type="email" placeholder="ex) abc@gmail.com" />
-            </div>
-            <Link to="/signup/username">
-              <RoundButton
-                className="signUpEmail__content__title__button"
-                text="Next"
-                textClassName="signUpEmail__content__title__text"
+            <div className="signUpEmail__content__title__inputArea">
+              <RoundInput
+                type="email"
+                placeholder="ex) abc@gmail.com"
+                onChange={this.handleEmail}
               />
-            </Link>
+            </div>
+
+            <div className="signUpEmail__content__title__passwordArea">
+              <RoundInput
+                type="password"
+                placeholder="password"
+                onChange={this.handlePassword}
+              />
+            </div>
+            <RoundButton
+              className="signUpEmail__content__title__button"
+              text="Next"
+              onClick={this.handleNext}
+              textClassName="signUpEmail__content__title__text"
+            />
           </div>
         </Row>
       </Container>

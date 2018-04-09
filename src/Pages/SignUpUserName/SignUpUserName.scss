@@ -20,10 +20,10 @@
       flex-direction: column;
 
       &__input {
-        margin-top: 2rem;
+        margin-top: 1rem;
 
         &__sub {
-          margin-top: 0.5rem;
+          margin-top: 1rem;
         }
       }
 
@@ -32,7 +32,9 @@
       }
 
       &__button {
+        margin-top: 1rem;
         background-color: $sub-color !important;
+        border: none !important;
       }
     }
   }

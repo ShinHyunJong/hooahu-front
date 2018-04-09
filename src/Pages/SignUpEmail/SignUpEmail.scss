@@ -20,15 +20,21 @@
       align-items: center;
       flex-direction: column;
 
-      &__input {
-        margin-top: 2rem;
+      &__inputArea {
+        margin-top: 1rem;
+      }
+
+      &__passwordArea {
+        margin-top: 1rem;
       }
 
       &__text {
         color: $dark-gray;
       }
       &__button {
+        margin-top: 1rem;
         background-color: $sub-color !important;
+        border: none !important;
       }
     }
   }

@@ -2,14 +2,14 @@
   "concept": [
     {
       "label": "All",
-      "clicked": false
+      "clicked": true
     },
     {
       "label": "Calm",
       "clicked": false
     },
     {
-      "label": "ThrillKiller",
+      "label": "ThrillSeeker",
       "clicked": false
     },
     {
@@ -39,29 +39,29 @@
   ],
   "day": [
     {
-      "label": "1Day",
+      "label": "1 Day",
       "clicked": false
     },
     {
-      "label": "2Day",
+      "label": "2 Day",
       "clicked": false
     },
     {
-      "label": "3Day",
+      "label": "3 Day",
       "clicked": false
     }
   ],
   "area": [
     {
-      "label": "Area1",
+      "label": "Area 1",
       "clicked": true
     },
     {
-      "label": "Area2",
+      "label": "Area 2",
       "clicked": false
     },
     {
-      "label": "Area3",
+      "label": "Area 3",
       "clicked": false
     }
   ]

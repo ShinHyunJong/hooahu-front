@@ -15,25 +15,31 @@ class RoundButton extends Component {
   }
 
   render() {
-    let { icon, text, iconClassName, textClassName, className } = this.props;
+    let {
+      icon,
+      text,
+      iconClassName,
+      textClassName,
+      className,
+      onClick
+    } = this.props;
     return (
       <div className="roundButton">
-        <Button className={cx("roundButton__content", className)}>
+        <Button
+          onClick={onClick}
+          className={cx("roundButton__content", className)}
+        >
           <div className="roundButton__content__wrapper">
-            <span
-              className={
-                (cx("roundButton__content__wrapper__icon"), iconClassName)
-              }
-            >
-              <i className={icon} />
-            </span>
-            <span
-              className={
-                (cx("roundButton__content__wrapper__text"), textClassName)
-              }
-            >
-              {text}
-            </span>
+            <div className="roundButton__content__wrapper__textArea">
+              <span
+                className={
+                  (cx("roundButton__content__wrapper__textArea__text"),
+                  textClassName)
+                }
+              >
+                {text}
+              </span>
+            </div>
           </div>
         </Button>
       </div>

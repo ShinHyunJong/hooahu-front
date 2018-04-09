@@ -4,7 +4,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
+import { NavBar } from "../../Components";
+import { Container, Row, Col } from "reactstrap";
+import filterJson from "../../Json/filter";
+import ec from "../../Json/ec";
+import cx from "classnames";
+import NumberFormat from "react-number-format";
+import ProgressiveImage from "react-progressive-image-loading";
 
 const defaultProps = {};
 const propTypes = {};
@@ -20,12 +26,12 @@ class DefaultPage extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.dispatch(DefaultActionCreator.action());
-  }
-
   render() {
-    return <div>This is Default Redux Page</div>;
+    return (
+      <div className="defaultPage">
+        <NavBar />This is Default Redux Page
+      </div>
+    );
   }
 }
 

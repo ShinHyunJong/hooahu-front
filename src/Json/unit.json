@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "area": "Area1",
+      "area": "Area1 (Dongdoochun)",
       "unit": [
         "USAG Red Cloud",
         "USAG Casey",
@@ -16,11 +16,11 @@
       ]
     },
     {
-      "area": "Area2",
+      "area": "Area2 (Yongsan)",
       "unit": ["USAG Yongsan", "Seoul AB(K-16)"]
     },
     {
-      "area": "Area3(5)",
+      "area": "Area3(5) (Pyeontaek)",
       "unit": [
         "USAG Humphreys",
         "Chongju AB(K-41)",
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "area": "Area4",
+      "area": "Area4(6) (Daegu)",
       "unit": ["USAG Daegu", "Kunsan AB (K-8)"]
     }
   ]

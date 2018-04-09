@@ -17,7 +17,11 @@ import {
   SignUpUnit,
   SignUpEmail,
   SignUpChoose,
-  EditorChoicePage
+  SignUpCiv,
+  SignUpBusiness,
+  SignUpWork,
+  EditorChoicePage,
+  EditorDetailPage
 } from "./Pages/";
 
 const muiTheme = getMuiTheme({
@@ -41,8 +45,15 @@ class App extends Component {
             <Route path="/signup/choose" component={SignUpChoose} />
             <Route path="/signup/email" component={SignUpEmail} />
             <Route path="/signup/username" component={SignUpUserName} />
+            <Route path="/signup/civ" component={SignUpCiv} />
             <Route path="/signup/unit" component={SignUpUnit} />
-            <Route path="/editor_choice" component={EditorChoicePage} />
+            <Route path="/signup/business" component={SignUpBusiness} />
+            <Route path="/signup/reason" component={SignUpWork} />
+            <Route exact path="/editor_choice" component={EditorChoicePage} />
+            <Route
+              path="/editor_choice/:package"
+              component={EditorDetailPage}
+            />
           </div>
         </Router>
       </MuiThemeProvider>

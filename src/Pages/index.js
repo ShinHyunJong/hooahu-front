@@ -12,4 +12,8 @@ export SignUpChoose from "./SignUpChoose/SignUpChoose";
 export SignUpUserName from "./SignUpUserName/SignUpUserName";
 export SignUpUnit from "./SignUpUnit/SignUpUnit";
 export SignUpPage from "./SignUpPage/SignUpPage";
+export SignUpCiv from "./SignUpCiv/SignUpCiv";
+export SignUpBusiness from "./SignUpBusiness/SignUpBusiness";
+export SignUpWork from "./SignUpWork/SignUpWork";
 export EditorChoicePage from "./EditorChoicePage/EditorChoicePage";
+export EditorDetailPage from "./EditorDetailPage/EditorDetailPage";
