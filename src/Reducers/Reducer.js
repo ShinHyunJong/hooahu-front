@@ -2,20 +2,20 @@
 * Author: @nayunhwan (github.com/nayunhwan)
 * Email: nayunhwan.dev@mgail.com
 */
+import { SUCCEED_TO_SIGNUP } from "../ActionCreators/AuthAction";
 
 import { combineReducers } from "redux";
 
-import DefaultAction from "../Actions/DefaultAction";
-
 const initialState = {
-  data: null
+  data: null,
+  token: ""
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case DefaultAction.SUCCEED_TO_DEFAULT_ACTION:
+    case SUCCEED_TO_SIGNUP:
       return Object.assign({}, state, {
-        data: action.data
+        token: action.payload
       });
     default:
       return state;

@@ -8,6 +8,7 @@ import { Link, Route } from "react-router-dom";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
 import unitJson from "../../Json/unit";
+import * as AuthAction from "../../ActionCreators/AuthAction";
 
 const defaultProps = {};
 const propTypes = {};
@@ -67,6 +68,21 @@ class SignUpWork extends Component {
     console.log("w타입 :" + w_type);
     console.log("Area :" + area);
     console.log("Camp :" + camp);
+
+    const params = {
+      first_name: first,
+      last_name: last,
+      nickname: nick,
+      email: email,
+      password: password,
+      type: type,
+      c_type: c_type,
+      w_type: w_type,
+      area: area,
+      camp: camp,
+      reason: this.state.status
+    };
+    this.props.dispatch(AuthAction.postSignUp(params));
   };
 
   render() {
