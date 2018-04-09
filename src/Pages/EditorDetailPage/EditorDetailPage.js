@@ -16,7 +16,13 @@ import ProgressiveImage from "react-progressive-image-loading";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
 import scrollToComponent from "react-scroll-to-component";
-
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
+import { MarkerWithLabel } from "react-google-maps/lib/components/addons/MarkerWithLabel";
 const defaultProps = {};
 const propTypes = {};
 
@@ -59,6 +65,31 @@ class EditorDetailPage extends Component {
   };
 
   render() {
+    const MapWithAMarker = withScriptjs(
+      withGoogleMap(props => (
+        <GoogleMap
+          defaultZoom={14}
+          defaultCenter={{ lat: 37.527555, lng: 127.040512 }}
+        >
+          <Marker position={{ lat: 37.527555, lng: 127.040512 }} />
+
+          {/* <Marker position={{ lat: 37.526911, lng: 127.03787 }} opacity={0.5} /> */}
+          <MarkerWithLabel
+            position={{ lat: 37.526911, lng: 127.03787 }}
+            labelAnchor={new google.maps.Point(0, 0)}
+            labelStyle={{
+              backgroundColor: "#5b5e6d",
+              color: "white",
+              fontSize: "16px",
+              padding: "8px"
+            }}
+          >
+            <div className="editorDetail__googlemapLabel">2</div>
+          </MarkerWithLabel>
+        </GoogleMap>
+      ))
+    );
+
     return (
       <div className="editorDetail">
         <NavBar />
@@ -198,7 +229,12 @@ class EditorDetailPage extends Component {
                   />
                 </TabPane>
                 <TabPane tabId="2">
-                  <h1>지도</h1>
+                  <MapWithAMarker
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXyr_w-hrjwCHZblSHVsFSxsvyDPDvrVc&language=en&region=US&callback=initMap"
+                    loadingElement={<div style={{ height: "100%" }} />}
+                    containerElement={<div style={{ height: "400px" }} />}
+                    mapElement={<div style={{ height: "100%" }} />}
+                  />
                 </TabPane>
               </TabContent>
             </div>

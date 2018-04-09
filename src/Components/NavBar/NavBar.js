@@ -17,9 +17,15 @@ import {
   DropdownItem
 } from "reactstrap";
 import cx from "classnames";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 const defaultProps = {};
 const propTypes = {};
+
+const mapStateToProps = state => {
+  return {};
+};
 
 class NavBar extends Component {
   constructor(props) {
@@ -28,6 +34,17 @@ class NavBar extends Component {
       isOpen: false
     };
   }
+  handleEditor = () => {
+    this.props.history.push({
+      pathname: "/editor_choice"
+    });
+  };
+
+  handleSignUp = () => {
+    this.props.history.push({
+      pathname: "/signup"
+    });
+  };
 
   render() {
     return (
@@ -38,25 +55,26 @@ class NavBar extends Component {
         <Collapse isOpen={this.props.isOpen} navbar>
           {this.props.menuVisible === true ? null : (
             <Nav className={cx("ml-auto", "navBar__items")} navbar>
-              <NavItem>
+              <NavItem className="navBar__items__item">
                 <NavLink href="/">FEED</NavLink>
               </NavItem>
-              <Link to="/editor_choice">
-                <NavItem>
-                  <NavLink>EDITOR'S CHOICE</NavLink>
-                </NavItem>
-              </Link>
-              <NavItem>
+              <NavItem className="navBar__items__item">
+                <NavLink>
+                  <div onClick={this.handleEditor}>EDITOR'S CHOICE</div>
+                </NavLink>
+              </NavItem>
+              <NavItem className="navBar__items__item">
                 <NavLink href="/">PLACE LIST</NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem className="navBar__items__item">
                 <NavLink href="/">ABOUT US</NavLink>
               </NavItem>
-              <Link to="/signup">
-                <NavItem>
-                  <NavLink href="/">SIGN IN</NavLink>
-                </NavItem>
-              </Link>
+              <NavItem
+                onClick={this.handleSignUp}
+                className="navBar__items__item"
+              >
+                <NavLink>SIGN IN</NavLink>
+              </NavItem>
             </Nav>
           )}
         </Collapse>
@@ -68,4 +86,4 @@ class NavBar extends Component {
 NavBar.defaultProps = defaultProps;
 NavBar.propTypes = propTypes;
 
-export default NavBar;
+export default withRouter(connect(mapStateToProps)(NavBar));
