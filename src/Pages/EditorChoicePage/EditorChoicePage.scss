@@ -29,11 +29,12 @@
 
     &__content {
       &__lists {
-        margin: 3rem 2rem 3rem 2rem;
-        padding: 2rem 3rem 3rem 3rem;
-        background-color: white;
         &__list {
           display: flex;
+          margin: 3rem 2rem 3rem 2rem;
+          padding: 2rem 3rem 3rem 3rem;
+          background-color: white;
+
           &__text {
             flex: 1.2;
             display: flex;
@@ -190,7 +191,6 @@
     background-color: white;
 
     &__content {
-      margin-top: 2.5rem;
       margin-right: 2rem;
       padding-left: 20px;
       padding-right: 20px;

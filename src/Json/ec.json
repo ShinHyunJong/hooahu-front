@@ -110,6 +110,227 @@
         "party": 2
       },
       "reviews": 1880
+    },
+    {
+      "id": 2,
+      "name": "District of Luxury22222",
+      "places": [
+        {
+          "id": 1,
+          "name": "Apgujeongrodeo Station",
+          "content":
+            "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02=779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Apgujeongrodeo Street",
+          "content":
+            "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네",
+          "location-x": "37.527555",
+          "location-y": "127.040512",
+          "address": "Sinsa-dong, Seoul",
+          "hours": "-",
+          "phone": "02-548-0704",
+          "fucntion": "Transportation",
+          "transport": "Transportation",
+          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+        },
+        {
+          "id": 3,
+
+          "name": "Galleria Department Store",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "id": 2,
+
+          "name": "럭셔리 쇼핑 거리",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "id": 2,
+
+          "name": "Miel 레스토랑&카페",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "id": 2,
+
+          "name": "하이엔드 바&라운지 거리",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        }
+      ],
+      "image_url": "https://i.imgur.com/u08v6FH.jpg",
+      "price": 380000,
+      "days": "1 day",
+      "area": "Area 2",
+      "distance": 1.19,
+      "description": "Hey soldier! How's your saving account doing so far?",
+      "concept": {
+        "calm": 1,
+        "sightSeeing": 2,
+        "dandy": 3,
+        "food": 3,
+        "activity": 1,
+        "luxury": 3,
+        "love": 2,
+        "party": 2
+      },
+      "reviews": 1880
+    },
+    {
+      "id": 3,
+      "name": "District of Luxury33333",
+      "places": [
+        {
+          "id": 1,
+          "name": "Apgujeongrodeo Station",
+          "content":
+            "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02=779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Apgujeongrodeo Street",
+          "content":
+            "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네",
+          "location-x": "37.527555",
+          "location-y": "127.040512",
+          "address": "Sinsa-dong, Seoul",
+          "hours": "-",
+          "phone": "02-548-0704",
+          "fucntion": "Transportation",
+          "transport": "Transportation",
+          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+        },
+        {
+          "id": 3,
+
+          "name": "Galleria Department Store",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "id": 3,
+          "name": "럭셔리 쇼핑 거리",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "id": 2,
+
+          "name": "Miel 레스토랑&카페",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        },
+        {
+          "id": 2,
+
+          "name": "하이엔드 바&라운지 거리",
+          "content":
+            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+          "location-x": "245",
+          "location-y": "345",
+          "address": "seoul",
+          "hours": "open 8am",
+          "phone": "02-779-2345",
+          "fucntion": "museum",
+          "transport": "metro",
+          "image_url": "http://asdfasdf"
+        }
+      ],
+      "image_url": "https://i.imgur.com/u08v6FH.jpg",
+      "price": 380000,
+      "days": "1 day",
+      "area": "Area 2",
+      "distance": 1.19,
+      "description": "Hey soldier! How's your saving account doing so far?",
+      "concept": {
+        "calm": 1,
+        "sightSeeing": 2,
+        "dandy": 3,
+        "food": 3,
+        "activity": 1,
+        "luxury": 3,
+        "love": 2,
+        "party": 2
+      },
+      "reviews": 1880
     }
   ]
 }

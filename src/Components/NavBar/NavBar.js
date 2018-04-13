@@ -57,7 +57,9 @@ class NavBar extends Component {
     const { isLogin } = this.props;
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
-        <NavbarBrand href="/">Hooah!U</NavbarBrand>
+        <NavbarBrand className="navBar__logo" href="/">
+          HOOAH!U
+        </NavbarBrand>
         <NavbarToggler onClick={this.props.toggle} />
 
         <Collapse isOpen={this.props.isOpen} navbar>

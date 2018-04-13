@@ -75,6 +75,10 @@ class EditorDetailPage extends Component {
   };
 
   render() {
+    const choice = Number(this.props.match.params.package);
+    const ecJson = ec.editorChoice;
+    const selectedChoice = ecJson[choice - 1];
+    console.log(selectedChoice);
     const MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
@@ -86,6 +90,9 @@ class EditorDetailPage extends Component {
           {/* <Marker position={{ lat: 37.526911, lng: 127.03787 }} opacity={0.5} /> */}
           <MarkerWithLabel
             position={{ lat: 37.526911, lng: 127.03787 }}
+            onClick={() => {
+              console.log("check!!");
+            }}
             labelAnchor={new google.maps.Point(0, 0)}
             labelStyle={{
               backgroundColor: "#5b5e6d",
@@ -240,7 +247,7 @@ class EditorDetailPage extends Component {
                 </TabPane>
                 <TabPane tabId="2">
                   <MapWithAMarker
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXyr_w-hrjwCHZblSHVsFSxsvyDPDvrVc&language=en&region=US&callback=initMap"
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXyr_w-hrjwCHZblSHVsFSxsvyDPDvrVc&language=en&region=US"
                     loadingElement={<div style={{ height: "100%" }} />}
                     containerElement={<div style={{ height: "400px" }} />}
                     mapElement={<div style={{ height: "100%" }} />}

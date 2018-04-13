@@ -39,6 +39,10 @@
   ],
   "day": [
     {
+      "label": "All",
+      "clicked": true
+    },
+    {
       "label": "1 Day",
       "clicked": false
     },
@@ -53,8 +57,12 @@
   ],
   "area": [
     {
-      "label": "Area 1",
+      "label": "All",
       "clicked": true
+    },
+    {
+      "label": "Area 1",
+      "clicked": false
     },
     {
       "label": "Area 2",
@@ -62,6 +70,10 @@
     },
     {
       "label": "Area 3",
+      "clicked": false
+    },
+    {
+      "label": "Area 4",
       "clicked": false
     }
   ]
