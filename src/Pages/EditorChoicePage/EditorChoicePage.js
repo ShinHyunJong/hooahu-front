@@ -83,6 +83,17 @@ class EditorChoicePage extends Component {
           newConcept.push(concept[i].value);
         }
         this.setState({ isClicked: newValue, selectedConcept: newConcept });
+
+        let newEditor = editorChoice.slice();
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            item.concept[concept[index].value],
+            this.state.selectedConcept.map((data, index) => {
+              return item.concept[data];
+            })
+          ];
+        }).reverse();
+        this.setState({ editorChoice: newEditor });
       } else {
         // In case of each concept
         let newValue = this.state.isClicked.slice();
@@ -91,22 +102,32 @@ class EditorChoicePage extends Component {
         if (newValue[0].clicked === true) {
           let newConcept = [];
           newConcept.push(concept[index].value);
-
+          this.setState({ selectedConcept: newConcept });
           let newEditor = editorChoice.slice();
+          newEditor = _.sortBy(newEditor, item => {
+            return [
+              item.concept[concept[index].value],
+              this.state.selectedConcept.map((data, index) => {
+                return item.concept[data];
+              })
+            ];
+          }).reverse();
 
-          newEditor
-            .sort(function(a, b) {
-              return (
-                a.concept[concept[index].value] -
-                b.concept[concept[index].value]
-              );
-            })
-            .reverse();
-
+          // newEditor
+          //   .sort(function(a, b) {
+          //     return (
+          //       a.concept[concept[index].value] -
+          //       b.concept[concept[index].value]
+          //     );
+          //   })
+          //   .reverse();
           console.log(newEditor);
           newValue[0].clicked = false;
           newValue[index].clicked = true;
-          this.setState({ isClicked: newValue, editorChoice: newEditor });
+          this.setState({
+            isClicked: newValue,
+            editorChoice: newEditor
+          });
         } else {
           //Push Selected Concept
           let newConcept = this.state.selectedConcept.slice();
@@ -114,14 +135,14 @@ class EditorChoicePage extends Component {
             newConcept.push(concept[index].value);
           }
           let newEditor = editorChoice.slice();
-          newEditor
-            .sort(function(a, b) {
-              return (
-                a.concept[concept[index].value] -
-                b.concept[concept[index].value]
-              );
-            })
-            .reverse();
+          newEditor = _.sortBy(newEditor, item => {
+            return [
+              item.concept[concept[index].value],
+              this.state.selectedConcept.map((data, index) => {
+                return item.concept[data];
+              })
+            ];
+          }).reverse();
           console.log(newEditor);
           newValue[0].clicked = false;
           newValue[index].clicked = true;
@@ -140,6 +161,17 @@ class EditorChoicePage extends Component {
       let newConcept = this.state.selectedConcept.slice();
       newConcept.splice(newConcept.indexOf(concept[index].value), 1); //num will be [1, 2, 3, 5];
       this.setState({ isClicked: newValue, selectedConcept: newConcept });
+
+      let newEditor = editorChoice.slice();
+      newEditor = _.sortBy(newEditor, item => {
+        return [
+          item.concept[concept[index].value],
+          this.state.selectedConcept.map((data, index) => {
+            return item.concept[data];
+          })
+        ];
+      }).reverse();
+      this.setState({ editorChoice: newEditor });
     }
   };
 
@@ -150,6 +182,7 @@ class EditorChoicePage extends Component {
   };
 
   render() {
+    console.log(this.state.selectedConcept);
     const { isClicked, selectedArea, selectedDay, placeCount } = this.state;
     const conceptJson = filterJson.concept;
     const dayJson = filterJson.day;
