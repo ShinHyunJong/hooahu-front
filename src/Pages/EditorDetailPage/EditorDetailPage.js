@@ -15,6 +15,8 @@ import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
+import nprogress from "nprogress";
+
 import scrollToComponent from "react-scroll-to-component";
 import {
   withScriptjs,
@@ -45,6 +47,14 @@ class EditorDetailPage extends Component {
     this.state = {
       activeTab: "1"
     };
+  }
+
+  componentWillMount() {
+    nprogress.start();
+  }
+
+  componentDidMount() {
+    nprogress.done();
   }
 
   toggle = tab => {

@@ -6,11 +6,14 @@
 @import "Colors";
 @import "./Pages/index";
 @import "./Components/index";
+@import "~nprogress/nprogress.css";
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
 html {
 }
 
 body {
+  font-family: "Lato", sans-serif !important;
   margin: 0 auto;
   a:hover {
     text-decoration: none;
@@ -18,6 +21,18 @@ body {
   p {
     margin: 0;
   }
+}
+#nprogress .bar {
+  background: $sub-color !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px $sub-color, 0 0 5px $sub-color !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: $sub-color !important;
+  border-left-color: $sub-color !important;
 }
 
 ::placeholder {

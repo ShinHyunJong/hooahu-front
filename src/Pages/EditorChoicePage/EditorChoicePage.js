@@ -12,6 +12,7 @@ import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
+import nprogress from "nprogress";
 
 const defaultProps = {};
 const propTypes = {};
@@ -41,8 +42,12 @@ class EditorChoicePage extends Component {
     };
   }
 
+  componentWillMount() {
+    nprogress.start();
+  }
+
   componentDidMount() {
-    this.props.dispatch(DefaultActionCreator.action());
+    nprogress.done();
   }
 
   handleSort = index => {

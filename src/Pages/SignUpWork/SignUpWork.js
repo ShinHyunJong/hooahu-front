@@ -8,7 +8,12 @@ import { Link, Route } from "react-router-dom";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
 import unitJson from "../../Json/unit";
+import { connect } from "react-redux";
 import * as AuthAction from "../../ActionCreators/AuthAction";
+
+const mapStateToProps = state => {
+  return {};
+};
 
 const defaultProps = {};
 const propTypes = {};
@@ -82,7 +87,11 @@ class SignUpWork extends Component {
       camp: camp,
       reason: this.state.status
     };
-    this.props.dispatch(AuthAction.postSignUp(params));
+    this.props.dispatch(AuthAction.postSignUp(params)).then(value => {
+      this.props.history.replace({
+        pathname: "/"
+      });
+    });
   };
 
   render() {
@@ -122,4 +131,4 @@ class SignUpWork extends Component {
 SignUpWork.defaultProps = defaultProps;
 SignUpWork.propTypes = propTypes;
 
-export default SignUpWork;
+export default connect(mapStateToProps)(SignUpWork);

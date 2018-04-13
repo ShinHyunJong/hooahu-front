@@ -5,6 +5,7 @@
       "name": "District of Luxury",
       "places": [
         {
+          "id": 1,
           "name": "Apgujeongrodeo Station",
           "content":
             "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
@@ -18,6 +19,7 @@
           "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
         },
         {
+          "id": 2,
           "name": "Apgujeongrodeo Street",
           "content":
             "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네",
@@ -31,6 +33,8 @@
           "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
         },
         {
+          "id": 3,
+
           "name": "Galleria Department Store",
           "content":
             "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
@@ -44,6 +48,8 @@
           "image_url": "http://asdfasdf"
         },
         {
+          "id": 2,
+
           "name": "럭셔리 쇼핑 거리",
           "content":
             "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
@@ -57,6 +63,8 @@
           "image_url": "http://asdfasdf"
         },
         {
+          "id": 2,
+
           "name": "Miel 레스토랑&카페",
           "content":
             "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
@@ -70,6 +78,8 @@
           "image_url": "http://asdfasdf"
         },
         {
+          "id": 2,
+
           "name": "하이엔드 바&라운지 거리",
           "content":
             "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",

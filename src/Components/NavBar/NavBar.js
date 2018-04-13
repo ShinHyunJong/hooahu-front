@@ -19,12 +19,15 @@ import {
 import cx from "classnames";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as AuthAction from "../../ActionCreators/AuthAction";
 
 const defaultProps = {};
 const propTypes = {};
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    isLogin: state.reducer.isLogin
+  };
 };
 
 class NavBar extends Component {
@@ -46,7 +49,12 @@ class NavBar extends Component {
     });
   };
 
+  handleLogout = () => {
+    this.props.dispatch(AuthAction.signOut());
+  };
+
   render() {
+    const { isLogin } = this.props;
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
         <NavbarBrand href="/">Hooah!U</NavbarBrand>
@@ -69,12 +77,21 @@ class NavBar extends Component {
               <NavItem className="navBar__items__item">
                 <NavLink href="/">ABOUT US</NavLink>
               </NavItem>
-              <NavItem
-                onClick={this.handleSignUp}
-                className="navBar__items__item"
-              >
-                <NavLink>SIGN IN</NavLink>
-              </NavItem>
+              {isLogin === true ? (
+                <NavItem
+                  onClick={this.handleLogout}
+                  className="navBar__items__item"
+                >
+                  <NavLink>LOG OUT</NavLink>
+                </NavItem>
+              ) : (
+                <NavItem
+                  onClick={this.handleSignUp}
+                  className="navBar__items__item"
+                >
+                  <NavLink>SIGN IN</NavLink>
+                </NavItem>
+              )}
             </Nav>
           )}
         </Collapse>

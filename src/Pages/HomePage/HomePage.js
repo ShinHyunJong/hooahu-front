@@ -9,6 +9,8 @@ import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreato
 import { NavBar, BoxList } from "../../Components";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
+import nprogress from "nprogress";
+
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
@@ -24,8 +26,12 @@ class HomePage extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    nprogress.start();
+  }
+
   componentDidMount() {
-    this.props.dispatch(DefaultActionCreator.action());
+    nprogress.done();
   }
 
   render() {

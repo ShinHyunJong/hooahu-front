@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { Link, Route } from "react-router-dom";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
+import * as AuthAction from "../../ActionCreators/AuthAction";
 import { NavBar, RoundButton, RoundInput } from "../../Components";
 import { Container, Row, Col, Button } from "reactstrap";
 import TextField from "material-ui/TextField";
@@ -39,7 +40,9 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
-    actionResult: state.reducer.actionResult
+    actionResult: state.reducer.actionResult,
+    email: "",
+    password: ""
   };
 };
 
@@ -51,6 +54,23 @@ class SignUpPage extends Component {
   componentDidMount() {
     this.props.dispatch(DefaultActionCreator.action());
   }
+
+  handleEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handlePassword = e => {
+    this.setState({ password: e.target.value });
+  };
+
+  handleSignIn = () => {
+    const params = { email: this.state.email, password: this.state.password };
+    this.props.dispatch(AuthAction.postSignIn(params)).then(value => {
+      this.props.history.replace({
+        pathname: "/"
+      });
+    });
+  };
 
   render() {
     return (
@@ -68,21 +88,24 @@ class SignUpPage extends Component {
             <br />
             <br />
             <div className="signUp__content__inputArea">
-              <RoundInput placeholder="Email" />
+              <RoundInput onChange={this.handleEmail} placeholder="Email" />
             </div>
             <div className="signUp__content__inputArea">
-              <RoundInput placeholder="Password" type="password" />
+              <RoundInput
+                onChange={this.handlePassword}
+                placeholder="Password"
+                type="password"
+              />
             </div>
             <div className="signUp__content__title__buttonArea">
-              <Link to="/signup/choose">
-                <RoundButton
-                  text="Sign In"
-                  icon="xi-mail"
-                  className="signUp__content__title__buttonIn"
-                  textClassName="signUp__content__title__buttonIn__text"
-                  iconClassName="signUp__content__title__icon"
-                />
-              </Link>
+              <RoundButton
+                text="Sign In"
+                icon="xi-mail"
+                className="signUp__content__title__buttonIn"
+                textClassName="signUp__content__title__buttonIn__text"
+                iconClassName="signUp__content__title__icon"
+                onClick={this.handleSignIn}
+              />
             </div>
             <div className="signUp__content__title__buttonArea">
               <Link to="/signup/choose">
