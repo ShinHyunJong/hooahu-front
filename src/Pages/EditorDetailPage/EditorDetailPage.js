@@ -78,7 +78,6 @@ class EditorDetailPage extends Component {
     const choice = Number(this.props.match.params.package);
     const ecJson = ec.editorChoice;
     const selectedChoice = ecJson[choice - 1];
-    console.log(selectedChoice);
     const MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
@@ -125,14 +124,18 @@ class EditorDetailPage extends Component {
                 </span>
               </div>
               <h2 className="editorDetail__content__package__text__title">
-                Distinct of Luxury
+                {selectedChoice.name}
               </h2>
               <div className="editorDetail__content__package__text__infoArea">
                 <p className="editorDetail__content__package__text__infoArea__info">
-                  2 Day / Area 2
+                  {selectedChoice.days + " / " + selectedChoice.area}
                 </p>
                 <p className="editorDetail__content__package__text__infoArea__info">
-                  11 Places / 6,49km
+                  {selectedChoice.places.length +
+                    " places" +
+                    " / " +
+                    selectedChoice.distance +
+                    "km"}
                 </p>
               </div>
 
