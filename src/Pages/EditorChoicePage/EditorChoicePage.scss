@@ -9,6 +9,9 @@
   ::-webkit-scrollbar {
     display: none;
   }
+  &__tooltip {
+    background-color: $dark-gray !important;
+  }
   &__test {
     font-size: 10rem;
   }
@@ -31,7 +34,7 @@
       &__lists {
         &__list {
           display: flex;
-          margin: 3rem 2rem 3rem 2rem;
+          margin: 2rem 2rem 1rem 2rem;
           padding: 2rem 3rem 3rem 3rem;
           background-color: white;
 
@@ -233,7 +236,6 @@
 
           &-clicked {
             @include transition(0.3s);
-
             display: inline-block;
             border: 1px solid transparent !important;
             color: $dark-gray;

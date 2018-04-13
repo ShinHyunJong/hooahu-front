@@ -13,6 +13,8 @@ import cx from "classnames";
 import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
 import nprogress from "nprogress";
+import ReactTooltip from "react-tooltip";
+import _ from "lodash";
 
 const defaultProps = {};
 const propTypes = {};
@@ -37,12 +39,20 @@ class EditorChoicePage extends Component {
       isClicked: filterJson.concept,
       selectedArea: 0,
       selectedDay: 0,
+      editorChoice: ec.editorChoice,
       selectedConcept: [],
       placeCount: 3
     };
   }
 
   componentWillMount() {
+    const concept = filterJson.concept;
+
+    let conceptArray = [];
+    for (let i = 1; i < concept.length; i++) {
+      conceptArray.push(concept[i].value);
+    }
+    this.setState({ selectedConcept: conceptArray });
     nprogress.start();
   }
 
@@ -55,27 +65,81 @@ class EditorChoicePage extends Component {
   };
 
   handleConcept = index => {
-    const { isClicked } = this.state;
+    const { isClicked, editorChoice } = this.state;
     const concept = filterJson.concept;
 
     if (isClicked[index].clicked === false) {
+      // In case of All
       if (index === 0) {
-        let newValue = this.state.isClicked.slice(); //copy the array
+        let newValue = this.state.isClicked.slice();
         newValue[index].clicked = true;
         for (let i = 1; i < concept.length; i++) {
           newValue[i].clicked = false;
         }
-        this.setState({ isClicked: newValue });
+
+        // put all concept in selected Concept
+        let newConcept = [];
+        for (let i = 1; i < concept.length; i++) {
+          newConcept.push(concept[i].value);
+        }
+        this.setState({ isClicked: newValue, selectedConcept: newConcept });
       } else {
-        let newValue = this.state.isClicked.slice(); //copy the array
-        newValue[0].clicked = false;
-        newValue[index].clicked = true; //execute the manipulations
-        this.setState({ isClicked: newValue });
+        // In case of each concept
+        let newValue = this.state.isClicked.slice();
+
+        // In case Previous was All
+        if (newValue[0].clicked === true) {
+          let newConcept = [];
+          newConcept.push(concept[index].value);
+
+          let newEditor = editorChoice.slice();
+
+          newEditor
+            .sort(function(a, b) {
+              return (
+                a.concept[concept[index].value] -
+                b.concept[concept[index].value]
+              );
+            })
+            .reverse();
+
+          console.log(newEditor);
+          newValue[0].clicked = false;
+          newValue[index].clicked = true;
+          this.setState({ isClicked: newValue, editorChoice: newEditor });
+        } else {
+          //Push Selected Concept
+          let newConcept = this.state.selectedConcept.slice();
+          if (newConcept.indexOf(concept[index].value) === -1) {
+            newConcept.push(concept[index].value);
+          }
+          let newEditor = editorChoice.slice();
+          newEditor
+            .sort(function(a, b) {
+              return (
+                a.concept[concept[index].value] -
+                b.concept[concept[index].value]
+              );
+            })
+            .reverse();
+          console.log(newEditor);
+          newValue[0].clicked = false;
+          newValue[index].clicked = true;
+          this.setState({
+            isClicked: newValue,
+            selectedConcept: newConcept,
+            editorChoice: newEditor
+          });
+        }
       }
     } else {
-      let newValue = this.state.isClicked.slice(); //copy the array
-      newValue[index].clicked = false; //execute the manipulations
-      this.setState({ isClicked: newValue });
+      let newValue = this.state.isClicked.slice();
+      newValue[index].clicked = false;
+
+      //Remove Selected Concept
+      let newConcept = this.state.selectedConcept.slice();
+      newConcept.splice(newConcept.indexOf(concept[index].value), 1); //num will be [1, 2, 3, 5];
+      this.setState({ isClicked: newValue, selectedConcept: newConcept });
     }
   };
 
@@ -90,7 +154,8 @@ class EditorChoicePage extends Component {
     const conceptJson = filterJson.concept;
     const dayJson = filterJson.day;
     const areaJson = filterJson.area;
-    const editorChoice = ec.editorChoice;
+    const { editorChoice } = this.state;
+
     return (
       <div className="editorChoice">
         <NavBar />
@@ -170,7 +235,18 @@ class EditorChoicePage extends Component {
                           </span>
                         </div>
                         <div className="editorChoice__feed__content__lists__list__info__content__conceptArea">
+                          <ReactTooltip
+                            id="calm"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Calm</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="calm"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
@@ -189,7 +265,18 @@ class EditorChoicePage extends Component {
                           >
                             <i className="xi-cafe" />
                           </span>
+                          <ReactTooltip
+                            id="sightSeeing"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>SightSeeing</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="sightSeeing"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
@@ -208,7 +295,18 @@ class EditorChoicePage extends Component {
                           >
                             <i className="xi-eye" />
                           </span>
+                          <ReactTooltip
+                            id="dandy"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Dandy</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="dandy"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
@@ -227,7 +325,18 @@ class EditorChoicePage extends Component {
                           >
                             <i className="xi-glass" />
                           </span>
+                          <ReactTooltip
+                            id="food"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Food</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="food"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
@@ -248,12 +357,23 @@ class EditorChoicePage extends Component {
                           </span>
                         </div>
                         <div className="editorChoice__feed__content__lists__list__info__content__conceptArea">
+                          <ReactTooltip
+                            id="activity"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Activity</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="activity"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
                                 "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                  data.concept.acitivity === 1
+                                  data.concept.activity === 1
                               },
                               {
                                 "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
@@ -267,7 +387,18 @@ class EditorChoicePage extends Component {
                           >
                             <i className="xi-run" />
                           </span>
+                          <ReactTooltip
+                            id="luxury"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Luxury</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="luxury"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
@@ -286,7 +417,18 @@ class EditorChoicePage extends Component {
                           >
                             <i className="xi-sketch" />
                           </span>
+                          <ReactTooltip
+                            id="love"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Love</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="love"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {
@@ -305,7 +447,18 @@ class EditorChoicePage extends Component {
                           >
                             <i className="xi-heart" />
                           </span>
+                          <ReactTooltip
+                            id="party"
+                            place="top"
+                            type="dark"
+                            className="editorChoice__tooltip"
+                            effect="float"
+                          >
+                            <span>Party</span>
+                          </ReactTooltip>
                           <span
+                            data-tip
+                            data-for="party"
                             className={cx(
                               "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
                               {

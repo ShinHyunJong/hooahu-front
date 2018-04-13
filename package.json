@@ -50,6 +50,7 @@
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.7",
+    "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.1",
@@ -64,10 +65,13 @@
     "react-router-dom": "^4.2.2",
     "react-router-transition": "^1.2.1",
     "react-scroll-to-component": "^1.0.2",
+    "react-slick": "^0.23.1",
+    "react-tooltip": "^3.5.0",
     "react-transition-group": "^2.2.1",
     "reactstrap": "^5.0.0-beta.3",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "webpack-dev-server --hot --host 0.0.0.0",

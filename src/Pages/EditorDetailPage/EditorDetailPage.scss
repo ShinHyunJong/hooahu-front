@@ -105,6 +105,15 @@
               &__icon {
                 font-size: 2rem;
                 margin-right: 5px;
+                &-1 {
+                  color: $concept-low;
+                }
+                &-2 {
+                  color: $concept-medium;
+                }
+                &-3 {
+                  color: $concept-strong;
+                }
               }
             }
           }
@@ -158,6 +167,10 @@
             cursor: pointer;
             border-top-left-radius: 0px !important;
             border-top-right-radius: 0px !important;
+
+            &__image {
+              width: 500px;
+            }
           }
         }
       }
@@ -235,13 +248,28 @@
               &__text {
                 color: $dark-gray;
                 font-weight: 300;
+                margin-right: 10px;
+
+                > a {
+                  color: $dark-gray;
+                  &:hover {
+                    color: $sub-color;
+                  }
+                }
               }
             }
           }
 
           &__desc {
-            font-weight: 300;
-            color: $dark-gray;
+            &__text {
+              font-weight: 300;
+              color: black;
+
+              &__formal {
+                font-weight: 300;
+                color: $dark-gray;
+              }
+            }
           }
         }
       }

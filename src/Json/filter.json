@@ -6,35 +6,43 @@
     },
     {
       "label": "Calm",
-      "clicked": false
+      "clicked": false,
+      "value": "calm"
     },
     {
       "label": "ThrillSeeker",
-      "clicked": false
+      "clicked": false,
+      "value": "activity"
     },
     {
       "label": "SightSeeing",
-      "clicked": false
+      "clicked": false,
+      "value": "sightSeeing"
     },
     {
       "label": "Swagger",
-      "clicked": false
+      "clicked": false,
+      "value": "luxury"
     },
     {
       "label": "Dandy",
-      "clicked": false
+      "clicked": false,
+      "value": "dandy"
     },
     {
       "label": "Romantic",
-      "clicked": false
+      "clicked": false,
+      "value": "love"
     },
     {
       "label": "Gourmand",
-      "clicked": false
+      "clicked": false,
+      "value": "food"
     },
     {
       "label": "PartyAnimal",
-      "clicked": false
+      "clicked": false,
+      "value": "party"
     }
   ],
   "day": [

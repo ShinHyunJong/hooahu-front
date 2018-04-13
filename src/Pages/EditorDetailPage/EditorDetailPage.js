@@ -3,6 +3,13 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
+} from "reactstrap";
 
 import { NavBar } from "../../Components";
 import { Container, Row, Col } from "reactstrap";
@@ -18,12 +25,7 @@ import "react-animated-slider/build/horizontal.css";
 import nprogress from "nprogress";
 
 import scrollToComponent from "react-scroll-to-component";
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker
-} from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import { MarkerWithLabel } from "react-google-maps/lib/components/addons/MarkerWithLabel";
 const defaultProps = {};
 const propTypes = {};
@@ -44,8 +46,10 @@ class EditorDetailPage extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
+    this.places = [];
     this.state = {
-      activeTab: "1"
+      activeTab: "1",
+      activeIndex: 0
     };
   }
 
@@ -74,34 +78,85 @@ class EditorDetailPage extends Component {
     });
   };
 
+  convert = type => {
+    if (type === "Bus") {
+      return <i className="xi-bus" />;
+    } else if (type === "Subway") {
+      return <i className="xi-subway" />;
+    } else if (type === "Taxi") {
+      return <i className="xi-taxi" />;
+    } else if (type === "Bike") {
+      return <i className="xi-bicycle" />;
+    } else {
+      return <i className="xi-walk" />;
+    }
+  };
+
   render() {
+    let settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
     const choice = Number(this.props.match.params.package);
     const ecJson = ec.editorChoice;
-    const selectedChoice = ecJson[choice - 1];
+
+    let selectedChoiceIndex = 0;
+
+    for (let i = 0; i < ecJson.length; i++) {
+      if (ecJson[i].id === choice) {
+        selectedChoiceIndex = i;
+      }
+    }
+    console.log(selectedChoiceIndex);
+
+    const selectedChoice = ecJson[selectedChoiceIndex];
+    const starLength = selectedChoice.rating;
+    let starArray = [];
+    for (let i = 0; i < starLength; i++) {
+      starArray.push("");
+    }
+
     const MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
           defaultZoom={14}
-          defaultCenter={{ lat: 37.527555, lng: 127.040512 }}
+          defaultCenter={{
+            lat: Number(selectedChoice.places[0].locationX),
+            lng: Number(selectedChoice.places[0].locationY)
+          }}
         >
-          <Marker position={{ lat: 37.527555, lng: 127.040512 }} />
-
-          {/* <Marker position={{ lat: 37.526911, lng: 127.03787 }} opacity={0.5} /> */}
-          <MarkerWithLabel
-            position={{ lat: 37.526911, lng: 127.03787 }}
-            onClick={() => {
-              console.log("check!!");
-            }}
-            labelAnchor={new google.maps.Point(0, 0)}
-            labelStyle={{
-              backgroundColor: "#5b5e6d",
-              color: "white",
-              fontSize: "16px",
-              padding: "8px"
-            }}
-          >
-            <div className="editorDetail__googlemapLabel">2</div>
-          </MarkerWithLabel>
+          {selectedChoice.places.map((data, index) => {
+            return (
+              <MarkerWithLabel
+                key={index}
+                position={{
+                  lat: Number(data.locationX),
+                  lng: Number(data.locationY)
+                }}
+                onClick={() => {
+                  scrollToComponent(this.places[index], {
+                    offset: -75,
+                    align: "top",
+                    duration: 1200,
+                    ease: "outCirc"
+                  });
+                }}
+                labelAnchor={new google.maps.Point(0, 0)}
+                labelStyle={{
+                  backgroundColor: "#5b5e6d",
+                  opacity: 0.8,
+                  color: "white",
+                  fontSize: "16px",
+                  padding: "8px"
+                }}
+              >
+                <div className="editorDetail__googlemapLabel">{index + 1}</div>
+              </MarkerWithLabel>
+            );
+          })}
         </GoogleMap>
       ))
     );
@@ -113,15 +168,16 @@ class EditorDetailPage extends Component {
           <div className="editorDetail__content__package">
             <div className="editorDetail__content__package__text">
               <div className="editorDetail__content__package__text__stars">
-                <span className="editorDetail__content__package__text__stars__star">
-                  <i className="xi-star" />
-                </span>
-                <span className="editorDetail__content__package__text__stars__star">
-                  <i className="xi-star" />
-                </span>
-                <span className="editorDetail__content__package__text__stars__star">
-                  <i className="xi-star" />
-                </span>
+                {starArray.map((data, index) => {
+                  return (
+                    <span
+                      key={index}
+                      className="editorDetail__content__package__text__stars__star"
+                    >
+                      <i className="xi-star" />
+                    </span>
+                  );
+                })}
               </div>
               <h2 className="editorDetail__content__package__text__title">
                 {selectedChoice.name}
@@ -135,13 +191,12 @@ class EditorDetailPage extends Component {
                     " places" +
                     " / " +
                     selectedChoice.distance +
-                    "km"}
+                    " km"}
                 </p>
               </div>
 
               <p className="editorDetail__content__package__text__desc">
-                "Hey soldier! How's your saving account doing so far? 한국에서도
-                럭셔리한 하루를 즐길 수 있다네. 잘 열리는 지갑을 준비하도록."
+                {selectedChoice.description}
               </p>
 
               <div className="editorDetail__content__package__text__priceArea">
@@ -150,7 +205,12 @@ class EditorDetailPage extends Component {
                     Average expense
                   </p>
                   <h4 className="editorDetail__content__package__text__priceArea__price__price">
-                    $200,00
+                    <NumberFormat
+                      value={selectedChoice.price}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"₩"}
+                    />
                   </h4>
                 </div>
                 <div className="editorDetail__content__package__text__priceArea__travel">
@@ -166,31 +226,159 @@ class EditorDetailPage extends Component {
               <div className="editorDetail__content__package__text__detail">
                 <div className="editorDetail__content__package__text__detail__concept">
                   <div className="editorDetail__content__package__text__detail__concept__row">
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.calm === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.calm === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.calm === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-cafe" />
                     </span>
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.sightSeeing === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.sightSeeing === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.sightSeeing === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-eye" />
                     </span>
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.dandy === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.dandy === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.dandy === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-glass" />
                     </span>
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.food === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.food === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.food === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-restaurant" />
                     </span>
                   </div>
                   <div className="editorDetail__content__package__text__detail__concept__row">
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.activity === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.activity === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.activity === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-run" />
                     </span>
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.luxury === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.luxury === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.luxury === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-sketch" />
                     </span>
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.love === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.love === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.love === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-heart" />
                     </span>
-                    <span className="editorDetail__content__package__text__detail__concept__row__icon">
-                      <i className="xi-star" />
+                    <span
+                      className={cx(
+                        "editorDetail__content__package__text__detail__concept__row__icon",
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-1":
+                            selectedChoice.concept.party === 1
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-2":
+                            selectedChoice.concept.party === 2
+                        },
+                        {
+                          "editorDetail__content__package__text__detail__concept__row__icon-3":
+                            selectedChoice.concept.party === 3
+                        }
+                      )}
+                    >
+                      <i className="xi-emoticon-happy" />
                     </span>
                   </div>
                 </div>
@@ -243,10 +431,7 @@ class EditorDetailPage extends Component {
               </Nav>
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
-                  <img
-                    src="https://i.imgur.com/u08v6FH.jpg"
-                    style={styles.image}
-                  />
+                  <img src={selectedChoice.image_url} style={styles.image} />
                 </TabPane>
                 <TabPane tabId="2">
                   <MapWithAMarker
@@ -272,93 +457,164 @@ class EditorDetailPage extends Component {
             </div>
             <hr className="editorDetail__hr" />
 
-            <div className="editorDetail__content__places__place">
-              <div className="editorDetail__content__places__place__image">
-                <ProgressiveImage
-                  preview="https://i.imgur.com/GmO0CtQ.jpg"
-                  src="https://i.imgur.com/GmO0CtQ.jpg"
-                  style={styles.image}
-                  render={(src, style) => (
-                    <img
-                      src={src}
-                      style={Object.assign(style, {
-                        width: "100%"
-                      })}
+            {selectedChoice.places.map((data, index) => {
+              return (
+                <div
+                  key={index}
+                  className="editorDetail__content__places__place"
+                >
+                  <div className="editorDetail__content__places__place__image">
+                    <ProgressiveImage
+                      preview={data.image_url[0]}
+                      src={data.image_url[0]}
+                      style={styles.image}
+                      render={(src, style) => (
+                        <img
+                          src={src}
+                          style={Object.assign(style, {
+                            width: "100%"
+                          })}
+                        />
+                      )}
                     />
-                  )}
-                />
-              </div>
-              <div className="editorDetail__content__places__place__text">
-                <h2 className="editorDetail__content__places__place__text__title">
-                  01
-                </h2>
-                <h2 className="editorDetail__content__places__place__text__title__text">
-                  Apgoojeong Station
-                </h2>
-                <p className="editorDetail__content__places__place__text__function">
-                  Transportation
-                </p>
-                <div className="editorDetail__content__places__place__text__infoArea">
-                  <div className="editorDetail__content__places__place__text__infoArea__row">
-                    <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                      <i className="xi-maker" />
-                    </span>
-                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                      12-sajik ro, Jongro-gu, Seoul
-                    </span>
                   </div>
-                  <div className="editorDetail__content__places__place__text__infoArea__row">
-                    <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                      <i className="xi-time-o" />
-                    </span>
-                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                      0:00 ~ 24:00
-                    </span>
-                  </div>
-                  <div className="editorDetail__content__places__place__text__infoArea__row">
-                    <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                      <i className="xi-call" />
-                    </span>
-                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                      02-412-4050
-                    </span>
+                  <div
+                    className="editorDetail__content__places__place__text"
+                    ref={section => {
+                      this.places[index] = section;
+                    }}
+                  >
+                    <h2 className="editorDetail__content__places__place__text__title">
+                      {String("0" + (index + 1)).slice(-2)}
+                    </h2>
+                    <h2 className="editorDetail__content__places__place__text__title__text">
+                      {data.name}
+                    </h2>
+                    <p className="editorDetail__content__places__place__text__function">
+                      {data.function}
+                    </p>
+                    <div className="editorDetail__content__places__place__text__infoArea">
+                      <div className="editorDetail__content__places__place__text__infoArea__row">
+                        <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                          <i className="xi-maker" />
+                        </span>
+                        <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                          {data.address}
+                        </span>
+                      </div>
+                      {data.hours === "" ? null : (
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                            <i className="xi-time-o" />
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            {data.hours}
+                          </span>
+                        </div>
+                      )}
+                      {data.homepage === "" ? null : (
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                            <i className="xi-external-link" />
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            <a href={data.homepage}>Website</a>
+                          </span>
+                        </div>
+                      )}
+                      {data.phone === "" ? null : (
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                            <i className="xi-call" />
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            {data.phone}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="editorDetail__content__places__place__text__desc">
+                      <p className="editorDetail__content__places__place__text__desc__text">
+                        {"\"" + data.content.sgt + "\""}
+                      </p>
+                      <hr />
+                      <p className="editorDetail__content__places__place__text__desc__text__formal">
+                        {data.content.formal}
+                      </p>
+                    </div>
+                    {index === 0 ? (
+                      <div className="editorDetail__content__places__place__text__infoArea">
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                            Area 1 :
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            <a href={data.transport.Area1.link}>
+                              {data.transport.Area1.time}
+                            </a>
+                          </span>
+                        </div>
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                            Area 2 :
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            <a href={data.transport.Area2.link}>
+                              {data.transport.Area2.time}
+                            </a>
+                          </span>
+                        </div>
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                            Area 3 :
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            <a href={data.transport.Area3.link}>
+                              {data.transport.Area3.time}
+                            </a>
+                          </span>
+                        </div>
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                            Area 4 :
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            <a href={data.transport.Area4.link}>
+                              {data.transport.Area4.time}
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="editorDetail__content__places__place__text__infoArea">
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          {data.transport.time.map((type, index) => {
+                            return (
+                              <div key={index}>
+                                <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                                  {this.convert(type.type)}
+                                </span>
+                                <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                                  {type.time}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                            <i className="xi-map" />
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            <a href={data.transport.link}>Direction</a>
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="editorDetail__content__places__place__text__desc">
-                  <p className="editorDetail__content__places__place__text__desc__text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Mauris ullamcorper commodo mauris nec facilisis. Donec quis
-                    porta tellus, nec interdum dui.
-                  </p>
-                </div>
-                <div className="editorDetail__content__places__place__text__infoArea">
-                  <div className="editorDetail__content__places__place__text__infoArea__row">
-                    <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                      Area 1 :
-                    </span>
-                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                      6h 17min
-                    </span>
-                  </div>
-                  <div className="editorDetail__content__places__place__text__infoArea__row">
-                    <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                      Area 2 :
-                    </span>
-                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                      2h 10min
-                    </span>
-                  </div>
-                  <div className="editorDetail__content__places__place__text__infoArea__row">
-                    <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                      Area 3 :
-                    </span>
-                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                      1h 5min
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -7,97 +7,172 @@
         {
           "id": 1,
           "name": "Apgujeongrodeo Station",
-          "content":
-            "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02=779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+          "content": {
+            "sgt":
+              "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
+            "formal":
+              "서울 강남구 압구정로에 위치한 지하철 역으로 분당선이 지나간다."
+          },
+          "locationX": "37.527555",
+          "locationY": "127.040512",
+          "address": "Sinsa-dong, Seoul",
+          "hours": "",
+          "phone": "02-548-0704",
+          "homepage": "",
+          "function": "Transportation",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/Apgujeongrodeo+Station,+Sinsa-dong,+Seoul/@37.7186685,127.0402545,10z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x357ca4787d06885f:0x8d8f75a80018ed3c!2m2!1d127.040555!2d37.527385!3e3",
+              "time": "1h 41min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Hangangno+1(il)-ga,+Yongsan-gu,+Seoul/Apgujeongrodeo+Station,+Sinsa-dong,+Seoul/@37.538947,126.985664,12z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x357ca4787d06885f:0x8d8f75a80018ed3c!2m2!1d127.040555!2d37.527385!3e3",
+              "time": "41min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/Apgujeongrodeo+Station,+Sinsa-dong,+Seoul/@37.2348345,127.0541427,10z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x357ca4787d06885f:0x8d8f75a80018ed3c!2m2!1d127.040555!2d37.527385!3e3!5i3",
+              "time": "2h 23min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/Apgujeongrodeo+Station,+Sinsa-dong,+Seoul/@36.6992825,127.7996319,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x357ca4787d06885f:0x8d8f75a80018ed3c!2m2!1d127.040555!2d37.527385!3e3!5i2",
+              "time": "2h 51min"
+            }
+          },
+          "image_url": ["https://i.imgur.com/GmO0CtQ.jpg"]
         },
         {
           "id": 2,
           "name": "Apgujeongrodeo Street",
-          "content":
-            "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네",
-          "location-x": "37.527555",
-          "location-y": "127.040512",
+          "content": {
+            "sgt":
+              "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네.",
+            "formal":
+              "대표적인 부촌인 압구정에 위치한 젊은이들을 위한 패션과 문화의 거리이다."
+          },
+          "locationX": "37.526911",
+          "locationY": "127.03787",
           "address": "Sinsa-dong, Seoul",
-          "hours": "-",
-          "phone": "02-548-0704",
-          "fucntion": "Transportation",
-          "transport": "Transportation",
-          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "5min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/xcDkH07.jpg",
+            "https://i.imgur.com/nqoBgDS.jpg"
+          ]
         },
         {
           "id": 3,
-
           "name": "Galleria Department Store",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "content": {
+            "sgt":
+              "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
+            "formal":
+              "서울 강남구 압구정동에 위치한 한화그룹 계열의 백화점이다. 대표적인 부촌인 압구정에 위치하며 고급스러운 라인들이 많다."
+          },
+          "locationX": "37.528397",
+          "locationY": "127.040181",
+          "address": "343, Sinsa-dong, Gangnam-gu, Seoul",
+          "hours": "",
+          "phone": "02-410-7114",
+          "homepage":
+            "http://dept.galleria.co.kr/svc/main_page/web/en_new/mainPage.do",
+          "function": "Shopping",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "7min" }]
+          },
+          "image_url": ["https://i.imgur.com/u08v6FH.jpg"]
         },
         {
-          "id": 2,
-
-          "name": "럭셔리 쇼핑 거리",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 4,
+          "name": "Luxury Shopping District",
+          "content": {
+            "sgt":
+              "갤러리아에서 돈 안쓴게 해준걸 고맙게 생각하게. 이번 장소에는 세계적인 부띠크 샵들이 자네를 기다릴테니.",
+            "formal":
+              "전 세계의 하이엔드 브랜드들의 플래그스토어들이 집합되어 있는 거리"
+          },
+          "locationX": "37.526056",
+          "locationY": "127.046223",
+          "address": "Apgujeong-dong, Seoul",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Shopping",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "5min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/V64Uzx9.jpg",
+            "https://i.imgur.com/sd2qqaz.jpg"
+          ]
         },
         {
-          "id": 2,
-
-          "name": "Miel 레스토랑&카페",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 5,
+          "name": "Miel Restaurant & Cafe",
+          "content": {
+            "sgt":
+              "이런 쇼핑들은 real soldier에겐 어울리지 않을 수 있지. 힘든 march for shopping을 끝냈으니 이곳에서 휴식을 취하게.",
+            "formal":
+              "대표적인 부촌인 청담동에 위치한 분위기 좋은 갤러리 이탈리안 레스토랑이다."
+          },
+          "locationX": "37.525126",
+          "locationY": "127.043617",
+          "address": "Seoul, Gangnam-gu, Cheongdam-dong, 94-3",
+          "hours": "1100-0100",
+          "phone": "02-512-2395",
+          "homepage": "miel.kr",
+          "function": "Restarurant",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "5min" }]
+          },
+          "image_url": ["https://i.imgur.com/NITX0Dg.jpg"]
         },
         {
-          "id": 2,
-
-          "name": "하이엔드 바&라운지 거리",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 6,
+          "name": "Highend Bar & Lounge District",
+          "content": {
+            "sgt": "오늘 밤 개츠비가 되고 싶나? 그렇다면 이곳을 추천하네.",
+            "formal":
+              "럭셔리한 분위기의 파티를 즐길 수 있는 바와 라운지들이 모여있는 거리."
+          },
+          "locationX": "37.524231",
+          "locationY": "127.0412",
+          "address": "Seolleung-ro 152-gil, Cheongdam-dong, Gangnam-gu, Seoul",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "2min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/ID4GV2z.jpg",
+            "https://i.imgur.com/Ydyzop1.jpg"
+          ]
         }
       ],
-      "image_url": "https://i.imgur.com/u08v6FH.jpg",
+      "image_url": [
+        "https://i.imgur.com/u08v6FH.jpg",
+        "https://i.imgur.com/V64Uzx9.jpg"
+      ],
       "price": 380000,
-      "days": "1 day",
+      "days": "1 Day",
+      "rating": "3",
       "area": "Area 2",
-      "distance": 1.19,
+      "distance": "0.73",
       "description": "Hey soldier! How's your saving account doing so far?",
       "concept": {
         "calm": 1,
@@ -108,229 +183,1550 @@
         "luxury": 3,
         "love": 2,
         "party": 2
-      },
-      "reviews": 1880
+      }
     },
     {
       "id": 2,
-      "name": "District of Luxury22222",
+      "name": "Small City, Big History",
       "places": [
         {
           "id": 1,
-          "name": "Apgujeongrodeo Station",
-          "content":
-            "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02=779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+          "name": "Jeonju Station",
+          "content": {
+            "sgt": "이번 여행의 assembly point라네. Are y'all ready??",
+            "formal":
+              "전주로 도착하는 기차역. 이곳에서부터 전주의 모든 여행이 시작된다."
+          },
+          "locationX": "35.849731",
+          "locationY": "127.161761",
+          "address": "Ua 1(il)-dong, Jeonju",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Transportation",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/Jeonju+Station,+Dongbu-daero,+Uadong+3(sam)-ga,+Jeonju-si/@36.8849845,127.1060835,8z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x357022fd8c490ff5:0x91ca8749237a4fc7!2m2!1d127.161798!2d35.84977!3e3",
+              "time": "3h 30min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Hangangno+1(il)-ga,+Yongsan-gu,+Seoul/Jeonju+Station,+Dongbu-daero,+Uadong+3(sam)-ga,+Jeonju-si/@36.7028405,127.0232935,8z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x357022fd8c490ff5:0x91ca8749237a4fc7!2m2!1d127.161798!2d35.84977!3e3",
+              "time": "1h 41min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/Jeonju+Station,+Dongbu-daero,+Uadong+3(sam)-ga,+Jeonju-si/@36.422814,127.174854,9z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x357022fd8c490ff5:0x91ca8749237a4fc7!2m2!1d127.161798!2d35.84977!3e3",
+              "time": "3h 38min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/Jeonju+Station,+Dongbu-daero,+Uadong+3(sam)-ga,+Jeonju-si/@36.316007,127.7907615,9z/data=!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x357022fd8c490ff5:0x91ca8749237a4fc7!2m2!1d127.161798!2d35.84977!3e3!5i2",
+              "time": "3h"
+            }
+          },
+          "image_url": ["https://i.imgur.com/fP5UAEx.jpg"]
         },
         {
           "id": 2,
-          "name": "Apgujeongrodeo Street",
-          "content":
-            "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네",
-          "location-x": "37.527555",
-          "location-y": "127.040512",
-          "address": "Sinsa-dong, Seoul",
-          "hours": "-",
-          "phone": "02-548-0704",
-          "fucntion": "Transportation",
-          "transport": "Transportation",
-          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+          "name": "Deokjin park",
+          "content": {
+            "sgt":
+              "첫 시작은 옛부터 여유를 즐기기 위해 많이들 찾던 공원이라네. 동양적인 느낌이 물씬하지.",
+            "formal": "아름다운 호수옆 연꽃으로 가득찬 동양적인 공원"
+          },
+          "locationX": "35.847555",
+          "locationY": "127.121848",
+          "address":
+            "390 Gwon samdeuk-ro, Deokjindong 1(il)-ga, Deokjin-gu, Jeonju, Jeollabuk-do",
+          "hours": "24 hrs",
+          "phone": "063-239-2607",
+          "homepage": "",
+          "function": "Park",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeonjuyeog,+Ua+1(il)-dong,+Jeonju/deokjin+park,+390+Gwon+samdeuk-ro,+Deokjindong+1(il)-ga,+Deokjin-gu,+Jeonju,+Jeollabuk-do/@35.8428298,127.1215453,17.8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357022fd8c4bd019:0x9005caf208fb7a6a!2m2!1d127.161798!2d35.84977!1m5!1m1!1s0x35703cca334595c3:0xeb7843e34ff562ef!2m2!1d127.121895!2d35.8475732!3e3!5i1",
+            "time": [{ "type": "Bus", "time": "45min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/akYQJLZ.jpg",
+            "https://i.imgur.com/M48Xh7S.jpg"
+          ]
         },
         {
           "id": 3,
-
-          "name": "Galleria Department Store",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "name": "Gyeonggijeon",
+          "content": {
+            "sgt":
+              "옛 한국의 조선이라는 나라가 있었지. 그곳의 왕들은 이곳 출신이어서 이렇게 temple을 짓고 annual ceremony를 갖고는 했다네.",
+            "formal":
+              "조선시대의 정신적 고향인 전주는 조선시대의 왕을 기리는 묘사(사원)가 있다."
+          },
+          "locationX": "35.814967",
+          "locationY": "127.149954",
+          "address":
+            "44 Taejo-ro, Pungnam-dong, Wansan-gu, Jeonju, Jeollabuk-do",
+          "hours": "",
+          "phone": "063-287-1330",
+          "homepage": "tour.jeonju.go.kr",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/deokjin+park,+390+Gwon+samdeuk-ro,+Deokjindong+1(il)-ga,+Deokjin-gu,+Jeonju,+Jeollabuk-do/Gyeonggijeon,+44+Taejo-ro,+Pungnam-dong,+Wansan-gu,+Jeonju,+Jeollabuk-do/@35.8301059,127.1066504,13.48z/am=t/data=!4m14!4m13!1m5!1m1!1s0x35703cca334595c3:0xeb7843e34ff562ef!2m2!1d127.121895!2d35.8475732!1m5!1m1!1s0x357023601cf26ae5:0x1f95dfca67044b31!2m2!1d127.1499607!2d35.8149838!3e3",
+            "time": [{ "type": "Bus", "time": "15min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/4ua6f2n.jpg",
+            "https://i.imgur.com/qMdnOH1.jpg"
+          ]
         },
         {
-          "id": 2,
-
-          "name": "럭셔리 쇼핑 거리",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 4,
+          "name": "Jeondong Catholic Church",
+          "content": {
+            "sgt":
+              "Built 1908–1914, this historic Romanesque church features statues of Korean Catholic martyrs.",
+            "formal":
+              "전주지역에서 가장 오래된 성당이자, 전주 최초의 로마네스크 건축양식의 성당이다. 역사적인 순교자들이 순교한 자리였다."
+          },
+          "locationX": "35.81331",
+          "locationY": "127.149224",
+          "address": "Jeollabuk-do, Jeonju, Wansan-gu, Jeon-dong, Taejoro 51",
+          "hours": "",
+          "phone": "063-284-3222",
+          "homepage": "jeondong.or.kr",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Gyeonggijeon,+44+Taejo-ro,+Pungnam-dong,+Wansan-gu,+Jeonju,+Jeollabuk-do/Jeondong+Catholic+Church,+51+%ED%83%9C%EC%A1%B0%EB%A1%9C+Jeon-dong,+Wansan-gu,+Jeonju,+Jeollabuk-do/@37.5416409,126.93723,12z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357023601cf26ae5:0x1f95dfca67044b31!2m2!1d127.1499607!2d35.8149838!1m5!1m1!1s0x3570249f05c411a5:0xe2c72e1aba498c79!2m2!1d127.149251!2d35.813306!3e3",
+            "time": [{ "type": "On Foot", "time": "4min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/jgWb6md.jpg",
+            "https://i.imgur.com/Uv2mqMA.jpg"
+          ]
         },
         {
-          "id": 2,
-
-          "name": "Miel 레스토랑&카페",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 5,
+          "name": "Jeonju Hanok Village",
+          "content": {
+            "sgt":
+              "Cultural village with traditional Korean buildings, Japanese houses, calligraphy, and sake museums.",
+            "formal":
+              "한옥들로 구성된 마을이다. 이곳에선 옛 한국의 삶을 들여다 볼 수 있으며, 한복을 대여하고 한복을 입고 거리를 배회할 수 있다."
+          },
+          "locationX": "35.815102",
+          "locationY": "127.153944",
+          "address":
+            "99 Girin-daero, Pungnamdong 3(sam)-ga, Wansan-gu, Jeonju, Jeollabuk-do",
+          "hours": "",
+          "phone": "063-282-1330",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Gyeonggijeon,+44+Taejo-ro,+Pungnam-dong,+Wansan-gu,+Jeonju,+Jeollabuk-do/Jeonju+Hanok+Village,+99+Girin-daero,+Pungnamdong+3(sam)-ga,+Wansan-gu,+Jeonju,+Jeollabuk-do/@37.5416409,126.93723,12z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357023601cf26ae5:0x1f95dfca67044b31!2m2!1d127.1499607!2d35.8149838!1m5!1m1!1s0x3570236212eebd4b:0x8ef4be1bc6d0848e!2m2!1d127.1539445!2d35.8151113!3e3",
+            "time": [{ "type": "On Foot", "time": "12min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/l9w3gLh.jpg",
+            "https://i.imgur.com/FdzmAiE.jpg",
+            "https://i.imgur.com/8ziF5cQ.png"
+          ]
         },
         {
-          "id": 2,
-
-          "name": "하이엔드 바&라운지 거리",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 6,
+          "name": "Nambu Market",
+          "content": {
+            "sgt":
+              "여행의 참묘미는 그 지역만의 시장을 거닐는 것이지. 다양한 볼거리와 먹거리를 즐기게나.",
+            "formal":
+              "다양한 음식들과 지역 상인들의 판매물을 볼 수 있는 재미난 장소. 전주지역 전통적인 시장이다."
+          },
+          "locationX": "35.812576",
+          "locationY": "127.147057",
+          "address":
+            "19-3 Pungnammun 1-gil, Jeonong 3(sam)-ga, Wansan-gu, Jeonju, Jeollabuk-do",
+          "hours": "08:00-18:00",
+          "phone": "063-284-1344",
+          "homepage": "jbsj.kr",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeonju+Hanok+Village,+99+Girin-daero,+Pungnamdong+3(sam)-ga,+Wansan-gu,+Jeonju,+Jeollabuk-do/Nambu+Market,+19-3+Pungnammun+1-gil,+Jeonong+3(sam)-ga,+Wansan-gu,+Jeonju,+Jeollabuk-do/@37.5416409,126.93723,12z/am=t/data=!4m14!4m13!1m5!1m1!1s0x3570236212eebd4b:0x8ef4be1bc6d0848e!2m2!1d127.1539445!2d35.8151113!1m5!1m1!1s0x357024a1fdbcaabb:0xe2ec33e2df618146!2m2!1d127.1470564!2d35.8125835!3e3",
+            "time": [{ "type": "On Foot", "time": "11min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/lLc3bpo.jpg",
+            "https://i.imgur.com/Uea64zf.jpg"
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Jaman mural village",
+          "content": {
+            "sgt":
+              "다양한 크기의 집들과 알록달록한 색상으로 마을을 꾸며 거리의 카페에서 잠시 휴식을 취하기 좋은 곳이라네.",
+            "formal":
+              "다양한 색상으로 치장된 벽화들로 볼거리도 가득하고 카페같이 잠시 쉴곳도 있는 마을"
+          },
+          "locationX": "35.814218",
+          "locationY": "127.157209",
+          "address": "Jeollabuk-do, Jeonju-si, Wansan-gu, Gyo-dong, 50-158",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Nambu+Market,+19-3+Pungnammun+1-gil,+Jeonong+3(sam)-ga,+Wansan-gu,+Jeonju,+Jeollabuk-do/Jaman+mural+village,+Jeollabuk-do,+Jeonju-si,+Wansan-gu,+Gyo-dong,+50-158/@35.8114752,127.140519,15z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357024a1fdbcaabb:0xe2ec33e2df618146!2m2!1d127.1470564!2d35.8125835!1m5!1m1!1s0x35702362b9866283:0xdd7d11e7a8e295e2!2m2!1d127.1572118!2d35.8142152!3e3",
+            "time": [{ "type": "Bus", "time": "14min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/HdvgF4o.jpg",
+            "https://i.imgur.com/4Tvx0kK.jpg",
+            "https://i.imgur.com/gnUWGtz.jpg"
+          ]
         }
       ],
-      "image_url": "https://i.imgur.com/u08v6FH.jpg",
-      "price": 380000,
-      "days": "1 day",
-      "area": "Area 2",
-      "distance": 1.19,
-      "description": "Hey soldier! How's your saving account doing so far?",
+      "image_url": [
+        "https://i.imgur.com/l9w3gLh.jpg",
+        "https://i.imgur.com/M48Xh7S.jpg"
+      ],
+      "price": 120000,
+      "days": "2 Day",
+      "rating": "4",
+      "area": "Area 4",
+      "distance": "6.59",
+      "description":
+        "한국에 대한 역사가 한데 모여있는 전주로 떠나볼까? Far East만의 느낌을 느껴보게.",
       "concept": {
-        "calm": 1,
-        "sightSeeing": 2,
-        "dandy": 3,
-        "food": 3,
+        "calm": 3,
+        "sightSeeing": 3,
+        "dandy": 1,
+        "food": 2,
         "activity": 1,
-        "luxury": 3,
+        "luxury": 1,
         "love": 2,
-        "party": 2
-      },
-      "reviews": 1880
+        "party": 1
+      }
     },
     {
       "id": 3,
-      "name": "District of Luxury33333",
+      "name": "Beautiful Scenes of Southern Coast",
       "places": [
         {
           "id": 1,
-          "name": "Apgujeongrodeo Station",
-          "content":
-            "일단 돈 좀 써보려면 이곳으로 모이게. 이곳이 자네의 assembly point라네.",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02=779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+          "name": "Yeosu Intercity Bus Terminal",
+          "content": {
+            "sgt": "It's the assembly point of this trip. Are y'all ready?",
+            "formal": "A bus terminal in Yeosu."
+          },
+          "locationX": "34.758155",
+          "locationY": "127.716996",
+          "address": "Gwangnim-dong, Yeosu",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Transportation",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/Yeosu+Intercity+Bus+Terminal,+Orim-dong,+Yeosu/@36.330637,127.3168755,8z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x356ddf365c151bd3:0x3b46df0e7bb3271!2m2!1d127.716985!2d34.758155!3e3",
+              "time": "9h 19min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Hangangno+1(il)-ga,+Yongsan-gu,+Seoul/Yeosu+Intercity+Bus+Terminal,+Orim-dong,+Yeosu/@37.5416409,126.93723,12z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x356ddf365c151bd3:0x3b46df0e7bb3271!2m2!1d127.716985!2d34.758155!3e3",
+              "time": "4h 2min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/CAMP+HUMPHREYS,+%EC%95%88%EC%A0%95%EB%A6%AC+Paengseong-eup,+Pyeongtaek,+Gyeonggi-do/Yeosu+Intercity+Bus+Terminal,+Orim-dong,+Yeosu/@35.8746431,126.2264537,8z/am=t/data=!3m1!4b1!4m15!4m14!1m5!1m1!1s0x357b3c32104a8677:0x2a452833c1c93808!2m2!1d127.0457752!2d36.9591011!1m5!1m1!1s0x356ddf365c151bd3:0x3b46df0e7bb3271!2m2!1d127.716985!2d34.758155!3e3!5i1",
+              "time": "4h 16min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/Yeosu+Intercity+Bus+Terminal,+Orim-dong,+Yeosu/@35.1425815,126.1532877,7.48z/data=!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x356ddf365c151bd3:0x3b46df0e7bb3271!2m2!1d127.716985!2d34.758155!3e3!5i3",
+              "time": "4h 1min"
+            }
+          },
+          "image_url": ["https://i.imgur.com/VCbUR0e.jpg"]
         },
         {
           "id": 2,
-          "name": "Apgujeongrodeo Street",
-          "content":
-            "압구정 로데오 거리는 late 80년대 부터 부유한 한국 젊은이들의 playground 였지. 이곳은 아직도 많은 술집과 옷집들이 있다네",
-          "location-x": "37.527555",
-          "location-y": "127.040512",
-          "address": "Sinsa-dong, Seoul",
-          "hours": "-",
-          "phone": "02-548-0704",
-          "fucntion": "Transportation",
-          "transport": "Transportation",
-          "image_url": "https://i.imgur.com/GmO0CtQ.jpg"
+          "name": "Admiral Lee SS Park",
+          "content": {
+            "sgt":
+              "I'm assuming you've all heard of Admiral Yi? He's one of world three heros of naval battles. Feel his energy in square honoring his achievements.",
+            "formal":
+              "A square built to honor the Korean hero, General Yi Sun-sin. There is a turtle ship which is the first armored ship in the world and you can also board on it."
+          },
+          "locationX": "34.744532",
+          "locationY": "127.679847",
+          "address": "383 Jungang-dong, Yeosu, Jeollanam-do",
+          "hours": "24 hrs",
+          "phone": "",
+          "homepage": "",
+          "function": "Park",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Yeosu+Intercity+Bus+Terminal,+Orim-dong,+Yeosu-si/Jeollanam-do,+%EC%97%AC%EC%88%98+Jungang-dong,+%EC%9D%B4%EC%88%9C%EC%8B%A0%EA%B4%91%EC%9E%A5/@34.7487721,127.729954,14z/am=t/data=!3m1!4b1!4m15!4m14!1m5!1m1!1s0x356ddf365c151bd3:0x3b46df0e7bb3271!2m2!1d127.716985!2d34.758155!1m5!1m1!1s0x356dd8da215ff693:0xad41a8200c7b3fc!2m2!1d127.7359802!2d34.7393891!3e3!5i1",
+            "time": [{ "type": "Bus", "time": "13min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/JSaUhdz.jpg",
+            "https://i.imgur.com/gg5YVtE.jpg"
+          ]
         },
         {
           "id": 3,
-
-          "name": "Galleria Department Store",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "name": "Yeosu Cable Car",
+          "content": {
+            "sgt":
+              "Enjoy the scenery on the cable car passing through Yeosu 's southern coast. Don't tell me you have ? AIRBORNE!",
+            "formal":
+              "It is a marine cable car that connects the island to the land via Yeosu Sea. You can enjoy the view of Yeosu's Arum, passing over the sea."
+          },
+          "locationX": "34.730551",
+          "locationY": "127.741566",
+          "address": "3600-1 Dolsan-ro, Dolsan-eup, Yeosu, Jeollanam-do",
+          "hours": "09:00-22:00",
+          "phone": "061-664-7301",
+          "homepage": "yeosucablecar.com",
+          "function": "Transportation",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeollanam-do,+%EC%97%AC%EC%88%98+Jungang-dong,+%EC%9D%B4%EC%88%9C%EC%8B%A0%EA%B4%91%EC%9E%A5/Jeollanam-do,+Yeosu-si,+Dolsan-eup,+Dolsan-ro,+%EC%97%AC%EC%88%98%ED%95%B4%EC%83%81%EC%BC%80%EC%9D%B4%EB%B8%94%EC%B9%B4+%EB%86%80%EC%95%84%EC%A0%95%EB%A5%98%EC%9E%A5/@34.7347825,127.7142249,14z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x356dd8da215ff693:0xad41a8200c7b3fc!2m2!1d127.7359802!2d34.7393891!1m5!1m1!1s0x356dd920e8b2a773:0xf3a9228fd778a463!2m2!1d127.741572!2d34.73056!3e3",
+            "time": [{ "type": "Bus", "time": "17min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/W1fYlbd.jpg",
+            "https://i.imgur.com/aT8eDch.png"
+          ]
         },
         {
-          "id": 3,
-          "name": "럭셔리 쇼핑 거리",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 4,
+          "name": "Odong island",
+          "content": {
+            "sgt":
+              "It's an island famous for its beauty from the past, and there's also a bamboo forest so you can enjoy the oriental scenery.",
+            "formal":
+              "From a distance, the shape of the island is like a paulownia leaf, and there's a lot of paulownia ever since it's called Ohdongdo. Famous for its camellia flowers and bamboo forests, you can enjoy the scenery of Yeosu sea, which is seen from the forest."
+          },
+          "locationX": "34.744673",
+          "locationY": "127.766504",
+          "address": "Sujeong-dong, Yeosu",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Island",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeollanam-do,+Yeosu-si,+Dolsan-eup,+Dolsan-ro,+%EC%97%AC%EC%88%98%ED%95%B4%EC%83%81%EC%BC%80%EC%9D%B4%EB%B8%94%EC%B9%B4+%EB%86%80%EC%95%84%EC%A0%95%EB%A5%98%EC%9E%A5/%EC%97%AC%EC%88%98+Halnyeo-dong,+%EC%98%A4%EB%8F%99%EB%8F%84/@34.7376725,127.7092374,13z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x356dd920e8b2a773:0xf3a9228fd778a463!2m2!1d127.741572!2d34.73056!1m5!1m1!1s0x356dd861d4cf84d3:0xc4386a3b96e65e6b!2m2!1d127.7664977!2d34.7446658!3e3",
+            "time": [{ "type": "Bus", "time": "56min" }]
+          },
+          "image_url": ["https://i.imgur.com/3fAcANT.jpg"]
         },
         {
-          "id": 2,
-
-          "name": "Miel 레스토랑&카페",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 5,
+          "name": "Hamel Lighthouse",
+          "content": {
+            "sgt":
+              "Have y'all heard of Hendrick Harmel? This lighthouse was named after him. He would be proud of it in heaven. ",
+            "formal":
+              "It's an unmanned lighthouse named after the Dutchman Hendrik Hamel who first introduced Korea to Europe. It's located in Hamel waterside park."
+          },
+          "locationX": "34.736411",
+          "locationY": "127.747025",
+          "address": "458-7 Jonghwa-dong, Yeosu, Jeollanam-do",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/%EC%97%AC%EC%88%98+Halnyeo-dong,+%EC%98%A4%EB%8F%99%EB%8F%84/Jeollanam-do,+Yeosu-si,+Jonghwa-dong,+458-7+%ED%95%98%EB%A9%9C%EB%93%B1%EB%8C%80/@34.7390945,127.7501685,15.09z/am=t/data=!4m14!4m13!1m5!1m1!1s0x356dd861d4cf84d3:0xc4386a3b96e65e6b!2m2!1d127.7664977!2d34.7446658!1m5!1m1!1s0x356dd8e719d2c453:0xf7ae0e4825ae827e!2m2!1d127.7470553!2d34.7364164!3e3",
+            "time": [{ "type": "Bus", "time": "45min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/Q5Hmzbi.jpg",
+            "https://i.imgur.com/mvvdkcs.jpg"
+          ]
         },
         {
-          "id": 2,
-
-          "name": "하이엔드 바&라운지 거리",
-          "content":
-            "지갑좀 보여주겠나? .... 그정도로 갤러리아 백화점을 가려하다니... 그냥 눈으로만 즐기게나",
-          "location-x": "245",
-          "location-y": "345",
-          "address": "seoul",
-          "hours": "open 8am",
-          "phone": "02-779-2345",
-          "fucntion": "museum",
-          "transport": "metro",
-          "image_url": "http://asdfasdf"
+          "id": 6,
+          "name": "Hyang-Il-Am",
+          "content": {
+            "sgt":
+              "This small Buddhist temple on a forested coastal cliff features a terrace with dramatic ocean views. Enjoy.",
+            "formal":
+              "It's a temple founded by the monk Won Hyo of the Silla Dynasty. It's surrounded by the rocky cliffs of Geumo Mountain, between camellias and subtropical plants. It's also the base of the monk who fought for Yi Sun-sin during the Imjin War. You can see the camellia forest road on the way to the Hyang-il-am, and the beautiful Namhae sea on the hill."
+          },
+          "locationX": "34.591656",
+          "locationY": "127.803941",
+          "address": "Jeollanam-do, Yeosu-si, Dolsan-eup, Hyangiram-ro, 60",
+          "hours": "",
+          "phone": "061-644-4742",
+          "homepage": "hyangiram.org",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeollanam-do,+Yeosu-si,+Jonghwa-dong,+458-7+%ED%95%98%EB%A9%9C%EB%93%B1%EB%8C%80/Jeollanam-do,+Yeosu-si,+Dolsan-eup,+Hyangiram-ro,+%ED%96%A5%EC%9D%BC%EC%95%94/@34.6666931,127.6928009,12z/am=t/data=!4m15!4m14!1m5!1m1!1s0x356dd8e719d2c453:0xf7ae0e4825ae827e!2m2!1d127.7470553!2d34.7364164!1m5!1m1!1s0x356dc554760988c1:0x737d2db65ad441ab!2m2!1d127.8039944!2d34.5916298!3e3!5i1",
+            "time": [{ "type": "Bus", "time": "1h 55min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/JCpumPy.jpg",
+            "https://i.imgur.com/MWLczZW.jpg"
+          ]
         }
       ],
-      "image_url": "https://i.imgur.com/u08v6FH.jpg",
-      "price": 380000,
-      "days": "1 day",
-      "area": "Area 2",
-      "distance": 1.19,
-      "description": "Hey soldier! How's your saving account doing so far?",
+      "image_url": [
+        "https://i.imgur.com/JSaUhdz.jpg",
+        "https://i.imgur.com/aT8eDch.png"
+      ],
+      "price": 80000,
+      "days": "2 Day",
+      "rating": "4",
+      "area": "Area 4",
+      "distance": "24.55",
+      "description":
+        "바다를 좋아하나? 뻔한 바다보단 역사적인 전투를 지휘했던 admiral을 기념하는 바다라면? 그 시대 해상전은 어떠했을지 한번 직접 가서 감상해 보게.",
       "concept": {
-        "calm": 1,
+        "calm": 3,
+        "sightSeeing": 3,
+        "dandy": 1,
+        "food": 2,
+        "activity": 2,
+        "luxury": 1,
+        "love": 1,
+        "party": 1
+      }
+    },
+
+    {
+      "id": 14,
+      "name": "Korea's Manhattan",
+      "places": [
+        {
+          "id": 1,
+          "name": "63 Building",
+          "content": {
+            "sgt":
+              "한때는 가장 높았던 건물이었지. 서울 한가운데에 금색으로 우뚝 선 모양이 아름답군.",
+            "formal":
+              "대한민국의 대표적인 랜드마크 빌딩이다. 63개의 층으로 구성되어 있다 하여 63빌딩이라는 이름이 붙여졌다. 금색으로 칠해진 건물의 외관이 한강과 이루는 아름다운 풍경으로 유명하며 전망대, 수족관 등 각종 부대시설들을 만나볼 수 있다."
+          },
+          "locationX": "37.519459",
+          "locationY": "126.93979",
+          "address": "50 63-ro, Yeoeuido-dong, Yeongdeungpo-gu, Seoul",
+          "hours": "",
+          "phone": "02-789-5663",
+          "homepage": "http://63.co.kr",
+          "function": "Building/Structure ",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+275+Bosan-dong,+Dongducheon,+Gyeonggi-do/63+Building,+Yeoeuido-dong,+Seoul/@37.716878,126.9956415,10z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x357c9f4386a8b12b:0x238b2031980893d1!2m2!1d126.940308!2d37.519789!3e3",
+              "time": "1h 49min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Seoul,+Yongsan-gu,+Hangangno+1(il)-ga,+1-11+-ga/63+Building,+Yeoeuido-dong,+Seoul/@37.5280354,126.9536719,14z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x357c9f4386a8b12b:0x238b2031980893d1!2m2!1d126.940308!2d37.519789!3e3",
+              "time": "19min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/63+Building,+Yeoeuido-dong,+Seoul/@37.2336785,126.9968939,10z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x357c9f4386a8b12b:0x238b2031980893d1!2m2!1d126.940308!2d37.519789!3e3!5i1",
+              "time": "2h"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/63+Building,+Yeoeuido-dong,+Seoul/@36.6966835,127.7566325,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x357c9f4386a8b12b:0x238b2031980893d1!2m2!1d126.940308!2d37.519789!3e3!5i3",
+              "time": "2h 42min"
+            }
+          },
+          "image_url": [
+            "https://i.imgur.com/XD8qUPV.png",
+            "https://i.imgur.com/cye1zVq.jpg"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Yeouido Han River Park",
+          "content": {
+            "sgt": "바다를 굳이 왜가나? 이렇게 멋진 강이 있는데.",
+            "formal":
+              "대한민국의 가장 대표적인 한강공원 중 하나. 한강을 따라 넓은 부지를 갖고 있으며 자전거를 대여하여 한강을 따라 가거나, 자리를 잡고 앉아 강 바람과 함께치킨과 맥주를 즐기기에 더 없이 좋은 장소."
+          },
+          "locationX": "37.526368",
+          "locationY": "126.933566",
+          "address": "330 Yeouidong-ro, Yeoeuido-dong, Yeongdeungpo-gu, Seoul",
+          "hours": "24 hrs",
+          "phone": "02-3780-0561",
+          "homepage": "https://hangang.seoul.go.kr/",
+          "function": "Park",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Seoul,+Yeoeuido-dong,+63%EB%B9%8C%EB%94%A9/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+Yeongdeungpo-gu,+Yeoeuido-dong,+Yeouidong-ro,+330+%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90/@37.5233577,126.9274812,15z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x357c9f4386a8b12b:0x238b2031980893d1!2m2!1d126.940308!2d37.519789!1m5!1m1!1s0x357c9f3b03c4b7ef:0xa4d8869ebf8d452c!2m2!1d126.9335824!2d37.5263086!3e3",
+            "time": [{ "type": "Bus", "time": "15min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/PCjku2e.jpg",
+            "https://i.imgur.com/uQ8HJq8.jpg",
+            "https://i.imgur.com/NDd19wL.jpg"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Yeouido Park",
+          "content": {
+            "sgt": "이 작은 섬안에 한강공원도 있고, 이런 공원도 있을줄이야.",
+            "formal":
+              "여의도 한강공원과 바로 이어지는 대표적인 도심 속 공원으로, 여의도의 중심과도 같은 곳. 한국의 센트럴 파크와 같은 느낌으로 산책하며 여유를 즐기기에 좋다."
+          },
+          "locationX": "37.523816",
+          "locationY": "126.919002",
+          "address":
+            "68 Yeouigongwon-ro, Yeoeuido-dong, Yeongdeungpo-gu, Seoul",
+          "hours": "24 hrs",
+          "phone": "02-779-2345",
+          "homepage": "http://parks.seoul.go.kr/",
+          "function": "Park",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "11min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/VrArQNp.jpg",
+            "https://i.imgur.com/8eoGJqB.jpg",
+            "https://i.imgur.com/fsofBLQ.jpg"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "IFC Mall",
+          "content": {
+            "sgt":
+              "서울의 맨하탄답게 멋진 빌딩들과 회사거리, 그리고 복합 문화공간이 있군.",
+            "formal":
+              "명품 브랜드와 캐주얼 브랜드, 영화관, 레스토랑 등 즐기거리가 다양한 대한민국의 대표적인 실내 복합 쇼핑센터이다. 웅장하고 깔끔한 외관을 자랑하며, 여의도를 구경하다 실내에서 쉬고자 할 때 더 없이 좋은 장소이다."
+          },
+          "locationX": "37.525441",
+          "locationY": "126.925516",
+          "address":
+            "10 Gukjegeumyung-ro, Yeoeuido-dong, Yeongdeungpo-gu, Seoul",
+          "hours": "10:00-22:00",
+          "phone": "02-6137-5000",
+          "homepage": "http://ifcmallseoul.com/main.do",
+          "function": "Shopping",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "6min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/4T2Arq5.jpg",
+            "https://i.imgur.com/xRFM4IU.jpg",
+            "https://i.imgur.com/3LVYxVa.jpg"
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Conrad Seoul",
+          "content": {
+            "sgt":
+              "이렇게 멋지고 웅장한 호텔은 처음이네. Wish our Army lodge had such interiors like this.",
+            "formal":
+              "세계적인 여행지 콘데나스트 트레블러의 '베스트 뉴 호텔' 중 하나로 선정된 대표적인 여의도의 호텔이다. IFC몰과 바로 인접하고 있으며, 여의도공원 및 여의도한강공원과의 접근성이 뛰어나다."
+          },
+          "locationX": "37.525442",
+          "locationY": "126.926585",
+          "address":
+            "10 Gukjegeumyung-ro, Yeoeuido-dong, Yeongdeungpo-gu, Seoul",
+          "hours": "24 hrs",
+          "phone": "02-6137-7000",
+          "homepage": "http://conradhotels3.hilton.com/en/index.html",
+          "function": "Accomodation",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "3min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/MzioR1o.jpg",
+            "https://i.imgur.com/nXPhv9R.jpg",
+            "https://i.imgur.com/3CFX9o6.jpg",
+            "https://i.imgur.com/K9F5j19.jpg"
+          ]
+        }
+      ],
+      "image_url": [
+        "https://i.imgur.com/XD8qUPV.png",
+        "https://i.imgur.com/uQ8HJq8.jpg",
+        "https://i.imgur.com/4T2Arq5.jpg",
+        "https://i.imgur.com/xRFM4IU.jpg"
+      ],
+      "price": 172000,
+      "days": "1 Day",
+      "rating": "4",
+      "area": "Area 2",
+      "distance": "2.33",
+      "description":
+        "한국의 월스트릿은 어떤지 알고 싶지 않나? 게다가 서울 한가운데에 위치한 섬에 비즈니스 district가 존재한다네. 도심 한복판에 위치한 섬에서 경치도 구경하고 현대적인 건물들 속에 바쁜 하루를 보내는 사람들 구경도 하게.",
+      "concept": {
+        "calm": 2,
+        "sightSeeing": 2,
+        "dandy": 3,
+        "food": 2,
+        "activity": 1,
+        "luxury": 2,
+        "love": 3,
+        "party": 1
+      }
+    },
+    {
+      "id": 15,
+      "name": "Korea's New Capital City",
+      "places": [
+        {
+          "id": 1,
+          "name": "Sejong Express Bus Terminal",
+          "content": {
+            "sgt": "도착했네 한국의 새로운 수도!",
+            "formal": "세종시 갈매로에 위치한 고속시외버스터미널이다."
+          },
+          "locationX": "36.469842",
+          "locationY": "127.272736",
+          "address": "Geumnam-myeon, Yeongi-gun, Sejong-si",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Transportation",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+275+Bosan-dong,+Dongducheon,+Gyeonggi-do/36.469842,+127.272736/@37.1954565,127.112402,9z/am=t/data=!3m1!4b1!4m12!4m11!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m3!2m2!1d127.272736!2d36.469842!3e3",
+              "time": "3h 18min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Seoul,+Yongsan-gu,+Hangangno+1(il)-ga,+1-11+-ga/36.469842,+127.272736/@37.0128785,127.112402,9z/am=t/data=!4m13!4m12!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m3!2m2!1d127.272736!2d36.469842!3e3!5i2",
+              "time": "1h 43min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/36.469842,+127.272736/@36.744672,127.1829105,10z/am=t/data=!4m13!4m12!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m3!2m2!1d127.272736!2d36.469842!3e3!5i1",
+              "time": "2h 11min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/36.469842,+127.272736/@36.161859,127.950842,9z/am=t/data=!4m13!4m12!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m3!2m2!1d127.272736!2d36.469842!3e3!5i3",
+              "time": "2h 17min"
+            }
+          },
+          "image_url": ["https://i.imgur.com/LWjBgj4.jpg"]
+        },
+        {
+          "id": 2,
+          "name": "Milmaru Tower",
+          "content": {
+            "sgt":
+              "이제 막 개발되기 시작한 새로운 도시를 이곳에서 한눈에 바라보게나.",
+            "formal":
+              "세종시 어진동에 위치한 전망대이다. 세종시를 전망할 수 있다."
+          },
+          "locationX": "36.505583",
+          "locationY": "127.256006",
+          "address": "58 Doum 3-ro, Nam-myeon, Sejong-si",
+          "hours": "09:00-18:00",
+          "phone": "044-862-8845",
+          "homepage": "http://www.sejong.go.kr/tour/sub01_11.do",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/36.469842,+127.272736/%EB%B0%80%EB%A7%88%EB%A3%A8%EC%A0%84%EB%A7%9D%EB%8C%80+%EC%84%B8%EC%A2%85%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EC%8B%9C+Nam-myeon,+%EB%8F%84%EC%9B%803%EB%A1%9C+58/@36.4877458,127.2470625,14z/am=t/data=!4m12!4m11!1m3!2m2!1d127.272736!2d36.469842!1m5!1m1!1s0x357acb0a3c58af35:0xbd4d629f20b1d3a5!2m2!1d127.2560062!2d36.5055831!3e3",
+            "time": [{ "type": "Bus", "time": "30min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/o387bFz.jpg",
+            "https://i.imgur.com/oumNOvn.jpg"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Sejong Lake Park",
+          "content": {
+            "sgt": "도심 한가운데에 이런 호수가 있다니. 나도 살고 싶군.",
+            "formal":
+              "세종시의 도심 한 가운데 위치한 호수공원이다. 드넓은 호수를 중심으로 5개의 테마공원이있다."
+          },
+          "locationX": "36.500017",
+          "locationY": "127.272268",
+          "address": "216 Dasom-ro, Yeongi-myeon, Sejong-si",
+          "hours": "24 hrs",
+          "phone": "044-301-3635",
+          "homepage": "",
+          "function": "Park",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/%EB%B0%80%EB%A7%88%EB%A3%A8%EC%A0%84%EB%A7%9D%EB%8C%80+%EC%84%B8%EC%A2%85%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EC%8B%9C+Nam-myeon,+%EB%8F%84%EC%9B%803%EB%A1%9C+58/%EC%84%B8%EC%A2%85%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EC%8B%9C+%EC%97%B0%EA%B8%B0%EB%A9%B4+%EB%8B%A4%EC%86%9C%EB%A1%9C+%EC%84%B8%EC%A2%85%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90/@36.5028445,127.2477048,14z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357acb0a3c58af35:0xbd4d629f20b1d3a5!2m2!1d127.2560062!2d36.5055831!1m5!1m1!1s0x357acb408af714b3:0xd393f9ebbad3b580!2m2!1d127.2744227!2d36.5000395!3e3",
+            "time": [{ "type": "Bus", "time": "45min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/p6wIsfu.jpg",
+            "https://i.imgur.com/8B2PYVu.jpg",
+            "https://i.imgur.com/Q23MZzx.jpg"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Doglagjeong",
+          "content": {
+            "sgt": "규모는 작지만 옛 한국의 건축양식을 보기엔 충분하지.",
+            "formal":
+              "세종시 나성동에 위치한 조선시대의 누정이다. 규모는 작지만 조선시대의 건물 양식과 세종시의 모습을 조망할 수 있다."
+          },
+          "locationX": "36.347518",
+          "locationY": "127.665266",
+          "address": "617 Yeonju-ri, Annam-myeon, Ogcheon, Chungcheongbuk-do",
+          "hours": "",
+          "phone": "043-730-3082",
+          "homepage": "",
+          "function": "Building/Structure",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "Taxi", "time": "11min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/b0JFUQ3.jpg",
+            "https://i.imgur.com/jw3yLBm.jpg",
+            "https://i.imgur.com/ZUh7sfu.jpg"
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Hapgang Trailer Park",
+          "content": {
+            "sgt":
+              "캠핑도구는 잘 챙겨왔겠지? Hey you, private! 텐트를 왜 가져왔나, 트레일러가 있는데?",
+            "formal": "세종시 합강공원에 위치한 캠핑장이다."
+          },
+          "locationX": "36.516379",
+          "locationY": "127.337618",
+          "address": "329 Taesan-ro, Yeongi-myeon, Sejong-si",
+          "hours": "24 hrs",
+          "phone": "041-862-5985",
+          "homepage": "http://www.sejong.go.kr/hapgangcamp/sub03_01.do",
+          "function": "Park",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "Taxi", "time": "30min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/6ReDseT.jpg",
+            "https://i.imgur.com/6I6KSRf.jpg",
+            "https://i.imgur.com/djkJruq.jpg"
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Space Geodetic Observation Center",
+          "content": {
+            "sgt": "우주 좋아하지? 난 전역하면 NASA에 지원할거야.",
+            "formal":
+              "대한민국 국토지리정보원이 운영하는 우주 측량을 위한 연구소이다."
+          },
+          "locationX": "36.522623",
+          "locationY": "127.302512",
+          "address": "276-71 Wolsangongdan-ro, Yeongi-myeon, Sejong-si",
+          "hours": "10:00-17:00",
+          "phone": "044-860-4003",
+          "homepage": "http://vlbi.ngii.go.kr/",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/%ED%95%A9%EA%B0%95%EA%B3%B5%EC%9B%90%EC%98%A4%ED%86%A0%EC%BA%A0%ED%95%91%EC%9E%A5+%EC%84%B8%EC%A2%852%EC%A7%80%EA%B5%AC+%EC%84%B8%EC%A2%85%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EC%8B%9C+%EC%97%B0%EA%B8%B0%EB%A9%B4+Taesan-ro,+329/%EC%84%B8%EC%A2%85%EC%8B%9C%EC%9A%B0%EC%A3%BC%EC%B8%A1%EC%A7%80%EA%B4%80%EC%B8%A1%EC%84%BC%ED%84%B0+%EC%84%B8%EC%A2%85+%EC%97%B0%EA%B8%B0%EB%A9%B4+%EC%84%B8%EC%A2%85%EB%A6%AC(%EC%82%B0)+182/@36.5607517,127.2588386,12z/am=t/data=!3m1!4b1!4m15!4m14!1m5!1m1!1s0x35653375293ca975:0x455296874c2fae13!2m2!1d127.337575!2d36.5163355!1m5!1m1!1s0x357ad2abe6f17663:0x35022364ae22ba7d!2m2!1d127.2923268!2d36.592881!3e3!5i1",
+            "time": [{ "type": "Bus", "time": "1h" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/E7xKh0l.jpg",
+            "https://i.imgur.com/crfnbx6.jpg",
+            "https://i.imgur.com/7D8HbTq.jpg"
+          ]
+        }
+      ],
+      "image_url": [
+        "https://i.imgur.com/p6wIsfu.jpg",
+        "https://i.imgur.com/8B2PYVu.jpg",
+        "https://i.imgur.com/Q23MZzx.jpg",
+        "https://i.imgur.com/6ReDseT.jpg"
+      ],
+      "price": 198000,
+      "days": "2 Days",
+      "rating": "2",
+      "area": "Area 3",
+      "distance": "15.29",
+      "description":
+        "사실 서울은 이제 수도가 아니지. 근래에 들어 새로운 도시에 수도로 옮겼다네. 아직 지역 사람들도 제대로 가보지 못한 한국의 새 행정 수도를 먼저 가보게.",
+      "concept": {
+        "calm": 3,
+        "sightSeeing": 2,
+        "dandy": 1,
+        "food": 1,
+        "activity": 2,
+        "luxury": 1,
+        "love": 2,
+        "party": 1
+      }
+    },
+    {
+      "id": 16,
+      "name": "Korea's Seattle",
+      "places": [
+        {
+          "id": 1,
+          "name": "Central Park Station",
+          "content": {
+            "sgt": "Assembly point치고 멋진 곳이구만.",
+            "formal":
+              "인천 송도 국제도시의 중앙부에 위치한 공원이다. 주변 풍경과 공원이 아름답게 조성되어 있어 인기가 많다."
+          },
+          "locationX": "37.39279",
+          "locationY": "126.634981",
+          "address": "Songdo 2(i)-dong, Incheon",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Transportation",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/Central+Park+Station,+Songdo+2(i)-dong,+Incheon/@37.647642,126.8513757,10z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x357b77b7160912b5:0x364c34263310fc8c!2m2!1d126.63497!2d37.392807!3e3",
+              "time": "2h 55min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Seoul,+Yongsan-gu,+Hangangno+1(il)-ga,+1-11+-ga/Central+Park+Station,+Songdo+2(i)-dong,+Incheon/@37.481913,126.837506,10z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x357b77b7160912b5:0x364c34263310fc8c!2m2!1d126.63497!2d37.392807!3e3",
+              "time": "1h 29min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/Central+Park+Station,+Songdo+2(i)-dong,+Incheon/@37.2282195,126.8607932,10z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x357b77b7160912b5:0x364c34263310fc8c!2m2!1d126.63497!2d37.392807!3e3!5i1",
+              "time": "2h 55min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/Central+Park+Station,+Songdo+2(i)-dong,+Incheon/@36.6396485,127.6317017,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x357b77b7160912b5:0x364c34263310fc8c!2m2!1d126.63497!2d37.392807!3e3!5i2",
+              "time": "3h 30min"
+            }
+          },
+          "image_url": [
+            "https://i.imgur.com/Wcd5qzD.jpg",
+            "https://i.imgur.com/QsNeEb4.jpg"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Compact Smart City",
+          "content": {
+            "sgt":
+              "인천은 서쪽 끝에 있기에 옛부터 중국과의 역사가 깊지. 현대적인 건축물로 이루어진 도시들도 감상하게.",
+            "formal":
+              "인천에 위치한 도시 역사관. 인천의 발전과정과 현재의 모습, 미래의 비전을 자연스럽게 보고 느낄 수 있다."
+          },
+          "locationX": "37.392851",
+          "locationY": "126.635869",
+          "address": "24-7 Songdo-dong, Yeonsu-gu, Incheon",
+          "hours": "",
+          "phone": "032-850-6014",
+          "homepage": "http://compact.incheon.go.kr",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Central+Park+Station,+Songdo+2(i)-dong,+Incheon/Compact+Smart+City,+Songdo-dong,+Yeonsu-gu,+Incheon/@37.3901977,126.6274457,15z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b77b7160912b5:0x364c34263310fc8c!2m2!1d126.63497!2d37.392807!1m5!1m1!1s0x357b77b748fd396b:0x92817595a2c4c1c4!2m2!1d126.6358689!2d37.3928!3e3!5i1",
+            "time": [{ "type": "Subway", "time": "14min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/hB8I8zp.jpg",
+            "https://i.imgur.com/SqRDn4T.jpg",
+            "https://i.imgur.com/n4seXvx.jpg"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Tri-Bowl",
+          "content": {
+            "sgt": "이 거대한 그릇들은 무엇인가? 거인들의 밥그릇인가?",
+            "formal":
+              "Local landmark hosting a regular line-up of varied exhibitions, conferences & performances. 그릇 3개를 합친 듯 특이한 디자인을 자랑하는 복합 문화 공간이다. 아름다운 야경으로 유명하다."
+          },
+          "locationX": "37.394035",
+          "locationY": "126.635079",
+          "address": "24-6 Songdo-dong, Yeonsu-gu, Incheon",
+          "hours": "07:30-24:15",
+          "phone": "032-440-7853",
+          "homepage": "http://tribowl.kr",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Compact+Smart+City,+Songdo-dong,+Yeonsu-gu,+Incheon/Tri-bowl,+Songdo-dong,+Yeonsu-gu,+Incheon/@37.3963357,126.6242202,15z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b77b748fd396b:0x92817595a2c4c1c4!2m2!1d126.6358689!2d37.3928!1m5!1m1!1s0x357b77b75d0e5419:0x6702a0152841b6d!2m2!1d126.6350356!2d37.3940776!3e3!5i2",
+            "time": [{ "type": "Subway", "time": "16min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/RO4DrTj.jpg",
+            "https://i.imgur.com/g9ohyl9.jpg",
+            "https://i.imgur.com/HKTiSwB.jpg"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "G Tower Sky Garden",
+          "content": {
+            "sgt":
+              "높은경치에서 국제도시를 바라보며 식사하는것도 나쁘지 않겠지.",
+            "formal":
+              "송도 센트럴파크 내부에 자리잡고 있는 타워이다. 아시아 최초로 UN 국제기구 본사 중 대표적으로 GCF(녹색기후기금)와 여러 환경 보호 관련 국제기구 사무국들도 함께 입주해 있다."
+          },
+          "locationX": "37.396337",
+          "locationY": "126.634222",
+          "address": "29F, 175, Art center-daero, Yeonsu-gu, Incheon",
+          "hours": "10:00-20:00",
+          "phone": "",
+          "homepage": "http://ifez.go.kr",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Tri-bowl,+Songdo-dong,+Yeonsu-gu,+Incheon/G-Tower+(G%ED%83%80%EC%9B%8C),+Art+center-daero,+Songdo+2(i)-dong,+Yeonsu-gu,+Incheon/@37.3966148,126.6281809,16z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b77b75d0e5419:0x6702a0152841b6d!2m2!1d126.6350356!2d37.3940776!1m5!1m1!1s0x357b77b9afc9fc5b:0x20c53510ab4a0319!2m2!1d126.6342116!2d37.3963539!3e3!5i1",
+            "time": [{ "type": "Subway", "time": "13min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/fYKV3xe.jpg",
+            "https://i.imgur.com/28PYy8F.jpg",
+            "https://i.imgur.com/YPB93ZD.jpg"
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Gyeongwonjae Ambassador Incheon",
+          "content": {
+            "sgt":
+              "이런 신도시에서 전통적인 한식 호텔에서 머무는 것도 좋은 경험이지. 아름다운 모습이야.",
+            "formal":
+              "송도에 위치한 한옥 호텔이다. 옛 한옥의 느낌과 주변의 현대식 건축물이 잘 조화되어 신비한 분위기를 연출한다."
+          },
+          "locationX": "37.391799",
+          "locationY": "126.637575",
+          "address": "200 Technopark Ro, Songdo-dong, Yeonsu-gu, Incheon",
+          "hours": "24 hrs",
+          "phone": "032-729-1101",
+          "homepage": "http://accorhotels.com",
+          "function": "Accomodation",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/G-Tower+(G%ED%83%80%EC%9B%8C),+Art+center-daero,+Songdo+2(i)-dong,+Yeonsu-gu,+Incheon/Incheon,+Yeonsu-gu,+Songdo-dong,+%EA%B2%BD%EC%9B%90%EC%9E%AC+%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94+%EC%9D%B8%EC%B2%9C/@37.3961097,126.6250732,15z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b77b9afc9fc5b:0x20c53510ab4a0319!2m2!1d126.6342116!2d37.3963539!1m5!1m1!1s0x357b77ae6943d2ed:0x89b3f5d999bd57c0!2m2!1d126.637575!2d37.391765!3e3!5i2",
+            "time": [{ "type": "Subway", "time": "16min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/zGlnBfi.jpg",
+            "https://i.imgur.com/7gwoCyI.jpg",
+            "https://i.imgur.com/TWRFmXp.jpg",
+            "https://i.imgur.com/G4oLrwO.jpg"
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Incheon Bridge Ocean Scope Observatory",
+          "content": {
+            "sgt": "저 건너편엔 중국이 있겠지.",
+            "formal":
+              "인천대교의 아름다운 일몰을 감상하기 좋은 인천대교 전망대이다."
+          },
+          "locationX": "37.395825",
+          "locationY": "126.628098",
+          "address": "80 Songdo-dong, Yeonsu-gu, Incheon",
+          "hours": "24 hrs",
+          "phone": "032-745-8123",
+          "homepage": "http://incheonbridge.com",
+          "function": "Building/Structure",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Incheon,+Yeonsu-gu,+Songdo-dong,+%EA%B2%BD%EC%9B%90%EC%9E%AC+%EC%95%B0%EB%B0%B0%EC%84%9C%EB%8D%94+%EC%9D%B8%EC%B2%9C/Incheon,+Yeonsu-gu,+Songdo-dong,+%EC%9D%B8%EC%B2%9C%EB%8C%80%EA%B5%90%EC%A0%84%EB%A7%9D%EB%8C%80+%EC%98%A4%EC%85%98%EC%8A%A4%EC%BD%94%ED%94%84/@37.3961097,126.6240763,15z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357b77ae6943d2ed:0x89b3f5d999bd57c0!2m2!1d126.637575!2d37.391765!1m5!1m1!1s0x357b77c88830f191:0xd61782324712f8bf!2m2!1d126.6280871!2d37.3958254!3e3",
+            "time": [{ "type": "Subway", "time": "15min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/E7xKh0l.jpg",
+            "https://i.imgur.com/crfnbx6.jpg",
+            "https://i.imgur.com/7D8HbTq.jpg"
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Woopan Korean Grill",
+          "content": {
+            "sgt": "한국에서 돌아다니면 출출할때는 역시 한국식 BBQ지!",
+            "formal": "송도에서 가장 유명한 한우 맛집 중 하나이다."
+          },
+          "locationX": "37.414002",
+          "locationY": "126.658541",
+          "address": "803-5 Dongchun-dong, Yeonsu-gu, Incheon",
+          "hours": "11:00-22:00",
+          "phone": "032-816-7788",
+          "homepage": "http://www.woopan.co.kr/",
+          "function": "Restaurant",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Incheon,+Yeonsu-gu,+Songdo-dong,+%EC%9D%B8%EC%B2%9C%EB%8C%80%EA%B5%90%EC%A0%84%EB%A7%9D%EB%8C%80+%EC%98%A4%EC%85%98%EC%8A%A4%EC%BD%94%ED%94%84/Incheon,+Yeonsu-gu,+Dongchun-dong,+%EC%9A%B0%ED%8C%90%EB%93%B1%EC%8B%AC/@37.3946598,126.5820808,12z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b77c88830f191:0xd61782324712f8bf!2m2!1d126.6280871!2d37.3958254!1m5!1m1!1s0x357b79d604eb137f:0xc7a2fa5ee3e54b02!2m2!1d126.6585398!2d37.4140032!3e3!5i1",
+            "time": [{ "type": "Bus", "time": "45min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/3FFrvSp.jpg",
+            "https://i.imgur.com/JahKpcy.jpg"
+          ]
+        }
+      ],
+      "image_url": [
+        "https://i.imgur.com/Wcd5qzD.jpg",
+        "https://i.imgur.com/nVsGcQk.jpg",
+        "https://i.imgur.com/HKTiSwB.jpg",
+        "https://i.imgur.com/28PYy8F.jpg"
+      ],
+      "price": 89000,
+      "days": "2 Days",
+      "rating": "4",
+      "area": "Area 2",
+      "distance": "18.39",
+      "description":
+        "신기한 건축물들. 높은 타워들. 그리고 거대한 공원과 여유로운 사람들과 서해바다. 이 곳이 바로 한국의 시애틀 아닐까?",
+      "concept": {
+        "calm": 2,
+        "sightSeeing": 3,
+        "dandy": 2,
+        "food": 3,
+        "activity": 1,
+        "luxury": 2,
+        "love": 2,
+        "party": 1
+      }
+    },
+    {
+      "id": 17,
+      "name": "Korea's Silicon Valley",
+      "places": [
+        {
+          "id": 1,
+          "name": "Jeongja Cafe Street",
+          "content": {
+            "sgt": "사실 난 아기자기한것도 좋아한다네.",
+            "formal": "경기도 성남시 분당구 정자동에 위치한 카페 골목이다."
+          },
+          "locationX": "37.369702",
+          "locationY": "127.105953",
+          "address":
+            "12-4 Jeongja 1(il)-dong, Bundang-gu, Sungnam-si, Gyeonggi-do",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/Jeongjayeog,+Jeongja+1(il)-dong,+Seongnam-si/@37.6467975,127.068141,10z/am=t/data=!3m1!4b1!4m15!4m14!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x357b58369ee02eeb:0xa9719bd8c36b306f!2m2!1d127.108265!2d37.366766!3e3!5i3",
+              "time": "2h 35min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Seoul,+Yongsan-gu,+Hangangno+1(il)-ga,+1-11+-ga/Jeongjayeog,+Jeongja+1(il)-dong,+Seongnam-si/@37.465969,127.048814,12z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x357b58369ee02eeb:0xa9719bd8c36b306f!2m2!1d127.108265!2d37.366766!3e3!5i2",
+              "time": "58min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/Jeongjayeog,+Jeongja+1(il)-dong,+Seongnam-si/@37.1537245,127.0576853,10z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x357b58369ee02eeb:0xa9719bd8c36b306f!2m2!1d127.108265!2d37.366766!3e3!5i1",
+              "time": "2h 3min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/Jeongjayeog,+Jeongja+1(il)-dong,+Seongnam-si/@36.6625665,127.865033,8z/am=t/data=!4m14!4m13!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x357b58369ee02eeb:0xa9719bd8c36b306f!2m2!1d127.108265!2d37.366766!3e3",
+              "time": "2h 58min"
+            }
+          },
+          "image_url": [
+            "https://i.imgur.com/W434CKV.jpg",
+            "https://i.imgur.com/T5G2hsd.jpg",
+            "https://i.imgur.com/b0dCFW9.jpg"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Pangyo Techno Valley",
+          "content": {
+            "sgt": "이곳이 바로 한국의 실리콘 밸리구만.",
+            "formal": "경기도 성남시 분당구에 위치한 첨단 산업 연구단지이다."
+          },
+          "locationX": "37.400229",
+          "locationY": "127.104827",
+          "address":
+            "12 Daewangpangyo-ro 645(yukbaeksa, Sampyeong-dong, Bundang-gu, Seongnam-si, Gyeonggi-do",
+          "hours": "",
+          "phone": "031-776-4804",
+          "homepage": "http://pangyotechnovalley.org",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/12-4+Jeongja+1(il)-dong,+Bundang-gu,+Seongnam-si,+Gyeonggi-do/Gyeonggi-do,+Seongnam-si,+Bundang-gu,+Sampyeong-dong,+Daewangpangyo-ro+645(yukbaeksa,+%ED%8C%90%EA%B5%90%ED%85%8C%ED%81%AC%EB%85%B8%EB%B0%B8%EB%A6%AC/@37.3843688,127.0927009,14z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357b583635d5a7f5:0x6b2552abeaddd538!2m2!1d127.105596!2d37.3695596!1m5!1m1!1s0x357ca78c6218a635:0x1c37e5aa294ec91!2m2!1d127.1047837!2d37.4002456!3e3",
+            "time": [{ "type": "Subway", "time": "22min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/3os78dg.jpg",
+            "https://i.imgur.com/SLLIE2f.jpg",
+            "https://i.imgur.com/dbtWfT9.jpg"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Hwarang Park",
+          "content": {
+            "sgt": "산과 건물들로 둘러쌓인 이곳에서 여유좀 즐기세.",
+            "formal":
+              "테크노벨리 옆에 위치한 공원이다. 작은 천을 따라가며 공원을 즐길 수 있으며 산책하기에 좋다."
+          },
+          "locationX": "37.397221",
+          "locationY": "127.105778",
+          "address": "Sampyeong-dong, Bundang-gu, Seongnam-si, Gyeonggi-do",
+          "hours": "24 hrs",
+          "phone": "",
+          "homepage": "",
+          "function": "Park",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "5min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/UpvTip7.png",
+            "https://i.imgur.com/Bptu4rG.jpg"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Hyundai Department Store",
+          "content": {
+            "sgt":
+              "한국에서 가장 큰 백화점이라니. Land Navigation 시험때를 기억해야겠군.",
+            "formal":
+              "한국에서 가장큰 백화점이자 Mall인 Bundang Hyundai department store. 럭셔리한 것부터 다양한 종류의 쇼핑을 즐길 수 있다."
+          },
+          "locationX": "37.392605",
+          "locationY": "127.112028",
+          "address":
+            "20-146 Pangyoyuk-ro, Baekhyeon-dong, Bungdang-gu, Seongnam-si, Gyeonggi-do",
+          "hours": "10:00-20:00",
+          "phone": "",
+          "homepage":
+            "http://www.ehyundai.com/mobile/shopping/main.do?branchCd=B00148000",
+          "function": "Shopping",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "15min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/jSiVqBK.jpg",
+            "https://i.imgur.com/P7klnoe.png",
+            "https://i.imgur.com/UJm5Z5v.jpg"
+          ]
+        }
+      ],
+      "image_url": [
+        "https://i.imgur.com/W434CKV.jpg",
+        "https://i.imgur.com/SLLIE2f.jpg",
+        "https://i.imgur.com/P7klnoe.png",
+        "https://i.imgur.com/UJm5Z5v.jpg"
+      ],
+      "price": 32000,
+      "days": "1 Days",
+      "rating": "2",
+      "area": "Area 3",
+      "distance": "2.83",
+      "description":
+        "한국에도 실리콘 밸리가 있다네. 수많은 I.T기업들, 스타트업들. 그들의 열정을 느껴보는 것도 나쁘지 않겠지.",
+      "concept": {
+        "calm": 3,
+        "sightSeeing": 1,
+        "dandy": 3,
+        "food": 1,
+        "activity": 1,
+        "luxury": 2,
+        "love": 1,
+        "party": 1
+      }
+    },
+    {
+      "id": 18,
+      "name": "Little Europe in Korea",
+      "places": [
+        {
+          "id": 1,
+          "name": "Damyang Express Bus Terminal",
+          "content": {
+            "sgt": "잘 기억해두라고. 이곳이 우리의 assembly point야.",
+            "formal": "담양으로 도착하는 고속버스 터미널."
+          },
+          "locationX": "35.315237",
+          "locationY": "126.9837",
+          "address": "183-1 Cheonbyeon-ri, Damyang-eup, Damyang, Jeollanam-do",
+          "hours": "",
+          "phone": "061-381-3233",
+          "homepage": "",
+          "function": "Transportation",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/%EB%8B%B4%EC%96%91%EA%B3%B5%EC%9A%A9%ED%84%B0%EB%AF%B8%EB%84%90+Jeollanam-do,+Damyang,+Damyang-eup,+Cheonbyeon-ri,+183-1/@36.5293259,126.9721212,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x3571eae5008f43f9:0xf06550034ece307a!2m2!1d126.9837007!2d35.3152501!3e3!5i3",
+              "time": "5h 13min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Seoul,+Yongsan-gu,+Hangangno+1(il)-ga,+1-11+-ga/%EB%8B%B4%EC%96%91%EA%B3%B5%EC%9A%A9%ED%84%B0%EB%AF%B8%EB%84%90+Jeollanam-do,+Damyang,+Damyang-eup,+Cheonbyeon-ri,+183-1/@36.3522349,127.0591232,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x3571eae5008f43f9:0xf06550034ece307a!2m2!1d126.9837007!2d35.3152501!3e3!5i2",
+              "time": "3hr 21min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/%EB%8B%B4%EC%96%91%EA%B3%B5%EC%9A%A9%ED%84%B0%EB%AF%B8%EB%84%90+Jeollanam-do,+Damyang,+Damyang-eup,+Cheonbyeon-ri,+183-1/@36.3485554,127.0851985,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x3571eae5008f43f9:0xf06550034ece307a!2m2!1d126.9837007!2d35.3152501!3e3!5i2",
+              "time": "4h 2min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/%EB%8B%B4%EC%96%91%EA%B3%B5%EC%9A%A9%ED%84%B0%EB%AF%B8%EB%84%90+Jeollanam-do,+Damyang,+Damyang-eup,+Cheonbyeon-ri,+183-1/@35.7465434,127.7045715,8z/am=t/data=!3m1!4b1!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x3571eae5008f43f9:0xf06550034ece307a!2m2!1d126.9837007!2d35.3152501!3e3!5i3",
+              "time": "3h 19min"
+            }
+          },
+          "image_url": ["https://i.imgur.com/Uc1Apgp.jpg"]
+        },
+        {
+          "id": 2,
+          "name": "Bamboo Forest Juknokwon",
+          "content": {
+            "sgt": "대나무 대나무 대나무! 동양 액션영화같은 분위기군.",
+            "formal":
+              "Large, serene bamboo garden with massive plants, lights for night walks & nearby amenities. 동양의 자연 그대로를 간직한 대나무숲. 거대한 대나무들 사이에서 자연의 웅장함을 느낄수 있다."
+          },
+          "locationX": "35.325814",
+          "locationY": "126.986276",
+          "address": "119 Jungnogwon-ro, Damyang-eup, Damyang, Jeollanam-do",
+          "hours": "09:00-18:00",
+          "phone": "061-380-2680",
+          "homepage": "http://juknokwon.go.kr",
+          "function": "Hiking",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Damyang-gun,+Damyang-eup,+%EB%8B%B4%EC%96%91%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90/Jeollanam-do,+Damyang-gun,+Damyang-eup,+Jungnogwon-ro,+%EC%A3%BD%EB%85%B9%EC%9B%90/@35.3202986,126.9812351,16z/am=t/data=!4m14!4m13!1m5!1m1!1s0x3571eae4e2911bf3:0x5e7dda48f013f760!2m2!1d126.984439!2d35.314767!1m5!1m1!1s0x3571eaf2a7f9c37b:0x19294feb603950ad!2m2!1d126.9863188!2d35.3258488!3e3",
+            "time": [{ "type": "Bus", "time": "4min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/EsB8Sdq.jpg",
+            "https://i.imgur.com/dgpCfRx.jpg",
+            "https://i.imgur.com/NFT6sMh.jpg"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Metasequoia Road",
+          "content": {
+            "sgt": "대나무 숲 옆 이런 아름다운 숲이 또 있다니?",
+            "formal":
+              "죽녹원은 동양적이었다면 메타세콰이어길은 메타세콰이어 나무들로 둘러쌓인 아름다운 길이자 모던한 자연이다."
+          },
+          "locationX": "35.323851",
+          "locationY": "127.005069",
+          "address": "Jeollanam-do, Damyang, Damyang-eup, Hakdong-ri, 578-4",
+          "hours": "",
+          "phone": "061-380-3154",
+          "homepage": "",
+          "function": "Hiking",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeollanam-do,+Damyang-gun,+Damyang-eup,+Jungnogwon-ro,+%EC%A3%BD%EB%85%B9%EC%9B%90/Jeollanam-do,+Damyang-gun,+Damyang-eup,+Hakdong-ri,+%EB%A9%94%ED%83%80%EC%84%B8%EC%BD%B0%EC%9D%B4%EC%96%B4%EA%B8%B8/@35.3228517,126.9775969,14z/am=t/data=!4m14!4m13!1m5!1m1!1s0x3571eaf2a7f9c37b:0x19294feb603950ad!2m2!1d126.9863188!2d35.3258488!1m5!1m1!1s0x3571c249410c858f:0x3521c964da99a613!2m2!1d127.0050801!2d35.3238164!3e3",
+            "time": [{ "type": "Bus", "time": "18min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/yzjxTIN.jpg",
+            "https://i.imgur.com/VvEoGLT.jpg",
+            "https://i.imgur.com/2kORTSM.jpg",
+            "https://i.imgur.com/uObJyqW.jpg"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Meta Provence",
+          "content": {
+            "sgt": "잠시 유럽으로 여행온 느낌이 드는군?",
+            "formal":
+              "유럽의 건축양식들을 본따 건축된 마을이자 공원. 다양한 볼거리와 휴식장소들이 존재한다."
+          },
+          "locationX": "35.32284",
+          "locationY": "127.003229",
+          "address": "Hakdong-ri, Damyang-eup, Damyang-gun, Jeollanam-do",
+          "hours": "",
+          "phone": "061-383-1710",
+          "homepage": "http://www.metaprovence.com/",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Jeollanam-do,+Damyang-gun,+Damyang-eup,+Hakdong-ri,+%EB%A9%94%ED%83%80%EC%84%B8%EC%BD%B0%EC%9D%B4%EC%96%B4%EA%B8%B8/Jeollanam-do,+Damyang-gun,+Damyang-eup,+Hakdong-ri,+BBQ%EB%A9%94%ED%83%80%ED%94%84%EB%A1%9C%EB%B0%A9%EC%8A%A4%EC%A0%90/@35.323332,126.9652665,13z/am=t/data=!3m1!4b1!4m15!4m14!1m5!1m1!1s0x3571c249410c858f:0x3521c964da99a613!2m2!1d127.0050801!2d35.3238164!1m5!1m1!1s0x3571ea60c607fcfd:0x66cd86d7c5e7a4e!2m2!1d127.0017408!2d35.3220075!3e3!5i2",
+            "time": [{ "type": "Bus", "time": "17min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/mvr5jRO.jpg",
+            "https://i.imgur.com/4oBiDDV.jpg",
+            "https://i.imgur.com/BvzIJzl.jpg",
+            "https://i.imgur.com/rR9LbZe.jpg"
+          ]
+        }
+      ],
+      "image_url": [
+        "https://i.imgur.com/yzjxTIN.jpg",
+        "https://i.imgur.com/rR9LbZe.jpg",
+        "https://i.imgur.com/EsB8Sdq.jpg"
+      ],
+      "price": 86000,
+      "days": "2 Days",
+      "rating": "4",
+      "area": "Area 4",
+      "distance": "1.57",
+      "description":
+        "일반적인 숲보다는 대나무 숲은 어떤가? 동양적인 숲도 나쁘지 않다고. 게다가 유럽느낌의 마을에서 휴식도 취할 수 있지.",
+      "concept": {
+        "calm": 3,
+        "sightSeeing": 3,
+        "dandy": 1,
+        "food": 2,
+        "activity": 2,
+        "luxury": 1,
+        "love": 3,
+        "party": 1
+      }
+    },
+    {
+      "id": 19,
+      "name": "Many Worlds in One",
+      "places": [
+        {
+          "id": 1,
+          "name": "Hannam District",
+          "content": {
+            "sgt":
+              "이곳에 한국의 상류층들이 모여 산다던데. 대사관들도 많이 보이는군.",
+            "formal":
+              "서울시 용산구에 위치하며 이태원 바로 옆이다. 대한민국의 대표적인 부촌이 자리하고 있으며, 대사관들이 위치하고 있다. 외국인들도 많이 거주하며 이국적인 느낌을 주는 곳이다."
+          },
+          "locationX": "37.533549",
+          "locationY": "127.007748",
+          "address": "Hannam-dong, Yongsan-gu, Seoul",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "Area1": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Casey+PX,+Bosan-dong,+Dongducheon-si,+Gyeonggi-do/Seoul,+Hannam-dong,+%ED%95%9C%EA%B0%95%EC%A7%84%EC%97%AD/@37.7302945,127.033669,11z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357cdbe9b7fc73b5:0xe42c573437a90a5d!2m2!1d127.0601393!2d37.9201991!1m5!1m1!1s0x357ca3adf77004e5:0x5c5c794e7f558e0d!2m2!1d127.001736!2d37.539518!3e3",
+              "time": "1h 34min"
+            },
+            "Area2": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Kim+VPC,+Seoul,+Yongsan-gu,+Hangangno+1(il)-ga,+1-11+-ga/Seoul,+Hannam-dong,+%ED%95%9C%EA%B0%95%EC%A7%84%EC%97%AD/@37.5368291,126.9872934,14z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357ca214e033f36b:0x90de63f9663a9035!2m2!1d126.9728508!2d37.5393325!1m5!1m1!1s0x357ca3adf77004e5:0x5c5c794e7f558e0d!2m2!1d127.001736!2d37.539518!3e3",
+              "time": "12min"
+            },
+            "Area3": {
+              "link":
+                "https://www.google.com/maps/dir/USAG+Humphreys+Army+Lodging,+Dujeong-ri,+Paengseong-eup,+Pyeongtaek-si,+Gyeonggi-do/Seoul,+Hannam-dong,+%ED%95%9C%EA%B0%95%EC%A7%84%EC%97%AD/@37.2504835,126.9970384,10z/am=t/data=!4m15!4m14!1m5!1m1!1s0x357b237709dec1ad:0x43ece374da7dbc89!2m2!1d127.0275209!2d36.9485111!1m5!1m1!1s0x357ca3adf77004e5:0x5c5c794e7f558e0d!2m2!1d127.001736!2d37.539518!3e3!5i1",
+              "time": "2h 19min"
+            },
+            "Area4": {
+              "link":
+                "https://www.google.com/maps/dir/Camp+Walker+USO,+Bongdeok+3(sam)-dong,+Nam-gu,+Daegu/Seoul,+Hannam-dong,+%ED%95%9C%EA%B0%95%EC%A7%84%EC%97%AD/@36.689143,127.7566325,8z/am=t/data=!4m15!4m14!1m5!1m1!1s0x3565e30d126be7c1:0x3d46c584b835f101!2m2!1d128.5919392!2d35.837452!1m5!1m1!1s0x357ca3adf77004e5:0x5c5c794e7f558e0d!2m2!1d127.001736!2d37.539518!3e3!5i3",
+              "time": "2h 52min"
+            }
+          },
+          "image_url": [
+            "https://i.imgur.com/tXhPsKy.jpg",
+            "https://i.imgur.com/DMRfJuk.jpg",
+            "https://i.imgur.com/8LjMUDZ.jpg"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Ambassy Street",
+          "content": {
+            "sgt": "대사관들이 이렇게 많다니. 전세계에 나라가 몇개나 되는건가?",
+            "formal": "한남동을 따라 여러 대사관들이 위치한 거리이다."
+          },
+          "locationX": "37.534269",
+          "locationY": "127.009624",
+          "address": "274-8 Hannam-dong, Yongsan-gu, Seoul",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Seoul,+Hannam-dong,+%ED%95%9C%EA%B0%95%EC%A7%84%EC%97%AD/Seoul,+Yongsan-gu,+Hannam-dong,+%EB%8C%80%EC%82%AC%EA%B4%80%EB%A1%9C/@37.5375627,126.9993556,16z/am=t/data=!4m14!4m13!1m5!1m1!1s0x357ca3adf77004e5:0x5c5c794e7f558e0d!2m2!1d127.001736!2d37.539518!1m5!1m1!1s0x357ca3b6b7adf0e9:0xf1b16f7e9001050a!2m2!1d127.0040852!2d37.5335145!3e3",
+            "time": [{ "type": "Bus", "time": "14min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/vAI1JHd.jpg",
+            "https://i.imgur.com/RRIUB3X.jpg",
+            "https://i.imgur.com/AJHFmnP.jpg"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Cafe Tolix",
+          "content": {
+            "sgt": "좀 걸었으니 분위기 좋은 카페에서 휴식하는 것도 나쁘지않지.",
+            "formal":
+              "한남동에 위치한 대표적인 분위기 좋은 카페. 금요일 저녁에는 소소한 재즈공연도 진행된다."
+          },
+          "locationX": "37.534943",
+          "locationY": "127.009944",
+          "address": "55 Hannam-daero 20-gil, Hannam-dong, Yongsan-gu, Seoul",
+          "hours": "11:30-23:00",
+          "phone": "02-797-0313",
+          "homepage": "http://cafetolix.com",
+          "function": "Cafe/Dessert",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "10min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/iEbxDBz.jpg",
+            "https://i.imgur.com/MHAaxSQ.jpg"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Hanwadam Korean Grill",
+          "content": {
+            "sgt":
+              "상류층이 즐기는 한국식 고기를 먹어보지. Oh shxx! i didn't bring my wallet...",
+            "formal": "한우 등의 메뉴를 파는 대표적인 한남동의 고기 맛집이다."
+          },
+          "locationX": "37.533788",
+          "locationY": "127.007739",
+          "address": "75-1 Hannam-dong, Yongsan-gu, Seoul",
+          "hours": "11:35-15:00/17:00-23:30",
+          "phone": "02-749-7905",
+          "homepage": "http://hanwadam.com",
+          "function": "Restaurant",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "5min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/R0Mnn3h.jpg",
+            "https://i.imgur.com/XrWXf51.jpg"
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Cafe Ando",
+          "content": {
+            "sgt": "드디어 이태원이네! 커피한잔 마시고 정신차리게",
+            "formal":
+              "이태원에 위치한 대표적인 분위기 좋은 카페. 정원이 분위기 좋게 조성되어 있으며 연예인들도 자주 방문하는 곳이다."
+          },
+          "locationX": "37.534564",
+          "locationY": "126.998119",
+          "address": "736-8 Hannam-dong, Yongsan-gu, Seoul",
+          "hours": "",
+          "phone": "02-749-0619",
+          "homepage": "",
+          "function": "Cafe/Dessert",
+          "transport": {
+            "link":
+              "https://www.google.com/maps/dir/Seoul,+Yongsan-gu,+Hannam-dong,+%ED%95%9C%EC%99%80%EB%8B%B4/Seoul,+Yongsan-gu,+Hannam-dong,+%EC%B9%B4%ED%8E%98+%EC%95%88%EB%8F%84/@37.5374572,126.9850269,14z/am=t/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x357ca3b09fc8570d:0xc91cbd6b309b75af!2m2!1d127.007749!2d37.533802!1m5!1m1!1s0x357ca3b4c3f03511:0x2a37fbeea0288a49!2m2!1d126.9981272!2d37.5345488!3e3",
+            "time": [{ "type": "Bus", "time": "18min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/B7I6jSl.jpg",
+            "https://i.imgur.com/ziTwDxd.png",
+            "https://i.imgur.com/Kcwa1ae.jpg"
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Itaewon District",
+          "content": {
+            "sgt":
+              "한국도 다양한 사람들이 모여있구만. 머물곳들도 이렇게나 많고...",
+            "formal":
+              "서울에서 가장 이국적인 장소로 많은 외국인들이 거주하면서 다양한 문화가 있는 거리를 만든다. 맛집, 클럽 등으로 유명하며 USAG YONGSAN이 위치한다."
+          },
+          "locationX": "37.534942",
+          "locationY": "126.994023",
+          "address": "Itaewon-dong, Yongsan-gu, Seoul",
+          "hours": "",
+          "phone": "",
+          "homepage": "",
+          "function": "Special Street/District",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "On Foot", "time": "5min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/bPtMmyD.jpg",
+            "https://i.imgur.com/JzUJO2z.png",
+            "https://i.imgur.com/v28Wq9v.jpg"
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Grand Hyatt Seoul",
+          "content": {
+            "sgt":
+              "역시 하루의 마감은 분위기 좋은 호텔 라운지에서 술한잔 하는 것이지.",
+            "formal":
+              "Posh lodging offering refined rooms & suites, plus international cuisine, 4 bars & a fitness center. 서울의 중심, 남산에 위치한 특1급 리조트 호텔이다."
+          },
+          "locationX": "37.540179",
+          "locationY": "126.997124",
+          "address": "322 Sowol-ro, Itaewon-dong, Yongsan-gu, Seoul",
+          "hours": "24 hrs",
+          "phone": "02-797-1234",
+          "homepage": "http://seoul.grand.hyatt.com",
+          "function": "Accomodation",
+          "transport": {
+            "link": "",
+            "time": [{ "type": "Taxi", "time": "5min" }]
+          },
+          "image_url": [
+            "https://i.imgur.com/pRFNNWU.jpg",
+            "https://i.imgur.com/AxavcbY.jpg",
+            "https://i.imgur.com/QPwcZlW.jpg",
+            "https://i.imgur.com/vZg51pr.jpg"
+          ]
+        }
+      ],
+      "image_url": [
+        "https://i.imgur.com/QPwcZlW.jpg",
+        "https://i.imgur.com/bPtMmyD.jpg",
+        "https://i.imgur.com/vZg51pr.jpg"
+      ],
+      "price": 285000,
+      "days": "1 Days",
+      "rating": "5",
+      "area": "Area 2",
+      "distance": "1.61",
+      "description":
+        "세계 각지에서 모인 사람들이 한곳에서 술도 마시고 커피도 마시며 이야기를 나누는 모습. 얼마나 즐거운가? 세상은 좁다네.",
+      "concept": {
+        "calm": 2,
         "sightSeeing": 2,
         "dandy": 3,
         "food": 3,
         "activity": 1,
         "luxury": 3,
-        "love": 2,
-        "party": 2
-      },
-      "reviews": 1880
+        "love": 3,
+        "party": 3
+      }
     }
   ]
 }

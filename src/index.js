@@ -29,6 +29,7 @@ const muiTheme = getMuiTheme({
 // Main SCSS
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-animated-slider/build/horizontal.css";
 
 // Root React Component
 import App from "./App";
