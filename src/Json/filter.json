@@ -10,19 +10,9 @@
       "value": "calm"
     },
     {
-      "label": "ThrillSeeker",
-      "clicked": false,
-      "value": "activity"
-    },
-    {
-      "label": "SightSeeing",
+      "label": "Sight Seeing",
       "clicked": false,
       "value": "sightSeeing"
-    },
-    {
-      "label": "Swagger",
-      "clicked": false,
-      "value": "luxury"
     },
     {
       "label": "Dandy",
@@ -30,17 +20,27 @@
       "value": "dandy"
     },
     {
+      "label": "Hearty Eater",
+      "clicked": false,
+      "value": "food"
+    },
+    {
+      "label": "Alive",
+      "clicked": false,
+      "value": "activity"
+    },
+    {
+      "label": "Swagger",
+      "clicked": false,
+      "value": "luxury"
+    },
+    {
       "label": "Romantic",
       "clicked": false,
       "value": "love"
     },
     {
-      "label": "Gourmand",
-      "clicked": false,
-      "value": "food"
-    },
-    {
-      "label": "PartyAnimal",
+      "label": "Party Animal",
       "clicked": false,
       "value": "party"
     }
@@ -55,11 +55,11 @@
       "clicked": false
     },
     {
-      "label": "2 Day",
+      "label": "2 Days",
       "clicked": false
     },
     {
-      "label": "3 Day",
+      "label": "3 Days",
       "clicked": false
     }
   ],

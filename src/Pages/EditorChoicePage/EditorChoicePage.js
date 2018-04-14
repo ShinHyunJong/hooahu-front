@@ -87,7 +87,6 @@ class EditorChoicePage extends Component {
         let newEditor = editorChoice.slice();
         newEditor = _.sortBy(newEditor, item => {
           return [
-            item.concept[concept[index].value],
             this.state.selectedConcept.map((data, index) => {
               return item.concept[data];
             })
@@ -102,12 +101,10 @@ class EditorChoicePage extends Component {
         if (newValue[0].clicked === true) {
           let newConcept = [];
           newConcept.push(concept[index].value);
-          this.setState({ selectedConcept: newConcept });
           let newEditor = editorChoice.slice();
           newEditor = _.sortBy(newEditor, item => {
             return [
-              item.concept[concept[index].value],
-              this.state.selectedConcept.map((data, index) => {
+              newConcept.map((data, index) => {
                 return item.concept[data];
               })
             ];
@@ -126,52 +123,52 @@ class EditorChoicePage extends Component {
           newValue[index].clicked = true;
           this.setState({
             isClicked: newValue,
-            editorChoice: newEditor
+            editorChoice: newEditor,
+            selectedConcept: newConcept
           });
         } else {
           //Push Selected Concept
           let newConcept = this.state.selectedConcept.slice();
-          if (newConcept.indexOf(concept[index].value) === -1) {
-            newConcept.push(concept[index].value);
-          }
+          newConcept.push(concept[index].value);
+          this.setState({ selectedConcept: newConcept });
           let newEditor = editorChoice.slice();
           newEditor = _.sortBy(newEditor, item => {
             return [
-              item.concept[concept[index].value],
-              this.state.selectedConcept.map((data, index) => {
+              newConcept.map((data, index) => {
                 return item.concept[data];
               })
             ];
           }).reverse();
-          console.log(newEditor);
           newValue[0].clicked = false;
           newValue[index].clicked = true;
           this.setState({
             isClicked: newValue,
-            selectedConcept: newConcept,
-            editorChoice: newEditor
+            editorChoice: newEditor,
+            selectedConcept: newConcept
           });
         }
       }
     } else {
       let newValue = this.state.isClicked.slice();
       newValue[index].clicked = false;
+      this.setState({ isClicked: newValue });
 
       //Remove Selected Concept
       let newConcept = this.state.selectedConcept.slice();
       newConcept.splice(newConcept.indexOf(concept[index].value), 1); //num will be [1, 2, 3, 5];
-      this.setState({ isClicked: newValue, selectedConcept: newConcept });
 
       let newEditor = editorChoice.slice();
       newEditor = _.sortBy(newEditor, item => {
         return [
-          item.concept[concept[index].value],
-          this.state.selectedConcept.map((data, index) => {
+          newConcept.map((data, index) => {
             return item.concept[data];
           })
         ];
       }).reverse();
-      this.setState({ editorChoice: newEditor });
+      this.setState({
+        editorChoice: newEditor,
+        selectedConcept: newConcept
+      });
     }
   };
 
@@ -182,7 +179,6 @@ class EditorChoicePage extends Component {
   };
 
   render() {
-    console.log(this.state.selectedConcept);
     const { isClicked, selectedArea, selectedDay, placeCount } = this.state;
     const conceptJson = filterJson.concept;
     const dayJson = filterJson.day;
@@ -305,7 +301,7 @@ class EditorChoicePage extends Component {
                             className="editorChoice__tooltip"
                             effect="float"
                           >
-                            <span>SightSeeing</span>
+                            <span>Sight Seeing</span>
                           </ReactTooltip>
                           <span
                             data-tip
@@ -365,7 +361,7 @@ class EditorChoicePage extends Component {
                             className="editorChoice__tooltip"
                             effect="float"
                           >
-                            <span>Food</span>
+                            <span>Hearty eater</span>
                           </ReactTooltip>
                           <span
                             data-tip
@@ -397,7 +393,7 @@ class EditorChoicePage extends Component {
                             className="editorChoice__tooltip"
                             effect="float"
                           >
-                            <span>Activity</span>
+                            <span>Alive</span>
                           </ReactTooltip>
                           <span
                             data-tip
@@ -427,7 +423,7 @@ class EditorChoicePage extends Component {
                             className="editorChoice__tooltip"
                             effect="float"
                           >
-                            <span>Luxury</span>
+                            <span>Swagger</span>
                           </ReactTooltip>
                           <span
                             data-tip
@@ -487,7 +483,7 @@ class EditorChoicePage extends Component {
                             className="editorChoice__tooltip"
                             effect="float"
                           >
-                            <span>Party</span>
+                            <span>Party Animal</span>
                           </ReactTooltip>
                           <span
                             data-tip
@@ -508,24 +504,15 @@ class EditorChoicePage extends Component {
                               }
                             )}
                           >
-                            <i className="xi-emoticon-happy" />
+                            <i className="xi-emoticon-cool" />
                           </span>
                         </div>
                       </div>
                     </div>
                     <div className="editorChoice__feed__content__lists__list__image">
-                      <ProgressiveImage
-                        preview={data.image_url}
+                      <img
                         src={data.image_url}
-                        style={styles.image}
-                        render={(src, style) => (
-                          <img
-                            src={src}
-                            style={Object.assign(style, {
-                              width: "100%"
-                            })}
-                          />
-                        )}
+                        className="editorChoice__feed__content__lists__list__image__pic"
                       />
                     </div>
                   </div>
@@ -538,7 +525,7 @@ class EditorChoicePage extends Component {
           <div className="editorChoice__filter__content">
             <div className="editorChoice__filter__content__title">
               <h4 className="editorChoice__filter__content__title__text">
-                Choose your style
+                What's in your mind?
               </h4>
             </div>
             <hr />
