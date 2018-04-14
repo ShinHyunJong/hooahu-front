@@ -47,6 +47,7 @@
     "bootstrap": "^4.0.0",
     "classnames": "^2.2.5",
     "es6-promise": "^3.3.1",
+    "gh-pages": "^1.1.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.7",
@@ -73,10 +74,12 @@
     "redux-thunk": "^2.2.0",
     "slick-carousel": "^1.8.1"
   },
+  "homepage": "https://shinhyunjong.github.io/hooahu/",
   "scripts": {
     "start": "webpack-dev-server --hot --host 0.0.0.0",
     "build": "webpack",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   }
 }

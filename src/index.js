@@ -36,7 +36,7 @@ import App from "./App";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <MuiThemeProvider muiTheme={muiTheme}>
         <App />
       </MuiThemeProvider>
