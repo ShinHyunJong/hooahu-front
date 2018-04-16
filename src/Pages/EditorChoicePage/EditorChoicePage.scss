@@ -5,10 +5,9 @@
 @import "../../mixin.scss";
 
 .editorChoice {
-  -ms-overflow-style: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  overflow-y: hidden;
+  height: 100vh;
+
   &__tooltip {
     background-color: $dark-gray !important;
   }
@@ -21,7 +20,7 @@
     width: calc(100vw - 350px);
     height: 100vh;
     padding: 0 2rem;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 10rem;
     flex-direction: column;
     align-items: center;
@@ -29,6 +28,17 @@
     background: white;
     overflow-y: scroll;
     background-color: ghostwhite;
+
+    &__noResult {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $dark-gray;
+
+      &__text {
+        margin-top: 30%;
+      }
+    }
 
     &__content {
       &__lists {
@@ -185,12 +195,11 @@
 
   &__filter {
     display: inline-block;
-    padding-top: 80px;
-    width: 350px;
+    padding-top: 60px;
+    width: 325px;
     height: 100vh;
-    border-right: 1px solid white;
-    box-sizing: border-box;
     overflow-y: hidden;
+    box-sizing: border-box;
     background-color: white;
 
     &__content {

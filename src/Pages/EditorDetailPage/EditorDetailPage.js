@@ -87,6 +87,8 @@ class EditorDetailPage extends Component {
       return <i className="xi-taxi" />;
     } else if (type === "Bike") {
       return <i className="xi-bicycle" />;
+    } else if (type === "Ship") {
+      return <i className="xi-ship" />;
     } else {
       return <i className="xi-walk" />;
     }

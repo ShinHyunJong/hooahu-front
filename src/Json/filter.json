@@ -52,14 +52,17 @@
     },
     {
       "label": "1 Day",
+      "value": "1 Day",
       "clicked": false
     },
     {
       "label": "2 Days",
+      "value": "2 Day",
       "clicked": false
     },
     {
       "label": "3 Days",
+      "value": "3 Day",
       "clicked": false
     }
   ],
