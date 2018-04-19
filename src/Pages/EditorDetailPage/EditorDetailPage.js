@@ -3,14 +3,6 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption
-} from "reactstrap";
-
 import { NavBar } from "../../Components";
 import { Container, Row, Col } from "reactstrap";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
@@ -20,9 +12,9 @@ import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
-import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
 import nprogress from "nprogress";
+import Slider from "react-slick";
 
 import scrollToComponent from "react-scroll-to-component";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
@@ -42,6 +34,28 @@ const mapStateToProps = state => {
   };
 };
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+}
+
 class EditorDetailPage extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +63,8 @@ class EditorDetailPage extends Component {
     this.places = [];
     this.state = {
       activeTab: "1",
-      activeIndex: 0
+      activeIndex: 0,
+      slideIndex: 0
     };
   }
 
@@ -95,15 +110,21 @@ class EditorDetailPage extends Component {
   };
 
   render() {
-    let settings = {
+    const choice = Number(this.props.match.params.package);
+    const ecJson = ec.editorChoice;
+
+    const settings = {
       dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      arrows: true,
+      adaptiveHeight: true,
+      accessbility: true,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />
     };
-    const choice = Number(this.props.match.params.package);
-    const ecJson = ec.editorChoice;
 
     let selectedChoiceIndex = 0;
 
@@ -112,7 +133,6 @@ class EditorDetailPage extends Component {
         selectedChoiceIndex = i;
       }
     }
-    console.log(selectedChoiceIndex);
 
     const selectedChoice = ecJson[selectedChoiceIndex];
     const starLength = selectedChoice.rating;
@@ -431,9 +451,31 @@ class EditorDetailPage extends Component {
                   </NavLink>
                 </NavItem>
               </Nav>
+
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
-                  <img src={selectedChoice.image_url} style={styles.image} />
+                  <div className="editorDetail__carousel">
+                    <Slider {...settings}>
+                      {selectedChoice.image_url.map((data, index) => {
+                        return (
+                          <ProgressiveImage
+                            key={index}
+                            preview={data}
+                            src={data}
+                            style={styles.image}
+                            render={(src, style) => (
+                              <img
+                                src={src}
+                                style={Object.assign(style, {
+                                  width: "100%"
+                                })}
+                              />
+                            )}
+                          />
+                        );
+                      })}
+                    </Slider>
+                  </div>
                 </TabPane>
                 <TabPane tabId="2">
                   <MapWithAMarker
@@ -608,7 +650,9 @@ class EditorDetailPage extends Component {
                             <i className="xi-map" />
                           </span>
                           <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.transport.link}>Direction</a>
+                            <a href={data.transport.link} target="_blank">
+                              Direction
+                            </a>
                           </span>
                         </div>
                       </div>

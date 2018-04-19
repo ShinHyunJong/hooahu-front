@@ -4,7 +4,21 @@
 */
 @import "../../mixin.scss";
 
+.slick-prev:before,
+.slick-next:before {
+  font-family: "slick";
+  font-size: 20px !important;
+  line-height: 1;
+  opacity: 0.75;
+  color: black !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .editorDetail {
+  &__carousel {
+    width: 520px;
+  }
   &__hr {
     margin-left: 100px;
     margin-right: 100px;

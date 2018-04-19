@@ -202,11 +202,17 @@
     box-sizing: border-box;
     background-color: white;
 
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 95vh;
+    }
+
     &__content {
       margin-right: 2rem;
       padding-left: 20px;
       padding-right: 20px;
-      padding-top: 30px;
       // border: 1px solid $border-color;
       background-color: white;
       // border-radius: 10px;

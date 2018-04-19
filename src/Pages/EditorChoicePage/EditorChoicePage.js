@@ -665,80 +665,86 @@ class EditorChoicePage extends Component {
           </div>
         </div>
         <div className="editorChoice__filter">
-          <div className="editorChoice__filter__content">
-            <div className="editorChoice__filter__content__title">
-              <h4 className="editorChoice__filter__content__title__text">
-                What's in your mind?
-              </h4>
-            </div>
-            <hr />
-            <div className="editorChoice__filter__content__label">
-              <p className="editorChoice__filter__content__label__text">
-                Concept
-              </p>
-            </div>
-            <div className="editorChoice__filter__content__items">
-              {conceptJson.map((data, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => this.handleConcept(index)}
-                    className={cx(
-                      "editorChoice__filter__content__items__item",
-                      {
-                        "editorChoice__filter__content__items__item-clicked":
-                          isClicked[index].clicked
-                      }
-                    )}
-                  >
-                    {data.label}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="editorChoice__filter__content__label">
-              <p className="editorChoice__filter__content__label__text">Area</p>
-            </div>
-            <div className="editorChoice__filter__content__items">
-              {areaJson.map((data, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => this.handleArea(index)}
-                    className={cx(
-                      "editorChoice__filter__content__items__item",
-                      {
-                        "editorChoice__filter__content__items__item-clicked":
-                          index === selectedArea
-                      }
-                    )}
-                  >
-                    {data.label}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="editorChoice__filter__content__label">
-              <p className="editorChoice__filter__content__label__text">Day</p>
-            </div>
-            <div className="editorChoice__filter__content__items">
-              {dayJson.map((data, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => this.handleDay(index)}
-                    className={cx(
-                      "editorChoice__filter__content__items__item",
-                      {
-                        "editorChoice__filter__content__items__item-clicked":
-                          index === selectedDay
-                      }
-                    )}
-                  >
-                    {data.label}
-                  </div>
-                );
-              })}
+          <div className="editorChoice__filter__wrapper">
+            <div className="editorChoice__filter__content">
+              <div className="editorChoice__filter__content__title">
+                <h4 className="editorChoice__filter__content__title__text">
+                  What's in your mind?
+                </h4>
+              </div>
+              <hr />
+              <div className="editorChoice__filter__content__label">
+                <p className="editorChoice__filter__content__label__text">
+                  Concept
+                </p>
+              </div>
+              <div className="editorChoice__filter__content__items">
+                {conceptJson.map((data, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => this.handleConcept(index)}
+                      className={cx(
+                        "editorChoice__filter__content__items__item",
+                        {
+                          "editorChoice__filter__content__items__item-clicked":
+                            isClicked[index].clicked
+                        }
+                      )}
+                    >
+                      {data.label}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="editorChoice__filter__content__label">
+                <p className="editorChoice__filter__content__label__text">
+                  Area
+                </p>
+              </div>
+              <div className="editorChoice__filter__content__items">
+                {areaJson.map((data, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => this.handleArea(index)}
+                      className={cx(
+                        "editorChoice__filter__content__items__item",
+                        {
+                          "editorChoice__filter__content__items__item-clicked":
+                            index === selectedArea
+                        }
+                      )}
+                    >
+                      {data.label}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="editorChoice__filter__content__label">
+                <p className="editorChoice__filter__content__label__text">
+                  Day
+                </p>
+              </div>
+              <div className="editorChoice__filter__content__items">
+                {dayJson.map((data, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => this.handleDay(index)}
+                      className={cx(
+                        "editorChoice__filter__content__items__item",
+                        {
+                          "editorChoice__filter__content__items__item-clicked":
+                            index === selectedDay
+                        }
+                      )}
+                    >
+                      {data.label}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
