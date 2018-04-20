@@ -96,7 +96,7 @@ class SignUpBusiness extends Component {
     const area = areaJson.data;
     return (
       <Container className="signUpBusiness">
-        <NavBar menuVisible={true} />
+        <NavBar menuVisible={true} isActive="auth" />
         <Row className="signUpBusiness__content">
           <div className="signUpBusiness__content__title">
             <h1>Choose your detail that describes you</h1>

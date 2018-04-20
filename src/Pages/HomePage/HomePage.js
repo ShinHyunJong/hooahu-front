@@ -38,7 +38,7 @@ class HomePage extends Component {
     return (
       <div className="homePage">
         <header>
-          <NavBar listClassName="homePage__tabBar__list" />
+          <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
         </header>
         <div className="homePage__header">
           <div className="homePage__header__title">

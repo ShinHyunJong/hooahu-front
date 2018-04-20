@@ -34,9 +34,18 @@ import "react-animated-slider/build/horizontal.css";
 // Root React Component
 import App from "./App";
 
+function handleUpdate() {
+  console.log(this.state.location);
+  let { action } = this.state.location;
+
+  if (action === "PUSH") {
+    window.scrollTo(0, 0);
+  }
+}
+
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/hooahu">
+    <BrowserRouter basename="/hooahu" onUpdate={handleUpdate}>
       <MuiThemeProvider muiTheme={muiTheme}>
         <App />
       </MuiThemeProvider>

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { NavBar } from "../../Components";
 import { Container, Row, Col } from "reactstrap";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
+import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
@@ -19,42 +20,22 @@ import Slider from "react-slick";
 import scrollToComponent from "react-scroll-to-component";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import { MarkerWithLabel } from "react-google-maps/lib/components/addons/MarkerWithLabel";
+import { Carousel } from "react-responsive-carousel";
+
 const defaultProps = {};
 const propTypes = {};
 
-const styles = {
-  image: {
-    width: "100%"
-  }
-};
+// const styles = {
+//   image: {
+//     width: "100%"
+//   }
+// };
 
 const mapStateToProps = state => {
   return {
-    actionResult: state.reducer.actionResult
+    isLogin: state.reducer.isLogin
   };
 };
-
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
 
 class EditorDetailPage extends Component {
   constructor(props) {
@@ -64,12 +45,14 @@ class EditorDetailPage extends Component {
     this.state = {
       activeTab: "1",
       activeIndex: 0,
-      slideIndex: 0
+      slideIndex: 0,
+      isLiked: false
     };
   }
 
   componentWillMount() {
     nprogress.start();
+    window.scrollTo(0, 0);
   }
 
   componentDidMount() {
@@ -93,6 +76,27 @@ class EditorDetailPage extends Component {
     });
   };
 
+  handleTop = () => {
+    scrollToComponent(this.top, {
+      offset: 0,
+      align: "top",
+      duration: 1200,
+      ease: "outCirc"
+    });
+  };
+
+  handleLike = () => {
+    if (this.props.isLogin === false) {
+      this.props.history.push({
+        pathname: "/signup"
+      });
+    } else {
+      this.state.isLiked === false
+        ? this.setState({ isLiked: true })
+        : this.setState({ isLiked: false });
+    }
+  };
+
   convert = type => {
     if (type === "Bus") {
       return <i className="xi-bus" />;
@@ -111,21 +115,8 @@ class EditorDetailPage extends Component {
 
   render() {
     const choice = Number(this.props.match.params.package);
+    const { isLiked } = this.state;
     const ecJson = ec.editorChoice;
-
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true,
-      adaptiveHeight: true,
-      accessbility: true,
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />
-    };
-
     let selectedChoiceIndex = 0;
 
     for (let i = 0; i < ecJson.length; i++) {
@@ -184,8 +175,39 @@ class EditorDetailPage extends Component {
     );
 
     return (
-      <div className="editorDetail">
-        <NavBar />
+      <div
+        className="editorDetail"
+        ref={section => {
+          this.top = section;
+        }}
+      >
+        <div className="editorDetail__sideBar">
+          {isLiked === false ? (
+            <span
+              className="editorDetail__sideBar__icon"
+              onClick={this.handleLike}
+            >
+              <i className="xi-heart-o" />
+            </span>
+          ) : (
+            <span
+              className="editorDetail__sideBar__icon-liked"
+              onClick={this.handleLike}
+            >
+              <i className="xi-heart" />
+            </span>
+          )}
+          <span className="editorDetail__sideBar__icon">
+            <i className="xi-speech-o" />
+          </span>
+          <span
+            className="editorDetail__sideBar__icon"
+            onClick={this.handleTop}
+          >
+            <i className="xi-arrow-up" />
+          </span>
+        </div>
+        <NavBar isActive="editor" />
         <div className="editorDetail__content">
           <div className="editorDetail__content__package">
             <div className="editorDetail__content__package__text">
@@ -406,9 +428,21 @@ class EditorDetailPage extends Component {
                 </div>
                 <div className="editorDetail__content__package__text__detail__comment">
                   <div className="editorDetail__content__package__text__detail__comment__like">
-                    <span className="editorDetail__content__package__text__detail__comment__like__icon">
-                      <i className="xi-heart-o" />
-                    </span>
+                    {isLiked === false ? (
+                      <span
+                        className="editorDetail__content__package__text__detail__comment__like__icon"
+                        onClick={this.handleLike}
+                      >
+                        <i className="xi-heart-o" />
+                      </span>
+                    ) : (
+                      <span
+                        className="editorDetail__content__package__text__detail__comment__like__icon-liked"
+                        onClick={this.handleLike}
+                      >
+                        <i className="xi-heart" />
+                      </span>
+                    )}
                   </div>
                   <div className="editorDetail__content__package__text__detail__comment__review">
                     <span className="editorDetail__content__package__text__detail__comment__review__icon">
@@ -455,26 +489,20 @@ class EditorDetailPage extends Component {
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
                   <div className="editorDetail__carousel">
-                    <Slider {...settings}>
+                    <Carousel showArrows={true} showThumbs={false}>
                       {selectedChoice.image_url.map((data, index) => {
                         return (
                           <ProgressiveImage
                             key={index}
                             preview={data}
                             src={data}
-                            style={styles.image}
                             render={(src, style) => (
-                              <img
-                                src={src}
-                                style={Object.assign(style, {
-                                  width: "100%"
-                                })}
-                              />
+                              <img src={src} style={style} />
                             )}
                           />
                         );
                       })}
-                    </Slider>
+                    </Carousel>
                   </div>
                 </TabPane>
                 <TabPane tabId="2">
@@ -491,8 +519,8 @@ class EditorDetailPage extends Component {
           <div className="editorDetail__content__places">
             <div className="editorDetail__content__places__title">
               <h1
-                ref={section => {
-                  this.test = section;
+                ref={section2 => {
+                  this.test = section2;
                 }}
                 className="editorDetail__content__places__title__text"
               >
@@ -508,24 +536,25 @@ class EditorDetailPage extends Component {
                   className="editorDetail__content__places__place"
                 >
                   <div className="editorDetail__content__places__place__image">
-                    <ProgressiveImage
-                      preview={data.image_url[0]}
-                      src={data.image_url[0]}
-                      style={styles.image}
-                      render={(src, style) => (
-                        <img
-                          src={src}
-                          style={Object.assign(style, {
-                            width: "100%"
-                          })}
-                        />
-                      )}
-                    />
+                    <Carousel showArrows={true} showThumbs={false}>
+                      {data.image_url.map((data, index2) => {
+                        return (
+                          <ProgressiveImage
+                            key={index2}
+                            preview={data}
+                            src={data}
+                            render={(src, style) => (
+                              <img src={src} style={style} />
+                            )}
+                          />
+                        );
+                      })}
+                    </Carousel>
                   </div>
                   <div
                     className="editorDetail__content__places__place__text"
-                    ref={section => {
-                      this.places[index] = section;
+                    ref={section3 => {
+                      this.places[index] = section3;
                     }}
                   >
                     <h2 className="editorDetail__content__places__place__text__title">
@@ -586,9 +615,19 @@ class EditorDetailPage extends Component {
                         {data.content.formal}
                       </p>
                     </div>
+
                     {index === 0 ? (
                       <div className="editorDetail__content__places__place__text__infoArea">
+                        <div className="editorDetail__content__places__place__text__infoArea__container">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                            <i className="xi-map" />
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            Direction
+                          </span>
+                        </div>
                         <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <br />
                           <span className="editorDetail__content__places__place__text__infoArea__row__area">
                             Area 1 :
                           </span>
@@ -634,7 +673,10 @@ class EditorDetailPage extends Component {
                         <div className="editorDetail__content__places__place__text__infoArea__row">
                           {data.transport.time.map((type, index) => {
                             return (
-                              <div key={index}>
+                              <div
+                                className="editorDetail__content__places__place__text__infoArea__container"
+                                key={index}
+                              >
                                 <span className="editorDetail__content__places__place__text__infoArea__row__icon">
                                   {this.convert(type.type)}
                                 </span>
@@ -646,14 +688,33 @@ class EditorDetailPage extends Component {
                           })}
                         </div>
                         <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                            <i className="xi-map" />
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.transport.link} target="_blank">
-                              Direction
-                            </a>
-                          </span>
+                          {data.transport.time.map((item, index) => {
+                            if (
+                              item.type !== "On Foot" &&
+                              item.type !== "Ship"
+                            ) {
+                              return (
+                                <div
+                                  className="editorDetail__content__places__place__text__infoArea__container"
+                                  key={index}
+                                >
+                                  <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                                    <i className="xi-map" />
+                                  </span>
+                                  <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                                    <a
+                                      href={data.transport.link}
+                                      target="_blank"
+                                    >
+                                      Direction
+                                    </a>
+                                  </span>
+                                </div>
+                              );
+                            } else {
+                              return null;
+                            }
+                          })}
                         </div>
                       </div>
                     )}

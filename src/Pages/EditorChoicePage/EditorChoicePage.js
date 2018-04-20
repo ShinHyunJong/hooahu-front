@@ -14,6 +14,7 @@ import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
 import nprogress from "nprogress";
 import ReactTooltip from "react-tooltip";
+import scrollToComponent from "react-scroll-to-component";
 import _ from "lodash";
 
 const defaultProps = {};
@@ -27,7 +28,8 @@ const mapStateToProps = state => {
 
 const styles = {
   image: {
-    width: 100
+    width: "100%",
+    objectFit: "cover"
   }
 };
 
@@ -74,7 +76,7 @@ class EditorChoicePage extends Component {
     this.setState({ currentSort: index });
   };
 
-  handleConcept = index => {
+  handleConcept = async index => {
     const { isClicked, editorChoice } = this.state;
     const concept = filterJson.concept;
 
@@ -103,7 +105,8 @@ class EditorChoicePage extends Component {
             item.rating
           ];
         }).reverse();
-        this.setState({ editorChoice: newEditor });
+        await this.setState({ editorChoice: newEditor });
+        await this.scrollToTop();
       } else {
         // In case of each concept
         let newValue = this.state.isClicked.slice();
@@ -132,11 +135,12 @@ class EditorChoicePage extends Component {
           //   .reverse();
           newValue[0].clicked = false;
           newValue[index].clicked = true;
-          this.setState({
+          await this.setState({
             isClicked: newValue,
             editorChoice: newEditor,
             selectedConcept: newConcept
           });
+          await this.scrollToTop();
         } else {
           //Push Selected Concept
           let newConcept = this.state.selectedConcept.slice();
@@ -153,11 +157,12 @@ class EditorChoicePage extends Component {
           }).reverse();
           newValue[0].clicked = false;
           newValue[index].clicked = true;
-          this.setState({
+          await this.setState({
             isClicked: newValue,
             editorChoice: newEditor,
             selectedConcept: newConcept
           });
+          await this.scrollToTop();
         }
       }
     } else {
@@ -181,10 +186,11 @@ class EditorChoicePage extends Component {
             item.rating
           ];
         }).reverse();
-        this.setState({
+        await this.setState({
           editorChoice: newEditor,
           selectedConcept: newConcept
         });
+        await this.scrollToTop();
       }
     }
   };
@@ -218,6 +224,7 @@ class EditorChoicePage extends Component {
           })
           .reverse();
         await this.setState({ editorChoice: newEditor, selectedArea: index });
+        await this.scrollToTop();
       } else {
         this.setState({ selectedAreaValue: areaJson[index].label });
         const { editorChoice, selectedConcept } = this.state;
@@ -236,6 +243,7 @@ class EditorChoicePage extends Component {
 
           .reverse();
         await this.setState({ editorChoice: newEditor, selectedArea: index });
+        await this.scrollToTop();
       }
     }
   };
@@ -269,6 +277,7 @@ class EditorChoicePage extends Component {
           })
           .reverse();
         await this.setState({ editorChoice: newEditor, selectedDay: index });
+        await this.scrollToTop();
       } else {
         this.setState({
           selectedDayValue: dayJson[index].value
@@ -288,8 +297,17 @@ class EditorChoicePage extends Component {
           })
           .reverse();
         await this.setState({ editorChoice: newEditor, selectedDay: index });
+        await this.scrollToTop();
       }
     }
+  };
+
+  scrollToTop = () => {
+    scrollToComponent(this.top, {
+      offset: 0,
+      align: "top",
+      duration: 0.001
+    });
   };
 
   handleView = id => {
@@ -320,8 +338,13 @@ class EditorChoicePage extends Component {
     const { editorChoice } = this.state;
 
     return (
-      <div className="editorChoice">
-        <NavBar />
+      <div
+        className="editorChoice"
+        ref={section => {
+          this.top = section;
+        }}
+      >
+        <NavBar isActive="editor" />
         <div className="editorChoice__feed">
           <div className="editorChoice__feed__content">
             <div className="editorChoice__feed__content__lists">
@@ -355,9 +378,18 @@ class EditorChoicePage extends Component {
                           );
                         })}
                         <div className="editorChoice__feed__content__lists__list__text__more">
-                          <span>
-                            +{data.places.length - placeCount} more places
-                          </span>
+                          {data.places.length - placeCount === 0 ? null : data
+                            .places.length -
+                            placeCount ===
+                          1 ? (
+                              <span>
+                              +{data.places.length - placeCount} more place
+                              </span>
+                            ) : (
+                              <span>
+                              +{data.places.length - placeCount} more places
+                              </span>
+                            )}
                         </div>
                         <div className="editorChoice__feed__content__lists__list__text__priceArea">
                           <span className="editorChoice__feed__content__lists__list__text__priceArea__text">
@@ -503,7 +535,7 @@ class EditorChoicePage extends Component {
                               className="editorChoice__tooltip"
                               effect="float"
                             >
-                              <span>Hearty eater</span>
+                              <span>Hearty Eater</span>
                             </ReactTooltip>
                             <span
                               data-tip

@@ -97,7 +97,7 @@ class SignUpWork extends Component {
   render() {
     return (
       <Container className="signUpWork">
-        <NavBar menuVisible={true} />
+        <NavBar menuVisible={true} isActive="auth" />
         <Row className="signUpWork__content">
           <div className="signUpWork__content__title">
             <h1>Choose your interest</h1>

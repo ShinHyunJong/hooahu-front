@@ -64,11 +64,15 @@ class SignUpPage extends Component {
   };
 
   handleSignIn = () => {
+    console.log(this.props);
+
     const params = { email: this.state.email, password: this.state.password };
     this.props.dispatch(AuthAction.postSignIn(params)).then(value => {
-      this.props.history.replace({
-        pathname: "/"
-      });
+      console.log(value);
+      if (value === "failed") {
+        return null;
+      }
+      this.props.history.goBack();
     });
   };
 
@@ -76,7 +80,7 @@ class SignUpPage extends Component {
     return (
       <div>
         <Container className="signUp">
-          <NavBar />
+          <NavBar isActive="auth" />
           <Row className="signUp__content">
             <br /> <br /> <br /> <br /> <br /> <br />
             <div className="signUp__content__title">

@@ -76,7 +76,7 @@ class SignUpChoose extends Component {
     return (
       <div>
         <Container className="signUpChoose">
-          <NavBar menuVisible={true} />
+          <NavBar menuVisible={true} isActive="auth" />
           <Row className="signUpChoose__content">
             <div className="signUpChoose__content__title">
               <h1 className="signUpChoose__content__title__text">

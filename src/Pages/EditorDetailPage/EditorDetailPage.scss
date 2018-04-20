@@ -4,21 +4,57 @@
 */
 @import "../../mixin.scss";
 
-.slick-prev:before,
-.slick-next:before {
-  font-family: "slick";
-  font-size: 20px !important;
-  line-height: 1;
-  opacity: 0.75;
-  color: black !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.carousel .thumb.selected,
+.carousel .thumb:hover {
+  border: 3px solid $sub-color !important;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid transparent !important;
+}
+
+.carousel .control-dots .dot {
+  opacity: 0.3;
+  box-shadow: 0px 0px 0px !important;
+  background: $sub-color !important ;
 }
 
 .editorDetail {
   &__carousel {
     width: 520px;
   }
+
+  &__sideBar {
+    position: fixed;
+    border: 1px;
+    display: flex;
+    flex-direction: column;
+    right: 5vh;
+    top: 25vh;
+
+    &__icon {
+      color: $dark-gray;
+      font-size: 1.7rem;
+      margin-bottom: 5px;
+
+      &-liked {
+        @include transition(0.3s);
+        color: $sub-color;
+        font-size: 1.7rem;
+        cursor: pointer;
+        margin-bottom: 5px;
+      }
+
+      &:hover {
+        @include transition(0.3s);
+        color: $sub-color;
+        cursor: pointer;
+      }
+    }
+  }
+
   &__hr {
     margin-left: 100px;
     margin-right: 100px;
@@ -143,13 +179,21 @@
               cursor: pointer;
               color: $dark-gray;
 
-              &:hover {
-                @include transition(0.3s);
-
-                color: $sub-color;
-              }
               &__icon {
                 font-size: 2rem;
+
+                &-liked {
+                  @include transition(0.3s);
+                  color: $sub-color;
+                  font-size: 2rem;
+                  cursor: pointer;
+                  margin-bottom: 5px;
+                }
+
+                &:hover {
+                  @include transition(0.3s);
+                  color: $sub-color;
+                }
               }
             }
 
@@ -241,6 +285,11 @@
           &__infoArea {
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
+
+            &__container {
+              display: flex;
+              align-items: center;
+            }
 
             &__row {
               display: flex;

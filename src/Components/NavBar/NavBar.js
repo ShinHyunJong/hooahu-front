@@ -53,11 +53,17 @@ class NavBar extends Component {
     this.props.dispatch(AuthAction.signOut());
   };
 
+  handleHome = () => {
+    this.props.history.push({
+      pathname: "/"
+    });
+  };
+
   render() {
-    const { isLogin } = this.props;
+    const { isLogin, isActive } = this.props;
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
-        <NavbarBrand className="navBar__logo" href="/">
+        <NavbarBrand className="navBar__logo" onClick={this.handleHome}>
           HOOAH!U
         </NavbarBrand>
         <NavbarToggler onClick={this.props.toggle} />
@@ -65,33 +71,66 @@ class NavBar extends Component {
         <Collapse isOpen={this.props.isOpen} navbar>
           {this.props.menuVisible === true ? null : (
             <Nav className={cx("ml-auto", "navBar__items")} navbar>
-              <NavItem className="navBar__items__item">
-                <NavLink href="/">FEED</NavLink>
-              </NavItem>
-              <NavItem className="navBar__items__item">
-                <NavLink>
-                  <div onClick={this.handleEditor}>EDITOR'S CHOICE</div>
+              <NavItem>
+                <NavLink
+                  onClick={this.handleHome}
+                  className={cx("navBar__items__item", {
+                    "navBar__items__item-active": isActive === "feed"
+                  })}
+                >
+                  Feed
                 </NavLink>
               </NavItem>
-              <NavItem className="navBar__items__item">
-                <NavLink href="/">PLACE LIST</NavLink>
+              <NavItem>
+                <NavLink
+                  className={cx("navBar__items__item", {
+                    "navBar__items__item-active": isActive === "editor"
+                  })}
+                >
+                  <div onClick={this.handleEditor}>Editor's Choice</div>
+                </NavLink>
               </NavItem>
-              <NavItem className="navBar__items__item">
-                <NavLink href="/">ABOUT US</NavLink>
+              <NavItem>
+                <NavLink
+                  className={cx("navBar__items__item", {
+                    "navBar__items__item-active": isActive === "place"
+                  })}
+                  href="/"
+                >
+                  Place List
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={cx("navBar__items__item", {
+                    "navBar__items__item-active": isActive === "about"
+                  })}
+                >
+                  About
+                </NavLink>
               </NavItem>
               {isLogin === true ? (
-                <NavItem
-                  onClick={this.handleLogout}
-                  className="navBar__items__item"
-                >
-                  <NavLink>LOG OUT</NavLink>
+                <NavItem onClick={this.handleLogout}>
+                  <NavLink
+                    className={cx("navBar__items__item", {
+                      "navBar__items__item-active": isActive === "auth"
+                    })}
+                  >
+                    Sign Out
+                  </NavLink>
                 </NavItem>
               ) : (
                 <NavItem
                   onClick={this.handleSignUp}
                   className="navBar__items__item"
                 >
-                  <NavLink>SIGN IN</NavLink>
+                  <NavLink
+                    className={cx("navBar__items__item", {
+                      "navBar__items__item-active": isActive === "auth"
+                    })}
+                  >
+                    Sign In
+                  </NavLink>
                 </NavItem>
               )}
             </Nav>

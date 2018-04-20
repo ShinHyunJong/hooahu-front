@@ -61,13 +61,21 @@ export const postSignIn = params => {
           password: params.password
         })
       });
-      let responseJson = await response.json();
-      console.log(responseJson);
-      await dispatch({
-        type: SUCCEED_TO_SIGNIN,
-        payload: responseJson.token
-      });
-      return responseJson;
+      if (response.status === 406) {
+        await dispatch({
+          type: FAILED_TO_SIGNIN,
+          payload: null
+        });
+        return "failed";
+      } else {
+        let responseJson = await response.json();
+        console.log(responseJson);
+        await dispatch({
+          type: SUCCEED_TO_SIGNIN,
+          payload: responseJson.token
+        });
+        return responseJson;
+      }
     } catch (error) {
       dispatch({
         type: FAILED_TO_SIGNIN,

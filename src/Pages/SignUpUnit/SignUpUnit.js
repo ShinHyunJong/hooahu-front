@@ -107,7 +107,7 @@ class SignUpUnit extends Component {
     } = this.props.location.state;
     return (
       <Container className="signUpUnit">
-        <NavBar menuVisible={true} />
+        <NavBar menuVisible={true} isActive="auth" />
         <Row className="signUpUnit__content">
           <div className="signUpUnit__content__title">
             <h1>Please enter your Unit.</h1>

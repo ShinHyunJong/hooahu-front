@@ -55,7 +55,7 @@ class SignUpCiv extends Component {
   render() {
     return (
       <Container className="signUpCiv">
-        <NavBar menuVisible={true} />
+        <NavBar menuVisible={true} isActive="auth" />
         <Row className="signUpCiv__content">
           <div className="signUpCiv__content__title">
             <h1>Choose your type</h1>

@@ -57,7 +57,7 @@ class SignUpEmail extends Component {
   render() {
     return (
       <Container className="signUpEmail">
-        <NavBar menuVisible={true} />
+        <NavBar menuVisible={true} isActive="auth" />
         <Row className="signUpEmail__content">
           <div className="signUpEmail__content__title">
             <h1 className="signUpEmail__content__title__text">

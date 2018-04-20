@@ -76,7 +76,7 @@ class SignUpUserName extends Component {
   render() {
     return (
       <Container className="signUpUserName">
-        <NavBar menuVisible={true} />
+        <NavBar menuVisible={true} isActive="auth" />
         <Row className="signUpUserName__content">
           <div className="signUpUserName__content__title">
             <h1 className="signUpUserName__content__title__text">
