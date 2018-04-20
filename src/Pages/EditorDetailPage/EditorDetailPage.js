@@ -13,9 +13,7 @@ import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
-import "react-animated-slider/build/horizontal.css";
 import nprogress from "nprogress";
-import Slider from "react-slick";
 
 import scrollToComponent from "react-scroll-to-component";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
@@ -544,7 +542,10 @@ class EditorDetailPage extends Component {
                             preview={data}
                             src={data}
                             render={(src, style) => (
-                              <img src={src} style={style} />
+                              <img
+                                src={src}
+                                style={Object.assign(style, { width: "100%" })}
+                              />
                             )}
                           />
                         );

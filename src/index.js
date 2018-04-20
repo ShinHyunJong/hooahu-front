@@ -11,6 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { yellow600 } from "material-ui/styles/colors";
+import "react-confirm-alert/src/react-confirm-alert.css"; // Alert
 
 const loggerMiddleware = createLogger();
 
@@ -29,23 +30,13 @@ const muiTheme = getMuiTheme({
 // Main SCSS
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-animated-slider/build/horizontal.css";
 
 // Root React Component
 import App from "./App";
 
-function handleUpdate() {
-  console.log(this.state.location);
-  let { action } = this.state.location;
-
-  if (action === "PUSH") {
-    window.scrollTo(0, 0);
-  }
-}
-
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/hooahu" onUpdate={handleUpdate}>
+    <BrowserRouter basename="/hooahu">
       <MuiThemeProvider muiTheme={muiTheme}>
         <App />
       </MuiThemeProvider>

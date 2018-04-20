@@ -2,117 +2,225 @@
 * Author: @nayunhwan (github.com/nayunhwan)
 * Email: nayunhwan.dev@mgail.com
 */
+
+@import "../../mixin.scss";
 .homePage {
-  &__tabBar {
-    &__list {
-      color: $white-color;
+  &__noMargin {
+    margin-bottom: 5px !important;
+  }
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+
+  &__notice {
+    display: inline-block;
+    padding-top: 50px;
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    width: 360px;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: ghostwhite;
+
+    &__content {
+      padding-left: 70px;
+      padding-top: 40px;
+
+      &__wrapper {
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: white;
+        color: $dark-gray;
+
+        &__notice {
+          margin-left: 5px;
+          margin-right: 5px;
+          font-weight: bold;
+          color: black;
+
+          &-name {
+            margin-right: 4px;
+            font-weight: bold;
+            color: black;
+          }
+        }
+
+        &__list {
+          padding-top: 10px;
+          display: flex;
+          flex-direction: row;
+          font-size: 13px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: ghostwhite;
+          }
+
+          &__bar {
+            width: 4px;
+            background-color: $sub-color;
+            margin-right: 7px;
+          }
+        }
+
+        &__more {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          padding-bottom: 5px;
+          font-size: 13px;
+
+          &__text {
+            cursor: pointer;
+            @include transition(0.3s);
+
+            &-expand {
+              @include transition(0.3s);
+              height: 90vh;
+            }
+            &:hover {
+              color: black;
+            }
+          }
+        }
+      }
     }
   }
-  &__header {
-    width: 100%;
-    height: 650px;
-    background: url("./Assets/Images/background.jpg") no-repeat center center
-      fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 
-    &__title {
-      padding-top: 15rem;
-      padding-left: 10rem;
-      &__text {
-        font-size: 4.5rem;
-        color: white;
-        display: inline;
-      }
-      &__subTitle {
-        margin-top: 0;
-        font-weight: 400;
-        font-size: 1.4rem;
-        color: white;
-        display: block;
+  &__feed {
+    display: inline-block;
+    width: calc(100vw - 710px);
+    padding: 0 2rem;
+    margin-left: 360px;
+    padding-top: 50px;
+    padding-bottom: 10rem;
+    sflex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: ghostwhite;
+
+    &__content {
+      padding-top: 40px;
+
+      &__inputArea {
+        padding-top: 30px;
+        background-color: white;
+        padding-left: 20px;
+
+        &__body {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          &__thumbArea {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border: 1px rgba(0, 0, 0, 0.2) solid;
+            border-radius: 50%;
+
+            &__thumb {
+              font-size: 2rem;
+              color: $sub-color;
+            }
+          }
+
+          &__input {
+            margin-left: 20px;
+          }
+        }
       }
     }
-    &__down {
-      float: left;
-      padding-top: 21%;
-      padding-left: 14%;
+  }
 
-      &__icon {
-        font-size: 3rem;
-        color: #252525;
-      }
-    }
-    &__box {
-      margin-top: 3%;
-      overflow: hidden;
-      float: right;
-      width: 70%;
-      height: 330px;
-      background: #252525;
-      opacity: 0.9;
+  &__filter {
+    display: inline-block;
+    padding-top: 50px;
+    position: fixed;
+    z-index: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: white;
+
+    &__wrapper {
       display: flex;
-      flex-direction: row;
-      &__hotTopic {
-        display: flex;
-        flex: 1;
-        &__content {
-          border-right: 1px solid #838383;
-          margin-top: 30px;
-          margin-bottom: 30px;
-          flex: 1;
-          &__title {
-            font-weight: bold;
+      align-items: center;
+      justify-content: center;
+      height: 95vh;
+    }
 
-            margin-left: 8%;
-            color: white;
-          }
-          &__text {
-            margin-left: 8%;
-            margin-right: 8%;
-            color: white;
-          }
+    &__content {
+      margin-right: 2rem;
+      padding-left: 20px;
+      background-color: white; // border-radius: 10px;
+      &__title {
+        &__text {
+          color: $dark-gray;
+          font-weight: 300;
         }
       }
-      &__newDiscussion {
-        flex: 1;
-        display: flex;
 
-        &__content {
-          border-right: 1px solid #838383;
-          flex: 1;
-          margin-top: 30px;
-          margin-bottom: 30px;
-          &__title {
-            font-weight: bold;
-            margin-left: 8%;
-            color: white;
-          }
-          &__text {
-            margin-left: 8%;
-            color: white;
-            margin-right: 8%;
-          }
+      &__editor {
+        &__label {
+          color: $dark-gray;
+          margin-bottom: 1rem;
+        }
+
+        &__title {
+          color: black;
+          font-weight: 500;
+          margin-top: 1rem;
+          cursor: pointer;
+        }
+
+        &__detail {
+          margin-top: 1px;
+          color: $dark-gray;
+          font-weight: 300;
+          font-size: 13px;
         }
       }
-      &__featuredPlace {
-        flex: 1;
-        display: flex;
-        &__content {
-          flex: 1;
-          margin-top: 30px;
-          margin-bottom: 30px;
-          &__title {
-            font-weight: bold;
 
-            margin-left: 8%;
-            color: white;
+      &__label {
+        &__text {
+          color: $dark-gray;
+          font-weight: 300;
+          margin-bottom: 1rem;
+        }
+      }
+      &__items {
+        &__item {
+          display: inline-block;
+          border: 1px $border-color solid;
+          color: $dark-gray;
+          font-weight: 300;
+          padding: 5px 10px 5px 10px;
+          margin-right: 10px;
+          cursor: pointer;
+          margin-bottom: 15px;
+          &:hover {
+            @include transition(0.3s);
+            border: 1px $dark-gray solid;
           }
-          &__text {
-            margin-left: 8%;
-            color: white;
-            margin-right: 8%;
+          &-clicked {
+            @include transition(0.3s);
+            display: inline-block;
+            border: 1px solid transparent !important;
+            color: $dark-gray;
+            padding: 5px 10px 5px 10px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-weight: 300;
+            margin-bottom: 15px;
+            background-color: $sub-color;
           }
         }
       }

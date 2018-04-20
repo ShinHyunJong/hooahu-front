@@ -20,6 +20,7 @@ import cx from "classnames";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as AuthAction from "../../ActionCreators/AuthAction";
+import { confirmAlert } from "react-confirm-alert"; // Import
 
 const defaultProps = {};
 const propTypes = {};
@@ -28,6 +29,24 @@ const mapStateToProps = state => {
   return {
     isLogin: state.reducer.isLogin
   };
+};
+
+const options = {
+  title: "Title",
+  message: "Message",
+  buttons: [
+    {
+      label: "Yes",
+      onClick: () => alert("Click Yes")
+    },
+    {
+      label: "No",
+      onClick: () => alert("Click No")
+    }
+  ],
+  childrenElement: () => <div />,
+  customUI: ({ title, message, onClose }) => <div>Custom UI</div>,
+  willUnmount: () => {}
 };
 
 class NavBar extends Component {
@@ -49,13 +68,30 @@ class NavBar extends Component {
     });
   };
 
-  handleLogout = () => {
-    this.props.dispatch(AuthAction.signOut());
-  };
-
   handleHome = () => {
     this.props.history.push({
       pathname: "/"
+    });
+  };
+
+  handleAuth = () => {
+    confirmAlert({
+      title: "Confirm to sign out",
+      message: "Are you sure to sign out?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            this.props.dispatch(AuthAction.signOut()).then(value => {
+              this.props.history.replace({ pathname: "/" });
+            });
+          }
+        },
+        {
+          label: "No",
+          onClick: () => null
+        }
+      ]
     });
   };
 
@@ -110,8 +146,9 @@ class NavBar extends Component {
                 </NavLink>
               </NavItem>
               {isLogin === true ? (
-                <NavItem onClick={this.handleLogout}>
+                <NavItem>
                   <NavLink
+                    onClick={this.handleAuth}
                     className={cx("navBar__items__item", {
                       "navBar__items__item-active": isActive === "auth"
                     })}

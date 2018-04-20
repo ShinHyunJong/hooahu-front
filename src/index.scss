@@ -7,12 +7,7 @@
 @import "./Pages/index";
 @import "./Components/index";
 @import "~nprogress/nprogress.css";
-@import url("https://fonts.googleapis.com/css?family=Lato");
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
-
-html {
-}
+@import url("https://fonts.googleapis.com/css?family=Lato|Raleway:400,700|Roboto");
 
 body {
   font-family: "Lato", sans-serif !important;
@@ -24,6 +19,12 @@ body {
     margin: 0;
   }
 }
+
+.react-confirm-alert-body > h1 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
 #nprogress .bar {
   background: $sub-color !important;
 }

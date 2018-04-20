@@ -62,7 +62,7 @@
     },
     {
       "label": "3 Days",
-      "value": "3 Day",
+      "value": "3 Days",
       "clicked": false
     }
   ],
@@ -87,5 +87,19 @@
       "label": "Area 4",
       "clicked": false
     }
+  ],
+  "feed_type": ["Recent Posts", "Hot Posts"],
+  "post_type": [
+    "All",
+    "Walkie Talkie",
+    "Question",
+    "Selling/Giveaway",
+    "Hangout",
+    "Area1",
+    "Area2",
+    "Area3",
+    "Area4",
+    "KATUSA",
+    "Ville Channel"
   ]
 }

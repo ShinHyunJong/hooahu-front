@@ -319,7 +319,6 @@ class EditorChoicePage extends Component {
   handleStars = index => {
     const { editorChoice } = this.state;
     const starLength = Number(editorChoice[index].rating);
-    console.log(starLength);
     let starArray = [];
     for (let i = 0; i < starLength; i++) {
       return starArray.push(

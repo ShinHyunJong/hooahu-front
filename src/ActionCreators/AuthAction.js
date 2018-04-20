@@ -86,9 +86,10 @@ export const postSignIn = params => {
 };
 
 export const signOut = () => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({
       type: SUCCEED_TO_SIGNOUT
     });
+    return "signOut";
   };
 };

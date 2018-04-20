@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 // React Router
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // Material UI Provider for React
-import { AnimatedRoute } from "react-router-transition";
 
 // Own Modules
 import {
