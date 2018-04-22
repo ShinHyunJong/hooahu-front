@@ -1,0 +1,113 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@mgail.com
+*/
+.post {
+  padding-top: 10px;
+  background-color: white;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &__userInfo {
+      display: flex;
+      flex-direction: row;
+      &__thumb {
+        &__icon {
+          font-size: 2rem;
+          display: inline-flex;
+          width: 50px;
+          height: 50px;
+          justify-content: center;
+          align-items: center;
+          box-sizing: border-box;
+          border-radius: 50%;
+          border: 1px rgba(0, 0, 0, 0.2) solid;
+          color: $sub-color;
+        }
+      }
+
+      &__nameArea {
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &__name {
+          color: $dark-gray;
+        }
+        &__time {
+          color: $dark-gray;
+          font-size: 12px;
+          color: $gray;
+        }
+      }
+    }
+    &__option {
+      &__icon {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__body {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    &__imageArea {
+      margin-top: 10px;
+      &__image {
+        width: 100%;
+      }
+    }
+    &__text {
+      color: $dark-gray;
+    }
+  }
+
+  &__footer {
+    &__wrapper {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      &__likeArea {
+        flex: 1;
+        border-right: 1px solid $border-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        &__count {
+          color: $sub-color;
+          margin-right: 5px;
+        }
+        &__icon {
+          color: $dark-gray;
+          font-size: 20px;
+        }
+      }
+      &__commentArea {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__count {
+          color: $dark-gray;
+          margin-right: 5px;
+        }
+        &__icon {
+          color: $dark-gray;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

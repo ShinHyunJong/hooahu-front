@@ -6,13 +6,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { NavBar, BoxList } from "../../Components";
+import { NavBar, BoxList, Post } from "../../Components";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
 import nprogress from "nprogress";
 import filterJson from "../../Json/filter";
 import cx from "classnames";
-import ProgressiveImage from "react-progressive-image-loading";
+import ProgressiveImage from "react-progressive-image";
+import Textarea from "react-textarea-autosize";
+import {
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
@@ -24,18 +31,46 @@ const mapStateToProps = state => {
   };
 };
 
+const styles = {
+  customWidth: {
+    width: 200,
+    margin: 0,
+    padding: 0
+  },
+  image: {
+    height: 130,
+    cursor: "pointer"
+  },
+  noMargin: {
+    margin: 0
+  }
+};
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       expandNotice: false,
       selectedFeed: 0,
-      selectedPost: 0
+      selectedPost: 0,
+      selectedEC: [],
+      dropdownOpen: false,
+      selectedPostType: "Walkie Talkie"
     };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
   }
 
   componentWillMount() {
     nprogress.start();
+    const randomPackage = Math.floor(Math.random() * 26);
+    const selectedEC = ec.editorChoice[randomPackage];
+    this.setState({ selectedEC });
   }
 
   componentDidMount() {
@@ -48,6 +83,10 @@ class HomePage extends Component {
 
   handlePost = index => {
     this.setState({ selectedPost: index });
+  };
+
+  handlePostType = type => {
+    this.setState({ selectedPostType: type });
   };
 
   handleEditor = id => {
@@ -65,15 +104,19 @@ class HomePage extends Component {
   render() {
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
-    const randomPackage = Math.floor(Math.random() * 26);
-    const selectedEC = ec.editorChoice[randomPackage];
-    const { selectedFeed, selectedPost, expandNotice } = this.state;
+
+    const { selectedFeed, selectedPost, selectedEC, expandNotice } = this.state;
     return (
       <div className="homePage">
         <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
         <div className="homePage__notice">
           <div className="homePage__notice__content">
-            <div className="homePage__notice__content__wrapper">
+            <div
+              className={cx("homePage__notice__content__wrapper", {
+                "homePage__notice__content__wrapper-expand":
+                  expandNotice === true
+              })}
+            >
               <p>Welcome! ChungBok Lee</p>
               <p>
                 You have
@@ -104,7 +147,12 @@ class HomePage extends Component {
                 </div>
               </div>
               <div className="homePage__notice__content__wrapper__list">
-                <div className="homePage__notice__content__wrapper__list__bar" />
+                <div
+                  className={cx(
+                    "homePage__notice__content__wrapper__list__bar",
+                    "homePage__notice__content__wrapper__list__bar-comment"
+                  )}
+                />
                 <div className="homePage__notice__content__wrapper__list__content">
                   <p>
                     <span className="homePage__notice__content__wrapper__notice-name">
@@ -116,16 +164,10 @@ class HomePage extends Component {
               <hr className="homePage__noMargin" />
               <div className="homePage__notice__content__wrapper__more">
                 <span
-                  className={cx(
-                    "homePage__notice__content__wrapper__more__text",
-                    {
-                      "homePage__notice__content__wrapper__more__text-expand":
-                        expandNotice === true
-                    }
-                  )}
+                  className="homePage__notice__content__wrapper__more__text"
                   onClick={this.handleExpand}
                 >
-                  <i className="xi-arrow-down" /> 더보기
+                  <i className="xi-arrow-down" /> See more
                 </span>
               </div>
             </div>
@@ -140,9 +182,64 @@ class HomePage extends Component {
                     <i className="xi-user-o" />
                   </span>
                 </div>
-                <input className="homePage__feed__content__inputArea__body__input" />
+                <Textarea
+                  maxRows={4}
+                  placeholder="What's in your mind?"
+                  className="homePage__feed__content__inputArea__body__input"
+                />
+              </div>
+              <hr className="homePage__noMargin" />
+              <div className="homePage__feed__content__inputArea__footer">
+                <div className="homePage__feed__content__inputArea__footer__camera">
+                  <span className="homePage__feed__content__inputArea__footer__camera__icon">
+                    <i className="xi-camera" />
+                  </span>
+                </div>
+                <div className="homePage__feed__content__inputArea__footer__postArea">
+                  <ButtonDropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                    size="sm"
+                    direction="down"
+                  >
+                    <DropdownToggle caret>
+                      {this.state.selectedPostType}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      {postType.map((data, index) => {
+                        return (
+                          <DropdownItem
+                            key={index}
+                            onClick={() => this.handlePostType(data)}
+                          >
+                            {data}
+                          </DropdownItem>
+                        );
+                      })}
+                    </DropdownMenu>
+                  </ButtonDropdown>
+                  <span className="homePage__feed__content__inputArea__footer__postArea__postButton">
+                    post
+                  </span>
+                </div>
               </div>
             </div>
+            <Post
+              text="hi My name is Shin Hyun Jong"
+              createdAt="15min"
+              writer="Shin Hyun Jong"
+              img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTkRvzI1fzYv8I2Psxc9HG_33ttZApXI1jET59aaze6xwBrCJC"
+              likeCount={24}
+              commentCount={40}
+            />
+            <Post
+              text="Hi Y'all. I really wanna meet Kim Jong Un one day."
+              createdAt="2min"
+              writer="Edgar Flores"
+              img="https://dailynewshungary.com/wp-content/uploads/2017/01/us_army-1280x640.jpg"
+              likeCount={1000}
+              commentCount={210}
+            />
           </div>
         </div>
         <div className="homePage__filter">
@@ -196,19 +293,18 @@ class HomePage extends Component {
                   See what experience you can have
                 </p>
                 <ProgressiveImage
-                  preview={selectedEC.image_url[0]}
                   src={selectedEC.image_url[0]}
-                  render={(src, style) => (
+                  placeholder={selectedEC.image_url[0]}
+                >
+                  {src => (
                     <img
-                      onClick={() => this.handleEditor(selectedEC.id)}
                       src={src}
-                      style={Object.assign(style, {
-                        width: "70%",
-                        cursor: "pointer"
-                      })}
+                      onClick={() => this.handleEditor(selectedEC.id)}
+                      alt="an image"
+                      style={styles.image}
                     />
                   )}
-                />
+                </ProgressiveImage>
                 <p
                   onClick={() => this.handleEditor(selectedEC.id)}
                   className="homePage__filter__content__editor__title"

@@ -9,3 +9,4 @@ export NavBar from "./NavBar/NavBar";
 export CheckBox from "./CheckBox/CheckBox";
 export RoundButton from "./RoundButton/RoundButton";
 export RoundInput from "./RoundInput/RoundInput";
+export Post from "./Post/Post";
