@@ -9,12 +9,15 @@ import {
   SUCCEED_TO_SIGNOUT
 } from "../ActionCreators/AuthAction";
 
+import { SUCCEED_TO_GET_USER } from "../ActionCreators/UserAction";
+
 import { combineReducers } from "redux";
 
 const initialState = {
   data: "",
-  token: "",
-  isLogin: !!localStorage.getItem("token")
+  token: localStorage.getItem("token"),
+  isLogin: !!localStorage.getItem("token"),
+  user: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,7 +42,13 @@ const reducer = (state = initialState, action) => {
     case SUCCEED_TO_SIGNOUT:
       localStorage.removeItem("token");
       return Object.assign({}, state, {
-        isLogin: false
+        isLogin: false,
+        token: null,
+        user: []
+      });
+    case SUCCEED_TO_GET_USER:
+      return Object.assign({}, state, {
+        user: action.payload
       });
     default:
       return state;

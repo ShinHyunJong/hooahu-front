@@ -10,3 +10,4 @@ export CheckBox from "./CheckBox/CheckBox";
 export RoundButton from "./RoundButton/RoundButton";
 export RoundInput from "./RoundInput/RoundInput";
 export Post from "./Post/Post";
+export Thumb from "./Thumb/Thumb";

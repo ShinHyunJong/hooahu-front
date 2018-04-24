@@ -19,9 +19,13 @@
 
   &__items {
     padding-right: 1.5rem;
-
+    display: flex;
+    align-items: center;
     &__item {
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding-right: 10px;
 
       &-active {
         font-weight: 900;

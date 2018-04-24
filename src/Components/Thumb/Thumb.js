@@ -12,7 +12,23 @@ class Thumb extends Component {
   }
 
   render() {
-    return <div className="thumb">This is Default Component</div>;
+    const { size, src, fontSize } = this.props;
+    if (src === null || src === undefined || src === null) {
+      return (
+        <span
+          className="thumb__default"
+          style={{ width: size, height: size, fontSize: fontSize && fontSize }}
+        >
+          <i className="xi-user-o" />
+        </span>
+      );
+    } else {
+      return (
+        <span className="thumb" style={{ width: size, height: size }}>
+          <img className="thumb__image" width={size} height={size} src={src} />
+        </span>
+      );
+    }
   }
 }
 

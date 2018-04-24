@@ -37,7 +37,7 @@ export const postSignUp = params => {
         type: SUCCEED_TO_SIGNUP,
         payload: responseJson.token
       });
-      return responseJson;
+      return responseJson.token;
     } catch (error) {
       dispatch({
         type: FAILED_TO_SIGNUP,
@@ -74,7 +74,7 @@ export const postSignIn = params => {
           type: SUCCEED_TO_SIGNIN,
           payload: responseJson.token
         });
-        return responseJson;
+        return responseJson.token;
       }
     } catch (error) {
       dispatch({

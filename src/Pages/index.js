@@ -17,3 +17,4 @@ export SignUpBusiness from "./SignUpBusiness/SignUpBusiness";
 export SignUpWork from "./SignUpWork/SignUpWork";
 export EditorChoicePage from "./EditorChoicePage/EditorChoicePage";
 export EditorDetailPage from "./EditorDetailPage/EditorDetailPage";
+export UserPage from "./UserPage/UserPage";

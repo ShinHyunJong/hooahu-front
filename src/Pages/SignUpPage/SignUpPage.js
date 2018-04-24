@@ -7,6 +7,7 @@ import { Link, Route } from "react-router-dom";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
 import * as AuthAction from "../../ActionCreators/AuthAction";
+import * as UserAction from "../../ActionCreators/UserAction";
 import { NavBar, RoundButton, RoundInput } from "../../Components";
 import { Container, Row, Col, Button } from "reactstrap";
 import TextField from "material-ui/TextField";
@@ -51,9 +52,7 @@ class SignUpPage extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.dispatch(DefaultActionCreator.action());
-  }
+  componentDidMount() {}
 
   handleEmail = e => {
     this.setState({ email: e.target.value });
@@ -64,15 +63,14 @@ class SignUpPage extends Component {
   };
 
   handleSignIn = () => {
-    console.log(this.props);
-
     const params = { email: this.state.email, password: this.state.password };
-    this.props.dispatch(AuthAction.postSignIn(params)).then(value => {
-      console.log(value);
+    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
       if (value === "failed") {
         return null;
+      } else {
+        await this.props.dispatch(UserAction.getUser(value));
+        await this.props.history.goBack();
       }
-      this.props.history.goBack();
     });
   };
 

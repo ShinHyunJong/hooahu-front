@@ -10,6 +10,7 @@ import MenuItem from "material-ui/MenuItem";
 import unitJson from "../../Json/unit";
 import { connect } from "react-redux";
 import * as AuthAction from "../../ActionCreators/AuthAction";
+import * as UserAction from "../../ActionCreators/UserAction";
 
 const mapStateToProps = state => {
   return {};
@@ -87,8 +88,9 @@ class SignUpWork extends Component {
       camp: camp,
       reason: this.state.status
     };
-    this.props.dispatch(AuthAction.postSignUp(params)).then(value => {
-      this.props.history.replace({
+    this.props.dispatch(AuthAction.postSignUp(params)).then(async value => {
+      await this.props.dispatch(UserAction.getUser(value));
+      await this.props.history.replace({
         pathname: "/"
       });
     });

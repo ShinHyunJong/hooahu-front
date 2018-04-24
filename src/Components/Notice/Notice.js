@@ -13,8 +13,17 @@ class DefaultComponent extends Component {
 
   render() {
     return (
-      <div>
-        This is Default Component
+      <div className="notice">
+        <div className="notice__content__wrapper__list">
+          <div className="notice__content__wrapper__list__bar" />
+          <div className="notice__content__wrapper__list__content">
+            <p>
+              <span className="notice__content__wrapper__notice-name">
+                Hyun Jong Shin
+              </span>and 3 more people liked your post
+            </p>
+          </div>
+        </div>
       </div>
     );
   }

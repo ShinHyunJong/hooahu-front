@@ -20,6 +20,7 @@ import cx from "classnames";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as AuthAction from "../../ActionCreators/AuthAction";
+import { Thumb } from "../";
 import { confirmAlert } from "react-confirm-alert"; // Import
 
 const defaultProps = {};
@@ -27,7 +28,8 @@ const propTypes = {};
 
 const mapStateToProps = state => {
   return {
-    isLogin: state.reducer.isLogin
+    isLogin: state.reducer.isLogin,
+    user: state.reducer.user
   };
 };
 
@@ -74,6 +76,12 @@ class NavBar extends Component {
     });
   };
 
+  handleUser = () => {
+    this.props.history.push({
+      pathname: "/@" + this.props.user.id
+    });
+  };
+
   handleAuth = () => {
     confirmAlert({
       title: "Confirm to sign out",
@@ -96,7 +104,7 @@ class NavBar extends Component {
   };
 
   render() {
-    const { isLogin, isActive } = this.props;
+    const { isLogin, isActive, user } = this.props;
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
         <NavbarBrand className="navBar__logo" onClick={this.handleHome}>
@@ -107,6 +115,12 @@ class NavBar extends Component {
         <Collapse isOpen={this.props.isOpen} navbar>
           {this.props.menuVisible === true ? null : (
             <Nav className={cx("ml-auto", "navBar__items")} navbar>
+              <NavItem
+                className="navBar__items__item"
+                onClick={this.handleUser}
+              >
+                <Thumb size={30} fontSize={20} src={user && user.profile_img} />
+              </NavItem>
               <NavItem>
                 <NavLink
                   onClick={this.handleHome}

@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { NavBar, BoxList, Post } from "../../Components";
+import { NavBar, BoxList, Post, Thumb } from "../../Components";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
 import nprogress from "nprogress";
@@ -27,7 +27,8 @@ const propTypes = {};
 
 const mapStateToProps = state => {
   return {
-    actionResult: state.reducer.actionResult
+    isLogin: state.reducer.isLogin,
+    user: state.reducer.user
   };
 };
 
@@ -104,8 +105,9 @@ class HomePage extends Component {
   render() {
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
-
     const { selectedFeed, selectedPost, selectedEC, expandNotice } = this.state;
+    const { isLogin, user } = this.props;
+    console.log(user);
     return (
       <div className="homePage">
         <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
@@ -117,7 +119,11 @@ class HomePage extends Component {
                   expandNotice === true
               })}
             >
-              <p>Welcome! ChungBok Lee</p>
+              {user.length === 0 ? (
+                <p>WelCome!</p>
+              ) : (
+                <p>{"Welcome! " + user.first_name + " " + user.last_name}</p>
+              )}
               <p>
                 You have
                 <span className="homePage__notice__content__wrapper__notice">
@@ -178,13 +184,15 @@ class HomePage extends Component {
             <div className="homePage__feed__content__inputArea">
               <div className="homePage__feed__content__inputArea__body">
                 <div className="homePage__feed__content__inputArea__body__thumbArea">
-                  <span className="homePage__feed__content__inputArea__body__thumbArea__thumb">
-                    <i className="xi-user-o" />
-                  </span>
+                  <Thumb size={50} src={user && user.profile_img} />
                 </div>
                 <Textarea
                   maxRows={4}
-                  placeholder="What's in your mind?"
+                  placeholder={
+                    isLogin === true
+                      ? "What's in your mind?"
+                      : "Sign in to post!"
+                  }
                   className="homePage__feed__content__inputArea__body__input"
                 />
               </div>
@@ -237,7 +245,7 @@ class HomePage extends Component {
               createdAt="2min"
               writer="Edgar Flores"
               img="https://dailynewshungary.com/wp-content/uploads/2017/01/us_army-1280x640.jpg"
-              likeCount={1000}
+              likeCount={10000}
               commentCount={210}
             />
           </div>

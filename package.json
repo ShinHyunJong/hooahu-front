@@ -61,6 +61,7 @@
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
     "react-number-format": "^3.3.0",
+    "react-pretty-numbers": "^3.0.0",
     "react-progressive-image": "^0.3.0",
     "react-progressive-image-loading": "^3.0.2",
     "react-redux": "^4.4.8",

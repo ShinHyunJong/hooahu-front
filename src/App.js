@@ -1,7 +1,15 @@
 // React Common Modules
 import React, { Component } from "react";
 // React Router
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // Material UI Provider for React
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom"; // Material UI Provider for React
+
+import { connect } from "react-redux";
+import * as UserAction from "./ActionCreators/UserAction";
 
 // Own Modules
 import {
@@ -17,18 +25,35 @@ import {
   SignUpBusiness,
   SignUpWork,
   EditorChoicePage,
-  EditorDetailPage
+  EditorDetailPage,
+  UserPage
 } from "./Pages/";
+
+const mapStateToProps = state => {
+  return {
+    isLogin: state.reducer.isLogin,
+    token: state.reducer.token
+  };
+};
 
 class App extends Component {
   constructor(props) {
     super(props);
+  }
+  componentWillMount() {
+    const { token } = this.props;
+    if (token === null || token === null || token === undefined) {
+      return null;
+    } else {
+      this.props.dispatch(UserAction.getUser(token));
+    }
   }
 
   render() {
     return (
       <div>
         <Route exact path="/" component={HomePage} />
+        <Route path="/@:user_id" component={UserPage} />
         <Route exact path="/signup" component={SignUpPage} />
         <Route path="/signup/choose" component={SignUpChoose} />
         <Route path="/signup/email" component={SignUpEmail} />
@@ -44,4 +69,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(connect(mapStateToProps)(App));

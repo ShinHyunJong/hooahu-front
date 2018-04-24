@@ -5,7 +5,7 @@
 
 @import "../../mixin.scss";
 
-.homePage {
+.userPage {
   strong {
     color: black;
     margin-right: 5px;
@@ -36,17 +36,24 @@
 
       &__wrapper {
         padding-top: 30px;
+        padding-bottom: 30px;
         padding-left: 20px;
         padding-right: 20px;
         background-color: white;
         color: $dark-gray;
-        -webkit-transition: height 2s;
-        transition: height 2s;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
-        &-expand {
-          height: 400px;
-          -webkit-transition: height 2s;
-          transition: height 2s;
+        &__name {
+          margin-top: 1rem;
+        }
+
+        &__info {
+          margin-top: 1rem;
+          font-weight: bold;
+          color: black;
         }
 
         &__notice {
