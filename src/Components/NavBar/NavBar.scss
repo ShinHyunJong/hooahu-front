@@ -18,7 +18,7 @@
   }
 
   &__items {
-    padding-right: 1.5rem;
+    padding-right: 5rem;
     display: flex;
     align-items: center;
     &__item {
@@ -30,6 +30,12 @@
       &-active {
         font-weight: 900;
         color: black !important;
+      }
+
+      &-bell {
+        color: $dark-gray;
+        font-size: 1.5rem;
+        padding-right: 8px;
       }
     }
   }

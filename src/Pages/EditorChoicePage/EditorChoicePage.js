@@ -175,7 +175,7 @@ class EditorChoicePage extends Component {
 
         //Remove Selected Concept
         let newConcept = this.state.selectedConcept.slice();
-        newConcept.splice(newConcept.indexOf(concept[index].value), 1); //num will be [1, 2, 3, 5];
+        newConcept.splice(newConcept.indexOf(concept[index].value), 1);
 
         let newEditor = editorChoice.slice();
         newEditor = _.sortBy(newEditor, item => {

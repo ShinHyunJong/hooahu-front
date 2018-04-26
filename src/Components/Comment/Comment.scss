@@ -1,0 +1,25 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@mgail.com
+*/
+.comment {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-content {
+    display: flex;
+    align-items: center;
+  }
+
+  &-name {
+    font-weight: bold;
+    color: black;
+    margin-right: 10px;
+  }
+
+  &-date {
+    color: $gray;
+  }
+}

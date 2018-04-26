@@ -3,11 +3,18 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavBar } from "../../Components";
-import { Container, Row, Col } from "reactstrap";
+import { NavBar, SocialInput, Comment } from "../../Components";
+import {
+  Container,
+  Row,
+  Col,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from "reactstrap";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
-
 import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
 import cx from "classnames";
@@ -19,6 +26,7 @@ import scrollToComponent from "react-scroll-to-component";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import { MarkerWithLabel } from "react-google-maps/lib/components/addons/MarkerWithLabel";
 import { Carousel } from "react-responsive-carousel";
+import moment from "moment";
 
 const defaultProps = {};
 const propTypes = {};
@@ -31,7 +39,9 @@ const propTypes = {};
 
 const mapStateToProps = state => {
   return {
-    isLogin: state.reducer.isLogin
+    isLogin: state.reducer.isLogin,
+    user: state.reducer.user,
+    token: state.reducer.token
   };
 };
 
@@ -44,76 +54,18 @@ class EditorDetailPage extends Component {
       activeTab: "1",
       activeIndex: 0,
       slideIndex: 0,
-      isLiked: false
+      comment: "",
+      isLiked: false,
+      showModal: false,
+      Map: null,
+      commentList: null
     };
   }
 
   componentWillMount() {
     nprogress.start();
     window.scrollTo(0, 0);
-  }
-
-  componentDidMount() {
-    nprogress.done();
-  }
-
-  toggle = tab => {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  };
-
-  handleTravel = () => {
-    scrollToComponent(this.test, {
-      offset: -75,
-      align: "top",
-      duration: 1200,
-      ease: "outCirc"
-    });
-  };
-
-  handleTop = () => {
-    scrollToComponent(this.top, {
-      offset: 0,
-      align: "top",
-      duration: 1200,
-      ease: "outCirc"
-    });
-  };
-
-  handleLike = () => {
-    if (this.props.isLogin === false) {
-      this.props.history.push({
-        pathname: "/signup"
-      });
-    } else {
-      this.state.isLiked === false
-        ? this.setState({ isLiked: true })
-        : this.setState({ isLiked: false });
-    }
-  };
-
-  convert = type => {
-    if (type === "Bus") {
-      return <i className="xi-bus" />;
-    } else if (type === "Subway") {
-      return <i className="xi-subway" />;
-    } else if (type === "Taxi") {
-      return <i className="xi-taxi" />;
-    } else if (type === "Bike") {
-      return <i className="xi-bicycle" />;
-    } else if (type === "Ship") {
-      return <i className="xi-ship" />;
-    } else {
-      return <i className="xi-walk" />;
-    }
-  };
-
-  render() {
     const choice = Number(this.props.match.params.package);
-    const { isLiked } = this.state;
     const ecJson = ec.editorChoice;
     let selectedChoiceIndex = 0;
 
@@ -171,6 +123,125 @@ class EditorDetailPage extends Component {
         </GoogleMap>
       ))
     );
+    this.setState({ Map: MapWithAMarker });
+  }
+
+  componentDidMount() {
+    const { token } = this.props;
+    const params = {
+      id: Number(this.props.match.params.package),
+      token
+    };
+    this.props.dispatch(ChoiceAction.getChoiceComment(params)).then(value => {
+      this.setState({ commentList: value });
+      console.log(value);
+      nprogress.done();
+    });
+  }
+
+  toggle = tab => {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  };
+
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+  };
+
+  handleTravel = () => {
+    scrollToComponent(this.test, {
+      offset: -75,
+      align: "top",
+      duration: 1200,
+      ease: "outCirc"
+    });
+  };
+
+  handleTop = () => {
+    scrollToComponent(this.top, {
+      offset: 0,
+      align: "top",
+      duration: 1200,
+      ease: "outCirc"
+    });
+  };
+
+  handleLike = () => {
+    if (this.props.isLogin === false) {
+      this.props.history.push({
+        pathname: "/signup"
+      });
+    } else {
+      this.state.isLiked === false
+        ? this.setState({ isLiked: true })
+        : this.setState({ isLiked: false });
+    }
+  };
+
+  handleInput = e => {
+    this.setState({ comment: e.target.value });
+  };
+
+  handlePost = () => {
+    const params = {
+      id: Number(this.props.match.params.package),
+      comment: this.state.comment,
+      token: this.props.token
+    };
+    // console.log(params);
+    this.props.dispatch(ChoiceAction.postChoiceComment(params)).then(value => {
+      const date = new Date();
+      const newComment = this.state.commentList.slice();
+      const content = {
+        nickname: this.props.user.nickname,
+        comment: this.state.comment,
+        created_at: date
+      };
+      newComment.push(content);
+      this.setState({ commentList: newComment, comment: "" });
+    });
+  };
+
+  convert = type => {
+    if (type === "Bus") {
+      return <i className="xi-bus" />;
+    } else if (type === "Subway") {
+      return <i className="xi-subway" />;
+    } else if (type === "Taxi") {
+      return <i className="xi-taxi" />;
+    } else if (type === "Bike") {
+      return <i className="xi-bicycle" />;
+    } else if (type === "Ship") {
+      return <i className="xi-ship" />;
+    } else {
+      return <i className="xi-walk" />;
+    }
+  };
+
+  render() {
+    const choice = Number(this.props.match.params.package);
+    const { isLiked, Map, commentList, comment } = this.state;
+    const ecJson = ec.editorChoice;
+    const { user, isLogin } = this.props;
+    let selectedChoiceIndex = 0;
+
+    for (let i = 0; i < ecJson.length; i++) {
+      if (ecJson[i].id === choice) {
+        selectedChoiceIndex = i;
+      }
+    }
+
+    const selectedChoice = ecJson[selectedChoiceIndex];
+    const starLength = selectedChoice.rating;
+    let starArray = [];
+    for (let i = 0; i < starLength; i++) {
+      starArray.push("");
+    }
 
     return (
       <div
@@ -179,6 +250,32 @@ class EditorDetailPage extends Component {
           this.top = section;
         }}
       >
+        <Modal
+          isOpen={this.state.showModal}
+          toggle={this.toggleModal}
+          wrapClassName="hooahu__modal"
+          size="lg"
+          modalTransition={{ timeout: 20 }}
+          backdropTransition={{ timeout: 10 }}
+          centered={true}
+        >
+          <ModalBody>
+            <div className="editorDetail__modal">
+              <div className="editorDetail__modal__comment">
+                <Comment comment={commentList} />
+              </div>
+              <SocialInput
+                className="editorDetail__modal__input"
+                user={user}
+                value={comment}
+                isLogin={isLogin}
+                onChange={this.handleInput}
+                placeholder="Leave a comment"
+                onClick={this.handlePost}
+              />
+            </div>
+          </ModalBody>
+        </Modal>
         <div className="editorDetail__sideBar">
           {isLiked === false ? (
             <span
@@ -195,7 +292,7 @@ class EditorDetailPage extends Component {
               <i className="xi-heart" />
             </span>
           )}
-          <span className="editorDetail__sideBar__icon">
+          <span onClick={this.toggleModal} className="editorDetail__sideBar__icon">
             <i className="xi-speech-o" />
           </span>
           <span
@@ -443,11 +540,18 @@ class EditorDetailPage extends Component {
                     )}
                   </div>
                   <div className="editorDetail__content__package__text__detail__comment__review">
-                    <span className="editorDetail__content__package__text__detail__comment__review__icon">
+                    <span
+                      onClick={this.toggleModal}
+                      className="editorDetail__content__package__text__detail__comment__review__icon"
+                    >
                       <i className="xi-speech-o" />
                     </span>
                   </div>
                 </div>
+              </div>
+              <hr />
+              <div className="editorDetail__content__package__text__comment">
+                <Comment comment={commentList && commentList.slice(0, 3)} />
               </div>
             </div>
             <div className="editorDetail__content__package__image">
@@ -504,7 +608,7 @@ class EditorDetailPage extends Component {
                   </div>
                 </TabPane>
                 <TabPane tabId="2">
-                  <MapWithAMarker
+                  <Map
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXyr_w-hrjwCHZblSHVsFSxsvyDPDvrVc&language=en&region=US"
                     loadingElement={<div style={{ height: "100%" }} />}
                     containerElement={<div style={{ height: "400px" }} />}

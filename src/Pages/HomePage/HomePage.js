@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { NavBar, BoxList, Post, Thumb } from "../../Components";
+import { NavBar, BoxList, Post, Thumb, SocialInput } from "../../Components";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
 import nprogress from "nprogress";
@@ -14,6 +14,8 @@ import filterJson from "../../Json/filter";
 import cx from "classnames";
 import ProgressiveImage from "react-progressive-image";
 import Textarea from "react-textarea-autosize";
+import Badge from "material-ui/Badge";
+import FileInputComponent from "react-file-input-previews-base64";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -56,7 +58,8 @@ class HomePage extends Component {
       selectedPost: 0,
       selectedEC: [],
       dropdownOpen: false,
-      selectedPostType: "Walkie Talkie"
+      selectedPostType: "Walkie Talkie",
+      imagePreview: []
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -102,12 +105,32 @@ class HomePage extends Component {
       : this.setState({ expandNotice: false });
   };
 
+  handlePreview = file_arr => {
+    let imagePreview = this.state.imagePreview.slice();
+    for (let i = 0; i < file_arr.length; i++) {
+      imagePreview.push(file_arr[i].base64);
+    }
+    this.setState({ imagePreview });
+  };
+
+  handleBadge = value => {
+    let imagePreview = this.state.imagePreview.slice();
+    imagePreview.splice(imagePreview.indexOf(value), 1);
+    this.setState({ imagePreview });
+  };
+
   render() {
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
-    const { selectedFeed, selectedPost, selectedEC, expandNotice } = this.state;
+    const {
+      selectedFeed,
+      selectedPost,
+      selectedPostType,
+      selectedEC,
+      expandNotice,
+      imagePreview
+    } = this.state;
     const { isLogin, user } = this.props;
-    console.log(user);
     return (
       <div className="homePage">
         <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
@@ -181,57 +204,18 @@ class HomePage extends Component {
         </div>
         <div className="homePage__feed">
           <div className="homePage__feed__content">
-            <div className="homePage__feed__content__inputArea">
-              <div className="homePage__feed__content__inputArea__body">
-                <div className="homePage__feed__content__inputArea__body__thumbArea">
-                  <Thumb size={50} src={user && user.profile_img} />
-                </div>
-                <Textarea
-                  maxRows={4}
-                  placeholder={
-                    isLogin === true
-                      ? "What's in your mind?"
-                      : "Sign in to post!"
-                  }
-                  className="homePage__feed__content__inputArea__body__input"
-                />
-              </div>
-              <hr className="homePage__noMargin" />
-              <div className="homePage__feed__content__inputArea__footer">
-                <div className="homePage__feed__content__inputArea__footer__camera">
-                  <span className="homePage__feed__content__inputArea__footer__camera__icon">
-                    <i className="xi-camera" />
-                  </span>
-                </div>
-                <div className="homePage__feed__content__inputArea__footer__postArea">
-                  <ButtonDropdown
-                    isOpen={this.state.dropdownOpen}
-                    toggle={this.toggle}
-                    size="sm"
-                    direction="down"
-                  >
-                    <DropdownToggle caret>
-                      {this.state.selectedPostType}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      {postType.map((data, index) => {
-                        return (
-                          <DropdownItem
-                            key={index}
-                            onClick={() => this.handlePostType(data)}
-                          >
-                            {data}
-                          </DropdownItem>
-                        );
-                      })}
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                  <span className="homePage__feed__content__inputArea__footer__postArea__postButton">
-                    post
-                  </span>
-                </div>
-              </div>
-            </div>
+            <SocialInput
+              placeholder="What's in your mind?"
+              user={user}
+              isLogin={isLogin}
+              showType
+              showCamera
+              handleBase={this.handlePreview}
+              handleType={this.handlePostType}
+              handleDelete={this.handleBadge}
+              imagePreview={imagePreview}
+              selectedPostType={selectedPostType}
+            />
             <Post
               text="hi My name is Shin Hyun Jong"
               createdAt="15min"

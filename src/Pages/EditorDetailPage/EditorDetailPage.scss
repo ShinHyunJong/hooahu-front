@@ -26,6 +26,23 @@
     width: 520px;
   }
 
+  &__modal {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    &__comment {
+      height: 40vh;
+      overflow-y: scroll;
+    }
+
+    &__input {
+      padding-left: 50px !important;
+      padding-right: 50px !important;
+    }
+  }
+
   &__sideBar {
     position: fixed;
     border: 1px;
@@ -210,6 +227,33 @@
                 font-size: 2rem;
               }
             }
+          }
+        }
+
+        &__comment {
+          margin-top: 1rem;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+
+          &__wrapper {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          &-content {
+            display: flex;
+            align-items: center;
+          }
+
+          &-name {
+            font-weight: bold;
+            color: black;
+            margin-right: 10px;
+          }
+
+          &-date {
+            color: $gray;
           }
         }
       }
