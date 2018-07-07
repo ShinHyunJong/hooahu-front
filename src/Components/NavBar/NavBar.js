@@ -21,7 +21,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as AuthAction from "../../ActionCreators/AuthAction";
 import { Thumb } from "../";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
+import MainLogo from "../../Assets/Images/hooahu_main.png";
 
 const defaultProps = {};
 const propTypes = {};
@@ -67,9 +68,16 @@ class NavBar extends Component {
   }
 
   handleEditor = () => {
-    this.props.history.push({
-      pathname: "/editor_choice"
-    });
+    const { isLogin } = this.props;
+    if (!isLogin) {
+      this.props.history.push({
+        pathname: "/signup"
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/editor_choice"
+      });
+    }
   };
 
   handleSignUp = () => {
@@ -116,7 +124,7 @@ class NavBar extends Component {
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
         <NavbarBrand className="navBar__logo" onClick={this.handleHome}>
-          HOOAH!U
+          <img src={MainLogo} width={130} />
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>

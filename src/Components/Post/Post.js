@@ -3,8 +3,10 @@
 
 import React, { Component } from "react";
 import cx from "classnames";
+import moment from "moment";
 import NumericLabel from "react-pretty-numbers";
 import { Thumb } from "../";
+import ImageGallery from "react-image-gallery";
 
 const defaultProps = {};
 const propTypes = {};
@@ -25,6 +27,34 @@ class Post extends Component {
     super(props);
   }
 
+  handlePostType = postType => {
+    if (postType === 1) {
+      return "Walkie Takie";
+    } else if (postType === 2) {
+      return "Question";
+    } else if (postType === 3) {
+      return "Selling/Giving Away";
+    } else if (postType === 4) {
+      return "HangOut";
+    } else if (postType === 5) {
+      return "Area1";
+    } else if (postType === 6) {
+      return "Area2";
+    } else if (postType === 7) {
+      return "Area2";
+    } else if (postType === 8) {
+      return "Area3";
+    } else if (postType === 9) {
+      return "Area4";
+    } else if (postType === 10) {
+      return "KATUSA";
+    } else if (postType === 10) {
+      return "Ville Channel";
+    } else {
+      return "Walkie Takie";
+    }
+  };
+
   render() {
     const {
       writer,
@@ -33,7 +63,7 @@ class Post extends Component {
       text,
       likeCount,
       commentCount,
-      img,
+      images,
       profileImg
     } = this.props;
     return (
@@ -46,10 +76,10 @@ class Post extends Component {
             <div className="post__header__userInfo__nameArea">
               <p className="post__header__userInfo__nameArea__name">
                 <strong className="homePage__strong">{writer && writer}</strong>
-                {"in " + postType && postType}
+                {"in " + this.handlePostType(postType)}
               </p>
               <p className="post__header__userInfo__nameArea__time">
-                {createdAt && createdAt + " ago"}
+                {createdAt && moment(createdAt).fromNow()}
               </p>
             </div>
           </div>
@@ -60,17 +90,21 @@ class Post extends Component {
           </div>
         </div>
         <div className="post__body">
-          <div className="post__body__imageArea">
-            <img className="post__body__imageArea__image" src={img} />
-          </div>
+          {images === null ||
+          images === undefined ||
+          images.length === 0 ? null : (
+              <ImageGallery
+                items={images}
+                showThumbnails={false}
+                showPlayButton={false}
+                showBullets={true}
+              />
+            )}
           <div className="post__body__tags">
             <span className="post__body__tags__tag">
-              <span className="post__body__tags__tag__icon">
-                <i className="xi-tag" />
-              </span>Humphreys
+              <i className="xi-tag" />
+              MP
             </span>
-            <span className="post__body__tags__tag">#557</span>
-            <span className="post__body__tags__tag">#MP</span>
           </div>
           <p className="post__body__text">{text && text}</p>
         </div>

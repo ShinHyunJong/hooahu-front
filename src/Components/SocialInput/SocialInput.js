@@ -120,7 +120,7 @@ class SocialInput extends Component {
                     return (
                       <DropdownItem
                         key={index}
-                        onClick={() => handleType(data)}
+                        onClick={() => handleType(index, data)}
                       >
                         {data}
                       </DropdownItem>

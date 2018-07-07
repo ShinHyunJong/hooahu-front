@@ -29,6 +29,10 @@
     box-sizing: border-box;
     background-color: ghostwhite;
 
+    @media screen and (max-width: 600px) {
+      width: calc(100vw);
+    }
+
     &__noResult {
       display: flex;
       justify-content: center;
@@ -204,6 +208,9 @@
     height: 100vh;
     box-sizing: border-box;
     background-color: white;
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
 
     &__wrapper {
       display: flex;

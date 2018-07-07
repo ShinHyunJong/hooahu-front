@@ -14,10 +14,11 @@
     margin-bottom: 5px !important;
   }
   width: 100vw;
-  overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
+  height: 100vh;
+  overflow-y: auto;
 
   &__notice {
     display: inline-block;
@@ -119,7 +120,7 @@
     margin-left: 360px;
     padding-top: 50px;
     padding-bottom: 10rem;
-    sflex-direction: column;
+    flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     background-color: ghostwhite;

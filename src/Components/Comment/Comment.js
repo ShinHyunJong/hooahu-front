@@ -13,7 +13,7 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment } = this.props;
+    const { comment, onClick } = this.props;
     return (
       <div className="comment">
         {comment &&
@@ -21,7 +21,12 @@ class Comment extends Component {
             return (
               <div key={index} className="comment__wrapper">
                 <div className="comment-content">
-                  <strong className="comment-name">{data.nickname}</strong>
+                  <strong
+                    onClick={() => onClick(data.user_id)}
+                    className="comment-name"
+                  >
+                    {data.nickname}
+                  </strong>
                   {data.comment}
                 </div>
                 <p className="comment-date">

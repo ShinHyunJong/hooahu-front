@@ -8,6 +8,7 @@
 @import "./Components/index";
 @import "~nprogress/nprogress.css";
 @import url("https://fonts.googleapis.com/css?family=Lato|Raleway:400,700|Roboto");
+@import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
 
 body {
   font-family: "Lato", sans-serif !important;
@@ -44,7 +45,6 @@ body {
   opacity: 1;
   /* Firefox */
 }
-
 .btn-group-sm > .btn,
 .btn-sm {
   padding: 0.25rem 0.5rem;
@@ -115,4 +115,41 @@ body {
 }
 .hooahu__modal {
   width: 800px !important;
+}
+.image-gallery-left-nav,
+.image-gallery-right-nav {
+  color: #fff;
+  font-size: 2em;
+  padding: 50px 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  &:focus {
+    outline-style: none;
+  }
+}
+
+.image-gallery-fullscreen-button::before,
+.image-gallery-play-button::before {
+  font-size: 2em !important;
+  padding: 15px 20px;
+  text-shadow: 0 1px 1px #1a1a1a;
+}
+
+.image-gallery-fullscreen-button::after,
+.image-gallery-play-button::after {
+  &:focus {
+    outline: none !important;
+  }
+}
+.image-gallery-bullets .image-gallery-bullet {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 0 #1a1a1a;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  outline: none;
+  padding: 4px;
 }

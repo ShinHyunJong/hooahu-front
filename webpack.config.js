@@ -43,8 +43,12 @@ module.exports = {
         loader: "json-loader"
       },
       {
-        test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)$/i,
-        loader: "file-loader?name=/public/icons/[name].[ext]"
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: "img-loader?name=/public/imgs/[name].[ext]"
+      },
+      {
+        test: /\.(jpe?g|png|woff|woff2|eot|ttf|svg)$/,
+        loader: "url-loader"
       }
     ]
   }

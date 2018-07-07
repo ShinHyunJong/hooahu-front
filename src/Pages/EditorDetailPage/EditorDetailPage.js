@@ -4,7 +4,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavBar, SocialInput, Comment } from "../../Components";
+
 import {
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
   Container,
   Row,
   Col,
@@ -13,20 +19,18 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
-import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
+import * as ChoiceAction from "../../ActionCreators/ChoiceAction";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
-import ProgressiveImage from "react-progressive-image-loading";
 import nprogress from "nprogress";
 
 import scrollToComponent from "react-scroll-to-component";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import { MarkerWithLabel } from "react-google-maps/lib/components/addons/MarkerWithLabel";
-import { Carousel } from "react-responsive-carousel";
-import moment from "moment";
+import ImageGallery from "react-image-gallery";
 
 const defaultProps = {};
 const propTypes = {};
@@ -75,7 +79,29 @@ class EditorDetailPage extends Component {
       }
     }
 
+    const { token } = this.props;
+    const params = {
+      id: Number(this.props.match.params.package),
+      token
+    };
+    this.props.dispatch(ChoiceAction.getChoiceComment(params)).then(value => {
+      this.setState({ commentList: value.reverse() });
+      nprogress.done();
+    });
+
     const selectedChoice = ecJson[selectedChoiceIndex];
+    selectedChoice.image_url = selectedChoice.image_url.map((data, index) => {
+      return { original: data };
+    });
+    console.log(selectedChoice);
+    for (let i = 0; i < selectedChoice.places.length; i++) {
+      selectedChoice.places[i].image_url = selectedChoice.places[
+        i
+      ].image_url.map((data, index) => {
+        return { original: data };
+      });
+    }
+
     const starLength = selectedChoice.rating;
     let starArray = [];
     for (let i = 0; i < starLength; i++) {
@@ -126,18 +152,7 @@ class EditorDetailPage extends Component {
     this.setState({ Map: MapWithAMarker });
   }
 
-  componentDidMount() {
-    const { token } = this.props;
-    const params = {
-      id: Number(this.props.match.params.package),
-      token
-    };
-    this.props.dispatch(ChoiceAction.getChoiceComment(params)).then(value => {
-      this.setState({ commentList: value });
-      console.log(value);
-      nprogress.done();
-    });
-  }
+  componentDidMount() {}
 
   toggle = tab => {
     if (this.state.activeTab !== tab) {
@@ -202,8 +217,14 @@ class EditorDetailPage extends Component {
         comment: this.state.comment,
         created_at: date
       };
-      newComment.push(content);
+      newComment.splice(0, 0, content);
       this.setState({ commentList: newComment, comment: "" });
+    });
+  };
+
+  handleCommentUser = user_id => {
+    this.props.history.push({
+      pathname: "/@" + user_id
     });
   };
 
@@ -262,7 +283,7 @@ class EditorDetailPage extends Component {
           <ModalBody>
             <div className="editorDetail__modal">
               <div className="editorDetail__modal__comment">
-                <Comment comment={commentList} />
+                <Comment comment={commentList && commentList} />
               </div>
               <SocialInput
                 className="editorDetail__modal__input"
@@ -292,7 +313,10 @@ class EditorDetailPage extends Component {
               <i className="xi-heart" />
             </span>
           )}
-          <span onClick={this.toggleModal} className="editorDetail__sideBar__icon">
+          <span
+            onClick={this.toggleModal}
+            className="editorDetail__sideBar__icon"
+          >
             <i className="xi-speech-o" />
           </span>
           <span
@@ -551,7 +575,10 @@ class EditorDetailPage extends Component {
               </div>
               <hr />
               <div className="editorDetail__content__package__text__comment">
-                <Comment comment={commentList && commentList.slice(0, 3)} />
+                <Comment
+                  comment={commentList && commentList.slice(0, 3)}
+                  onClick={this.handleCommentUser}
+                />
               </div>
             </div>
             <div className="editorDetail__content__package__image">
@@ -591,20 +618,12 @@ class EditorDetailPage extends Component {
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
                   <div className="editorDetail__carousel">
-                    <Carousel showArrows={true} showThumbs={false}>
-                      {selectedChoice.image_url.map((data, index) => {
-                        return (
-                          <ProgressiveImage
-                            key={index}
-                            preview={data}
-                            src={data}
-                            render={(src, style) => (
-                              <img src={src} style={style} />
-                            )}
-                          />
-                        );
-                      })}
-                    </Carousel>
+                    <ImageGallery
+                      items={selectedChoice.image_url}
+                      showThumbnails={false}
+                      showPlayButton={false}
+                      showBullets={true}
+                    />
                   </div>
                 </TabPane>
                 <TabPane tabId="2">
@@ -638,23 +657,12 @@ class EditorDetailPage extends Component {
                   className="editorDetail__content__places__place"
                 >
                   <div className="editorDetail__content__places__place__image">
-                    <Carousel showArrows={true} showThumbs={false}>
-                      {data.image_url.map((data, index2) => {
-                        return (
-                          <ProgressiveImage
-                            key={index2}
-                            preview={data}
-                            src={data}
-                            render={(src, style) => (
-                              <img
-                                src={src}
-                                style={Object.assign(style, { width: "100%" })}
-                              />
-                            )}
-                          />
-                        );
-                      })}
-                    </Carousel>
+                    <ImageGallery
+                      items={data.image_url}
+                      showThumbnails={false}
+                      showPlayButton={false}
+                      showBullets={true}
+                    />
                   </div>
                   <div
                     className="editorDetail__content__places__place__text"

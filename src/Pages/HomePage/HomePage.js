@@ -15,6 +15,8 @@ import cx from "classnames";
 import ProgressiveImage from "react-progressive-image";
 import Textarea from "react-textarea-autosize";
 import Badge from "material-ui/Badge";
+import * as FeedAction from "../../ActionCreators/FeedAction";
+import { Bounce } from "react-activity";
 import FileInputComponent from "react-file-input-previews-base64";
 import {
   ButtonDropdown,
@@ -30,7 +32,9 @@ const propTypes = {};
 const mapStateToProps = state => {
   return {
     isLogin: state.reducer.isLogin,
-    user: state.reducer.user
+    user: state.reducer.user,
+    token: state.reducer.token,
+    feeds: state.reducer.feeds
   };
 };
 
@@ -40,6 +44,7 @@ const styles = {
     margin: 0,
     padding: 0
   },
+
   image: {
     height: 130,
     cursor: "pointer"
@@ -56,8 +61,11 @@ class HomePage extends Component {
       expandNotice: false,
       selectedFeed: 0,
       selectedPost: 0,
+      feeds: [],
+      feedText: "",
       selectedEC: [],
       dropdownOpen: false,
+      selectedPostTypeIndex: 1,
       selectedPostType: "Walkie Talkie",
       imagePreview: []
     };
@@ -74,23 +82,53 @@ class HomePage extends Component {
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    this.setState({ selectedEC });
+    this.setState({ selectedEC, feedLoading: true });
+    const params = {
+      token: this.props.token,
+      type: 0
+    };
+    this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
+      const newFeeds = value.slice();
+      for (let i = 0; i < newFeeds.length; i++) {
+        newFeeds[i].images = value[i].images.map((data, index) => {
+          return { original: data.img_url };
+        });
+      }
+      this.setState({ feeds: newFeeds, feedLoading: false });
+      nprogress.done();
+    });
   }
 
-  componentDidMount() {
-    nprogress.done();
-  }
+  componentDidMount() {}
 
   handleFeed = index => {
     this.setState({ selectedFeed: index });
   };
 
   handlePost = index => {
-    this.setState({ selectedPost: index });
+    const { isLogin } = this.props;
+    const params = {
+      token: this.props.token,
+      type: index
+    };
+    if (!isLogin) {
+      this.props.history.push({ pathname: "/signup" });
+    } else {
+      this.setState({ selectedPost: index, feedLoading: true });
+      this.props.dispatch(FeedAction.getFeed(params)).then(value => {
+        const newFeeds = value.slice();
+        for (let i = 0; i < newFeeds.length; i++) {
+          newFeeds[i].images = value[i].images.map((data, index) => {
+            return { original: data.img_url };
+          });
+        }
+        this.setState({ feeds: newFeeds, feedLoading: false });
+      });
+    }
   };
 
-  handlePostType = type => {
-    this.setState({ selectedPostType: type });
+  handlePostType = (index, type) => {
+    this.setState({ selectedPostType: type, selectedPostTypeIndex: index });
   };
 
   handleEditor = id => {
@@ -119,6 +157,64 @@ class HomePage extends Component {
     this.setState({ imagePreview });
   };
 
+  handleText = e => {
+    this.setState({ feedText: e.target.value });
+  };
+
+  handleAuth = () => {
+    this.props.history.push({
+      pathname: "/signup"
+    });
+  };
+
+  handlePostFeed = () => {
+    const { user, isLogin } = this.props;
+    if (!isLogin) {
+      this.props.history.push({
+        pathname: "/signup"
+      });
+    } else {
+      const {
+        feedText,
+        selectedPostTypeIndex,
+        imagePreview,
+        feeds
+      } = this.state;
+      const newFeeds = feeds.slice();
+
+      let date = new Date();
+
+      const params = {
+        token: this.props.token,
+        content: feedText,
+        type: selectedPostTypeIndex,
+        pic_list: imagePreview
+      };
+
+      const images = imagePreview.map((data, index) => {
+        return { original: data };
+      });
+      const frontParams = {
+        content: feedText,
+        type: selectedPostTypeIndex,
+        images,
+        created_at: date,
+        nickname: user.nickname
+      };
+
+      this.setState({ feedLoading: true });
+      this.props.dispatch(FeedAction.postFeed(params)).then(value => {
+        newFeeds.splice(0, 0, frontParams);
+        this.setState({
+          feedText: "",
+          imagePreview: [],
+          feedLoading: false,
+          feeds: newFeeds
+        });
+      });
+    }
+  };
+
   render() {
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
@@ -127,8 +223,9 @@ class HomePage extends Component {
       selectedPost,
       selectedPostType,
       selectedEC,
-      expandNotice,
-      imagePreview
+      imagePreview,
+      feeds,
+      feedLoading
     } = this.state;
     const { isLogin, user } = this.props;
     return (
@@ -136,69 +233,33 @@ class HomePage extends Component {
         <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
         <div className="homePage__notice">
           <div className="homePage__notice__content">
-            <div
-              className={cx("homePage__notice__content__wrapper", {
-                "homePage__notice__content__wrapper-expand":
-                  expandNotice === true
-              })}
-            >
+            <div className="homePage__notice__content__wrapper">
               {user.length === 0 ? (
-                <p>WelCome!</p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    textAlign: "center"
+                  }}
+                >
+                  <p>Join and get connected with people in USFK Community!</p>
+                  <br />
+                  <div
+                    onClick={this.handleAuth}
+                    className="homePage__filter__content__items__item-login"
+                  >
+                    <p className="homePage__filter__content__items__item-login-text">
+                      Log in / Sign up
+                    </p>
+                  </div>
+                </div>
               ) : (
                 <p>{"Welcome! " + user.first_name + " " + user.last_name}</p>
               )}
-              <p>
-                You have
-                <span className="homePage__notice__content__wrapper__notice">
-                  7
-                </span>
-                new Notifications!
-              </p>
+
               <hr />
-              <div className="homePage__notice__content__wrapper__list">
-                <div className="homePage__notice__content__wrapper__list__bar" />
-                <div className="homePage__notice__content__wrapper__list__content">
-                  <p>
-                    <span className="homePage__notice__content__wrapper__notice-name">
-                      Hyun Jong Shin
-                    </span>and 3 more people liked your post
-                  </p>
-                </div>
-              </div>
-              <div className="homePage__notice__content__wrapper__list">
-                <div className="homePage__notice__content__wrapper__list__bar" />
-                <div className="homePage__notice__content__wrapper__list__content">
-                  <p>
-                    <span className="homePage__notice__content__wrapper__notice-name">
-                      Hyun Jong Shin
-                    </span>and 3 more people liked your post
-                  </p>
-                </div>
-              </div>
-              <div className="homePage__notice__content__wrapper__list">
-                <div
-                  className={cx(
-                    "homePage__notice__content__wrapper__list__bar",
-                    "homePage__notice__content__wrapper__list__bar-comment"
-                  )}
-                />
-                <div className="homePage__notice__content__wrapper__list__content">
-                  <p>
-                    <span className="homePage__notice__content__wrapper__notice-name">
-                      Hyun Jong Shin
-                    </span>and 3 more people commented on your post
-                  </p>
-                </div>
-              </div>
-              <hr className="homePage__noMargin" />
-              <div className="homePage__notice__content__wrapper__more">
-                <span
-                  className="homePage__notice__content__wrapper__more__text"
-                  onClick={this.handleExpand}
-                >
-                  <i className="xi-arrow-down" /> See more
-                </span>
-              </div>
             </div>
           </div>
         </div>
@@ -215,23 +276,43 @@ class HomePage extends Component {
               handleDelete={this.handleBadge}
               imagePreview={imagePreview}
               selectedPostType={selectedPostType}
+              onChange={this.handleText}
+              onClick={this.handlePostFeed}
+              value={this.state.feedText}
             />
-            <Post
-              text="hi My name is Shin Hyun Jong"
-              createdAt="15min"
-              writer="Shin Hyun Jong"
-              img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTkRvzI1fzYv8I2Psxc9HG_33ttZApXI1jET59aaze6xwBrCJC"
-              likeCount={24}
-              commentCount={40}
-            />
-            <Post
-              text="Hi Y'all. I really wanna meet Kim Jong Un one day."
-              createdAt="2min"
-              writer="Edgar Flores"
-              img="https://dailynewshungary.com/wp-content/uploads/2017/01/us_army-1280x640.jpg"
-              likeCount={10000}
-              commentCount={210}
-            />
+            {feedLoading ? (
+              <div className="homePage__feed__content-loading">
+                <Bounce size={30} color="#fdd835" />
+              </div>
+            ) : (
+              feeds &&
+              feeds.map((data, index) => {
+                return (
+                  <Post
+                    key={index}
+                    // img={data.pic_list[0]}
+                    profileImg={data.profile_img}
+                    postType={data.post_type}
+                    text={data.content}
+                    images={data.images}
+                    createdAt={data.created_at}
+                    writer={data.nickname}
+                  />
+                );
+              })
+            )}
+            {feeds.length === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "10%"
+                }}
+              >
+                There are no posts yet.
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="homePage__filter">

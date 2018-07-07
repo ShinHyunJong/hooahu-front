@@ -12,6 +12,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { yellow600 } from "material-ui/styles/colors";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Alert
+import "react-activity/dist/react-activity.css";
 
 const loggerMiddleware = createLogger();
 
@@ -36,7 +37,7 @@ import App from "./App";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/hooahu">
+    <BrowserRouter>
       <MuiThemeProvider muiTheme={muiTheme}>
         <App />
       </MuiThemeProvider>

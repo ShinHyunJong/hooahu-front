@@ -72,7 +72,13 @@
 
     &__tags {
       display: flex;
+      margin-top: 1rem;
       flex-direction: row;
+
+      &__type {
+        margin-top: 5px;
+        display: block;
+      }
 
       &__tag {
         color: $main-color;
