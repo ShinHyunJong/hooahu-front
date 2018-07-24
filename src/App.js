@@ -26,7 +26,8 @@ import {
   SignUpWork,
   EditorChoicePage,
   EditorDetailPage,
-  UserPage
+  UserPage,
+  GuidePage
 } from "./Pages/";
 
 const mapStateToProps = state => {
@@ -43,7 +44,9 @@ class App extends Component {
   componentWillMount() {
     const { token } = this.props;
     if (token === null || token === null || token === undefined) {
-      return null;
+      this.props.history.push({
+        pathname: "/signup"
+      });
     } else {
       this.props.dispatch(UserAction.getUser(token));
     }
@@ -64,6 +67,7 @@ class App extends Component {
         <Route path="/signup/reason" component={SignUpWork} />
         <Route exact path="/editor_choice" component={EditorChoicePage} />
         <Route path="/editor_choice/:package" component={EditorDetailPage} />
+        <Route exact path="/guide" component={GuidePage} />
       </div>
     );
   }

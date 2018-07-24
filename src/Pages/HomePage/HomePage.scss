@@ -10,6 +10,10 @@
     color: black;
     margin-right: 5px;
   }
+
+  &__welcome {
+    margin-top: 5rem;
+  }
   &__noMargin {
     margin-bottom: 5px !important;
   }
@@ -17,8 +21,8 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
-  height: 100vh;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 
   &__notice {
     display: inline-block;
@@ -117,9 +121,9 @@
     width: calc(100vw - 710px);
     padding: 0 2rem;
     margin-left: 360px;
-    height: 100vh;
 
     @media screen and (max-width: 600px) {
+      overflow-y: scroll;
       margin-left: 0;
       width: 100vw;
       display: inline-flex;

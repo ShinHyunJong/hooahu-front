@@ -93,7 +93,6 @@ class EditorDetailPage extends Component {
     selectedChoice.image_url = selectedChoice.image_url.map((data, index) => {
       return { original: data };
     });
-    console.log(selectedChoice);
     for (let i = 0; i < selectedChoice.places.length; i++) {
       selectedChoice.places[i].image_url = selectedChoice.places[
         i

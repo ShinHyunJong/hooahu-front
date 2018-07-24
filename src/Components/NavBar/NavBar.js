@@ -119,6 +119,12 @@ class NavBar extends Component {
     });
   };
 
+  handleGuide = () => {
+    this.props.history.push({
+      pathname: "/guide"
+    });
+  };
+
   render() {
     const { isLogin, isActive, user } = this.props;
     return (
@@ -183,7 +189,7 @@ class NavBar extends Component {
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret />
                 <DropdownMenu right>
-                  <DropdownItem>Guide</DropdownItem>
+                  <DropdownItem onClick={this.handleGuide}>Guide</DropdownItem>
                   {user && user.type === "Civ" && isLogin === true ? (
                     <DropdownItem>Business Solution</DropdownItem>
                   ) : null}
