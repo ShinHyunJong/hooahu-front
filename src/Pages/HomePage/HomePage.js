@@ -272,7 +272,7 @@ class HomePage extends Component {
                     </div>
                   </div>
                 ) : (
-                  <p>{"Welcome! " + user.first_name + " " + user.last_name}</p>
+                  <p>{"Welcome!!!! " + user.first_name + " " + user.last_name}</p>
                 )}
 
                 <hr />
