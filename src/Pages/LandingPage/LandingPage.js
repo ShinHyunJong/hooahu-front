@@ -8,8 +8,16 @@ import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
+import * as AuthAction from "../../ActionCreators/AuthAction";
 import * as UserAction from "../../ActionCreators/UserAction";
-import { NavBar, BoxList, Post, Thumb, SocialInput } from "../../Components";
+import {
+  NavBar,
+  BoxList,
+  Post,
+  Thumb,
+  SocialInput,
+  RoundInput
+} from "../../Components";
 import ProgressiveImage from "react-progressive-image-loading";
 import { withRouter } from "react-router-dom"; // Material UI Provider for React
 
@@ -35,9 +43,10 @@ class LandingPage extends Component {
   }
 
   render() {
-    const { isChecking, isValid, isLength } = this.state;
+    // const { isChecking, isValid, isLength } = this.state;
     return (
       <div className="landingPage">
+        <NavBar />
         <div className="landingPage__welcome">
           <div className="landingPage__welcome__info">
             <h1>
@@ -55,25 +64,38 @@ class LandingPage extends Component {
               to join the network.
             </h2>
           </div>
-          <div className="landingPage__welcome__input">
-            <input
-              className="landingPage__welcome__input__blank"
-              placeholder="아이디"
-              onChange={this.handleInput}
-            />
-            <input
-              className="landingPage__welcome__input__blank"
-              placeholder="비밀번호"
-              onChange={this.handlePassword}
-            />
-            {isChecking ? <h1>체킹중</h1> : null}
+
+          <div className="landingPage__welcome__signin">
+            <div className="landingPage__welcome__signin__container">
+              <div className="landingPage__welcome__signin__container__blank">
+                <img src="" alt="" />
+                <RoundInput onChange={this.handleEmail} placeholder="Email" />
+              </div>
+
+              <div className="landingPage__welcome__signin__container__blank">
+                <img src="" alt="" />
+                <RoundInput
+                  onChange={this.handlePassword}
+                  placeholder="Password"
+                  type="password"
+                />
+              </div>
+
+              <div className="landingPage__welcome__signin__container__btn">
+                <button onClick={this.handleSignIn}>Log In</button>
+              </div>
+            </div>
+
+            <div className="landingPage__welcome__signin__help">
+              <p>What can I do with Hooah!U ?</p>
+            </div>
+            {/* {isChecking ? <h1>체킹중</h1> : null}
             {!isValid ? (
               <h1>이미 가입된 이메일입니다.</h1>
             ) : (
               <h1>가능합니다!</h1>
             )}
-            {isLength ? <h1>유효합니다.</h1> : <h1>유효하지 않음</h1>}
-            <button>Login</button>
+            {isLength ? <h1>유효합니다.</h1> : <h1>유효하지 않음</h1>} */}
           </div>
         </div>
         <div className="landingPage__about" />
@@ -94,12 +116,32 @@ class LandingPage extends Component {
     });
   };
 
+  handleEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
   handlePassword = e => {
-    if (e.target.value.length > 6) {
-      this.setState({ isLength: true });
-    } else {
-      this.setState({ isLength: false });
-    }
+    this.setState({ password: e.target.value });
+    // if (e.target.value.length > 6) {
+    //   this.setState({ isLength: true });
+
+    // } else {
+    //   this.setState({ isLength: false });
+    // }
+  };
+
+  handleSignIn = () => {
+    const params = { email: this.state.email, password: this.state.password };
+    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+      if (value === "failed") {
+        return null;
+      } else {
+        await this.props.dispatch(UserAction.getUser(value));
+        await this.props.history.push({
+          pathname: "/"
+        });
+      }
+    });
   };
 
   handleSignUp = () => {
