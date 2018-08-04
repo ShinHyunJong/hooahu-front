@@ -6,6 +6,9 @@ export const FAILED_TO_GET_FEED = "FAILED_TO_GET_FEED";
 export const SUCCEED_TO_POST_FEED = "SUCCEED_TO_POST_FEED";
 export const FAILED_TO_POST_FEED = "FAILED_TO_POST_FEED";
 
+export const SUCCEED_TO_POST_COMMENT = "SUCCEED_TO_POST_COMMENT";
+export const FAILED_TO_POST_COMMENT = "FAILED_TO_POST_COMMENT";
+
 export const getAllFeed = params => {
   return async dispatch => {
     try {
@@ -89,6 +92,38 @@ export const postFeed = params => {
     } catch (error) {
       dispatch({
         type: FAILED_TO_POST_FEED,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const postComment = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint + "api/post/comment/" + params.post_id,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          },
+          body: JSON.stringify({
+            content: params.content
+          })
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_POST_COMMENT,
+        payload: responseJson
+      });
+      return responseJson;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_POST_COMMENT,
         payload: { data: "NETWORK_ERROR" }
       });
     }

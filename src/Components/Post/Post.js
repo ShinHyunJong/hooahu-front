@@ -57,6 +57,7 @@ class Post extends Component {
 
   render() {
     const {
+      id,
       writer,
       postType,
       createdAt,
@@ -64,6 +65,7 @@ class Post extends Component {
       likeCount,
       commentCount,
       images,
+      comments,
       profileImg,
       onClickComment
     } = this.props;
@@ -128,12 +130,17 @@ class Post extends Component {
               </div>
               <span
                 className="post__footer__wrapper__commentArea__icon"
-                onClick={onClickComment}
+                onClick={() => onClickComment(id)}
               >
                 <i className="xi-speech-o" />
               </span>
             </div>
           </div>
+        </div>
+        <div className="post__footer__wrapper__commentList">
+          {comments.map((data, index) => {
+            return <p>{data.content}</p>;
+          })}
         </div>
       </div>
     );

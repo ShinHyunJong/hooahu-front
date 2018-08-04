@@ -72,6 +72,7 @@ class HomePage extends Component {
       dropdownOpen: false,
       selectedPostTypeIndex: 1,
       selectedPostType: "Walkie Talkie",
+      selectedPostIndex: 0,
       showModal: false,
       imagePreview: [],
       comment: ""
@@ -127,6 +128,7 @@ class HomePage extends Component {
       selectedFeed,
       selectedPost,
       selectedPostType,
+      selectedPostIndex,
       selectedEC,
       showModal,
       imagePreview,
@@ -135,6 +137,8 @@ class HomePage extends Component {
       comment
     } = this.state;
     const { isLogin, user } = this.props;
+    console.log(selectedPostIndex);
+
     if (isLogin) {
       return (
         <div className="homePage" onScroll={this.handleScroll}>
@@ -160,7 +164,7 @@ class HomePage extends Component {
                   isLogin={isLogin}
                   onChange={this.handleInput}
                   placeholder="Leave a comment"
-                  onClick={this.handlePost}
+                  onClick={this.handlePostComment}
                 />
               </div>
             </ModalBody>
@@ -227,11 +231,14 @@ class HomePage extends Component {
                     <Post
                       key={index}
                       // img={data.pic_list[0]}
+                      id={data.id}
                       profileImg={data.profile_img}
                       postType={data.post_type}
                       text={data.content}
+                      comments={data.comments}
                       images={data.images}
                       createdAt={data.created_at}
+                      likeCount={data.like_cnt}
                       writer={data.nickname}
                       onClickComment={this.toggleModal}
                     />
@@ -395,6 +402,13 @@ class HomePage extends Component {
     }
   };
 
+  handlePostComment = () => {
+    const { dispatch, token } = this.props;
+    const { comment, selectedPostIndex } = this.state;
+    const params = { post_id: selectedPostIndex, content: comment, token };
+    dispatch(FeedAction.postComment(params));
+  };
+
   handlePostType = (index, type) => {
     this.setState({ selectedPostType: type, selectedPostTypeIndex: index });
   };
@@ -484,9 +498,10 @@ class HomePage extends Component {
     }
   };
 
-  toggleModal = () => {
+  toggleModal = id => {
     this.setState({
-      showModal: !this.state.showModal
+      showModal: !this.state.showModal,
+      selectedPostIndex: id
     });
   };
 
