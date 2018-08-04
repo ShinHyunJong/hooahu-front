@@ -6,6 +6,7 @@
 /* Default Page */
 export DefaultPage from "./_DefaultPage/DefaultPage.react";
 export DefaultReduxPage from "./_DefaultReduxPage/DefaultReduxPage.react";
+export LandingPage from "./LandingPage/LandingPage";
 export HomePage from "./HomePage/HomePage";
 export SignUpEmail from "./SignUpEmail/SignUpEmail";
 export SignUpChoose from "./SignUpChoose/SignUpChoose";

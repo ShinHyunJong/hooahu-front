@@ -137,6 +137,11 @@
         &__icon {
           color: $dark-gray;
           font-size: 20px;
+          cursor: pointer;
+          &:hover {
+            color: $sub-color;
+            @include transition(0.3s);
+          }
         }
       }
     }

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
 import { NavBar, BoxList, Post, Thumb, SocialInput } from "../../Components";
+import { LandingPage } from "../../Pages";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
 import nprogress from "nprogress";
@@ -22,7 +23,9 @@ import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Modal,
+  ModalBody
 } from "reactstrap";
 
 // import list from "../../Json/HotTopic.json";
@@ -69,7 +72,9 @@ class HomePage extends Component {
       dropdownOpen: false,
       selectedPostTypeIndex: 1,
       selectedPostType: "Walkie Talkie",
-      imagePreview: []
+      showModal: false,
+      imagePreview: [],
+      comment: ""
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -114,6 +119,255 @@ class HomePage extends Component {
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
+
+  render() {
+    const feedType = filterJson.feed_type;
+    const postType = filterJson.post_type;
+    const {
+      selectedFeed,
+      selectedPost,
+      selectedPostType,
+      selectedEC,
+      showModal,
+      imagePreview,
+      feeds,
+      feedLoading,
+      comment
+    } = this.state;
+    const { isLogin, user } = this.props;
+    if (isLogin) {
+      return (
+        <div className="homePage" onScroll={this.handleScroll}>
+          <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
+          <Modal
+            isOpen={showModal}
+            toggle={this.toggleModal}
+            wrapClassName="hooahu__modal"
+            size="lg"
+            modalTransition={{ timeout: 20 }}
+            backdropTransition={{ timeout: 10 }}
+            centered={true}
+          >
+            <ModalBody>
+              <div className="editorDetail__modal">
+                <div className="editorDetail__modal__comment">
+                  {/* <Comment comment={commentList && commentList} /> */}
+                </div>
+                <SocialInput
+                  className="editorDetail__modal__input"
+                  user={user}
+                  value={comment}
+                  isLogin={isLogin}
+                  onChange={this.handleInput}
+                  placeholder="Leave a comment"
+                  onClick={this.handlePost}
+                />
+              </div>
+            </ModalBody>
+          </Modal>
+          <div className="homePage__notice">
+            <div className="homePage__notice__content">
+              <div className="homePage__notice__content__wrapper">
+                {user.length === 0 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      textAlign: "center"
+                    }}
+                  >
+                    <p>Join and get connected with people in USFK Community!</p>
+                    <br />
+                    <div
+                      onClick={this.handleAuth}
+                      className="homePage__filter__content__items__item-login"
+                    >
+                      <p className="homePage__filter__content__items__item-login-text">
+                        Log in / Sign up
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <p>
+                    {"Welcome!!!! " + user.first_name + " " + user.last_name}
+                  </p>
+                )}
+
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div className="homePage__feed">
+            <div className="homePage__feed__content">
+              <SocialInput
+                placeholder="What's in your mind?"
+                user={user}
+                isLogin={isLogin}
+                showType
+                showCamera
+                handleBase={this.handlePreview}
+                handleType={this.handlePostType}
+                handleDelete={this.handleBadge}
+                imagePreview={imagePreview}
+                selectedPostType={selectedPostType}
+                onChange={this.handleText}
+                onClick={this.handlePostFeed}
+                value={this.state.feedText}
+              />
+              {feedLoading ? (
+                <div className="homePage__feed__content-loading">
+                  <Bounce size={30} color="#fdd835" />
+                </div>
+              ) : (
+                feeds &&
+                feeds.map((data, index) => {
+                  return (
+                    <Post
+                      key={index}
+                      // img={data.pic_list[0]}
+                      profileImg={data.profile_img}
+                      postType={data.post_type}
+                      text={data.content}
+                      images={data.images}
+                      createdAt={data.created_at}
+                      writer={data.nickname}
+                      onClickComment={this.toggleModal}
+                    />
+                  );
+                })
+              )}
+              {feeds.length === 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "10%"
+                  }}
+                >
+                  There are no posts yet.
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <div className="homePage__filter">
+            <div className="homePage__filter__wrapper">
+              <div className="homePage__filter__content">
+                <div className="homePage__filter__content__label">
+                  <p className="homePage__filter__content__label__text">
+                    Feed Types
+                  </p>
+                </div>
+                <div className="homePage__filter__content__items">
+                  {feedType.map((data, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => this.handleFeed(index)}
+                        className={cx(
+                          "homePage__filter__content__items__item",
+                          {
+                            "homePage__filter__content__items__item-clicked":
+                              selectedFeed === index
+                          }
+                        )}
+                      >
+                        {data}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="homePage__filter__content__label">
+                  <p className="homePage__filter__content__label__text">
+                    Post Types
+                  </p>
+                </div>
+                <div className="homePage__filter__content__items">
+                  {postType.map((data, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => this.handlePost(index)}
+                        className={cx(
+                          "homePage__filter__content__items__item",
+                          {
+                            "homePage__filter__content__items__item-clicked":
+                              selectedPost === index
+                          }
+                        )}
+                      >
+                        {data}
+                      </div>
+                    );
+                  })}
+                </div>
+                <hr />
+                <div className="homePage__filter__content__editor">
+                  <p className="homePage__filter__content__editor__label">
+                    See what experience you can have
+                  </p>
+                  <ProgressiveImage
+                    src={selectedEC.image_url[0]}
+                    placeholder={selectedEC.image_url[0]}
+                  >
+                    {src => (
+                      <img
+                        src={src}
+                        onClick={() => this.handleEditor(selectedEC.id)}
+                        alt="an image"
+                        style={styles.image}
+                      />
+                    )}
+                  </ProgressiveImage>
+                  <p
+                    onClick={() => this.handleEditor(selectedEC.id)}
+                    className="homePage__filter__content__editor__title"
+                  >
+                    {selectedEC.name}
+                  </p>
+                  <div>
+                    <span className="homePage__filter__content__editor__detail">
+                      {selectedEC.area + " / " + selectedEC.days}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return <LandingPage />;
+    }
+  }
+
+  handleScroll = e => {
+    const windowHeight =
+      "innerHeight" in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight) {
+      this.setState({
+        message: "bottom reached"
+      });
+    } else {
+      this.setState({
+        message: "not at bottom"
+      });
+    }
+  };
 
   handleFeed = index => {
     this.setState({ selectedFeed: index });
@@ -230,230 +484,14 @@ class HomePage extends Component {
     }
   };
 
-  render() {
-    const feedType = filterJson.feed_type;
-    const postType = filterJson.post_type;
-    const {
-      selectedFeed,
-      selectedPost,
-      selectedPostType,
-      selectedEC,
-      imagePreview,
-      feeds,
-      feedLoading
-    } = this.state;
-    const { isLogin, user } = this.props;
-    if (isLogin) {
-      return (
-        <div className="homePage" onScroll={this.handleScroll}>
-          <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
-          <div className="homePage__notice">
-            <div className="homePage__notice__content">
-              <div className="homePage__notice__content__wrapper">
-                {user.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      textAlign: "center"
-                    }}
-                  >
-                    <p>Join and get connected with people in USFK Community!</p>
-                    <br />
-                    <div
-                      onClick={this.handleAuth}
-                      className="homePage__filter__content__items__item-login"
-                    >
-                      <p className="homePage__filter__content__items__item-login-text">
-                        Log in / Sign up
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <p>{"Welcome!!!! " + user.first_name + " " + user.last_name}</p>
-                )}
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+  };
 
-                <hr />
-              </div>
-            </div>
-          </div>
-          <div className="homePage__feed">
-            <div className="homePage__feed__content">
-              <SocialInput
-                placeholder="What's in your mind?"
-                user={user}
-                isLogin={isLogin}
-                showType
-                showCamera
-                handleBase={this.handlePreview}
-                handleType={this.handlePostType}
-                handleDelete={this.handleBadge}
-                imagePreview={imagePreview}
-                selectedPostType={selectedPostType}
-                onChange={this.handleText}
-                onClick={this.handlePostFeed}
-                value={this.state.feedText}
-              />
-              {feedLoading ? (
-                <div className="homePage__feed__content-loading">
-                  <Bounce size={30} color="#fdd835" />
-                </div>
-              ) : (
-                feeds &&
-                feeds.map((data, index) => {
-                  return (
-                    <Post
-                      key={index}
-                      // img={data.pic_list[0]}
-                      profileImg={data.profile_img}
-                      postType={data.post_type}
-                      text={data.content}
-                      images={data.images}
-                      createdAt={data.created_at}
-                      writer={data.nickname}
-                    />
-                  );
-                })
-              )}
-              {feeds.length === 0 ? (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "10%"
-                  }}
-                >
-                  There are no posts yet.
-                </div>
-              ) : null}
-            </div>
-          </div>
-          <div className="homePage__filter">
-            <div className="homePage__filter__wrapper">
-              <div className="homePage__filter__content">
-                <div className="homePage__filter__content__label">
-                  <p className="homePage__filter__content__label__text">
-                    Feed Types
-                  </p>
-                </div>
-                <div className="homePage__filter__content__items">
-                  {feedType.map((data, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => this.handleFeed(index)}
-                        className={cx(
-                          "homePage__filter__content__items__item",
-                          {
-                            "homePage__filter__content__items__item-clicked":
-                              selectedFeed === index
-                          }
-                        )}
-                      >
-                        {data}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="homePage__filter__content__label">
-                  <p className="homePage__filter__content__label__text">
-                    Post Types
-                  </p>
-                </div>
-                <div className="homePage__filter__content__items">
-                  {postType.map((data, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => this.handlePost(index)}
-                        className={cx(
-                          "homePage__filter__content__items__item",
-                          {
-                            "homePage__filter__content__items__item-clicked":
-                              selectedPost === index
-                          }
-                        )}
-                      >
-                        {data}
-                      </div>
-                    );
-                  })}
-                </div>
-                <hr />
-                <div className="homePage__filter__content__editor">
-                  <p className="homePage__filter__content__editor__label">
-                    See what experience you can have
-                  </p>
-                  <ProgressiveImage
-                    src={selectedEC.image_url[0]}
-                    placeholder={selectedEC.image_url[0]}
-                  >
-                    {src => (
-                      <img
-                        src={src}
-                        onClick={() => this.handleEditor(selectedEC.id)}
-                        alt="an image"
-                        style={styles.image}
-                      />
-                    )}
-                  </ProgressiveImage>
-                  <p
-                    onClick={() => this.handleEditor(selectedEC.id)}
-                    className="homePage__filter__content__editor__title"
-                  >
-                    {selectedEC.name}
-                  </p>
-                  <div>
-                    <span className="homePage__filter__content__editor__detail">
-                      {selectedEC.area + " / " + selectedEC.days}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="homePage">
-          <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
-
-          <div className="homePage__welcome">
-            <h2>로그인 안했을 때</h2>
-          </div>
-        </div>
-      );
-    }
-  }
-
-  handleScroll = e => {
-    const windowHeight =
-      "innerHeight" in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-    const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight) {
-      this.setState({
-        message: "bottom reached"
-      });
-    } else {
-      this.setState({
-        message: "not at bottom"
-      });
-    }
+  handleInput = e => {
+    this.setState({ comment: e.target.value });
   };
 }
 

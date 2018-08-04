@@ -1,0 +1,16 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@mgail.com
+*/
+.landingPage {
+  width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+
+  &__welcome {
+    padding-top: 40px;
+  }
+}

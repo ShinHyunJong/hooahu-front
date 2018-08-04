@@ -50,29 +50,13 @@ const mapStateToProps = state => {
 class SignUpPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
   }
 
   componentDidMount() {}
-
-  handleEmail = e => {
-    this.setState({ email: e.target.value });
-  };
-
-  handlePassword = e => {
-    this.setState({ password: e.target.value });
-  };
-
-  handleSignIn = () => {
-    const params = { email: this.state.email, password: this.state.password };
-    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
-      if (value === "failed") {
-        return null;
-      } else {
-        await this.props.dispatch(UserAction.getUser(value));
-        await this.props.history.goBack();
-      }
-    });
-  };
 
   render() {
     return (
@@ -138,6 +122,28 @@ class SignUpPage extends Component {
       </div>
     );
   }
+
+  handleEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handlePassword = e => {
+    this.setState({ password: e.target.value });
+  };
+
+  handleSignIn = () => {
+    const params = { email: this.state.email, password: this.state.password };
+    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+      if (value === "failed") {
+        return null;
+      } else {
+        await this.props.dispatch(UserAction.getUser(value));
+        await this.props.history.push({
+          pathname: "/"
+        });
+      }
+    });
+  };
 }
 
 SignUpPage.defaultProps = defaultProps;

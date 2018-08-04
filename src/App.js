@@ -43,9 +43,9 @@ class App extends Component {
   }
   componentWillMount() {
     const { token } = this.props;
-    if (token === null || token === null || token === undefined) {
+    if (token === null || token === undefined) {
       this.props.history.push({
-        pathname: "/signup"
+        pathname: "/"
       });
     } else {
       this.props.dispatch(UserAction.getUser(token));

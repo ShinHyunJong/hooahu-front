@@ -16,20 +16,28 @@ const defaultProps = {};
 const propTypes = {};
 
 const mapStateToProps = state => {
-  return {
-    actionResult: state.reducer.actionResult
-  };
+  return {};
 };
 
 class GuidePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      input: "",
+      data: []
+    };
   }
+
+  componentWillMount() {}
+
+  componentDidMount() {}
+
+  componentDidUpdate() {}
 
   render() {
     return (
       <div className="guidePage">
-        <NavBar />This is Guide Redux Page
+        <NavBar isActive="guide" />This is Guide Redux Page
         <div className="guidePage__notice">
           <div className="guidePage__notice__content">
             <div className="guidePage__notice__content__wrapper">
@@ -82,7 +90,13 @@ class GuidePage extends Component {
         <div className="guidePage__feed">
           <div className="guidePage__feed__content">
             <div className="guidePage__feed__content__header">
-              <h4>How to use Hooah!U smarter for USFK Personnel</h4>
+              <h4
+                style={this.state.input.length > 10 ? { color: "red" } : null}
+              >
+                How to use Hooah!U smarter for USFK Personnel
+              </h4>
+              <input placeholder="test" onChange={this.handleInput} />
+              <div>{this.state.input}</div>
             </div>
             <hr />
           </div>
@@ -97,6 +111,10 @@ class GuidePage extends Component {
       </div>
     );
   }
+
+  handleInput = e => {
+    this.setState({ input: e.target.value });
+  };
 }
 
 GuidePage.defaultProps = defaultProps;

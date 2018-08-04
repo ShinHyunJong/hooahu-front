@@ -64,7 +64,8 @@ class Post extends Component {
       likeCount,
       commentCount,
       images,
-      profileImg
+      profileImg,
+      onClickComment
     } = this.props;
     return (
       <div className="post">
@@ -125,7 +126,10 @@ class Post extends Component {
               <div className="post__footer__wrapper__commentArea__count">
                 {commentCount && commentCount}
               </div>
-              <span className="post__footer__wrapper__commentArea__icon">
+              <span
+                className="post__footer__wrapper__commentArea__icon"
+                onClick={onClickComment}
+              >
                 <i className="xi-speech-o" />
               </span>
             </div>
