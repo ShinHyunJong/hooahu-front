@@ -6,7 +6,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { NavBar, BoxList, Post, Thumb, SocialInput } from "../../Components";
+import {
+  NavBar,
+  BoxList,
+  Post,
+  Thumb,
+  SocialInput,
+  Comment
+} from "../../Components";
 import { LandingPage } from "../../Pages";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
@@ -63,6 +70,7 @@ class HomePage extends Component {
     this.state = {
       height: window.innerHeight,
       message: "not at bottom",
+      isPosting: false,
       expandNotice: false,
       selectedFeed: 0,
       selectedPost: 0,
@@ -72,6 +80,7 @@ class HomePage extends Component {
       dropdownOpen: false,
       selectedPostTypeIndex: 1,
       selectedPostType: "Walkie Talkie",
+      selectedPostIndex: 0,
       showModal: false,
       imagePreview: [],
       comment: ""
@@ -99,10 +108,18 @@ class HomePage extends Component {
       this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
         const newFeeds = value.slice();
         for (let i = 0; i < newFeeds.length; i++) {
+          // newFeeds[i].comments = newFeeds[i].comments.reverse();
           newFeeds[i].images = value[i].images.map((data, index) => {
             return { original: data.img_url };
           });
         }
+
+        let result = newFeeds.map(function(el) {
+          let o = Object.assign({}, el);
+          o.isLiked = false;
+          return o;
+        });
+
         this.setState({ feeds: newFeeds, feedLoading: false });
         nprogress.done();
       });
@@ -122,19 +139,23 @@ class HomePage extends Component {
 
   render() {
     const feedType = filterJson.feed_type;
-    const postType = filterJson.post_type;
+    const postType = filterJson.post_type_filter;
     const {
       selectedFeed,
       selectedPost,
       selectedPostType,
+      selectedPostIndex,
       selectedEC,
+      selectedComment,
       showModal,
       imagePreview,
       feeds,
       feedLoading,
-      comment
+      comment,
+      isPosting
     } = this.state;
     const { isLogin, user } = this.props;
+
     if (isLogin) {
       return (
         <div className="homePage" onScroll={this.handleScroll}>
@@ -151,16 +172,17 @@ class HomePage extends Component {
             <ModalBody>
               <div className="editorDetail__modal">
                 <div className="editorDetail__modal__comment">
-                  {/* <Comment comment={commentList && commentList} /> */}
+                  <Comment isFeed comment={selectedComment} />
                 </div>
                 <SocialInput
                   className="editorDetail__modal__input"
                   user={user}
                   value={comment}
                   isLogin={isLogin}
+                  isPosting={isPosting}
                   onChange={this.handleInput}
                   placeholder="Leave a comment"
-                  onClick={this.handlePost}
+                  onClick={this.handlePostComment}
                 />
               </div>
             </ModalBody>
@@ -168,33 +190,7 @@ class HomePage extends Component {
           <div className="homePage__notice">
             <div className="homePage__notice__content">
               <div className="homePage__notice__content__wrapper">
-                {user.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      textAlign: "center"
-                    }}
-                  >
-                    <p>Join and get connected with people in USFK Community!</p>
-                    <br />
-                    <div
-                      onClick={this.handleAuth}
-                      className="homePage__filter__content__items__item-login"
-                    >
-                      <p className="homePage__filter__content__items__item-login-text">
-                        Log in / Sign up
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <p>
-                    {"Welcome!!!! " + user.first_name + " " + user.last_name}
-                  </p>
-                )}
-
+                <p>{"Welcome!!!! " + user.first_name + " " + user.last_name}</p>
                 <hr />
               </div>
             </div>
@@ -227,13 +223,16 @@ class HomePage extends Component {
                     <Post
                       key={index}
                       // img={data.pic_list[0]}
+                      id={data.id}
                       profileImg={data.profile_img}
                       postType={data.post_type}
                       text={data.content}
+                      comments={data.comments}
                       images={data.images}
                       createdAt={data.created_at}
+                      likeCount={data.like_cnt}
                       writer={data.nickname}
-                      onClickComment={this.toggleModal}
+                      onClickComment={this.handleComment}
                     />
                   );
                 })
@@ -382,21 +381,59 @@ class HomePage extends Component {
     if (!isLogin) {
       this.props.history.push({ pathname: "/signup" });
     } else {
-      this.setState({ selectedPost: index, feedLoading: true });
-      this.props.dispatch(FeedAction.getFeed(params)).then(value => {
-        const newFeeds = value.slice();
-        for (let i = 0; i < newFeeds.length; i++) {
-          newFeeds[i].images = value[i].images.map((data, index) => {
-            return { original: data.img_url };
-          });
-        }
-        this.setState({ feeds: newFeeds, feedLoading: false });
-      });
+      if (index === 0) {
+        this.setState({ selectedPost: index, feedLoading: true });
+        this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
+          const newFeeds = value.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            // newFeeds[i].comments = newFeeds[i].comments.reverse();
+            newFeeds[i].images = value[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+          this.setState({ feeds: newFeeds, feedLoading: false });
+        });
+      } else {
+        this.setState({ selectedPost: index, feedLoading: true });
+        this.props.dispatch(FeedAction.getFeed(params)).then(value => {
+          const newFeeds = value.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            // newFeeds[i].comments = newFeeds[i].comments.reverse();
+            newFeeds[i].images = value[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+          this.setState({ feeds: newFeeds, feedLoading: false });
+        });
+      }
     }
   };
 
+  handlePostComment = () => {
+    const { dispatch, token, user } = this.props;
+    const { comment, selectedPostIndex, selectedComment, feeds } = this.state;
+    const newFeed = feeds.slice();
+    newFeed.map((data, index) => {
+      if (data.id === selectedPostIndex) {
+        data.comments.push({
+          content: comment,
+          post_id: selectedPostIndex,
+          id: selectedComment.length,
+          nickname: user.nickname,
+          created_at: new Date()
+        });
+      }
+    });
+
+    const params = { post_id: selectedPostIndex, content: comment, token };
+    this.setState(state => ({ isPosting: true, feeds: newFeed }));
+    dispatch(FeedAction.postComment(params)).then(value => {
+      this.setState(state => ({ isPosting: false, comment: "" }));
+    });
+  };
+
   handlePostType = (index, type) => {
-    this.setState({ selectedPostType: type, selectedPostTypeIndex: index });
+    this.setState({ selectedPostType: type, selectedPostTypeIndex: index + 1 });
   };
 
   handleEditor = id => {
@@ -492,6 +529,14 @@ class HomePage extends Component {
 
   handleInput = e => {
     this.setState({ comment: e.target.value });
+  };
+
+  handleComment = (id, comments) => {
+    this.setState(state => ({
+      selectedPostIndex: id,
+      selectedComment: comments
+    }));
+    this.toggleModal();
   };
 }
 

@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import cx from "classnames";
 import moment from "moment";
 import NumericLabel from "react-pretty-numbers";
-import { Thumb } from "../";
+import { Thumb, Comment } from "../";
 import ImageGallery from "react-image-gallery";
 
 const defaultProps = {};
@@ -41,12 +41,10 @@ class Post extends Component {
     } else if (postType === 6) {
       return "Area2";
     } else if (postType === 7) {
-      return "Area2";
-    } else if (postType === 8) {
       return "Area3";
-    } else if (postType === 9) {
+    } else if (postType === 8) {
       return "Area4";
-    } else if (postType === 10) {
+    } else if (postType === 9) {
       return "KATUSA";
     } else if (postType === 10) {
       return "Ville Channel";
@@ -57,13 +55,14 @@ class Post extends Component {
 
   render() {
     const {
+      id,
       writer,
       postType,
       createdAt,
       text,
       likeCount,
-      commentCount,
       images,
+      comments,
       profileImg,
       onClickComment
     } = this.props;
@@ -124,16 +123,25 @@ class Post extends Component {
             </div>
             <div className="post__footer__wrapper__commentArea">
               <div className="post__footer__wrapper__commentArea__count">
-                {commentCount && commentCount}
+                {comments && comments.length}
               </div>
               <span
                 className="post__footer__wrapper__commentArea__icon"
-                onClick={onClickComment}
+                onClick={() => onClickComment(id, comments)}
               >
                 <i className="xi-speech-o" />
               </span>
             </div>
           </div>
+        </div>
+        <hr style={styles.noMargin} />
+        <div className="post__footer__wrapper__commentList">
+          <Comment
+            isFeed
+            comment={
+              comments && comments.slice(comments.length - 3, comments.length)
+            }
+          />
         </div>
       </div>
     );

@@ -90,6 +90,18 @@
   ],
   "feed_type": ["Recent Posts", "Hot Posts"],
   "post_type": [
+    "Walkie Talkie",
+    "Question",
+    "Selling/Giveaway",
+    "Hangout",
+    "Area1",
+    "Area2",
+    "Area3",
+    "Area4",
+    "KATUSA",
+    "Ville Channel"
+  ],
+  "post_type_filter": [
     "All",
     "Walkie Talkie",
     "Question",

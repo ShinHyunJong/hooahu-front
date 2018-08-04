@@ -13,7 +13,7 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment, onClick } = this.props;
+    const { isFeed, comment, onClick } = this.props;
     return (
       <div className="comment">
         {comment &&
@@ -27,7 +27,7 @@ class Comment extends Component {
                   >
                     {data.nickname}
                   </strong>
-                  {data.comment}
+                  {isFeed ? data.content : data.comment}
                 </div>
                 <p className="comment-date">
                   {moment(data.created_at).fromNow()}
