@@ -46,7 +46,7 @@ class LandingPage extends Component {
     // const { isChecking, isValid, isLength } = this.state;
     return (
       <div className="landingPage">
-        <NavBar />
+        <NavBar isStart={true} />
         <div className="landingPage__welcome">
           <div className="landingPage__welcome__info">
             <h1>

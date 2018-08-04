@@ -126,7 +126,7 @@ class NavBar extends Component {
   };
 
   render() {
-    const { isLogin, isActive, user } = this.props;
+    const { isLogin, isActive, user, isStart } = this.props;
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
         <NavbarBrand className="navBar__logo" onClick={this.handleHome}>
@@ -156,56 +156,68 @@ class NavBar extends Component {
                 </NavItem>
               ) : null}
 
-              <NavItem>
-                <NavLink
-                  onClick={this.handleHome}
-                  className={cx("navBar__items__item", {
-                    "navBar__items__item-active": isActive === "feed"
-                  })}
-                >
-                  Feed
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={cx("navBar__items__item", {
-                    "navBar__items__item-active": isActive === "editor"
-                  })}
-                >
-                  <div onClick={this.handleEditor}>Package Trip</div>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={cx("navBar__items__item", {
-                    "navBar__items__item-active": isActive === "place"
-                  })}
-                  href="/"
-                >
-                  Place List
-                </NavLink>
-              </NavItem>
+              {isStart === true ? null : (
+                <NavItem>
+                  <NavLink
+                    onClick={this.handleHome}
+                    className={cx("navBar__items__item", {
+                      "navBar__items__item-active": isActive === "feed"
+                    })}
+                  >
+                    Feed
+                  </NavLink>
+                </NavItem>
+              )}
 
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret />
-                <DropdownMenu right>
-                  <DropdownItem onClick={this.handleGuide}>Guide</DropdownItem>
-                  {user && user.type === "Civ" && isLogin === true ? (
-                    <DropdownItem>Business Solution</DropdownItem>
-                  ) : null}
-                  <DropdownItem>About</DropdownItem>
-                  <DropdownItem divider />
-                  {isLogin === true ? (
-                    <DropdownItem onClick={this.handleAuth}>
-                      Sign Out
+              {isStart === true ? null : (
+                <NavItem>
+                  <NavLink
+                    className={cx("navBar__items__item", {
+                      "navBar__items__item-active": isActive === "editor"
+                    })}
+                  >
+                    <div onClick={this.handleEditor}>Package Trip</div>
+                  </NavLink>
+                </NavItem>
+              )}
+
+              {isStart === true ? null : (
+                <NavItem>
+                  <NavLink
+                    className={cx("navBar__items__item", {
+                      "navBar__items__item-active": isActive === "place"
+                    })}
+                    href="/"
+                  >
+                    Place List
+                  </NavLink>
+                </NavItem>
+              )}
+
+              {isStart === true ? null : (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret />
+                  <DropdownMenu right>
+                    <DropdownItem onClick={this.handleGuide}>
+                      Guide
                     </DropdownItem>
-                  ) : (
-                    <DropdownItem onClick={this.handleSignUp}>
-                      Sign In
-                    </DropdownItem>
-                  )}
-                </DropdownMenu>
-              </UncontrolledDropdown>
+                    {user && user.type === "Civ" && isLogin === true ? (
+                      <DropdownItem>Business Solution</DropdownItem>
+                    ) : null}
+                    <DropdownItem>About</DropdownItem>
+                    <DropdownItem divider />
+                    {isLogin === true ? (
+                      <DropdownItem onClick={this.handleAuth}>
+                        Sign Out
+                      </DropdownItem>
+                    ) : (
+                      <DropdownItem onClick={this.handleSignUp}>
+                        Sign In
+                      </DropdownItem>
+                    )}
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              )}
             </Nav>
           )}
         </Collapse>
