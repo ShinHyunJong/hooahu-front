@@ -41,12 +41,10 @@ class Post extends Component {
     } else if (postType === 6) {
       return "Area2";
     } else if (postType === 7) {
-      return "Area2";
-    } else if (postType === 8) {
       return "Area3";
-    } else if (postType === 9) {
+    } else if (postType === 8) {
       return "Area4";
-    } else if (postType === 10) {
+    } else if (postType === 9) {
       return "KATUSA";
     } else if (postType === 10) {
       return "Ville Channel";
@@ -63,7 +61,6 @@ class Post extends Component {
       createdAt,
       text,
       likeCount,
-      commentCount,
       images,
       comments,
       profileImg,
@@ -126,7 +123,7 @@ class Post extends Component {
             </div>
             <div className="post__footer__wrapper__commentArea">
               <div className="post__footer__wrapper__commentArea__count">
-                {commentCount && commentCount}
+                {comments && comments.length}
               </div>
               <span
                 className="post__footer__wrapper__commentArea__icon"
@@ -139,7 +136,12 @@ class Post extends Component {
         </div>
         <hr style={styles.noMargin} />
         <div className="post__footer__wrapper__commentList">
-          <Comment isFeed comment={comments && comments.slice(0, 3)} />
+          <Comment
+            isFeed
+            comment={
+              comments && comments.slice(comments.length - 3, comments.length)
+            }
+          />
         </div>
       </div>
     );

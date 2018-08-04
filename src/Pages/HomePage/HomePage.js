@@ -108,10 +108,18 @@ class HomePage extends Component {
       this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
         const newFeeds = value.slice();
         for (let i = 0; i < newFeeds.length; i++) {
+          // newFeeds[i].comments = newFeeds[i].comments.reverse();
           newFeeds[i].images = value[i].images.map((data, index) => {
             return { original: data.img_url };
           });
         }
+
+        let result = newFeeds.map(function(el) {
+          let o = Object.assign({}, el);
+          o.isLiked = false;
+          return o;
+        });
+
         this.setState({ feeds: newFeeds, feedLoading: false });
         nprogress.done();
       });
@@ -131,7 +139,7 @@ class HomePage extends Component {
 
   render() {
     const feedType = filterJson.feed_type;
-    const postType = filterJson.post_type;
+    const postType = filterJson.post_type_filter;
     const {
       selectedFeed,
       selectedPost,
@@ -182,33 +190,7 @@ class HomePage extends Component {
           <div className="homePage__notice">
             <div className="homePage__notice__content">
               <div className="homePage__notice__content__wrapper">
-                {user.length === 0 ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      textAlign: "center"
-                    }}
-                  >
-                    <p>Join and get connected with people in USFK Community!</p>
-                    <br />
-                    <div
-                      onClick={this.handleAuth}
-                      className="homePage__filter__content__items__item-login"
-                    >
-                      <p className="homePage__filter__content__items__item-login-text">
-                        Log in / Sign up
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <p>
-                    {"Welcome!!!! " + user.first_name + " " + user.last_name}
-                  </p>
-                )}
-
+                <p>{"Welcome!!!! " + user.first_name + " " + user.last_name}</p>
                 <hr />
               </div>
             </div>
@@ -399,16 +381,31 @@ class HomePage extends Component {
     if (!isLogin) {
       this.props.history.push({ pathname: "/signup" });
     } else {
-      this.setState({ selectedPost: index, feedLoading: true });
-      this.props.dispatch(FeedAction.getFeed(params)).then(value => {
-        const newFeeds = value.slice();
-        for (let i = 0; i < newFeeds.length; i++) {
-          newFeeds[i].images = value[i].images.map((data, index) => {
-            return { original: data.img_url };
-          });
-        }
-        this.setState({ feeds: newFeeds, feedLoading: false });
-      });
+      if (index === 0) {
+        this.setState({ selectedPost: index, feedLoading: true });
+        this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
+          const newFeeds = value.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            // newFeeds[i].comments = newFeeds[i].comments.reverse();
+            newFeeds[i].images = value[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+          this.setState({ feeds: newFeeds, feedLoading: false });
+        });
+      } else {
+        this.setState({ selectedPost: index, feedLoading: true });
+        this.props.dispatch(FeedAction.getFeed(params)).then(value => {
+          const newFeeds = value.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            // newFeeds[i].comments = newFeeds[i].comments.reverse();
+            newFeeds[i].images = value[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+          this.setState({ feeds: newFeeds, feedLoading: false });
+        });
+      }
     }
   };
 
@@ -436,7 +433,7 @@ class HomePage extends Component {
   };
 
   handlePostType = (index, type) => {
-    this.setState({ selectedPostType: type, selectedPostTypeIndex: index });
+    this.setState({ selectedPostType: type, selectedPostTypeIndex: index + 1 });
   };
 
   handleEditor = id => {
