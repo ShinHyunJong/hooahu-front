@@ -6,6 +6,7 @@ import filterJson from "../../Json/filter";
 import Textarea from "react-textarea-autosize";
 import Badge from "material-ui/Badge";
 import { Thumb } from "../";
+import { Bounce } from "react-activity";
 import FileInputComponent from "react-file-input-previews-base64";
 import cx from "classnames";
 import {
@@ -69,7 +70,8 @@ class SocialInput extends Component {
       handleDelete,
       onClick,
       value,
-      className
+      className,
+      isPosting
     } = this.props;
     return (
       <div className={cx("socialInput", className)}>
@@ -133,7 +135,7 @@ class SocialInput extends Component {
               onClick={onClick}
               className="socialInput__footer__postArea__postButton"
             >
-              post
+              {isPosting ? <Bounce size={20} color="white" /> : "post"}
             </span>
           </div>
         </div>

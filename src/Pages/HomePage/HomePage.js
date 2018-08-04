@@ -6,7 +6,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import { NavBar, BoxList, Post, Thumb, SocialInput } from "../../Components";
+import {
+  NavBar,
+  BoxList,
+  Post,
+  Thumb,
+  SocialInput,
+  Comment
+} from "../../Components";
 import { LandingPage } from "../../Pages";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
@@ -63,6 +70,7 @@ class HomePage extends Component {
     this.state = {
       height: window.innerHeight,
       message: "not at bottom",
+      isPosting: false,
       expandNotice: false,
       selectedFeed: 0,
       selectedPost: 0,
@@ -130,14 +138,15 @@ class HomePage extends Component {
       selectedPostType,
       selectedPostIndex,
       selectedEC,
+      selectedComment,
       showModal,
       imagePreview,
       feeds,
       feedLoading,
-      comment
+      comment,
+      isPosting
     } = this.state;
     const { isLogin, user } = this.props;
-    console.log(selectedPostIndex);
 
     if (isLogin) {
       return (
@@ -155,13 +164,14 @@ class HomePage extends Component {
             <ModalBody>
               <div className="editorDetail__modal">
                 <div className="editorDetail__modal__comment">
-                  {/* <Comment comment={commentList && commentList} /> */}
+                  <Comment isFeed comment={selectedComment} />
                 </div>
                 <SocialInput
                   className="editorDetail__modal__input"
                   user={user}
                   value={comment}
                   isLogin={isLogin}
+                  isPosting={isPosting}
                   onChange={this.handleInput}
                   placeholder="Leave a comment"
                   onClick={this.handlePostComment}
@@ -240,7 +250,7 @@ class HomePage extends Component {
                       createdAt={data.created_at}
                       likeCount={data.like_cnt}
                       writer={data.nickname}
-                      onClickComment={this.toggleModal}
+                      onClickComment={this.handleComment}
                     />
                   );
                 })
@@ -403,10 +413,26 @@ class HomePage extends Component {
   };
 
   handlePostComment = () => {
-    const { dispatch, token } = this.props;
-    const { comment, selectedPostIndex } = this.state;
+    const { dispatch, token, user } = this.props;
+    const { comment, selectedPostIndex, selectedComment, feeds } = this.state;
+    const newFeed = feeds.slice();
+    newFeed.map((data, index) => {
+      if (data.id === selectedPostIndex) {
+        data.comments.push({
+          content: comment,
+          post_id: selectedPostIndex,
+          id: selectedComment.length,
+          nickname: user.nickname,
+          created_at: new Date()
+        });
+      }
+    });
+
     const params = { post_id: selectedPostIndex, content: comment, token };
-    dispatch(FeedAction.postComment(params));
+    this.setState(state => ({ isPosting: true, feeds: newFeed }));
+    dispatch(FeedAction.postComment(params)).then(value => {
+      this.setState(state => ({ isPosting: false, comment: "" }));
+    });
   };
 
   handlePostType = (index, type) => {
@@ -498,15 +524,22 @@ class HomePage extends Component {
     }
   };
 
-  toggleModal = id => {
+  toggleModal = () => {
     this.setState({
-      showModal: !this.state.showModal,
-      selectedPostIndex: id
+      showModal: !this.state.showModal
     });
   };
 
   handleInput = e => {
     this.setState({ comment: e.target.value });
+  };
+
+  handleComment = (id, comments) => {
+    this.setState(state => ({
+      selectedPostIndex: id,
+      selectedComment: comments
+    }));
+    this.toggleModal();
   };
 }
 

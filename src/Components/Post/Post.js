@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import cx from "classnames";
 import moment from "moment";
 import NumericLabel from "react-pretty-numbers";
-import { Thumb } from "../";
+import { Thumb, Comment } from "../";
 import ImageGallery from "react-image-gallery";
 
 const defaultProps = {};
@@ -130,17 +130,16 @@ class Post extends Component {
               </div>
               <span
                 className="post__footer__wrapper__commentArea__icon"
-                onClick={() => onClickComment(id)}
+                onClick={() => onClickComment(id, comments)}
               >
                 <i className="xi-speech-o" />
               </span>
             </div>
           </div>
         </div>
+        <hr style={styles.noMargin} />
         <div className="post__footer__wrapper__commentList">
-          {comments.map((data, index) => {
-            return <p>{data.content}</p>;
-          })}
+          <Comment isFeed comment={comments && comments.slice(0, 3)} />
         </div>
       </div>
     );
