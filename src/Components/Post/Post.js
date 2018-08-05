@@ -55,31 +55,28 @@ class Post extends Component {
 
   render() {
     const {
-      id,
-      writer,
-      postType,
-      createdAt,
-      text,
-      likeCount,
-      images,
-      comments,
-      profileImg,
-      onClickComment
+      feed,
+      index,
+      onClickComment,
+      onClickLike,
+      onClickDisLike
     } = this.props;
     return (
       <div className="post">
         <div className="post__header">
           <div className="post__header__userInfo">
             <div className="post__header__userInfo__thumb">
-              <Thumb size={50} src={profileImg} />
+              <Thumb size={50} src={feed && feed.profile_img} />
             </div>
             <div className="post__header__userInfo__nameArea">
               <p className="post__header__userInfo__nameArea__name">
-                <strong className="homePage__strong">{writer && writer}</strong>
-                {"in " + this.handlePostType(postType)}
+                <strong className="homePage__strong">
+                  {feed && feed.nickname}
+                </strong>
+                {"in " + this.handlePostType(feed.postType)}
               </p>
               <p className="post__header__userInfo__nameArea__time">
-                {createdAt && moment(createdAt).fromNow()}
+                {feed && moment(feed.created_at).fromNow()}
               </p>
             </div>
           </div>
@@ -90,11 +87,11 @@ class Post extends Component {
           </div>
         </div>
         <div className="post__body">
-          {images === null ||
-          images === undefined ||
-          images.length === 0 ? null : (
+          {(feed && feed.images === null) ||
+          (feed && feed.images === undefined) ||
+          (feed && feed.images.length === 0) ? null : (
               <ImageGallery
-                items={images}
+                items={feed && feed.images}
                 showThumbnails={false}
                 showPlayButton={false}
                 showBullets={true}
@@ -106,28 +103,44 @@ class Post extends Component {
               MP
             </span>
           </div>
-          <p className="post__body__text">{text && text}</p>
+          <p className="post__body__text">{feed && feed.content}</p>
         </div>
         <hr style={styles.noMargin} />
         <div className="post__footer">
           <div className="post__footer__wrapper">
             <div className="post__footer__wrapper__likeArea">
-              <div className="post__footer__wrapper__likeArea__count">
+              <div
+                className={cx("post__footer__wrapper__likeArea__count", {
+                  "post__footer__wrapper__likeArea__count-liked": feed.isLiked
+                })}
+              >
                 <NumericLabel params={option}>
-                  {likeCount && likeCount}
+                  {feed && feed.like_cnt}
                 </NumericLabel>
               </div>
-              <span className="post__footer__wrapper__likeArea__icon">
-                <i className="xi-heart-o" />
-              </span>
+              {feed.isLiked ? (
+                <span
+                  className="post__footer__wrapper__likeArea__icon-liked"
+                  onClick={() => onClickDisLike(feed.id)}
+                >
+                  <i className="xi-heart" />
+                </span>
+              ) : (
+                <span
+                  className="post__footer__wrapper__likeArea__icon"
+                  onClick={() => onClickLike(feed.id)}
+                >
+                  <i className="xi-heart-o" />
+                </span>
+              )}
             </div>
             <div className="post__footer__wrapper__commentArea">
               <div className="post__footer__wrapper__commentArea__count">
-                {comments && comments.length}
+                {feed.comments && feed.comments.length}
               </div>
               <span
                 className="post__footer__wrapper__commentArea__icon"
-                onClick={() => onClickComment(id, comments)}
+                onClick={() => onClickComment(feed.id, feed.comments)}
               >
                 <i className="xi-speech-o" />
               </span>
@@ -139,7 +152,11 @@ class Post extends Component {
           <Comment
             isFeed
             comment={
-              comments && comments.slice(comments.length - 3, comments.length)
+              feed.comments &&
+              feed.comments.slice(
+                feed.comments.length - 3,
+                feed.comments.length
+              )
             }
           />
         </div>

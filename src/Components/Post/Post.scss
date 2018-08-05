@@ -118,12 +118,29 @@
         align-items: center;
         flex-direction: row;
         &__count {
-          color: $sub-color;
+          color: $dark-gray;
           margin-right: 5px;
+
+          &-liked {
+            color: $sub-color;
+            margin-right: 5px;
+          }
         }
         &__icon {
           color: $dark-gray;
           font-size: 20px;
+          cursor: pointer;
+
+          &-liked {
+            color: $sub-color;
+            font-size: 20px;
+            cursor: pointer;
+          }
+
+          &:hover {
+            color: $sub-color;
+            @include transition(0.3s);
+          }
         }
       }
       &__commentArea {

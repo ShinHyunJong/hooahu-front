@@ -51,8 +51,8 @@ class EditorChoicePage extends Component {
   }
 
   componentWillMount() {
+    window.scrollTo(0, 0);
     const concept = filterJson.concept;
-
     let conceptArray = [];
     for (let i = 1; i < concept.length; i++) {
       conceptArray.push(concept[i].value);

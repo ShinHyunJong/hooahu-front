@@ -9,6 +9,12 @@ export const FAILED_TO_POST_FEED = "FAILED_TO_POST_FEED";
 export const SUCCEED_TO_POST_COMMENT = "SUCCEED_TO_POST_COMMENT";
 export const FAILED_TO_POST_COMMENT = "FAILED_TO_POST_COMMENT";
 
+export const SUCCEED_TO_POST_LIKE = "SUCCEED_TO_POST_LIKE";
+export const FAILED_TO_POST_LIKE = "FAILED_TO_POST_LIKE";
+
+export const SUCCEED_TO_POST_DISLIKE = "SUCCEED_TO_POST_DISLIKE";
+export const FAILED_TO_POST_DISLIKE = "FAILED_TO_POST_DISLIKE";
+
 export const getAllFeed = params => {
   return async dispatch => {
     try {
@@ -124,6 +130,64 @@ export const postComment = params => {
     } catch (error) {
       dispatch({
         type: FAILED_TO_POST_COMMENT,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const postLike = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint + "api/post/like/" + params.post_id,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_POST_LIKE,
+        payload: responseJson
+      });
+      return responseJson;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_POST_LIKE,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const disLike = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint + "api/post/like/" + params.post_id,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_POST_DISLIKE,
+        payload: responseJson
+      });
+      return responseJson;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_POST_DISLIKE,
         payload: { data: "NETWORK_ERROR" }
       });
     }

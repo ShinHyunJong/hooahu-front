@@ -109,16 +109,19 @@ class HomePage extends Component {
         const newFeeds = value.slice();
         for (let i = 0; i < newFeeds.length; i++) {
           // newFeeds[i].comments = newFeeds[i].comments.reverse();
+          if (newFeeds[i].isLiked) {
+            newFeeds[i].isLiked = true;
+          }
           newFeeds[i].images = value[i].images.map((data, index) => {
             return { original: data.img_url };
           });
         }
 
-        let result = newFeeds.map(function(el) {
-          let o = Object.assign({}, el);
-          o.isLiked = false;
-          return o;
-        });
+        // let result = newFeeds.map(function(el) {
+        //   let o = Object.assign({}, el);
+        //   o.isLiked = false;
+        //   return o;
+        // });
 
         this.setState({ feeds: newFeeds, feedLoading: false });
         nprogress.done();
@@ -221,18 +224,12 @@ class HomePage extends Component {
                 feeds.map((data, index) => {
                   return (
                     <Post
+                      feed={data}
                       key={index}
-                      // img={data.pic_list[0]}
-                      id={data.id}
-                      profileImg={data.profile_img}
-                      postType={data.post_type}
-                      text={data.content}
-                      comments={data.comments}
-                      images={data.images}
-                      createdAt={data.created_at}
-                      likeCount={data.like_cnt}
-                      writer={data.nickname}
+                      index={index}
                       onClickComment={this.handleComment}
+                      onClickLike={id => this.handleLike(id, index)}
+                      onClickDisLike={id => this.handleDisLike(id, index)}
                     />
                   );
                 })
@@ -342,31 +339,31 @@ class HomePage extends Component {
     }
   }
 
-  handleScroll = e => {
-    const windowHeight =
-      "innerHeight" in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-    const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight) {
-      this.setState({
-        message: "bottom reached"
-      });
-    } else {
-      this.setState({
-        message: "not at bottom"
-      });
-    }
-  };
+  // handleScroll = e => {
+  //   const windowHeight =
+  //     "innerHeight" in window
+  //       ? window.innerHeight
+  //       : document.documentElement.offsetHeight;
+  //   const body = document.body;
+  //   const html = document.documentElement;
+  //   const docHeight = Math.max(
+  //     body.scrollHeight,
+  //     body.offsetHeight,
+  //     html.clientHeight,
+  //     html.scrollHeight,
+  //     html.offsetHeight
+  //   );
+  //   const windowBottom = windowHeight + window.pageYOffset;
+  //   if (windowBottom >= docHeight) {
+  //     this.setState({
+  //       message: "bottom reached"
+  //     });
+  //   } else {
+  //     this.setState({
+  //       message: "not at bottom"
+  //     });
+  //   }
+  // };
 
   handleFeed = index => {
     this.setState({ selectedFeed: index });
@@ -488,7 +485,6 @@ class HomePage extends Component {
       const newFeeds = feeds.slice();
 
       let date = new Date();
-
       const params = {
         token: this.props.token,
         content: feedText,
@@ -500,11 +496,15 @@ class HomePage extends Component {
         return { original: data };
       });
       const frontParams = {
+        id: newFeeds[newFeeds.length - 1].id + 1,
         content: feedText,
         post_type: selectedPostTypeIndex,
         images,
+        comments: [],
         created_at: date,
         nickname: user.nickname,
+        like_cnt: 0,
+        isLiked: false,
         profile_img: user.profile_img
       };
 
@@ -529,6 +529,28 @@ class HomePage extends Component {
 
   handleInput = e => {
     this.setState({ comment: e.target.value });
+  };
+
+  handleLike = (id, index) => {
+    const { dispatch, token } = this.props;
+    const { feeds } = this.state;
+    const params = { token, post_id: id };
+    const newFeeds = feeds.slice();
+    newFeeds[index].isLiked = true;
+    newFeeds[index].like_cnt += 1;
+    this.setState(state => ({ feeds: newFeeds }));
+    dispatch(FeedAction.postLike(params));
+  };
+
+  handleDisLike = (id, index) => {
+    const { dispatch, token } = this.props;
+    const params = { token, post_id: id };
+    const { feeds } = this.state;
+    const newFeeds = feeds.slice();
+    newFeeds[index].isLiked = false;
+    newFeeds[index].like_cnt -= 1;
+    this.setState(state => ({ feeds: newFeeds }));
+    dispatch(FeedAction.disLike(params));
   };
 
   handleComment = (id, comments) => {

@@ -158,7 +158,7 @@ class UserPage extends Component {
                 </div>
               </div>
             </div>
-            <Post
+            {/* <Post
               text="hi My name is Shin Hyun Jong"
               createdAt="15min"
               writer="Shin Hyun Jong"
@@ -166,7 +166,7 @@ class UserPage extends Component {
               likeCount={24}
               commentCount={40}
               profileImg={user && user.profile_img}
-            />
+            /> */}
           </div>
         </div>
         <div className="userPage__filter">
