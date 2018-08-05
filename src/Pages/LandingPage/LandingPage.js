@@ -43,6 +43,7 @@ class LandingPage extends Component {
   }
 
   render() {
+    const { onChangeEmail, onChangePassword, onClickSign } = this.props;
     // const { isChecking, isValid, isLength } = this.state;
     return (
       <div className="landingPage">
@@ -69,20 +70,23 @@ class LandingPage extends Component {
             <div className="landingPage__welcome__signin__container">
               <div className="landingPage__welcome__signin__container__blank">
                 <img src="" alt="" />
-                <RoundInput onChange={this.handleEmail} placeholder="Email" />
+                <RoundInput
+                  onChange={this.props.onChangeEmail}
+                  placeholder="Email"
+                />
               </div>
 
               <div className="landingPage__welcome__signin__container__blank">
                 <img src="" alt="" />
                 <RoundInput
-                  onChange={this.handlePassword}
+                  onChange={this.props.onChangePassword}
                   placeholder="Password"
                   type="password"
                 />
               </div>
 
               <div className="landingPage__welcome__signin__container__btn">
-                <button onClick={this.handleSignIn}>Log In</button>
+                <button onClick={this.props.onClickSign}>Log In</button>
               </div>
             </div>
 
@@ -103,46 +107,18 @@ class LandingPage extends Component {
     );
   }
 
-  handleInput = e => {
-    this.setState({ email: e.target.value, isChecking: true });
-    const { dispatch } = this.props;
-    const params = { email: e.target.value };
-    dispatch(UserAction.checkEmail(params)).then(value => {
-      if (value.isExists) {
-        this.setState({ isChecking: false, isValid: false });
-      } else {
-        this.setState({ isChecking: false, isValid: true });
-      }
-    });
-  };
-
-  handleEmail = e => {
-    this.setState({ email: e.target.value });
-  };
-
-  handlePassword = e => {
-    this.setState({ password: e.target.value });
-    // if (e.target.value.length > 6) {
-    //   this.setState({ isLength: true });
-
-    // } else {
-    //   this.setState({ isLength: false });
-    // }
-  };
-
-  handleSignIn = () => {
-    const params = { email: this.state.email, password: this.state.password };
-    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
-      if (value === "failed") {
-        return null;
-      } else {
-        await this.props.dispatch(UserAction.getUser(value));
-        await this.props.history.push({
-          pathname: "/"
-        });
-      }
-    });
-  };
+  // handleInput = e => {
+  //   this.setState({ email: e.target.value, isChecking: true });
+  //   const { dispatch } = this.props;
+  //   const params = { email: e.target.value };
+  //   dispatch(UserAction.checkEmail(params)).then(value => {
+  //     if (value.isExists) {
+  //       this.setState({ isChecking: false, isValid: false });
+  //     } else {
+  //       this.setState({ isChecking: false, isValid: true });
+  //     }
+  //   });
+  // };
 
   handleSignUp = () => {
     this.props.history.push({

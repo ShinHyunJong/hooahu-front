@@ -24,6 +24,8 @@ import ProgressiveImage from "react-progressive-image";
 import Textarea from "react-textarea-autosize";
 import Badge from "material-ui/Badge";
 import * as FeedAction from "../../ActionCreators/FeedAction";
+import * as AuthAction from "../../ActionCreators/AuthAction";
+import * as UserAction from "../../ActionCreators/UserAction";
 import { Bounce } from "react-activity";
 import FileInputComponent from "react-file-input-previews-base64";
 import {
@@ -335,7 +337,13 @@ class HomePage extends Component {
         </div>
       );
     } else {
-      return <LandingPage />;
+      return (
+        <LandingPage
+          onChangeEmail={this.handleEmail}
+          onChangePassword={this.handlePassword}
+          onClickSign={this.handleSignIn}
+        />
+      );
     }
   }
 
@@ -559,6 +567,51 @@ class HomePage extends Component {
       selectedComment: comments
     }));
     this.toggleModal();
+  };
+
+  handleEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handlePassword = e => {
+    this.setState({ password: e.target.value });
+  };
+
+  handleSignIn = () => {
+    const randomPackage = Math.floor(Math.random() * 26);
+    const selectedEC = ec.editorChoice[randomPackage];
+    const params = { email: this.state.email, password: this.state.password };
+    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+      if (value === "failed") {
+        return null;
+      } else {
+        await this.props.dispatch(UserAction.getUser(value));
+        await this.props.history.push({
+          pathname: "/"
+        });
+        nprogress.start();
+        this.setState({ selectedEC, feedLoading: true });
+        const params = {
+          token: this.props.token,
+          type: 0
+        };
+        this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
+          const newFeeds = value.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            // newFeeds[i].comments = newFeeds[i].comments.reverse();
+            if (newFeeds[i].isLiked) {
+              newFeeds[i].isLiked = true;
+            }
+            newFeeds[i].images = value[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+
+          this.setState({ feeds: newFeeds, feedLoading: false });
+          nprogress.done();
+        });
+      }
+    });
   };
 }
 
