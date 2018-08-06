@@ -64,16 +64,16 @@ class SignUpPage extends Component {
         <Container className="signUp">
           <NavBar isActive="auth" />
           <Row className="signUp__content">
-            <br /> <br /> <br /> <br /> <br /> <br />
+            {/* <br /> <br /> <br /> <br /> <br /> <br /> */}
             <div className="signUp__content__title">
               <h1 className="signUp__content__title__header">
                 Sign In to Hooah!U
               </h1>
             </div>
             <br />
-            <br />
-            <br />
-            <div className="signUp__content__inputArea">
+            {/* <br />
+            <br /> */}
+            {/* <div className="signUp__content__inputArea">
               <RoundInput onChange={this.handleEmail} placeholder="Email" />
             </div>
             <div className="signUp__content__inputArea">
@@ -82,7 +82,7 @@ class SignUpPage extends Component {
                 placeholder="Password"
                 type="password"
               />
-            </div>
+            </div> 
             <div className="signUp__content__title__buttonArea">
               <RoundButton
                 text="Sign In"
@@ -92,7 +92,7 @@ class SignUpPage extends Component {
                 iconClassName="signUp__content__title__icon"
                 onClick={this.handleSignIn}
               />
-            </div>
+            </div> */}
             <div className="signUp__content__title__buttonArea">
               <Link to="/signup/choose">
                 <RoundButton

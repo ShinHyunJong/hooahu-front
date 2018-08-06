@@ -35,16 +35,12 @@ class LandingPage extends Component {
     super(props);
     this.state = {
       email: "",
-      password: "",
-      isChecking: false,
-      isValid: true,
-      isLength: false
+      password: ""
     };
   }
 
   render() {
     const { onChangeEmail, onChangePassword, onClickSign } = this.props;
-    // const { isChecking, isValid, isLength } = this.state;
     return (
       <div className="landingPage">
         <NavBar isStart={true} />
@@ -93,32 +89,12 @@ class LandingPage extends Component {
             <div className="landingPage__welcome__signin__help">
               <p>What can I do with Hooah!U ?</p>
             </div>
-            {/* {isChecking ? <h1>체킹중</h1> : null}
-            {!isValid ? (
-              <h1>이미 가입된 이메일입니다.</h1>
-            ) : (
-              <h1>가능합니다!</h1>
-            )}
-            {isLength ? <h1>유효합니다.</h1> : <h1>유효하지 않음</h1>} */}
           </div>
         </div>
         <div className="landingPage__about" />
       </div>
     );
   }
-
-  // handleInput = e => {
-  //   this.setState({ email: e.target.value, isChecking: true });
-  //   const { dispatch } = this.props;
-  //   const params = { email: e.target.value };
-  //   dispatch(UserAction.checkEmail(params)).then(value => {
-  //     if (value.isExists) {
-  //       this.setState({ isChecking: false, isValid: false });
-  //     } else {
-  //       this.setState({ isChecking: false, isValid: true });
-  //     }
-  //   });
-  // };
 
   handleSignUp = () => {
     this.props.history.push({
