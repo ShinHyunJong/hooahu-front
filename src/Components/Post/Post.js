@@ -91,7 +91,7 @@ class Post extends Component {
           (feed && feed.images === undefined) ||
           (feed && feed.images.length === 0) ? null : (
               <ImageGallery
-                items={feed && feed.images}
+                items={feed.images && feed.images}
                 showThumbnails={false}
                 showPlayButton={false}
                 showBullets={true}
@@ -152,11 +152,12 @@ class Post extends Component {
           <Comment
             isFeed
             comment={
-              feed.comments &&
-              feed.comments.slice(
-                feed.comments.length - 3,
-                feed.comments.length
-              )
+              feed.comments && feed.comments.length > 3
+                ? feed.comments.slice(
+                  feed.comments.length - 3,
+                  feed.comments.length
+                )
+                : feed.comments
             }
           />
         </div>

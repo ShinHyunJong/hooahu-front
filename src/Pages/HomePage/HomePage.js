@@ -495,21 +495,21 @@ class HomePage extends Component {
       const images = imagePreview.map((data, index) => {
         return { original: data };
       });
-      const frontParams = {
-        id: newFeeds[newFeeds.length - 1].id + 1,
-        content: feedText,
-        post_type: selectedPostTypeIndex,
-        images,
-        comments: [],
-        created_at: date,
-        nickname: user.nickname,
-        like_cnt: 0,
-        isLiked: false,
-        profile_img: user.profile_img
-      };
 
       this.setState({ feedLoading: true });
       this.props.dispatch(FeedAction.postFeed(params)).then(value => {
+        const frontParams = {
+          id: value.newPostId,
+          content: feedText,
+          post_type: selectedPostTypeIndex,
+          images,
+          comments: [],
+          created_at: date,
+          nickname: user.nickname,
+          like_cnt: 0,
+          isLiked: false,
+          profile_img: user.profile_img
+        };
         newFeeds.splice(0, 0, frontParams);
         this.setState({
           feedText: "",
