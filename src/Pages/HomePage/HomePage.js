@@ -195,7 +195,7 @@ class HomePage extends Component {
           <div className="homePage__notice">
             <div className="homePage__notice__content">
               <div className="homePage__notice__content__wrapper">
-                <p>{"Welcome!!!! " + user.first_name + " " + user.last_name}</p>
+                <p>{`WelCome! ${user.first_name} ${user.last_name}`}</p>
                 <hr />
               </div>
             </div>
@@ -203,7 +203,7 @@ class HomePage extends Component {
           <div className="homePage__feed">
             <div className="homePage__feed__content">
               <SocialInput
-                placeholder="What's in your mind?"
+                placeholder="What's in your mind????"
                 user={user}
                 isLogin={isLogin}
                 showType

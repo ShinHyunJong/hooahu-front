@@ -13,6 +13,10 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { yellow600 } from "material-ui/styles/colors";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Alert
 import "react-activity/dist/react-activity.css";
+import registerServiceWorker from "./registerServiceWorker";
+// Main SCSS
+import "./index.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const loggerMiddleware = createLogger();
 
@@ -28,10 +32,6 @@ const muiTheme = getMuiTheme({
   }
 });
 
-// Main SCSS
-import "./index.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 // Root React Component
 import App from "./App";
 
@@ -45,3 +45,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+registerServiceWorker();
