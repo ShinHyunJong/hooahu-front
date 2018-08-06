@@ -1,5 +1,6 @@
 // This Page is Skeleton of React Structure for Web Development
 // If you want to make other page, Copy and Refactor this page.
+/* global google */
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -11,24 +12,17 @@ import {
   NavLink,
   TabContent,
   TabPane,
-  Container,
-  Row,
-  Col,
   Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
+  ModalBody
 } from "reactstrap";
 import * as ChoiceAction from "../../ActionCreators/ChoiceAction";
-import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
-import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
 import nprogress from "nprogress";
 
 import scrollToComponent from "react-scroll-to-component";
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
+import { withGoogleMap, GoogleMap, withScriptjs } from "react-google-maps";
 import { MarkerWithLabel } from "react-google-maps/lib/components/addons/MarkerWithLabel";
 import ImageGallery from "react-image-gallery";
 
@@ -720,7 +714,7 @@ class EditorDetailPage extends Component {
                     </div>
                     <div className="editorDetail__content__places__place__text__desc">
                       <p className="editorDetail__content__places__place__text__desc__text">
-                        {"\"" + data.content.sgt + "\""}
+                        {'"' + data.content.sgt + '"'}
                       </p>
                       <hr />
                       <p className="editorDetail__content__places__place__text__desc__text__formal">

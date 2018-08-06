@@ -2,12 +2,12 @@
 // If you want to make other Component, Copy and Refactor this Component.
 
 import React, { Component } from "react";
-
-const defaultProps = {};
-const propTypes = {};
 import { Button } from "reactstrap";
 
 import cx from "classnames";
+
+const defaultProps = {};
+const propTypes = {};
 
 class RoundButton extends Component {
   constructor(props) {
