@@ -19,6 +19,9 @@
     flex-direction: row;
     justify-content: space-around;
     padding-bottom: 100px;
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+    }
 
     &__info {
       &-signUp {
@@ -26,9 +29,15 @@
         border-bottom: 1px solid black;
       }
       & h1 {
+        @media screen and (max-width: 600px) {
+          font-size: 1.5rem;
+        }
         font-size: 2rem;
       }
       & h2 {
+        @media screen and (max-width: 600px) {
+          font-size: 1rem;
+        }
         margin-top: 15px;
         font-size: 1.15rem;
       }

@@ -170,13 +170,7 @@ class UserPage extends Component {
               </div>
             </div>
             {/* <Post
-              text="hi My name is Shin Hyun Jong"
-              createdAt="15min"
-              writer="Shin Hyun Jong"
-              img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTkRvzI1fzYv8I2Psxc9HG_33ttZApXI1jET59aaze6xwBrCJC"
-              likeCount={24}
-              commentCount={40}
-              profileImg={user && user.profile_img}
+
             /> */}
           </div>
         </div>

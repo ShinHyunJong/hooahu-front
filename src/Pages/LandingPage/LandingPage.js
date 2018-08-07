@@ -51,13 +51,13 @@ class LandingPage extends Component {
               with people in <b>USFK Community</b>
             </h1>
             <h2>
-              If you are new to Hooah!U,{" "}
+              If you are new to Hooah!U
               <span
                 className="landingPage__welcome__info-signUp"
                 onClick={this.handleSignUp}
               >
                 Sign up
-              </span>{" "}
+              </span>
               to join the network.
             </h2>
           </div>
