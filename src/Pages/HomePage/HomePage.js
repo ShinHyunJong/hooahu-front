@@ -229,6 +229,7 @@ class HomePage extends Component {
                       feed={data}
                       key={index}
                       index={index}
+                      onClickThumb={this.handleUser}
                       onClickComment={this.handleComment}
                       onClickLike={id => this.handleLike(id, index)}
                       onClickDisLike={id => this.handleDisLike(id, index)}
@@ -571,6 +572,13 @@ class HomePage extends Component {
 
   handleEmail = e => {
     this.setState({ email: e.target.value });
+  };
+
+  handleUser = user_id => {
+    const { history } = this.props;
+    history.push({
+      pathname: "/@" + user_id
+    });
   };
 
   handlePassword = e => {

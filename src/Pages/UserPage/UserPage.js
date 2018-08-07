@@ -6,6 +6,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
+import * as UserAction from "../../ActionCreators/UserAction";
 import { NavBar, BoxList, Post, Thumb } from "../../Components";
 import ec from "../../Json/ec";
 import { Button } from "reactstrap";
@@ -28,7 +29,8 @@ const propTypes = {};
 const mapStateToProps = state => {
   return {
     isLogin: state.reducer.isLogin,
-    user: state.reducer.user
+    user: state.reducer.user,
+    token: state.reducer.token
   };
 };
 
@@ -51,6 +53,7 @@ class UserPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: [],
       selectedEC: [],
       selectedFeed: 0,
       selectedPost: 0,
@@ -67,9 +70,17 @@ class UserPage extends Component {
   }
 
   componentWillMount() {
+    const { match, dispatch, token } = this.props;
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
+    const user_id = Number(match.params.user_id);
+    const params = { user_id, token };
+
+    dispatch(UserAction.getUserByUserID(params)).then(user =>
+      this.setState({ user })
+    );
+
     this.setState({ selectedEC });
   }
 
@@ -78,8 +89,8 @@ class UserPage extends Component {
   }
 
   render() {
-    const { isLogin, user } = this.props;
-    const { selectedEC, selectedPost, selectedFeed } = this.state;
+    const { isLogin } = this.props;
+    const { selectedEC, selectedPost, selectedFeed, user } = this.state;
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
     return (
@@ -88,19 +99,19 @@ class UserPage extends Component {
         <div className="userPage__notice">
           <div className="userPage__notice__content">
             <div className="userPage__notice__content__wrapper">
-              <Thumb size={100} src={user.profile_img} fontSize={60} />
+              <Thumb size={100} src={user && user.profile_img} fontSize={60} />
               <div className="userPage__notice__content__wrapper__name">
-                <p>{user.first_name + " " + user.last_name}</p>
+                <p>{`${user && user.first_name} ${user && user.last_name}`}</p>
               </div>
               <div className="userPage__notice__content__wrapper__info">
-                {user.type === "Civ" ? (
-                  <p>{user.c_type}</p>
+                {user && user.type === "Civ" ? (
+                  <p>{user && user.c_type}</p>
                 ) : (
                   <p>Military Personnel</p>
                 )}
               </div>
               <div className="userPage__notice__content__wrapper__area">
-                {user.area}
+                {user && user.area}
               </div>
             </div>
           </div>

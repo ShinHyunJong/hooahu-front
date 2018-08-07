@@ -59,14 +59,19 @@ class Post extends Component {
       index,
       onClickComment,
       onClickLike,
-      onClickDisLike
+      onClickDisLike,
+      onClickThumb
     } = this.props;
     return (
       <div className="post">
         <div className="post__header">
           <div className="post__header__userInfo">
             <div className="post__header__userInfo__thumb">
-              <Thumb size={50} src={feed && feed.profile_img} />
+              <Thumb
+                onClick={() => onClickThumb(feed.user_id)}
+                size={50}
+                src={feed && feed.profile_img}
+              />
             </div>
             <div className="post__header__userInfo__nameArea">
               <p className="post__header__userInfo__nameArea__name">
@@ -90,13 +95,13 @@ class Post extends Component {
           {(feed && feed.images === null) ||
           (feed && feed.images === undefined) ||
           (feed && feed.images.length === 0) ? null : (
-              <ImageGallery
-                items={feed.images && feed.images}
-                showThumbnails={false}
-                showPlayButton={false}
-                showBullets={true}
-              />
-            )}
+            <ImageGallery
+              items={feed.images && feed.images}
+              showThumbnails={false}
+              showPlayButton={false}
+              showBullets={true}
+            />
+          )}
           <div className="post__body__tags">
             <span className="post__body__tags__tag">
               <i className="xi-tag" />
@@ -154,9 +159,9 @@ class Post extends Component {
             comment={
               feed.comments && feed.comments.length > 3
                 ? feed.comments.slice(
-                  feed.comments.length - 3,
-                  feed.comments.length
-                )
+                    feed.comments.length - 3,
+                    feed.comments.length
+                  )
                 : feed.comments
             }
           />

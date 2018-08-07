@@ -9,7 +9,10 @@ import {
   SUCCEED_TO_SIGNOUT
 } from "../ActionCreators/AuthAction";
 
-import { SUCCEED_TO_GET_USER } from "../ActionCreators/UserAction";
+import {
+  SUCCEED_TO_GET_USER,
+  SUCCEED_TO_GET_USER_BY_USER_ID
+} from "../ActionCreators/UserAction";
 import { SUCCEED_TO_GET_FEED } from "../ActionCreators/FeedAction";
 
 import { combineReducers } from "redux";
@@ -19,6 +22,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   isLogin: !!localStorage.getItem("token"),
   user: [],
+  userById: [],
   feeds: null
 };
 
@@ -55,6 +59,10 @@ const reducer = (state = initialState, action) => {
     case SUCCEED_TO_GET_FEED:
       return Object.assign({}, state, {
         feeds: action.payload
+      });
+    case SUCCEED_TO_GET_USER_BY_USER_ID:
+      return Object.assign({}, state, {
+        userById: action.payload
       });
     default:
       return state;

@@ -126,14 +126,14 @@ class SignUpEmail extends Component {
       if (value.isExists) {
         this.setState({
           isChecking: false,
-          isExist: true,
-          isValid: re.test(value)
+          isExist: true
+          // isValid: re.test(value)
         });
       } else {
         this.setState({
           isChecking: false,
-          isExist: false,
-          isValid: re.test(value)
+          isExist: false
+          // isValid: re.test(value)
         });
       }
     });

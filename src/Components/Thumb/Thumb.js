@@ -12,10 +12,11 @@ class Thumb extends Component {
   }
 
   render() {
-    const { size, src, fontSize } = this.props;
+    const { size, src, fontSize, onClick } = this.props;
     if (src === null || src === undefined || src === null) {
       return (
         <span
+          onClick={onClick}
           className="thumb__default"
           style={{ width: size, height: size, fontSize: fontSize && fontSize }}
         >
@@ -24,7 +25,11 @@ class Thumb extends Component {
       );
     } else {
       return (
-        <span className="thumb" style={{ width: size, height: size }}>
+        <span
+          onClick={onClick}
+          className="thumb"
+          style={{ width: size, height: size }}
+        >
           <img className="thumb__image" width={size} height={size} src={src} />
         </span>
       );
