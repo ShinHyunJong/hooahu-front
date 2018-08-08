@@ -40,6 +40,10 @@
       &:focus {
         outline: none;
       }
+
+      &-tag {
+        width: 100%;
+      }
     }
   }
 
@@ -92,5 +96,25 @@
         height: 60px;
       }
     }
+  }
+}
+
+.react-tagsinput {
+  border: none;
+  &-input {
+    border: none;
+    font-size: 1rem;
+    width: 200px;
+    padding: 3px;
+    &:focus {
+      outline: none;
+    }
+  }
+  &-tag {
+    color: $dark-gray;
+    background-color: $sub-color;
+    border: none;
+    border-radius: 0px;
+    margin-right: 0.5rem;
   }
 }

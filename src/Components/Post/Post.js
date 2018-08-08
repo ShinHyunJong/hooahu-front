@@ -92,21 +92,30 @@ class Post extends Component {
           </div>
         </div>
         <div className="post__body">
-          {(feed && feed.images === null) ||
-          (feed && feed.images === undefined) ||
-          (feed && feed.images.length === 0) ? null : (
-            <ImageGallery
-              items={feed.images && feed.images}
-              showThumbnails={false}
-              showPlayButton={false}
-              showBullets={true}
-            />
-          )}
+          <div className="post__body__image">
+            {(feed && feed.images === null) ||
+            (feed && feed.images === undefined) ||
+            (feed && feed.images.length === 0) ? null : (
+              <ImageGallery
+                items={feed.images && feed.images}
+                showThumbnails={false}
+                showPlayButton={false}
+                showBullets={true}
+              />
+            )}
+          </div>
+
           <div className="post__body__tags">
-            <span className="post__body__tags__tag">
-              <i className="xi-tag" />
-              MP
-            </span>
+            {feed.tags &&
+              feed.tags.map((data, index) => {
+                return (
+                  <span key={index} className="post__body__tags__tag">
+                    {/* <i className="xi-tag" />
+                  MP */}
+                    {data.title}
+                  </span>
+                );
+              })}
           </div>
           <p className="post__body__text">{feed && feed.content}</p>
         </div>

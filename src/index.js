@@ -14,6 +14,7 @@ import { yellow600 } from "material-ui/styles/colors";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Alert
 import "react-activity/dist/react-activity.css";
 import registerServiceWorker from "./registerServiceWorker";
+import "react-tagsinput/react-tagsinput.css";
 // Main SCSS
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";

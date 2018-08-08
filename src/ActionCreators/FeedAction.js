@@ -84,8 +84,8 @@ export const postFeed = params => {
         body: JSON.stringify({
           content: params.content,
           post_type: params.type,
-          pic_list: params.pic_list,
-          tags: ["#sample", "#cafeSpot"]
+          tags: params.tags,
+          pic_list: params.pic_list
         })
       });
       let responseJson = await response.json();

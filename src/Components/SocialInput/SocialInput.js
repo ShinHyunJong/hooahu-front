@@ -7,6 +7,7 @@ import Textarea from "react-textarea-autosize";
 import Badge from "material-ui/Badge";
 import { Thumb } from "../";
 import { Bounce } from "react-activity";
+import TagsInput from "react-tagsinput";
 import FileInputComponent from "react-file-input-previews-base64";
 import cx from "classnames";
 import {
@@ -61,6 +62,7 @@ class SocialInput extends Component {
       isLogin,
       showCamera,
       showType,
+      showTag,
       onChange,
       placeholder,
       handleBase,
@@ -71,7 +73,10 @@ class SocialInput extends Component {
       onClick,
       value,
       className,
-      isPosting
+      isPosting,
+      tagsValue,
+      onChangeTags,
+      onChangeTagsInput
     } = this.props;
     return (
       <div className={cx("socialInput", className)}>
@@ -87,6 +92,21 @@ class SocialInput extends Component {
             className="socialInput__body__input"
           />
         </div>
+        {/* <hr className="homePage__noMargin" /> */}
+        <div>
+          {showTag ? (
+            <TagsInput
+              addKeys={[9, 13, 32]}
+              value={tagsValue}
+              inputProps={{
+                placeholder: "Add Tags ex) #557MPCO"
+              }}
+              onChange={onChangeTags}
+              onChangeInput={onChangeTagsInput}
+            />
+          ) : null}
+        </div>
+
         <hr className="homePage__noMargin" />
         <div className="socialInput__footer">
           {showCamera === true ? (
@@ -155,6 +175,7 @@ class SocialInput extends Component {
                     onClick={() => handleDelete(data)}
                   >
                     <img
+                      alt={data + index}
                       className="socialInput__footer__imagePreview__image"
                       src={data}
                     />

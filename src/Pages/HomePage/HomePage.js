@@ -5,37 +5,20 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
-import {
-  NavBar,
-  BoxList,
-  Post,
-  Thumb,
-  SocialInput,
-  Comment
-} from "../../Components";
+import { NavBar, Post, SocialInput, Comment } from "../../Components";
 import { LandingPage } from "../../Pages";
 import ec from "../../Json/ec";
-import { Button } from "reactstrap";
 import nprogress from "nprogress";
 import filterJson from "../../Json/filter";
 import cx from "classnames";
 import ProgressiveImage from "react-progressive-image";
-import Textarea from "react-textarea-autosize";
-import Badge from "material-ui/Badge";
+
 import * as FeedAction from "../../ActionCreators/FeedAction";
 import * as AuthAction from "../../ActionCreators/AuthAction";
 import * as UserAction from "../../ActionCreators/UserAction";
 import { Bounce } from "react-activity";
-import FileInputComponent from "react-file-input-previews-base64";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Modal,
-  ModalBody
-} from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
+import _ from "lodash";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
@@ -85,7 +68,8 @@ class HomePage extends Component {
       selectedPostIndex: 0,
       showModal: false,
       imagePreview: [],
-      comment: ""
+      comment: "",
+      tags: []
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -110,7 +94,6 @@ class HomePage extends Component {
       this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
         const newFeeds = value.slice();
         for (let i = 0; i < newFeeds.length; i++) {
-          // newFeeds[i].comments = newFeeds[i].comments.reverse();
           if (newFeeds[i].isLiked) {
             newFeeds[i].isLiked = true;
           }
@@ -118,13 +101,6 @@ class HomePage extends Component {
             return { original: data.img_url };
           });
         }
-
-        // let result = newFeeds.map(function(el) {
-        //   let o = Object.assign({}, el);
-        //   o.isLiked = false;
-        //   return o;
-        // });
-
         this.setState({ feeds: newFeeds, feedLoading: false });
         nprogress.done();
       });
@@ -157,7 +133,8 @@ class HomePage extends Component {
       feeds,
       feedLoading,
       comment,
-      isPosting
+      isPosting,
+      tags
     } = this.state;
     const { isLogin, user } = this.props;
 
@@ -208,12 +185,16 @@ class HomePage extends Component {
                 isLogin={isLogin}
                 showType
                 showCamera
+                showTag
                 handleBase={this.handlePreview}
                 handleType={this.handlePostType}
                 handleDelete={this.handleBadge}
                 imagePreview={imagePreview}
                 selectedPostType={selectedPostType}
                 onChange={this.handleText}
+                tagsValue={tags}
+                onChangeTags={this.handleTags}
+                onChangeTagsInput={tags => this.setState({ tags })}
                 onClick={this.handlePostFeed}
                 value={this.state.feedText}
               />
@@ -489,20 +470,27 @@ class HomePage extends Component {
         feedText,
         selectedPostTypeIndex,
         imagePreview,
-        feeds
+        feeds,
+        tags
       } = this.state;
       const newFeeds = feeds.slice();
-
       let date = new Date();
+
       const params = {
         token: this.props.token,
         content: feedText,
+        tags,
         type: selectedPostTypeIndex,
         pic_list: imagePreview
       };
 
       const images = imagePreview.map((data, index) => {
         return { original: data };
+      });
+
+      let newTags = [];
+      tags.map((data, index) => {
+        newTags.push({ title: data });
       });
 
       this.setState({ feedLoading: true });
@@ -513,6 +501,7 @@ class HomePage extends Component {
           post_type: selectedPostTypeIndex,
           images,
           comments: [],
+          tags: newTags,
           created_at: date,
           nickname: user.nickname,
           like_cnt: 0,
@@ -523,6 +512,7 @@ class HomePage extends Component {
         this.setState({
           feedText: "",
           imagePreview: [],
+          tags: [],
           feedLoading: false,
           feeds: newFeeds
         });
@@ -531,9 +521,9 @@ class HomePage extends Component {
   };
 
   toggleModal = () => {
-    this.setState({
+    this.setState(state => ({
       showModal: !this.state.showModal
-    });
+    }));
   };
 
   handleInput = e => {
@@ -566,6 +556,7 @@ class HomePage extends Component {
     this.setState(state => ({
       selectedPostIndex: id,
       selectedComment: comments
+      // showModal: true
     }));
     this.toggleModal();
   };
@@ -579,6 +570,14 @@ class HomePage extends Component {
     history.push({
       pathname: "/@" + user_id
     });
+  };
+
+  handleTags = tags => {
+    const hashTags = tags.map(tag => {
+      tag = tag.replace(/#/g, "");
+      return `#${tag}`;
+    });
+    this.setState({ tags: _.uniq(hashTags) });
   };
 
   handlePassword = e => {
