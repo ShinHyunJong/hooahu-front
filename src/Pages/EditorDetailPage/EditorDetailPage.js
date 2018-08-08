@@ -13,7 +13,8 @@ import {
   TabContent,
   TabPane,
   Modal,
-  ModalBody
+  ModalBody,
+  ModalFooter
 } from "reactstrap";
 import * as ChoiceAction from "../../ActionCreators/ChoiceAction";
 import ec from "../../Json/ec";
@@ -289,6 +290,14 @@ class EditorDetailPage extends Component {
               />
             </div>
           </ModalBody>
+          <ModalFooter>
+            <span
+              onClick={this.toggleModal}
+              className="editorDetail__modal__close"
+            >
+              <i className="xi-close" />
+            </span>
+          </ModalFooter>
         </Modal>
         <div className="editorDetail__sideBar">
           {isLiked === false ? (

@@ -30,7 +30,10 @@
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 50px;
-    padding-bottom: 50px;
+    @media screen and (max-width: 600px) {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
 
     &__comment {
       height: 40vh;
@@ -40,6 +43,16 @@
     &__input {
       padding-left: 50px !important;
       padding-right: 50px !important;
+      @media screen and (max-width: 600px) {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+    }
+
+    &__close {
+      font-size: 13px;
+      color: $dark-gray;
+      cursor: pointer;
     }
   }
 

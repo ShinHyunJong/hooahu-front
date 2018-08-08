@@ -11,6 +11,7 @@
   margin-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  // box-shadow: 1px 1.5px 1.5px 1px $shadow-color;
   &__header {
     display: flex;
     flex-direction: row;
@@ -70,6 +71,7 @@
 
     &__text {
       color: $dark-gray;
+      white-space: pre-line;
     }
 
     &__tags {
@@ -89,6 +91,8 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        font-weight: 700;
+        font-size: 13px;
 
         &__icon {
           display: inline-flex;

@@ -60,7 +60,9 @@ class Post extends Component {
       onClickComment,
       onClickLike,
       onClickDisLike,
-      onClickThumb
+      onClickUser,
+      onClickThumb,
+      onClickCommentUser
     } = this.props;
     return (
       <div className="post">
@@ -75,7 +77,10 @@ class Post extends Component {
             </div>
             <div className="post__header__userInfo__nameArea">
               <p className="post__header__userInfo__nameArea__name">
-                <strong className="homePage__strong">
+                <strong
+                  onClick={() => onClickUser(feed.user_id)}
+                  className="homePage__strong"
+                >
                   {feed && feed.nickname}
                 </strong>
                 {"in " + this.handlePostType(feed.postType)}
@@ -165,6 +170,7 @@ class Post extends Component {
         <div className="post__footer__wrapper__commentList">
           <Comment
             isFeed
+            onClick={onClickCommentUser}
             comment={
               feed.comments && feed.comments.length > 3
                 ? feed.comments.slice(

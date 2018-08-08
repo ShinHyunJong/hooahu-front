@@ -12,17 +12,37 @@ import nprogress from "nprogress";
 import filterJson from "../../Json/filter";
 import cx from "classnames";
 import ProgressiveImage from "react-progressive-image";
-
+import ContentLoader from "react-content-loader";
 import * as FeedAction from "../../ActionCreators/FeedAction";
 import * as AuthAction from "../../ActionCreators/AuthAction";
 import * as UserAction from "../../ActionCreators/UserAction";
 import { Bounce } from "react-activity";
-import { Modal, ModalBody } from "reactstrap";
+import { Modal, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
+
+const MyLoader = props => (
+  <div className="homePage__feed__content-loading">
+    <ContentLoader
+      height={160}
+      width={400}
+      speed={2}
+      primaryColor="#a8a8a8"
+      secondaryColor="#ecebeb"
+      {...props}
+    >
+      <rect x="69" y="33" rx="3" ry="3" width="117" height="5" />
+      <rect x="69" y="51" rx="3" ry="3" width="85" height="5" />
+      <rect x="15.02" y="81.63" rx="3" ry="3" width="320" height="5" />
+      <rect x="15" y="98" rx="3" ry="3" width="380" height="5" />
+      <rect x="15" y="116" rx="3" ry="3" width="201" height="5" />
+      <circle cx="39.2" cy="45.2" r="16" />
+    </ContentLoader>
+  </div>
+);
 
 const mapStateToProps = state => {
   return {
@@ -61,6 +81,7 @@ class HomePage extends Component {
       selectedPost: 0,
       feeds: [],
       feedText: "",
+      feedLoading: true,
       selectedEC: [],
       dropdownOpen: false,
       selectedPostTypeIndex: 1,
@@ -84,14 +105,14 @@ class HomePage extends Component {
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    const { isLogin } = this.props;
+    const { isLogin, dispatch } = this.props;
     if (isLogin) {
       this.setState({ selectedEC, feedLoading: true });
       const params = {
         token: this.props.token,
         type: 0
       };
-      this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
+      dispatch(FeedAction.getAllFeed(params)).then(value => {
         const newFeeds = value.slice();
         for (let i = 0; i < newFeeds.length; i++) {
           if (newFeeds[i].isLiked) {
@@ -125,7 +146,6 @@ class HomePage extends Component {
       selectedFeed,
       selectedPost,
       selectedPostType,
-      selectedPostIndex,
       selectedEC,
       selectedComment,
       showModal,
@@ -168,6 +188,14 @@ class HomePage extends Component {
                 />
               </div>
             </ModalBody>
+            <ModalFooter>
+              <span
+                onClick={this.toggleModal}
+                className="editorDetail__modal__close"
+              >
+                <i className="xi-close" />
+              </span>
+            </ModalFooter>
           </Modal>
           <div className="homePage__notice">
             <div className="homePage__notice__content">
@@ -199,8 +227,10 @@ class HomePage extends Component {
                 value={this.state.feedText}
               />
               {feedLoading ? (
-                <div className="homePage__feed__content-loading">
-                  <Bounce size={30} color="#fdd835" />
+                <div>
+                  {/* <Bounce size={30} color="#fdd835" /> */}
+                  <MyLoader />
+                  <MyLoader />
                 </div>
               ) : (
                 feeds &&
@@ -211,14 +241,16 @@ class HomePage extends Component {
                       key={index}
                       index={index}
                       onClickThumb={this.handleUser}
+                      onClickUser={this.handleUser}
                       onClickComment={this.handleComment}
+                      onClickCommentUser={this.handleUser}
                       onClickLike={id => this.handleLike(id, index)}
                       onClickDisLike={id => this.handleDisLike(id, index)}
                     />
                   );
                 })
               )}
-              {feeds.length === 0 ? (
+              {feeds.length === 0 && !feedLoading ? (
                 <div
                   style={{
                     display: "flex",
@@ -296,7 +328,7 @@ class HomePage extends Component {
                       <img
                         src={src}
                         onClick={() => this.handleEditor(selectedEC.id)}
-                        alt="an image"
+                        alt={selectedEC.id}
                         style={styles.image}
                       />
                     )}
@@ -460,7 +492,7 @@ class HomePage extends Component {
   };
 
   handlePostFeed = () => {
-    const { user, isLogin } = this.props;
+    const { user, isLogin, token } = this.props;
     if (!isLogin) {
       this.props.history.push({
         pathname: "/signup"
@@ -477,7 +509,7 @@ class HomePage extends Component {
       let date = new Date();
 
       const params = {
-        token: this.props.token,
+        token,
         content: feedText,
         tags,
         type: selectedPostTypeIndex,
@@ -489,9 +521,13 @@ class HomePage extends Component {
       });
 
       let newTags = [];
-      tags.map((data, index) => {
-        newTags.push({ title: data });
-      });
+      if (tags.length === 0) {
+        newTags = [];
+      } else {
+        tags.map((data, index) => {
+          newTags.push({ title: data });
+        });
+      }
 
       this.setState({ feedLoading: true });
       this.props.dispatch(FeedAction.postFeed(params)).then(value => {
@@ -509,13 +545,13 @@ class HomePage extends Component {
           profile_img: user.profile_img
         };
         newFeeds.splice(0, 0, frontParams);
-        this.setState({
+        this.setState(state => ({
           feedText: "",
           imagePreview: [],
           tags: [],
           feedLoading: false,
           feeds: newFeeds
-        });
+        }));
       });
     }
   };
@@ -573,10 +609,14 @@ class HomePage extends Component {
   };
 
   handleTags = tags => {
-    const hashTags = tags.map(tag => {
-      tag = tag.replace(/#/g, "");
-      return `#${tag}`;
-    });
+    const hashTags = tags
+      .filter(a => {
+        return a !== "#";
+      })
+      .map(tag => {
+        tag = tag.replace(/#/g, "");
+        return `#${tag}`;
+      });
     this.setState({ tags: _.uniq(hashTags) });
   };
 
