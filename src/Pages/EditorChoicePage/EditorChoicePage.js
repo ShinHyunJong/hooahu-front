@@ -15,6 +15,7 @@ import ProgressiveImage from "react-progressive-image-loading";
 import nprogress from "nprogress";
 import ReactTooltip from "react-tooltip";
 import scrollToComponent from "react-scroll-to-component";
+import FlipMove from "react-flip-move";
 import _ from "lodash";
 
 const defaultProps = {};
@@ -371,343 +372,348 @@ class EditorChoicePage extends Component {
                   </h3>
                 </div>
               ) : (
-                editorChoice.map((data, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="editorChoice__feed__content__lists__list"
-                    >
-                      <div className="editorChoice__feed__content__lists__list__text">
-                        <h3 className="editorChoice__feed__content__lists__list__text__title">
-                          {data.name}
-                        </h3>
-                        <p className="editorChoice__feed__content__lists__list__text__day">
-                          {data.days + " / " + data.area}
-                        </p>
-                        {data.places.slice(0, placeCount).map((data, index) => {
-                          return (
-                            <div key={index}>
-                              <h6 className="editorChoice__feed__content__lists__list__text__place">
-                                {data.name}
-                              </h6>
-                            </div>
-                          );
-                        })}
-                        <div className="editorChoice__feed__content__lists__list__text__more">
-                          {data.places.length - placeCount === 0 ? null : data
-                            .places.length -
-                            placeCount ===
-                          1 ? (
+                <FlipMove>
+                  {editorChoice.map((data, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="editorChoice__feed__content__lists__list"
+                      >
+                        <div className="editorChoice__feed__content__lists__list__text">
+                          <h3 className="editorChoice__feed__content__lists__list__text__title">
+                            {data.name}
+                          </h3>
+                          <p className="editorChoice__feed__content__lists__list__text__day">
+                            {data.days + " / " + data.area}
+                          </p>
+                          {data.places
+                            .slice(0, placeCount)
+                            .map((data, index) => {
+                              return (
+                                <div key={index}>
+                                  <h6 className="editorChoice__feed__content__lists__list__text__place">
+                                    {data.name}
+                                  </h6>
+                                </div>
+                              );
+                            })}
+                          <div className="editorChoice__feed__content__lists__list__text__more">
+                            {data.places.length - placeCount === 0 ? null : data
+                              .places.length -
+                              placeCount ===
+                            1 ? (
                               <span>
-                              +{data.places.length - placeCount} more place
+                                +{data.places.length - placeCount} more place
                               </span>
                             ) : (
                               <span>
-                              +{data.places.length - placeCount} more places
+                                +{data.places.length - placeCount} more places
                               </span>
                             )}
+                          </div>
+                          <div className="editorChoice__feed__content__lists__list__text__priceArea">
+                            <span className="editorChoice__feed__content__lists__list__text__priceArea__text">
+                              Average expense
+                            </span>
+                            <h5 className="editorChoice__feed__content__lists__list__text__priceArea__price">
+                              <NumberFormat
+                                value={data.price}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"₩"}
+                              />
+                            </h5>
+                          </div>
+                          <div
+                            className="editorChoice__feed__content__lists__list__text__view"
+                            onClick={() => this.handleView(data.id)}
+                          >
+                            <span> View Package</span>
+                          </div>
                         </div>
-                        <div className="editorChoice__feed__content__lists__list__text__priceArea">
-                          <span className="editorChoice__feed__content__lists__list__text__priceArea__text">
-                            Average expense
-                          </span>
-                          <h5 className="editorChoice__feed__content__lists__list__text__priceArea__price">
-                            <NumberFormat
-                              value={data.price}
-                              displayType={"text"}
-                              thousandSeparator={true}
-                              prefix={"₩"}
-                            />
-                          </h5>
+                        <div className="editorChoice__feed__content__lists__list__info">
+                          <div className="editorChoice__feed__content__lists__list__info__border" />
+                          <div className="editorChoice__feed__content__lists__list__info__content">
+                            <div className="editorChoice__feed__content__lists__list__info__content__stars">
+                              {Array.from(
+                                { length: Number(data.rating) },
+                                () => ""
+                              ).map((data, index) => {
+                                return (
+                                  <span
+                                    key={index}
+                                    className="editorChoice__feed__content__lists__list__info__content__stars__star"
+                                  >
+                                    <i className="xi-star" />
+                                  </span>
+                                );
+                              })}
+                            </div>
+                            <div className="editorChoice__feed__content__lists__list__info__content__reviewArea">
+                              <span className="editorChoice__feed__content__lists__list__info__content__reviewArea__count">
+                                {data.reviews}
+                              </span>
+                              <span className="editorChoice__feed__content__lists__list__info__content__reviewArea__review">
+                                reviews
+                              </span>
+                            </div>
+                            <div className="editorChoice__feed__content__lists__list__info__content__conceptArea">
+                              <ReactTooltip
+                                id="calm"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Calm</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="calm"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.calm === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.calm === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.calm === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-cafe" />
+                              </span>
+                              <ReactTooltip
+                                id="sightSeeing"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Sight Seeing</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="sightSeeing"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.sightSeeing === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.sightSeeing === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.sightSeeing === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-eye" />
+                              </span>
+                              <ReactTooltip
+                                id="dandy"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Dandy</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="dandy"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.dandy === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.dandy === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.dandy === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-glass" />
+                              </span>
+                              <ReactTooltip
+                                id="food"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Hearty Eater</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="food"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.food === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.food === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.food === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-restaurant" />
+                              </span>
+                            </div>
+                            <div className="editorChoice__feed__content__lists__list__info__content__conceptArea">
+                              <ReactTooltip
+                                id="activity"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Alive</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="activity"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.activity === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.activity === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.activity === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-run" />
+                              </span>
+                              <ReactTooltip
+                                id="luxury"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Swagger</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="luxury"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.luxury === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.luxury === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.luxury === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-sketch" />
+                              </span>
+                              <ReactTooltip
+                                id="love"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Love</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="love"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.love === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.love === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.love === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-heart" />
+                              </span>
+                              <ReactTooltip
+                                id="party"
+                                place="top"
+                                type="dark"
+                                className="editorChoice__tooltip"
+                                effect="float"
+                              >
+                                <span>Party Animal</span>
+                              </ReactTooltip>
+                              <span
+                                data-tip
+                                data-for="party"
+                                className={cx(
+                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
+                                      data.concept.party === 1
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
+                                      data.concept.party === 2
+                                  },
+                                  {
+                                    "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
+                                      data.concept.party === 3
+                                  }
+                                )}
+                              >
+                                <i className="xi-emoticon-cool" />
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                        <div
-                          className="editorChoice__feed__content__lists__list__text__view"
-                          onClick={() => this.handleView(data.id)}
-                        >
-                          <span> View Package</span>
+                        <div className="editorChoice__feed__content__lists__list__image">
+                          <img
+                            alt={index}
+                            src={data.image_url}
+                            className="editorChoice__feed__content__lists__list__image__pic"
+                          />
                         </div>
                       </div>
-                      <div className="editorChoice__feed__content__lists__list__info">
-                        <div className="editorChoice__feed__content__lists__list__info__border" />
-                        <div className="editorChoice__feed__content__lists__list__info__content">
-                          <div className="editorChoice__feed__content__lists__list__info__content__stars">
-                            {Array.from(
-                              { length: Number(data.rating) },
-                              () => ""
-                            ).map((data, index) => {
-                              return (
-                                <span
-                                  key={index}
-                                  className="editorChoice__feed__content__lists__list__info__content__stars__star"
-                                >
-                                  <i className="xi-star" />
-                                </span>
-                              );
-                            })}
-                          </div>
-                          <div className="editorChoice__feed__content__lists__list__info__content__reviewArea">
-                            <span className="editorChoice__feed__content__lists__list__info__content__reviewArea__count">
-                              {data.reviews}
-                            </span>
-                            <span className="editorChoice__feed__content__lists__list__info__content__reviewArea__review">
-                              reviews
-                            </span>
-                          </div>
-                          <div className="editorChoice__feed__content__lists__list__info__content__conceptArea">
-                            <ReactTooltip
-                              id="calm"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Calm</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="calm"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.calm === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.calm === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.calm === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-cafe" />
-                            </span>
-                            <ReactTooltip
-                              id="sightSeeing"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Sight Seeing</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="sightSeeing"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.sightSeeing === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.sightSeeing === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.sightSeeing === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-eye" />
-                            </span>
-                            <ReactTooltip
-                              id="dandy"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Dandy</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="dandy"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.dandy === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.dandy === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.dandy === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-glass" />
-                            </span>
-                            <ReactTooltip
-                              id="food"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Hearty Eater</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="food"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.food === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.food === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.food === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-restaurant" />
-                            </span>
-                          </div>
-                          <div className="editorChoice__feed__content__lists__list__info__content__conceptArea">
-                            <ReactTooltip
-                              id="activity"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Alive</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="activity"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.activity === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.activity === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.activity === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-run" />
-                            </span>
-                            <ReactTooltip
-                              id="luxury"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Swagger</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="luxury"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.luxury === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.luxury === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.luxury === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-sketch" />
-                            </span>
-                            <ReactTooltip
-                              id="love"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Love</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="love"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.love === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.love === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.love === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-heart" />
-                            </span>
-                            <ReactTooltip
-                              id="party"
-                              place="top"
-                              type="dark"
-                              className="editorChoice__tooltip"
-                              effect="float"
-                            >
-                              <span>Party Animal</span>
-                            </ReactTooltip>
-                            <span
-                              data-tip
-                              data-for="party"
-                              className={cx(
-                                "editorChoice__feed__content__lists__list__info__content__conceptArea__icon",
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-1":
-                                    data.concept.party === 1
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-2":
-                                    data.concept.party === 2
-                                },
-                                {
-                                  "editorChoice__feed__content__lists__list__info__content__conceptArea__icon-3":
-                                    data.concept.party === 3
-                                }
-                              )}
-                            >
-                              <i className="xi-emoticon-cool" />
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="editorChoice__feed__content__lists__list__image">
-                        <img
-                          src={data.image_url}
-                          className="editorChoice__feed__content__lists__list__image__pic"
-                        />
-                      </div>
-                    </div>
-                  );
-                })
+                    );
+                  })}
+                </FlipMove>
               )}
             </div>
           </div>

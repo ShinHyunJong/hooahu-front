@@ -19,6 +19,7 @@ import * as UserAction from "../../ActionCreators/UserAction";
 import { Bounce } from "react-activity";
 import { Modal, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
+import FlipMove from "react-flip-move";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
@@ -37,7 +38,7 @@ const MyLoader = props => (
       <rect x="69" y="33" rx="3" ry="3" width="117" height="5" />
       <rect x="69" y="51" rx="3" ry="3" width="85" height="5" />
       <rect x="15.02" y="81.63" rx="3" ry="3" width="320" height="5" />
-      <rect x="15" y="98" rx="3" ry="3" width="380" height="5" />
+      <rect x="15" y="98" rx="3" ry="3" width="350" height="5" />
       <rect x="15" y="116" rx="3" ry="3" width="201" height="5" />
       <circle cx="39.2" cy="45.2" r="16" />
     </ContentLoader>
@@ -226,29 +227,39 @@ class HomePage extends Component {
                 onClick={this.handlePostFeed}
                 value={this.state.feedText}
               />
+
               {feedLoading ? (
                 <div>
-                  {/* <Bounce size={30} color="#fdd835" /> */}
                   <MyLoader />
                   <MyLoader />
                 </div>
+              ) : isPosting ? (
+                <div className="homePage__feed__content-isPosting">
+                  <Bounce size={35} color="#fdd835" />
+                </div>
               ) : (
-                feeds &&
-                feeds.map((data, index) => {
-                  return (
-                    <Post
-                      feed={data}
-                      key={index}
-                      index={index}
-                      onClickThumb={this.handleUser}
-                      onClickUser={this.handleUser}
-                      onClickComment={this.handleComment}
-                      onClickCommentUser={this.handleUser}
-                      onClickLike={id => this.handleLike(id, index)}
-                      onClickDisLike={id => this.handleDisLike(id, index)}
-                    />
-                  );
-                })
+                <FlipMove
+                  enterAnimation="fade"
+                  leaveAnimation="fade"
+                  delay={150}
+                >
+                  {feeds &&
+                    feeds.map((data, index) => {
+                      return (
+                        <Post
+                          feed={data}
+                          key={index}
+                          index={index}
+                          onClickThumb={this.handleUser}
+                          onClickUser={this.handleUser}
+                          onClickComment={this.handleComment}
+                          onClickCommentUser={this.handleUser}
+                          onClickLike={id => this.handleLike(id, index)}
+                          onClickDisLike={id => this.handleDisLike(id, index)}
+                        />
+                      );
+                    })}
+                </FlipMove>
               )}
               {feeds.length === 0 && !feedLoading ? (
                 <div
@@ -401,7 +412,7 @@ class HomePage extends Component {
       this.props.history.push({ pathname: "/signup" });
     } else {
       if (index === 0) {
-        this.setState({ selectedPost: index, feedLoading: true });
+        this.setState({ selectedPost: index, isPosting: true });
         this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
           const newFeeds = value.slice();
           for (let i = 0; i < newFeeds.length; i++) {
@@ -410,10 +421,10 @@ class HomePage extends Component {
               return { original: data.img_url };
             });
           }
-          this.setState({ feeds: newFeeds, feedLoading: false });
+          this.setState({ feeds: newFeeds, isPosting: false });
         });
       } else {
-        this.setState({ selectedPost: index, feedLoading: true });
+        this.setState({ selectedPost: index, isPosting: true });
         this.props.dispatch(FeedAction.getFeed(params)).then(value => {
           const newFeeds = value.slice();
           for (let i = 0; i < newFeeds.length; i++) {
@@ -422,7 +433,7 @@ class HomePage extends Component {
               return { original: data.img_url };
             });
           }
-          this.setState({ feeds: newFeeds, feedLoading: false });
+          this.setState({ feeds: newFeeds, isPosting: false });
         });
       }
     }
@@ -528,8 +539,7 @@ class HomePage extends Component {
           newTags.push({ title: data });
         });
       }
-
-      this.setState({ feedLoading: true });
+      this.setState(state => ({ isPosting: true }));
       this.props.dispatch(FeedAction.postFeed(params)).then(value => {
         const frontParams = {
           id: value.newPostId,
@@ -549,7 +559,7 @@ class HomePage extends Component {
           feedText: "",
           imagePreview: [],
           tags: [],
-          feedLoading: false,
+          isPosting: false,
           feeds: newFeeds
         }));
       });
