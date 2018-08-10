@@ -13,6 +13,7 @@ import { Button } from "reactstrap";
 import nprogress from "nprogress";
 import filterJson from "../../Json/filter";
 import cx from "classnames";
+import ContentLoader from "react-content-loader";
 import ProgressiveImage from "react-progressive-image";
 import Textarea from "react-textarea-autosize";
 import {
@@ -25,6 +26,24 @@ import {
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
+
+const MyLoader = props => (
+  <div className="userPage__notice__content-loader">
+    <ContentLoader
+      height={330}
+      width={400}
+      speed={2}
+      primaryColor="#a8a8a8"
+      secondaryColor="#ecebeb"
+      {...props}
+    >
+      <rect x="110" y="200" rx="3" ry="3" width="190" height="10" />
+      <rect x="110" y="270" rx="3" ry="3" width="190" height="15" />
+      <rect x="45" y="310" rx="3" ry="3" width="300" height="10" />
+      <circle cx="200" cy="80" r="80" />
+    </ContentLoader>
+  </div>
+);
 
 const mapStateToProps = state => {
   return {
@@ -58,7 +77,8 @@ class UserPage extends Component {
       selectedFeed: 0,
       selectedPost: 0,
       dropdownOpen: false,
-      selectedPostType: "Walkie Talkie"
+      selectedPostType: "Walkie Talkie",
+      feedLoading: true
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -78,7 +98,7 @@ class UserPage extends Component {
     const params = { user_id, token };
 
     dispatch(UserAction.getUserByUserID(params)).then(user =>
-      this.setState({ user })
+      this.setState({ user, feedLoading: false })
     );
 
     this.setState({ selectedEC });
@@ -90,32 +110,48 @@ class UserPage extends Component {
 
   render() {
     const { isLogin } = this.props;
-    const { selectedEC, selectedPost, selectedFeed, user } = this.state;
+    const {
+      selectedEC,
+      selectedPost,
+      selectedFeed,
+      user,
+      feedLoading
+    } = this.state;
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
     return (
       <div className="userPage">
         <NavBar listClassName="userPage__tabBar__list" />
         <div className="userPage__notice">
-          <div className="userPage__notice__content">
-            <div className="userPage__notice__content__wrapper">
-              <Thumb size={100} src={user && user.profile_img} fontSize={60} />
-              <div className="userPage__notice__content__wrapper__name">
-                <p>{`${user && user.first_name} ${user && user.last_name}`}</p>
-              </div>
-              <div className="userPage__notice__content__wrapper__info">
-                {user && user.type === "Civ" ? (
-                  <p>{user && user.c_type}</p>
-                ) : (
-                  <p>Military Personnel</p>
-                )}
-              </div>
-              <div className="userPage__notice__content__wrapper__area">
-                {user && user.area}
+          {feedLoading ? (
+            <MyLoader />
+          ) : (
+            <div className="userPage__notice__content">
+              <div className="userPage__notice__content__wrapper">
+                <Thumb
+                  size={100}
+                  src={user && user.profile_img}
+                  fontSize={60}
+                />
+                <div className="userPage__notice__content__wrapper__name">
+                  <p>{`${user && user.first_name} ${user &&
+                    user.last_name}`}</p>
+                </div>
+                <div className="userPage__notice__content__wrapper__info">
+                  {user && user.type === "Civ" ? (
+                    <p>{user && user.c_type}</p>
+                  ) : (
+                    <p>Military Personnel</p>
+                  )}
+                </div>
+                <div className="userPage__notice__content__wrapper__area">
+                  {user && user.area}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
+
         <div className="userPage__feed">
           <div className="userPage__feed__content">
             <div className="userPage__feed__content__inputArea">
