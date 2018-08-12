@@ -57,6 +57,7 @@ class Post extends Component {
     const {
       feed,
       index,
+      isTag,
       onClickComment,
       onClickLike,
       onClickDisLike,
@@ -73,7 +74,11 @@ class Post extends Component {
               <Thumb
                 onClick={() => onClickThumb(feed.user_id)}
                 size={50}
-                src={feed && feed.profile_img}
+                src={
+                  isTag
+                    ? feed && feed.user[0].profile_img
+                    : feed && feed.profile_img
+                }
               />
             </div>
             <div className="post__header__userInfo__nameArea">
@@ -82,7 +87,9 @@ class Post extends Component {
                   onClick={() => onClickUser(feed.user_id)}
                   className="homePage__strong"
                 >
-                  {feed && feed.nickname}
+                  {isTag
+                    ? feed && feed.user[0].nickname
+                    : feed && feed.nickname}
                 </strong>
                 {"in " + this.handlePostType(feed.postType)}
               </p>

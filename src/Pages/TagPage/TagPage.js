@@ -64,6 +64,7 @@ class TagPage extends Component {
     super(props);
     this.state = {
       user: [],
+      index: 0,
       selectedEC: [],
       selectedFeed: 0,
       selectedPost: 0,
@@ -79,25 +80,20 @@ class TagPage extends Component {
   }
 
   componentWillMount() {
-    const { match, dispatch, token } = this.props;
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
     this.setState({ selectedEC });
-    const tag_name = match.params.tag_name;
-    const params = { tag_name, token };
-    dispatch(FeedAction.getFeedsByTagName(params)).then(feeds => {
-      const newFeeds = feeds.slice();
-      for (let i = 0; i < newFeeds.length; i++) {
-        if (newFeeds[i].isLiked) {
-          newFeeds[i].isLiked = true;
-        }
-        newFeeds[i].images = feeds[i].images.map((data, index) => {
-          return { original: data.img_url };
-        });
-      }
-      this.setState(state => ({ feeds: newFeeds, tagLoading: false }));
-    });
+    this.getAllFeeds();
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (
+      previousProps.match.params.tag_name !== this.props.match.params.tag_name
+    ) {
+      console.log("!!");
+      this.getAllFeeds();
+    }
   }
 
   componentDidMount() {
@@ -184,6 +180,7 @@ class TagPage extends Component {
               feeds.map((data, index) => {
                 return (
                   <Post
+                    isTag
                     feed={data}
                     key={index}
                     index={index}
@@ -236,7 +233,7 @@ class TagPage extends Component {
                     <img
                       src={src}
                       onClick={() => this.handleEditor(selectedEC.id)}
-                      alt="an image"
+                      alt={selectedEC.id}
                       style={styles.image}
                     />
                   )}
@@ -259,6 +256,24 @@ class TagPage extends Component {
       </div>
     );
   }
+
+  getAllFeeds = () => {
+    const { match, dispatch, token } = this.props;
+    const tag_name = match.params.tag_name;
+    const params = { tag_name, token, index: 0 };
+    dispatch(FeedAction.getFeedsByTagName(params)).then(feeds => {
+      const newFeeds = feeds.result.slice();
+      for (let i = 0; i < newFeeds.length; i++) {
+        if (newFeeds[i].isLiked) {
+          newFeeds[i].isLiked = true;
+        }
+        newFeeds[i].images = feeds.result[i].images.map((data, index) => {
+          return { original: data.img_url };
+        });
+      }
+      this.setState(state => ({ feeds: newFeeds, tagLoading: false }));
+    });
+  };
 
   handleLike = (id, index) => {
     const { dispatch, token } = this.props;
@@ -334,6 +349,14 @@ class TagPage extends Component {
     this.setState(state => ({ isPosting: true, feeds: newFeed }));
     dispatch(FeedAction.postComment(params)).then(value => {
       this.setState(state => ({ isPosting: false, comment: "" }));
+    });
+  };
+
+  handleTag = name => {
+    name = name.substring(1);
+    const { history } = this.props;
+    history.push({
+      pathname: "/tag/" + name
     });
   };
 }
