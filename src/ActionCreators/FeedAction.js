@@ -3,6 +3,10 @@ import { ServerEndPoint } from "../Configs/Server";
 export const SUCCEED_TO_GET_FEED = "SUCCEED_TO_GET_FEED";
 export const FAILED_TO_GET_FEED = "FAILED_TO_GET_FEED";
 
+export const SUCCEED_TO_GET_FEED_BY_TAG_NAME =
+  "SUCCEED_TO_GET_FEED_BY_TAG_NAME";
+export const FAILED_TO_GET_FEED_BY_TAG_NAME = "FAILED_TO_GET_FEED_BY_TAG_NAME";
+
 export const SUCCEED_TO_POST_FEED = "SUCCEED_TO_POST_FEED";
 export const FAILED_TO_POST_FEED = "FAILED_TO_POST_FEED";
 
@@ -56,7 +60,6 @@ export const getFeed = params => {
         }
       );
       let responseJson = await response.json();
-      console.log(responseJson);
       await dispatch({
         type: SUCCEED_TO_GET_FEED,
         payload: responseJson.result
@@ -65,6 +68,35 @@ export const getFeed = params => {
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_FEED,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const getFeedsByTagName = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint + `api/post/tag?title=${params.tag_name}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_GET_FEED_BY_TAG_NAME,
+        payload: responseJson.result
+      });
+      return responseJson.result;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_GET_FEED_BY_TAG_NAME,
         payload: { data: "NETWORK_ERROR" }
       });
     }
@@ -89,7 +121,6 @@ export const postFeed = params => {
         })
       });
       let responseJson = await response.json();
-      console.log(responseJson);
       await dispatch({
         type: SUCCEED_TO_POST_FEED,
         payload: responseJson

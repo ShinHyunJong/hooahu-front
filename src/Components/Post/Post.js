@@ -61,6 +61,7 @@ class Post extends Component {
       onClickLike,
       onClickDisLike,
       onClickUser,
+      onClickTag,
       onClickThumb,
       onClickCommentUser
     } = this.props;
@@ -114,7 +115,11 @@ class Post extends Component {
             {feed.tags &&
               feed.tags.map((data, index) => {
                 return (
-                  <span key={index} className="post__body__tags__tag">
+                  <span
+                    onClick={() => onClickTag(data.title)}
+                    key={index}
+                    className="post__body__tags__tag"
+                  >
                     {/* <i className="xi-tag" />
                   MP */}
                     {data.title}

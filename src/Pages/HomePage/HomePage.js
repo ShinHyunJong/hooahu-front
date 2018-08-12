@@ -90,6 +90,7 @@ class HomePage extends Component {
       selectedPostIndex: 0,
       showModal: false,
       imagePreview: [],
+      selectedComment: [],
       comment: "",
       tags: []
     };
@@ -201,7 +202,7 @@ class HomePage extends Component {
           <div className="homePage__notice">
             <div className="homePage__notice__content">
               <div className="homePage__notice__content__wrapper">
-                <p>{`WelCome! ${user.first_name} ${user.last_name}`}</p>
+                <p>{`Welcome! ${user.first_name} ${user.last_name}`}</p>
                 <hr />
               </div>
             </div>
@@ -250,6 +251,7 @@ class HomePage extends Component {
                           feed={data}
                           key={index}
                           index={index}
+                          onClickTag={this.handleTag}
                           onClickThumb={this.handleUser}
                           onClickUser={this.handleUser}
                           onClickComment={this.handleComment}
@@ -668,6 +670,14 @@ class HomePage extends Component {
           nprogress.done();
         });
       }
+    });
+  };
+
+  handleTag = name => {
+    name = name.substring(1);
+    const { history } = this.props;
+    history.push({
+      pathname: "/tag/" + name
     });
   };
 }

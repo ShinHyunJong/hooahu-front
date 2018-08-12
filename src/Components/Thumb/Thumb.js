@@ -12,8 +12,8 @@ class Thumb extends Component {
   }
 
   render() {
-    const { size, src, fontSize, onClick } = this.props;
-    if (src === null || src === undefined || src === null) {
+    const { size, src, fontSize, onClick, isTag } = this.props;
+    if (src === null || (src === undefined && isTag === undefined)) {
       return (
         <span
           onClick={onClick}
@@ -21,6 +21,16 @@ class Thumb extends Component {
           style={{ width: size, height: size, fontSize: fontSize && fontSize }}
         >
           <i className="xi-user-o" />
+        </span>
+      );
+    } else if (isTag && src === undefined) {
+      return (
+        <span
+          onClick={onClick}
+          className="thumb__default"
+          style={{ width: size, height: size }}
+        >
+          <p>#</p>
         </span>
       );
     } else {

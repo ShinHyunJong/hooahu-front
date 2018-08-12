@@ -20,6 +20,7 @@ import EditorChoicePage from "./EditorChoicePage/EditorChoicePage";
 import EditorDetailPage from "./EditorDetailPage/EditorDetailPage";
 import UserPage from "./UserPage/UserPage";
 import GuidePage from "./GuidePage/GuidePage";
+import TagPage from "./TagPage/TagPage";
 
 export {
   DefaultPage,
@@ -37,5 +38,6 @@ export {
   EditorChoicePage,
   EditorDetailPage,
   UserPage,
-  GuidePage
+  GuidePage,
+  TagPage
 };
