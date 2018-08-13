@@ -5,11 +5,9 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
 import * as UserAction from "../../ActionCreators/UserAction";
-import { NavBar, BoxList, Post, Thumb } from "../../Components";
+import { NavBar, Post, Thumb } from "../../Components";
 import ec from "../../Json/ec";
-import { Button } from "reactstrap";
 import nprogress from "nprogress";
 import filterJson from "../../Json/filter";
 import cx from "classnames";

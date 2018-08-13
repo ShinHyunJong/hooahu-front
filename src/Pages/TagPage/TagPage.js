@@ -75,7 +75,8 @@ class TagPage extends Component {
       selectedComment: [],
       isPosting: false,
       comment: "",
-      feeds: []
+      feeds: [],
+      tagUser: []
     };
   }
 
@@ -83,15 +84,20 @@ class TagPage extends Component {
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
+    const { dispatch, token, match } = this.props;
+    const tag_name = match.params.tag_name;
+    const params = { token, tag_name };
     this.setState({ selectedEC });
     this.getAllFeeds();
+    dispatch(FeedAction.getTagUser(params)).then(tagUser => {
+      this.setState(state => ({ tagUser }));
+    });
   }
 
   componentDidUpdate(previousProps, previousState) {
     if (
       previousProps.match.params.tag_name !== this.props.match.params.tag_name
     ) {
-      console.log("!!");
       this.getAllFeeds();
     }
   }
@@ -105,15 +111,14 @@ class TagPage extends Component {
     const {
       selectedEC,
       selectedPost,
-      selectedFeed,
       feeds,
       tagLoading,
       showModal,
       isPosting,
       selectedComment,
-      comment
+      comment,
+      tagUser
     } = this.state;
-    const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
     return (
       <div className="tagPage">
@@ -169,6 +174,30 @@ class TagPage extends Component {
                   </span>{" "}
                   Posts
                 </p>
+              </div>
+              <div className="tagPage__notice__content__tagUser">
+                <p>People mentioned</p>
+                <div className="tagPage__notice__content__tagUser__thumbArea">
+                  {tagUser &&
+                    tagUser.map((data, index) => {
+                      return (
+                        <div className="tagPage__notice__content__tagUser__thumbArea-item">
+                          <Thumb
+                            src={data.profile_img}
+                            size={40}
+                            fontSize={30}
+                            marginTop={8}
+                            onClick={() => this.handleUser(data.id)}
+                          />
+                          <p>
+                            {data.nickname.length > 7
+                              ? data.nickname.substring(0, 7) + "..."
+                              : data.nickname}
+                          </p>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           )}

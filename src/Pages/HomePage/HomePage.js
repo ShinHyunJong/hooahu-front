@@ -5,7 +5,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { NavBar, Post, SocialInput, Comment } from "../../Components";
+import { NavBar, Post, SocialInput, Comment, TagRank } from "../../Components";
 import { LandingPage } from "../../Pages";
 import ec from "../../Json/ec";
 import nprogress from "nprogress";
@@ -17,9 +17,9 @@ import * as FeedAction from "../../ActionCreators/FeedAction";
 import * as AuthAction from "../../ActionCreators/AuthAction";
 import * as UserAction from "../../ActionCreators/UserAction";
 import { Bounce } from "react-activity";
-import { Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, Collapse } from "reactstrap";
 import _ from "lodash";
-import FlipMove from "react-flip-move";
+import BottomScrollListener from "react-bottom-scroll-listener";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
@@ -94,6 +94,7 @@ class HomePage extends Component {
       imagePreview: [],
       selectedComment: [],
       comment: "",
+      collapse: false,
       tags: [],
       tagRank: []
     };
@@ -121,14 +122,6 @@ class HomePage extends Component {
     }
   }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
   render() {
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type_filter;
@@ -145,6 +138,7 @@ class HomePage extends Component {
       feedLoading,
       footerLoading,
       comment,
+      collapse,
       isPosting,
       tags,
       tagRank
@@ -153,8 +147,9 @@ class HomePage extends Component {
 
     if (isLogin) {
       return (
-        <div className="homePage" onScroll={this.handleScroll}>
+        <div className="homePage">
           <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
+          <BottomScrollListener onBottom={this.handleScroll} />
           <Modal
             isOpen={showModal}
             toggle={this.toggleModal}
@@ -167,7 +162,11 @@ class HomePage extends Component {
             <ModalBody>
               <div className="editorDetail__modal">
                 <div className="editorDetail__modal__comment">
-                  <Comment isFeed comment={selectedComment} />
+                  <Comment
+                    isFeed
+                    comment={selectedComment}
+                    onClick={this.handleUser}
+                  />
                 </div>
                 <SocialInput
                   className="editorDetail__modal__input"
@@ -199,38 +198,55 @@ class HomePage extends Component {
                     {user.first_name} {user.last_name}
                   </strong>{" "}
                 </p>
-                <p>Are you tracking these?</p>
               </div>
               <div className="homePage__notice__content__tags">
+                <p className="homePage__notice__content__tags-title">
+                  Are you tracking these?
+                </p>
                 {tagRank &&
                   tagRank.slice(0, 10).map((data, index) => {
                     return (
-                      <div
-                        className="homePage__notice__content__tags__tag"
-                        onClick={() => this.handleTag(data.title)}
-                      >
-                        <div className="homePage__notice__content__tags__tag__number">
-                          <div className="homePage__notice__content__tags__tag__number-wrapper">
-                            {index + 1}
-                          </div>
-                        </div>
-                        <div className="homePage__notice__content__tags__tag__content">
-                          <p className="homePage__notice__content__tags__tag__content-title">
-                            {data.title}
-                          </p>
-                          <p className="homePage__notice__content__tags__tag__content-count">
-                            <strong>{data.counted_value}</strong>
-                            posts
-                          </p>
-                        </div>
-                        <div className="homePage__notice__content__tags__tag__next">
-                          <span className="homePage__notice__content__tags__tag__next-icon">
-                            <i className="xi-angle-right" />
-                          </span>
-                        </div>
-                      </div>
+                      <TagRank
+                        key={index}
+                        onClick={this.handleTag}
+                        index={index}
+                        tag={data}
+                      />
                     );
                   })}
+                {!collapse ? (
+                  <div className="homePage__notice__content__tags__more">
+                    <p
+                      className="homePage__notice__content__tags__more-text"
+                      onClick={this.toggleTag}
+                    >
+                      +{tagRank.length - 10} more
+                    </p>
+                  </div>
+                ) : null}
+                <Collapse isOpen={collapse}>
+                  {tagRank &&
+                    tagRank.slice(10, tagRank.length).map((data, index) => {
+                      return (
+                        <TagRank
+                          key={index + 10}
+                          onClick={this.handleTag}
+                          index={index + 10}
+                          tag={data}
+                        />
+                      );
+                    })}
+                </Collapse>
+                {collapse ? (
+                  <div className="homePage__notice__content__tags__more">
+                    <p
+                      className="homePage__notice__content__tags__more-text"
+                      onClick={this.toggleTag}
+                    >
+                      close
+                    </p>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -400,50 +416,34 @@ class HomePage extends Component {
     }
   }
 
-  handleScroll = e => {
+  handleScroll = () => {
     const { dispatch, token } = this.props;
     const { selectedPost, index, footerLoading } = this.state;
-    const windowHeight =
-      "innerHeight" in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-    const windowBottom = windowHeight + window.pageYOffset;
+
     if (footerLoading) {
-      if (windowBottom >= docHeight) {
-        if (selectedPost === 0) {
-          this.getAllFeed(index, 2);
-        } else {
-          const params = {
-            token,
-            type: selectedPost,
-            index
-          };
-          dispatch(FeedAction.getFeed(params)).then(value => {
-            const newFeeds = value.result.slice();
-            for (let i = 0; i < newFeeds.length; i++) {
-              newFeeds[i].images = value.result[i].images.map((data, index) => {
-                return { original: data.img_url };
-              });
-            }
-            this.setState(state => ({
-              index: value.nextIndex,
-              feeds: [...state.feeds, ...newFeeds],
-              isPosting: false,
-              footerLoading: value.result.length < 20 ? false : true
-            }));
-          });
-        }
+      if (selectedPost === 0) {
+        this.getAllFeed(index, 2);
+      } else {
+        const params = {
+          token,
+          type: selectedPost,
+          index
+        };
+        dispatch(FeedAction.getFeed(params)).then(value => {
+          const newFeeds = value.result.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            newFeeds[i].images = value.result[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+          this.setState(state => ({
+            index: value.nextIndex,
+            feeds: [...state.feeds, ...newFeeds],
+            isPosting: false,
+            footerLoading: value.result.length < 20 ? false : true
+          }));
+        });
       }
-    } else {
     }
   };
 
@@ -491,6 +491,7 @@ class HomePage extends Component {
 
   //우측 포스트 타입 필터링
   handlePost = typeIndex => {
+    window.scrollTo(0, 0);
     const { isLogin } = this.props;
     const params = {
       token: this.props.token,
@@ -675,6 +676,12 @@ class HomePage extends Component {
     }));
   };
 
+  toggleTag = () => {
+    this.setState(state => ({
+      collapse: !this.state.collapse
+    }));
+  };
+
   handleInput = e => {
     this.setState({ comment: e.target.value });
   };
@@ -751,7 +758,8 @@ class HomePage extends Component {
         });
         nprogress.start();
         this.setState({ selectedEC, feedLoading: true });
-        this.getAllFeed();
+        this.getAllFeed(0, 1);
+        this.getTagRank();
       }
     });
   };

@@ -22,6 +22,9 @@ export const FAILED_TO_POST_DISLIKE = "FAILED_TO_POST_DISLIKE";
 export const SUCCEED_TO_GET_TAG_RANK = "SUCCEED_TO_GET_TAG_RANK";
 export const FAILED_TO_GET_TAG_RANK = "FAILED_TO_GET_TAG_RANK";
 
+export const SUCCEED_TO_GET_TAG_USER = "SUCCEED_TO_GET_TAG_USER";
+export const FAILED_TO_GET_TAG_USER = "FAILED_TO_GET_TAG_USER";
+
 export const getAllFeed = params => {
   return async dispatch => {
     try {
@@ -253,6 +256,35 @@ export const getTagRank = params => {
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_TAG_RANK,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const getTagUser = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint + `api/user/tag?title=${params.tag_name}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_GET_TAG_USER,
+        payload: responseJson.result
+      });
+      return responseJson.result;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_GET_TAG_USER,
         payload: { data: "NETWORK_ERROR" }
       });
     }
