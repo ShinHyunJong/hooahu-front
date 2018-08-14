@@ -78,8 +78,12 @@
             border: none;
             background-color: $sub-color;
 
+            &:hover {
+              cursor: pointer;
+            }
             &:disabled {
               opacity: 0.7;
+              cursor: default;
             }
           }
         }
