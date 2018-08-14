@@ -235,7 +235,7 @@ class HomePage extends Component {
                   </div>
                 ) : (
                   tagRank &&
-                  tagRank.slice(0, 10).map((data, index) => {
+                  tagRank.slice(0, 5).map((data, index) => {
                     return (
                       <TagRank
                         key={index}
@@ -252,18 +252,18 @@ class HomePage extends Component {
                       className="homePage__notice__content__tags__more-text"
                       onClick={this.toggleTag}
                     >
-                      +{tagRank.length - 10} more
+                      +{tagRank.length - 5} more
                     </p>
                   </div>
                 ) : null}
                 <Collapse isOpen={collapse}>
                   {tagRank &&
-                    tagRank.slice(10, tagRank.length).map((data, index) => {
+                    tagRank.slice(5, tagRank.length).map((data, index) => {
                       return (
                         <TagRank
-                          key={index + 10}
+                          key={index + 5}
                           onClick={this.handleTag}
-                          index={index + 10}
+                          index={index + 5}
                           tag={data}
                         />
                       );

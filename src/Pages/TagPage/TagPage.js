@@ -123,7 +123,6 @@ class TagPage extends Component {
       lightboxIsOpen,
       photoIndex
     } = this.state;
-    console.log(tagImage);
     const postType = filterJson.post_type;
     return (
       <div className="tagPage">
@@ -270,6 +269,9 @@ class TagPage extends Component {
 
         <div className="tagPage__feed">
           <div className="tagPage__feed__content">
+            {/* <div className="tagPage__feed__content-mobile">
+              <Thumb isTag size={40} fontSize={60} />
+            </div> */}
             {feeds &&
               feeds.map((data, index) => {
                 return (

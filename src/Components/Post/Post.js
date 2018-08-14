@@ -118,6 +118,7 @@ class Post extends Component {
             )}
           </div>
 
+          <p className="post__body__text">{feed && feed.content}</p>
           <div className="post__body__tags">
             {feed.tags &&
               feed.tags.map((data, index) => {
@@ -134,7 +135,6 @@ class Post extends Component {
                 );
               })}
           </div>
-          <p className="post__body__text">{feed && feed.content}</p>
         </div>
         <hr style={styles.noMargin} />
         <div className="post__footer">

@@ -152,57 +152,6 @@ class UserPage extends Component {
 
         <div className="userPage__feed">
           <div className="userPage__feed__content">
-            <div className="userPage__feed__content__inputArea">
-              <div className="userPage__feed__content__inputArea__body">
-                <div className="userPage__feed__content__inputArea__body__thumbArea">
-                  <Thumb size={50} src={user && user.profile_img} />
-                </div>
-                <Textarea
-                  maxRows={4}
-                  placeholder={
-                    isLogin === true
-                      ? "What's in your mind?"
-                      : "Sign in to post!"
-                  }
-                  className="userPage__feed__content__inputArea__body__input"
-                />
-              </div>
-              <hr className="userPage__noMargin" />
-              <div className="userPage__feed__content__inputArea__footer">
-                <div className="userPage__feed__content__inputArea__footer__camera">
-                  <span className="userPage__feed__content__inputArea__footer__camera__icon">
-                    <i className="xi-camera" />
-                  </span>
-                </div>
-                <div className="userPage__feed__content__inputArea__footer__postArea">
-                  <ButtonDropdown
-                    isOpen={this.state.dropdownOpen}
-                    toggle={this.toggle}
-                    size="sm"
-                    direction="down"
-                  >
-                    <DropdownToggle caret>
-                      {this.state.selectedPostType}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      {postType.map((data, index) => {
-                        return (
-                          <DropdownItem
-                            key={index}
-                            onClick={() => this.handlePostType(data)}
-                          >
-                            {data}
-                          </DropdownItem>
-                        );
-                      })}
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                  <span className="userPage__feed__content__inputArea__footer__postArea__postButton">
-                    post
-                  </span>
-                </div>
-              </div>
-            </div>
             {/* <Post
 
             /> */}
