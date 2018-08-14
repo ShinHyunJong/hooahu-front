@@ -96,6 +96,7 @@ class HomePage extends Component {
     this.state = {
       email: "",
       password: "",
+      isValid: true,
       height: window.innerHeight,
       message: "not at bottom",
       isPosting: false,
@@ -441,6 +442,7 @@ class HomePage extends Component {
           onChangeEmail={this.handleEmail}
           onChangePassword={this.handlePassword}
           onClickSign={this.handleSignIn}
+          isValid={this.state.isValid}
         />
       );
     }
@@ -766,12 +768,20 @@ class HomePage extends Component {
     this.setState({ tags: _.uniq(hashTags) });
   };
 
+  handleTag = name => {
+    name = name.substring(1);
+    const { history } = this.props;
+    history.push({
+      pathname: "/tag/" + name
+    });
+  };
+
   handleEmail = e => {
-    this.setState({ email: e.target.value });
+    this.setState({ email: e.target.value, isValid: true });
   };
 
   handlePassword = e => {
-    this.setState({ password: e.target.value });
+    this.setState({ password: e.target.value, isValid: true });
   };
 
   handleSignIn = () => {
@@ -779,15 +789,14 @@ class HomePage extends Component {
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
     const params = { email, password };
-    if (email === "") {
-      alert("email check");
-    } else if (password === "") {
-      alert("password check");
+    if (email === "" || password === "") {
+      alert(" check");
     } else {
       this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
         if (value === "failed") {
-          return null;
+          this.setState({ isValid: false });
         } else {
+          await this.setState({ isValid: true });
           await this.props.dispatch(UserAction.getUser(value));
           await this.props.history.push({
             pathname: "/"
@@ -799,14 +808,6 @@ class HomePage extends Component {
         }
       });
     }
-  };
-
-  handleTag = name => {
-    name = name.substring(1);
-    const { history } = this.props;
-    history.push({
-      pathname: "/tag/" + name
-    });
   };
 }
 

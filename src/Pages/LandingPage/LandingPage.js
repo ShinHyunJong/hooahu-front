@@ -40,7 +40,12 @@ class LandingPage extends Component {
   }
 
   render() {
-    const { onChangeEmail, onChangePassword, onClickSign } = this.props;
+    const {
+      onChangeEmail,
+      onChangePassword,
+      onClickSign,
+      isValid
+    } = this.props;
     return (
       <div className="landingPage">
         <NavBar isStart={true} />
@@ -67,24 +72,26 @@ class LandingPage extends Component {
               <div className="landingPage__welcome__signin__container__blank">
                 <img src="" alt="" />
                 <RoundInput
-                  onChange={this.props.onChangeEmail}
+                  onChange={onChangeEmail}
                   placeholder="Email"
                   onKeyPress={this.handleEnter}
+                  errorText={isValid ? null : "Please check again."}
                 />
               </div>
 
               <div className="landingPage__welcome__signin__container__blank">
                 <img src="" alt="" />
                 <RoundInput
-                  onChange={this.props.onChangePassword}
+                  onChange={onChangePassword}
                   placeholder="Password"
                   type="password"
                   onKeyPress={this.handleEnter}
+                  errorText={isValid ? null : "Please check again."}
                 />
               </div>
 
               <div className="landingPage__welcome__signin__container__btn">
-                <button onClick={this.props.onClickSign}>Log In</button>
+                <button onClick={onClickSign}>Log In</button>
               </div>
             </div>
 
