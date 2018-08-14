@@ -14,6 +14,8 @@ import cx from "classnames";
 import ContentLoader from "react-content-loader";
 import ProgressiveImage from "react-progressive-image";
 import { Modal, ModalBody, ModalFooter } from "reactstrap";
+import Lightbox from "react-image-lightbox";
+import StackGrid from "react-stack-grid";
 
 const defaultProps = {};
 const propTypes = {};
@@ -76,7 +78,10 @@ class TagPage extends Component {
       isPosting: false,
       comment: "",
       feeds: [],
-      tagUser: []
+      tagUser: [],
+      tagImage: [],
+      lightboxIsOpen: false,
+      photoIndex: 0
     };
   }
 
@@ -113,12 +118,18 @@ class TagPage extends Component {
       isPosting,
       selectedComment,
       comment,
-      tagUser
+      tagUser,
+      tagImage,
+      lightboxIsOpen,
+      photoIndex
     } = this.state;
+    console.log(tagImage);
     const postType = filterJson.post_type;
     return (
       <div className="tagPage">
-        <NavBar listClassName="tagPage__tabBar__list" />
+        {!lightboxIsOpen ? (
+          <NavBar listClassName="tagPage__tabBar__list" />
+        ) : null}
         <Modal
           isOpen={showModal}
           toggle={this.toggleModal}
@@ -174,27 +185,85 @@ class TagPage extends Component {
               <div className="tagPage__notice__content__tagUser">
                 <p>People mentioned</p>
                 <div className="tagPage__notice__content__tagUser__thumbArea">
-                  {tagUser &&
-                    tagUser.map((data, index) => {
+                  {tagUser.slice(0, 5).map((data, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="tagPage__notice__content__tagUser__thumbArea-item"
+                      >
+                        <Thumb
+                          src={data.profile_img}
+                          size={40}
+                          fontSize={30}
+                          marginTop={8}
+                          onClick={() => this.handleUser(data.id)}
+                        />
+                        <p>
+                          {data.nickname.length > 7
+                            ? data.nickname.substring(0, 7) + "..."
+                            : data.nickname}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* <button
+                type="button"
+                onClick={() => this.setState({ lightboxIsOpen: true })}
+              >
+                Open Lightbox
+              </button> */}
+              {tagImage.length === 0 ? null : (
+                <div className="tagPage__notice__content__gallery">
+                  <p style={{ marginBottom: 10 }}>Images</p>
+                  <StackGrid
+                    columnWidth={79}
+                    monitorImagesLoaded={true}
+                    // style={{ width: "100%" }}
+                    gutter={5}
+                  >
+                    {tagImage.map((data, index) => {
                       return (
-                        <div className="tagPage__notice__content__tagUser__thumbArea-item">
-                          <Thumb
-                            src={data.profile_img}
-                            size={40}
-                            fontSize={30}
-                            marginTop={8}
-                            onClick={() => this.handleUser(data.id)}
+                        <div key={index}>
+                          <img
+                            alt={index}
+                            src={data}
+                            onClick={() => this.handleGallery(index)}
+                            className="tagPage__notice__content__gallery__image"
                           />
-                          <p>
-                            {data.nickname.length > 7
-                              ? data.nickname.substring(0, 7) + "..."
-                              : data.nickname}
-                          </p>
                         </div>
                       );
                     })}
+                  </StackGrid>
                 </div>
-              </div>
+              )}
+
+              {lightboxIsOpen && (
+                <Lightbox
+                  mainSrc={tagImage[photoIndex]}
+                  nextSrc={tagImage[(photoIndex + 1) % tagImage.length]}
+                  prevSrc={
+                    tagImage[
+                      (photoIndex + tagImage.length - 1) % tagImage.length
+                    ]
+                  }
+                  onCloseRequest={() =>
+                    this.setState({ lightboxIsOpen: false })
+                  }
+                  onMovePrevRequest={() =>
+                    this.setState({
+                      photoIndex:
+                        (photoIndex + tagImage.length - 1) % tagImage.length
+                    })
+                  }
+                  onMoveNextRequest={() =>
+                    this.setState({
+                      photoIndex: (photoIndex + 1) % tagImage.length
+                    })
+                  }
+                />
+              )}
             </div>
           )}
         </div>
@@ -288,7 +357,11 @@ class TagPage extends Component {
     const params = { tag_name, token, index: 0 };
     dispatch(FeedAction.getFeedsByTagName(params)).then(feeds => {
       const newFeeds = feeds.result.slice();
+      const newTagImage = [];
       for (let i = 0; i < newFeeds.length; i++) {
+        newFeeds[i].images.map((data, index) => {
+          newTagImage.push(data.img_url);
+        });
         if (newFeeds[i].isLiked) {
           newFeeds[i].isLiked = true;
         }
@@ -296,7 +369,11 @@ class TagPage extends Component {
           return { original: data.img_url };
         });
       }
-      this.setState(state => ({ feeds: newFeeds, tagLoading: false }));
+      this.setState(state => ({
+        feeds: newFeeds,
+        tagLoading: false,
+        tagImage: newTagImage
+      }));
       nprogress.done();
     });
   };
@@ -325,6 +402,10 @@ class TagPage extends Component {
     this.setState(state => ({
       showModal: !this.state.showModal
     }));
+  };
+
+  closeLightbox = () => {
+    this.setState(state => ({ lightboxIsOpen: false }));
   };
 
   handleDisLike = (id, index) => {
@@ -393,6 +474,10 @@ class TagPage extends Component {
     history.push({
       pathname: "/tag/" + name
     });
+  };
+
+  handleGallery = index => {
+    this.setState(state => ({ photoIndex: index, lightboxIsOpen: true }));
   };
 }
 

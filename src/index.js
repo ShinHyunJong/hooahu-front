@@ -18,6 +18,7 @@ import "react-tagsinput/react-tagsinput.css";
 // Main SCSS
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-image-lightbox/style.css";
 
 const loggerMiddleware = createLogger();
 
