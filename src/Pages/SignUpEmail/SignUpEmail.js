@@ -84,16 +84,17 @@ class SignUpEmail extends Component {
   }
 
   handleNext = () => {
-    // email, password 중 어느 하나라도 비어있으면 실행되지 않도록
-    this.props.history.push({
-      pathname: "/signup/username",
-      state: {
-        type: this.props.location.state.type,
-        c_type: this.props.location.state.c_type,
-        email: this.state.email,
-        password: this.state.password
-      }
-    });
+    if (!(this.state.email === "" || this.state.password === "")) {
+      this.props.history.push({
+        pathname: "/signup/username",
+        state: {
+          type: this.props.location.state.type,
+          c_type: this.props.location.state.c_type,
+          email: this.state.email,
+          password: this.state.password
+        }
+      });
+    }
   };
 
   handleEmail = e => {
@@ -121,6 +122,7 @@ class SignUpEmail extends Component {
   };
 
   handlePasswordInput = e => {
+    this.setState({ password: e.target.value });
     const re = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z!@#$%^&*?~{}`\[\]=\-\/+_\()\\><|,\.$;:'"]{8,}$/;
     this.setState({ isSecure: re.test(e.target.value) });
     if (e.target.value.length >= 8) {
