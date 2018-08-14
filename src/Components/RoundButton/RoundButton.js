@@ -21,13 +21,15 @@ class RoundButton extends Component {
       iconClassName,
       textClassName,
       className,
-      onClick
+      onClick,
+      disabled
     } = this.props;
     return (
       <div className="roundButton">
         <Button
           onClick={onClick}
           className={cx("roundButton__content", className)}
+          disabled={disabled}
         >
           <div className="roundButton__content__wrapper">
             <div className="roundButton__content__wrapper__textArea">
