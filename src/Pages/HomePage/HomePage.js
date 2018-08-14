@@ -97,6 +97,7 @@ class HomePage extends Component {
       email: "",
       password: "",
       isValid: true,
+      isEmpty: true,
       height: window.innerHeight,
       message: "not at bottom",
       isPosting: false,
@@ -443,6 +444,7 @@ class HomePage extends Component {
           onChangePassword={this.handlePassword}
           onClickSign={this.handleSignIn}
           isValid={this.state.isValid}
+          isEmpty={this.state.isEmpty}
         />
       );
     }
@@ -778,25 +780,33 @@ class HomePage extends Component {
 
   handleEmail = e => {
     this.setState({ email: e.target.value, isValid: true });
+    if (e.target.value === "" || this.state.password === "") {
+      this.setState({ isEmpty: true });
+    } else {
+      this.setState({ isEmpty: false });
+    }
   };
 
   handlePassword = e => {
     this.setState({ password: e.target.value, isValid: true });
+    if (e.target.value === "" || this.state.email === "") {
+      this.setState({ isEmpty: true });
+    } else {
+      this.setState({ isEmpty: false });
+    }
   };
 
   handleSignIn = () => {
-    const { email, password } = this.state;
+    const { email, password, isEmpty } = this.state;
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
     const params = { email, password };
-    if (email === "" || password === "") {
-      alert(" check");
-    } else {
+    if (!isEmpty) {
       this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
         if (value === "failed") {
           this.setState({ isValid: false });
         } else {
-          await this.setState({ isValid: true });
+          this.setState({ isValid: true });
           await this.props.dispatch(UserAction.getUser(value));
           await this.props.history.push({
             pathname: "/"

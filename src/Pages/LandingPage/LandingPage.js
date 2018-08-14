@@ -44,7 +44,8 @@ class LandingPage extends Component {
       onChangeEmail,
       onChangePassword,
       onClickSign,
-      isValid
+      isValid,
+      isEmpty
     } = this.props;
     return (
       <div className="landingPage">
@@ -91,7 +92,9 @@ class LandingPage extends Component {
               </div>
 
               <div className="landingPage__welcome__signin__container__btn">
-                <button onClick={onClickSign}>Log In</button>
+                <button onClick={onClickSign} disabled={isEmpty}>
+                  Log In
+                </button>
               </div>
             </div>
 
