@@ -5,7 +5,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { NavBar, Post, SocialInput, Comment } from "../../Components";
+import { NavBar, Post, SocialInput, Comment, TagRank } from "../../Components";
 import { LandingPage } from "../../Pages";
 import ec from "../../Json/ec";
 import nprogress from "nprogress";
@@ -17,15 +17,15 @@ import * as FeedAction from "../../ActionCreators/FeedAction";
 import * as AuthAction from "../../ActionCreators/AuthAction";
 import * as UserAction from "../../ActionCreators/UserAction";
 import { Bounce } from "react-activity";
-import { Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, Collapse } from "reactstrap";
 import _ from "lodash";
-import FlipMove from "react-flip-move";
+import BottomScrollListener from "react-bottom-scroll-listener";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
 
-const MyLoader = props => (
+const FeedLoader = props => (
   <div className="homePage__feed__content-loading">
     <ContentLoader
       height={160}
@@ -43,6 +43,26 @@ const MyLoader = props => (
       <circle cx="39.2" cy="45.2" r="16" />
     </ContentLoader>
   </div>
+);
+
+const TagRankLoader = props => (
+  <ContentLoader
+    height={160}
+    width={400}
+    speed={2}
+    primaryColor="#d1d1d1"
+    secondaryColor="#ecebeb"
+    {...props}
+  >
+    <circle cx="10" cy="20" r="8" />
+    <rect x="25" y="15" rx="5" ry="5" width="220" height="10" />
+    <circle cx="10" cy="50" r="8" />
+    <rect x="25" y="45" rx="5" ry="5" width="220" height="10" />
+    <circle cx="10" cy="80" r="8" />
+    <rect x="25" y="75" rx="5" ry="5" width="220" height="10" />
+    <circle cx="10" cy="110" r="8" />
+    <rect x="25" y="105" rx="5" ry="5" width="220" height="10" />
+  </ContentLoader>
 );
 
 const mapStateToProps = state => {
@@ -81,19 +101,25 @@ class HomePage extends Component {
       isPosting: false,
       expandNotice: false,
       selectedFeed: 0,
-      selectedPost: 0,
+      selectedPost: 0, //우측 포스트 타입 필터링 인덱스
       feeds: [],
+      index: 0,
       feedText: "",
       feedLoading: true,
+      footerLoading: true,
       selectedEC: [],
       dropdownOpen: false,
-      selectedPostTypeIndex: 1,
+      selectedPostTypeIndex: 1, //중앙 인풋 포스트 타입 인덱스
       selectedPostType: "Walkie Talkie",
       selectedPostIndex: 0,
       showModal: false,
       imagePreview: [],
+      selectedComment: [],
       comment: "",
-      tags: []
+      collapse: false,
+      tags: [],
+      tagRank: [],
+      tagRankLoading: true
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -111,35 +137,12 @@ class HomePage extends Component {
     const { isLogin, dispatch } = this.props;
     if (isLogin) {
       this.setState({ selectedEC, feedLoading: true });
-      const params = {
-        token: this.props.token,
-        type: 0
-      };
-      dispatch(FeedAction.getAllFeed(params)).then(value => {
-        const newFeeds = value.slice();
-        for (let i = 0; i < newFeeds.length; i++) {
-          if (newFeeds[i].isLiked) {
-            newFeeds[i].isLiked = true;
-          }
-          newFeeds[i].images = value[i].images.map((data, index) => {
-            return { original: data.img_url };
-          });
-        }
-        this.setState({ feeds: newFeeds, feedLoading: false });
-        nprogress.done();
-      });
+      this.getAllFeed(0, 1);
+      this.getTagRank();
     } else {
       this.setState({ selectedEC });
       nprogress.done();
     }
-  }
-
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
   }
 
   render() {
@@ -149,22 +152,28 @@ class HomePage extends Component {
       selectedFeed,
       selectedPost,
       selectedPostType,
+      selectedPostIndex,
       selectedEC,
       selectedComment,
       showModal,
       imagePreview,
       feeds,
       feedLoading,
+      footerLoading,
       comment,
+      collapse,
       isPosting,
-      tags
+      tags,
+      tagRank,
+      tagRankLoading
     } = this.state;
     const { isLogin, user } = this.props;
 
     if (isLogin) {
       return (
-        <div className="homePage" onScroll={this.handleScroll}>
+        <div className="homePage">
           <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
+          <BottomScrollListener onBottom={this.handleScroll} offset={150} />
           <Modal
             isOpen={showModal}
             toggle={this.toggleModal}
@@ -177,7 +186,11 @@ class HomePage extends Component {
             <ModalBody>
               <div className="editorDetail__modal">
                 <div className="editorDetail__modal__comment">
-                  <Comment isFeed comment={selectedComment} />
+                  <Comment
+                    isFeed
+                    comment={selectedComment}
+                    onClick={this.handleUser}
+                  />
                 </div>
                 <SocialInput
                   className="editorDetail__modal__input"
@@ -203,8 +216,67 @@ class HomePage extends Component {
           <div className="homePage__notice">
             <div className="homePage__notice__content">
               <div className="homePage__notice__content__wrapper">
-                <p>{`WelCome! ${user.first_name} ${user.last_name}`}</p>
-                <hr />
+                <p>Welcome to Hooah!U </p>
+                <p>
+                  <strong>
+                    {user.first_name} {user.last_name}
+                  </strong>{" "}
+                </p>
+              </div>
+              <div className="homePage__notice__content__tags">
+                <p className="homePage__notice__content__tags-title">
+                  Are you tracking these?
+                </p>
+                {tagRankLoading ? (
+                  <div style={{ paddingLeft: 10, paddingTop: 10 }}>
+                    <TagRankLoader />
+                  </div>
+                ) : (
+                  tagRank &&
+                  tagRank.slice(0, 10).map((data, index) => {
+                    return (
+                      <TagRank
+                        key={index}
+                        onClick={this.handleTag}
+                        index={index}
+                        tag={data}
+                      />
+                    );
+                  })
+                )}
+                {!collapse ? (
+                  <div className="homePage__notice__content__tags__more">
+                    <p
+                      className="homePage__notice__content__tags__more-text"
+                      onClick={this.toggleTag}
+                    >
+                      +{tagRank.length - 10} more
+                    </p>
+                  </div>
+                ) : null}
+                <Collapse isOpen={collapse}>
+                  {tagRank &&
+                    tagRank.slice(10, tagRank.length).map((data, index) => {
+                      return (
+                        <TagRank
+                          key={index + 10}
+                          onClick={this.handleTag}
+                          index={index + 10}
+                          tag={data}
+                        />
+                      );
+                    })}
+                </Collapse>
+                {collapse ? (
+                  <div className="homePage__notice__content__tags__more">
+                    <p
+                      className="homePage__notice__content__tags__more-text"
+                      onClick={this.toggleTag}
+                    >
+                      close
+                    </p>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -232,36 +304,31 @@ class HomePage extends Component {
 
               {feedLoading ? (
                 <div>
-                  <MyLoader />
-                  <MyLoader />
+                  <FeedLoader />
+                  <FeedLoader />
                 </div>
               ) : isPosting ? (
                 <div className="homePage__feed__content-isPosting">
                   <Bounce size={35} color="#fdd835" />
                 </div>
               ) : (
-                <FlipMove
-                  enterAnimation="fade"
-                  leaveAnimation="fade"
-                  delay={150}
-                >
-                  {feeds &&
-                    feeds.map((data, index) => {
-                      return (
-                        <Post
-                          feed={data}
-                          key={index}
-                          index={index}
-                          onClickThumb={this.handleUser}
-                          onClickUser={this.handleUser}
-                          onClickComment={this.handleComment}
-                          onClickCommentUser={this.handleUser}
-                          onClickLike={id => this.handleLike(id, index)}
-                          onClickDisLike={id => this.handleDisLike(id, index)}
-                        />
-                      );
-                    })}
-                </FlipMove>
+                feeds &&
+                feeds.map((data, index) => {
+                  return (
+                    <Post
+                      feed={data}
+                      key={index}
+                      index={index}
+                      onClickTag={this.handleTag}
+                      onClickThumb={this.handleUser}
+                      onClickUser={this.handleUser}
+                      onClickComment={this.handleComment}
+                      onClickCommentUser={this.handleUser}
+                      onClickLike={id => this.handleLike(id, index)}
+                      onClickDisLike={id => this.handleDisLike(id, index)}
+                    />
+                  );
+                })
               )}
               {feeds.length === 0 && !feedLoading ? (
                 <div
@@ -273,6 +340,11 @@ class HomePage extends Component {
                   }}
                 >
                   There are no posts yet.
+                </div>
+              ) : null}
+              {footerLoading ? (
+                <div className="homePage__feed__content-footerLoading">
+                  <Bounce size={35} color="#fdd835" />
                 </div>
               ) : null}
             </div>
@@ -374,68 +446,113 @@ class HomePage extends Component {
     }
   }
 
-  // handleScroll = e => {
-  //   const windowHeight =
-  //     "innerHeight" in window
-  //       ? window.innerHeight
-  //       : document.documentElement.offsetHeight;
-  //   const body = document.body;
-  //   const html = document.documentElement;
-  //   const docHeight = Math.max(
-  //     body.scrollHeight,
-  //     body.offsetHeight,
-  //     html.clientHeight,
-  //     html.scrollHeight,
-  //     html.offsetHeight
-  //   );
-  //   const windowBottom = windowHeight + window.pageYOffset;
-  //   if (windowBottom >= docHeight) {
-  //     this.setState({
-  //       message: "bottom reached"
-  //     });
-  //   } else {
-  //     this.setState({
-  //       message: "not at bottom"
-  //     });
-  //   }
-  // };
+  handleScroll = () => {
+    const { dispatch, token } = this.props;
+    const { selectedPost, index, footerLoading } = this.state;
 
+    if (footerLoading) {
+      if (selectedPost === 0) {
+        this.getAllFeed(index, 2);
+      } else {
+        const params = {
+          token,
+          type: selectedPost,
+          index
+        };
+        dispatch(FeedAction.getFeed(params)).then(value => {
+          const newFeeds = value.result.slice();
+          for (let i = 0; i < newFeeds.length; i++) {
+            newFeeds[i].images = value.result[i].images.map((data, index) => {
+              return { original: data.img_url };
+            });
+          }
+          this.setState(state => ({
+            index: value.nextIndex,
+            feeds: [...state.feeds, ...newFeeds],
+            isPosting: false,
+            footerLoading: value.result.length < 20 ? false : true
+          }));
+        });
+      }
+    }
+  };
+
+  getAllFeed = (count, typeIndex) => {
+    const { token, dispatch } = this.props;
+    const index = count;
+    const params = { token, index };
+    this.setState(state => ({
+      footerLoading: typeIndex === 2 ? true : false,
+      isPosting: typeIndex === 0 ? true : false // 맨처음 로딩인지, 필터링 로딩인지
+    }));
+    dispatch(FeedAction.getAllFeed(params)).then(value => {
+      const newFeeds = value.result.slice();
+      for (let i = 0; i < newFeeds.length; i++) {
+        if (newFeeds[i].isLiked) {
+          newFeeds[i].isLiked = true;
+        }
+        newFeeds[i].images = value.result[i].images.map((data, index) => {
+          return { original: data.img_url };
+        });
+      }
+      this.setState(state => ({
+        feeds: typeIndex === 2 ? [...state.feeds, ...newFeeds] : newFeeds,
+        feedLoading: false,
+        isPosting: false,
+        index: value.nextIndex,
+        footerLoading: value.result.length < 20 ? false : true
+      }));
+      nprogress.done();
+    });
+  };
+
+  getTagRank = () => {
+    const { dispatch, token } = this.props;
+    const params = { token };
+    dispatch(FeedAction.getTagRank(params)).then(tagRank => {
+      this.setState(state => ({ tagRank, tagRankLoading: false }));
+    });
+  };
+
+  //우측 최근, 인기순
   handleFeed = index => {
     this.setState({ selectedFeed: index });
   };
 
-  handlePost = index => {
+  //우측 포스트 타입 필터링
+  handlePost = typeIndex => {
+    window.scrollTo(0, 0);
     const { isLogin } = this.props;
     const params = {
       token: this.props.token,
-      type: index
+      type: typeIndex,
+      index: 0
     };
     if (!isLogin) {
       this.props.history.push({ pathname: "/signup" });
     } else {
-      if (index === 0) {
-        this.setState({ selectedPost: index, isPosting: true });
-        this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
-          const newFeeds = value.slice();
-          for (let i = 0; i < newFeeds.length; i++) {
-            // newFeeds[i].comments = newFeeds[i].comments.reverse();
-            newFeeds[i].images = value[i].images.map((data, index) => {
-              return { original: data.img_url };
-            });
-          }
-          this.setState({ feeds: newFeeds, isPosting: false });
-        });
+      if (typeIndex === 0) {
+        this.setState({ selectedPost: typeIndex, isPosting: true });
+        this.getAllFeed(0, 0);
       } else {
-        this.setState({ selectedPost: index, isPosting: true });
+        this.setState({
+          selectedPost: typeIndex,
+          isPosting: true,
+          footerLoading: false
+        });
         this.props.dispatch(FeedAction.getFeed(params)).then(value => {
-          const newFeeds = value.slice();
+          const newFeeds = value.result.slice();
           for (let i = 0; i < newFeeds.length; i++) {
-            // newFeeds[i].comments = newFeeds[i].comments.reverse();
-            newFeeds[i].images = value[i].images.map((data, index) => {
+            newFeeds[i].images = value.result[i].images.map((data, index) => {
               return { original: data.img_url };
             });
           }
-          this.setState({ feeds: newFeeds, isPosting: false });
+          this.setState({
+            index: value.nextIndex,
+            feeds: newFeeds,
+            isPosting: false,
+            footerLoading: value.result.length < 20 ? false : true
+          });
         });
       }
     }
@@ -516,7 +633,8 @@ class HomePage extends Component {
         selectedPostTypeIndex,
         imagePreview,
         feeds,
-        tags
+        tags,
+        tagRank
       } = this.state;
       const newFeeds = feeds.slice();
       let date = new Date();
@@ -533,6 +651,7 @@ class HomePage extends Component {
         return { original: data };
       });
 
+      //feeds배열에 추가
       let newTags = [];
       if (tags.length === 0) {
         newTags = [];
@@ -541,7 +660,20 @@ class HomePage extends Component {
           newTags.push({ title: data });
         });
       }
-      this.setState(state => ({ isPosting: true }));
+      // 태그 랭킹에 카운트 추가
+      const newTagRank = tagRank.slice();
+      for (let i = 0; i < newTags.length; i++) {
+        newTagRank.map((data, index) => {
+          if (newTags[i].title === data.title) {
+            data.counted_value += 1;
+          }
+        });
+      }
+      newTagRank.sort((a, b) => {
+        return b.counted_value - a.counted_value;
+      });
+
+      this.setState(state => ({ isPosting: true, tagRank: newTagRank }));
       this.props.dispatch(FeedAction.postFeed(params)).then(value => {
         const frontParams = {
           id: value.newPostId,
@@ -571,6 +703,12 @@ class HomePage extends Component {
   toggleModal = () => {
     this.setState(state => ({
       showModal: !this.state.showModal
+    }));
+  };
+
+  toggleTag = () => {
+    this.setState(state => ({
+      collapse: !this.state.collapse
     }));
   };
 
@@ -626,7 +764,7 @@ class HomePage extends Component {
         return a !== "#";
       })
       .map(tag => {
-        tag = tag.replace(/#/g, "");
+        tag = tag.replace(/#/g, "").toLowerCase();
         return `#${tag}`;
       });
     this.setState({ tags: _.uniq(hashTags) });
@@ -639,43 +777,29 @@ class HomePage extends Component {
   handleSignIn = () => {
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    const { email, password } = this.state;
-    const params = { email, password };
-    if (email === "") {
-      alert("Check Again");
-    } else {
-      this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
-        if (value === "failed") {
-          return null;
-        } else {
-          await this.props.dispatch(UserAction.getUser(value));
-          await this.props.history.push({
-            pathname: "/"
-          });
-          nprogress.start();
-          this.setState({ selectedEC, feedLoading: true });
-          const params = {
-            token: this.props.token,
-            type: 0
-          };
-          this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
-            const newFeeds = value.slice();
-            for (let i = 0; i < newFeeds.length; i++) {
-              // newFeeds[i].comments = newFeeds[i].comments.reverse();
-              if (newFeeds[i].isLiked) {
-                newFeeds[i].isLiked = true;
-              }
-              newFeeds[i].images = value[i].images.map((data, index) => {
-                return { original: data.img_url };
-              });
-            }
+    const params = { email: this.state.email, password: this.state.password };
+    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+      if (value === "failed") {
+        return null;
+      } else {
+        await this.props.dispatch(UserAction.getUser(value));
+        await this.props.history.push({
+          pathname: "/"
+        });
+        nprogress.start();
+        this.setState({ selectedEC, feedLoading: true });
+        this.getAllFeed(0, 1);
+        this.getTagRank();
+      }
+    });
+  };
 
-            this.setState({ feeds: newFeeds, feedLoading: false });
-            nprogress.done();
-          });
-        }
-      });
-    }
+  handleTag = name => {
+    name = name.substring(1);
+    const { history } = this.props;
+    history.push({
+      pathname: "/tag/" + name
+    });
   };
 }
 
