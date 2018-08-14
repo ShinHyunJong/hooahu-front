@@ -747,10 +747,6 @@ class HomePage extends Component {
     this.toggleModal();
   };
 
-  handleEmail = e => {
-    this.setState({ email: e.target.value });
-  };
-
   handleUser = user_id => {
     const { history } = this.props;
     history.push({
@@ -770,28 +766,39 @@ class HomePage extends Component {
     this.setState({ tags: _.uniq(hashTags) });
   };
 
+  handleEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
   handlePassword = e => {
     this.setState({ password: e.target.value });
   };
 
   handleSignIn = () => {
+    const { email, password } = this.state;
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    const params = { email: this.state.email, password: this.state.password };
-    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
-      if (value === "failed") {
-        return null;
-      } else {
-        await this.props.dispatch(UserAction.getUser(value));
-        await this.props.history.push({
-          pathname: "/"
-        });
-        nprogress.start();
-        this.setState({ selectedEC, feedLoading: true });
-        this.getAllFeed(0, 1);
-        this.getTagRank();
-      }
-    });
+    const params = { email, password };
+    if (email === "") {
+      alert("email check");
+    } else if (password === "") {
+      alert("password check");
+    } else {
+      this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+        if (value === "failed") {
+          return null;
+        } else {
+          await this.props.dispatch(UserAction.getUser(value));
+          await this.props.history.push({
+            pathname: "/"
+          });
+          nprogress.start();
+          this.setState({ selectedEC, feedLoading: true });
+          this.getAllFeed(0, 1);
+          this.getTagRank();
+        }
+      });
+    }
   };
 
   handleTag = name => {
