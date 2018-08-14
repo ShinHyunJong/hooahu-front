@@ -74,6 +74,8 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: "",
+      password: "",
       height: window.innerHeight,
       message: "not at bottom",
       isPosting: false,
@@ -637,38 +639,43 @@ class HomePage extends Component {
   handleSignIn = () => {
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    const params = { email: this.state.email, password: this.state.password };
-    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
-      if (value === "failed") {
-        return null;
-      } else {
-        await this.props.dispatch(UserAction.getUser(value));
-        await this.props.history.push({
-          pathname: "/"
-        });
-        nprogress.start();
-        this.setState({ selectedEC, feedLoading: true });
-        const params = {
-          token: this.props.token,
-          type: 0
-        };
-        this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
-          const newFeeds = value.slice();
-          for (let i = 0; i < newFeeds.length; i++) {
-            // newFeeds[i].comments = newFeeds[i].comments.reverse();
-            if (newFeeds[i].isLiked) {
-              newFeeds[i].isLiked = true;
+    const { email, password } = this.state;
+    const params = { email, password };
+    if (email === "") {
+      alert("Check Again");
+    } else {
+      this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+        if (value === "failed") {
+          return null;
+        } else {
+          await this.props.dispatch(UserAction.getUser(value));
+          await this.props.history.push({
+            pathname: "/"
+          });
+          nprogress.start();
+          this.setState({ selectedEC, feedLoading: true });
+          const params = {
+            token: this.props.token,
+            type: 0
+          };
+          this.props.dispatch(FeedAction.getAllFeed(params)).then(value => {
+            const newFeeds = value.slice();
+            for (let i = 0; i < newFeeds.length; i++) {
+              // newFeeds[i].comments = newFeeds[i].comments.reverse();
+              if (newFeeds[i].isLiked) {
+                newFeeds[i].isLiked = true;
+              }
+              newFeeds[i].images = value[i].images.map((data, index) => {
+                return { original: data.img_url };
+              });
             }
-            newFeeds[i].images = value[i].images.map((data, index) => {
-              return { original: data.img_url };
-            });
-          }
 
-          this.setState({ feeds: newFeeds, feedLoading: false });
-          nprogress.done();
-        });
-      }
-    });
+            this.setState({ feeds: newFeeds, feedLoading: false });
+            nprogress.done();
+          });
+        }
+      });
+    }
   };
 }
 

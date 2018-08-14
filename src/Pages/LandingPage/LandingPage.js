@@ -69,6 +69,7 @@ class LandingPage extends Component {
                 <RoundInput
                   onChange={this.props.onChangeEmail}
                   placeholder="Email"
+                  onKeyPress={this.handleEnter}
                 />
               </div>
 
@@ -78,6 +79,7 @@ class LandingPage extends Component {
                   onChange={this.props.onChangePassword}
                   placeholder="Password"
                   type="password"
+                  onKeyPress={this.handleEnter}
                 />
               </div>
 
@@ -100,6 +102,12 @@ class LandingPage extends Component {
     this.props.history.push({
       pathname: "/signup"
     });
+  };
+
+  handleEnter = e => {
+    if (e.key === "Enter") {
+      this.props.onClickSign();
+    }
   };
 }
 

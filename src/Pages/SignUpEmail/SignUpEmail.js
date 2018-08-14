@@ -49,7 +49,7 @@ class SignUpEmail extends Component {
   }
 
   render() {
-    const { isChecking, isValid, isExist, isLength, isSecure } = this.state;
+    const { isValid, isExist, isLength, isSecure } = this.state;
     return (
       <Container className="signUpEmail">
         <NavBar menuVisible={true} isActive="auth" />
@@ -104,6 +104,7 @@ class SignUpEmail extends Component {
   };
 
   handleEmail = e => {
+    console.log("*");
     this.setState({ email: e.target.value });
   };
 
@@ -116,10 +117,6 @@ class SignUpEmail extends Component {
     const { dispatch } = this.props;
     const params = { email: e.target.value };
     const re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
-    console.log(this.state.email, re.test(e.target.value));
-    console.log("checking:", this.state.isChecking);
-    console.log("exist?:", this.state.isExist);
-    console.log("valid?:", this.state.isValid);
     this.setState({ isValid: re.test(e.target.value) });
 
     dispatch(UserAction.checkEmail(params)).then(value => {
@@ -127,44 +124,19 @@ class SignUpEmail extends Component {
         this.setState({
           isChecking: false,
           isExist: true
-          // isValid: re.test(value)
         });
       } else {
         this.setState({
           isChecking: false,
           isExist: false
-          // isValid: re.test(value)
         });
       }
     });
   };
 
   handlePasswordInput = e => {
-    this.setState({ password: e.target.value });
-    // 3. 영문, 숫자, 특수문자 중 2가지 혼합하여 10자리~20자리 이내.(비밀번호 표준)
-    // function chkPwd(str) {
-    //   var pw = str;
-    //   var num = pw.search(/[0-9]/g);
-    //   var eng = pw.search(/[a-z]/ig);
-    //   var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-    //   if (pw.length < 10 || pw.length > 20) {
-    //     alert("10자리 ~ 20자리 이내로 입력해주세요.");
-    //     return false;
-    //   }
-    //   if (pw.search(/₩s/) != -1) {
-    //     alert("비밀번호는 공백업이 입력해주세요.");
-    //     return false;
-    //   }
-    //   if ((num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0)) {
-    //     alert("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
-    //     return false;
-    //   }
-    //   return true;
-    // }
-    // if (!chkPwd($.trim($('#mpassword').val()))) {
-    //   $('#mpassword').val('');
-    //   $('#mpassword').focus();
-    //   return false;
+    const re = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z!@#$%^&*?~{}`\[\]=\-\/+_\()\\><|,\.$;:'"]{6,}$/;
+    this.setState({ isSecure: re.test(e.target.value) });
   };
 }
 

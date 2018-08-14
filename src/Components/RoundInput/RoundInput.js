@@ -29,12 +29,13 @@ class RoundInput extends Component {
   }
 
   render() {
-    const { type, onChange, placeholder } = this.props;
+    const { type, onChange, onKeyPress, placeholder } = this.props;
     return (
       <div className="roundInput">
         <TextField
           hintText={placeholder}
           onChange={onChange}
+          onKeyPress={onKeyPress}
           type={type}
           style={styles.input}
           inputStyle={styles.inputText}
