@@ -13,6 +13,7 @@ import RoundInput from "./RoundInput/RoundInput";
 import Post from "./Post/Post";
 import Thumb from "./Thumb/Thumb";
 import SocialInput from "./SocialInput/SocialInput";
+import TagRank from "./TagRank/TagRank";
 
 export {
   DefaultComponent,
@@ -24,5 +25,6 @@ export {
   RoundInput,
   Post,
   Thumb,
-  SocialInput
+  SocialInput,
+  TagRank
 };

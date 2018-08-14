@@ -3,6 +3,10 @@ import { ServerEndPoint } from "../Configs/Server";
 export const SUCCEED_TO_GET_FEED = "SUCCEED_TO_GET_FEED";
 export const FAILED_TO_GET_FEED = "FAILED_TO_GET_FEED";
 
+export const SUCCEED_TO_GET_FEED_BY_TAG_NAME =
+  "SUCCEED_TO_GET_FEED_BY_TAG_NAME";
+export const FAILED_TO_GET_FEED_BY_TAG_NAME = "FAILED_TO_GET_FEED_BY_TAG_NAME";
+
 export const SUCCEED_TO_POST_FEED = "SUCCEED_TO_POST_FEED";
 export const FAILED_TO_POST_FEED = "FAILED_TO_POST_FEED";
 
@@ -15,23 +19,32 @@ export const FAILED_TO_POST_LIKE = "FAILED_TO_POST_LIKE";
 export const SUCCEED_TO_POST_DISLIKE = "SUCCEED_TO_POST_DISLIKE";
 export const FAILED_TO_POST_DISLIKE = "FAILED_TO_POST_DISLIKE";
 
+export const SUCCEED_TO_GET_TAG_RANK = "SUCCEED_TO_GET_TAG_RANK";
+export const FAILED_TO_GET_TAG_RANK = "FAILED_TO_GET_TAG_RANK";
+
+export const SUCCEED_TO_GET_TAG_USER = "SUCCEED_TO_GET_TAG_USER";
+export const FAILED_TO_GET_TAG_USER = "FAILED_TO_GET_TAG_USER";
+
 export const getAllFeed = params => {
   return async dispatch => {
     try {
-      let response = await fetch(ServerEndPoint + "api/post/all", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "x-access-token": params.token
+      let response = await fetch(
+        ServerEndPoint + `api/post/all?index=${params.index}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
         }
-      });
+      );
       let responseJson = await response.json();
       await dispatch({
         type: SUCCEED_TO_GET_FEED,
-        payload: responseJson.result
+        payload: responseJson
       });
-      return responseJson.result;
+      return responseJson;
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_FEED,
@@ -45,7 +58,8 @@ export const getFeed = params => {
   return async dispatch => {
     try {
       let response = await fetch(
-        ServerEndPoint + `api/post?post_type=${params.type}`,
+        ServerEndPoint +
+          `api/post?post_type=${params.type}&index=${params.index}`,
         {
           method: "GET",
           headers: {
@@ -56,15 +70,44 @@ export const getFeed = params => {
         }
       );
       let responseJson = await response.json();
-      console.log(responseJson);
       await dispatch({
         type: SUCCEED_TO_GET_FEED,
-        payload: responseJson.result
+        payload: responseJson
       });
-      return responseJson.result;
+      return responseJson;
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_FEED,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const getFeedsByTagName = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint +
+          `api/post/tag?title=${params.tag_name}&index=${params.index}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_GET_FEED_BY_TAG_NAME,
+        payload: responseJson
+      });
+      return responseJson;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_GET_FEED_BY_TAG_NAME,
         payload: { data: "NETWORK_ERROR" }
       });
     }
@@ -89,7 +132,6 @@ export const postFeed = params => {
         })
       });
       let responseJson = await response.json();
-      console.log(responseJson);
       await dispatch({
         type: SUCCEED_TO_POST_FEED,
         payload: responseJson
@@ -188,6 +230,61 @@ export const disLike = params => {
     } catch (error) {
       dispatch({
         type: FAILED_TO_POST_DISLIKE,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const getTagRank = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(ServerEndPoint + "api/post/tag/rank", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "x-access-token": params.token
+        }
+      });
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_GET_TAG_RANK,
+        payload: responseJson.result
+      });
+      return responseJson.result;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_GET_TAG_RANK,
+        payload: { data: "NETWORK_ERROR" }
+      });
+    }
+  };
+};
+
+export const getTagUser = params => {
+  return async dispatch => {
+    try {
+      let response = await fetch(
+        ServerEndPoint + `api/user/tag?title=${params.tag_name}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-access-token": params.token
+          }
+        }
+      );
+      let responseJson = await response.json();
+      await dispatch({
+        type: SUCCEED_TO_GET_TAG_USER,
+        payload: responseJson.result
+      });
+      return responseJson.result;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_GET_TAG_USER,
         payload: { data: "NETWORK_ERROR" }
       });
     }

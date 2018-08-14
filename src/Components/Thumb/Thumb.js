@@ -9,18 +9,48 @@ const propTypes = {};
 class Thumb extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
-    const { size, src, fontSize, onClick } = this.props;
-    if (src === null || src === undefined || src === null) {
+    const {
+      size,
+      src,
+      fontSize,
+      onClick,
+      isTag,
+      marginRight,
+      marginTop
+    } = this.props;
+    if (src === null || (src === undefined && isTag === undefined)) {
       return (
         <span
           onClick={onClick}
           className="thumb__default"
-          style={{ width: size, height: size, fontSize: fontSize && fontSize }}
+          style={{
+            width: size,
+            height: size,
+            fontSize: fontSize && fontSize,
+            marginRight: marginRight,
+            marginTop: marginTop
+          }}
         >
           <i className="xi-user-o" />
+        </span>
+      );
+    } else if (isTag && src === undefined) {
+      return (
+        <span
+          onClick={onClick}
+          className="thumb__default"
+          style={{
+            width: size,
+            height: size,
+            marginRight: marginRight,
+            marginTop: marginTop
+          }}
+        >
+          <p>#</p>
         </span>
       );
     } else {
@@ -28,7 +58,12 @@ class Thumb extends Component {
         <span
           onClick={onClick}
           className="thumb"
-          style={{ width: size, height: size }}
+          style={{
+            width: size,
+            height: size,
+            marginRight: marginRight,
+            marginTop: marginTop
+          }}
         >
           <img className="thumb__image" width={size} height={size} src={src} />
         </span>

@@ -27,7 +27,8 @@ import {
   EditorChoicePage,
   EditorDetailPage,
   UserPage,
-  GuidePage
+  GuidePage,
+  TagPage
 } from "./Pages/";
 
 const mapStateToProps = state => {
@@ -68,6 +69,7 @@ class App extends Component {
         <Route exact path="/editor_choice" component={EditorChoicePage} />
         <Route path="/editor_choice/:package" component={EditorDetailPage} />
         <Route exact path="/guide" component={GuidePage} />
+        <Route exact path="/tag/:tag_name" component={TagPage} />
       </div>
     );
   }

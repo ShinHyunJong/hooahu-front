@@ -5,15 +5,10 @@
 
 @import "../../mixin.scss";
 
-.homePage {
+.tagPage {
   strong {
     color: black;
     margin-right: 5px;
-    cursor: pointer;
-  }
-
-  &__welcome {
-    margin-top: 5rem;
   }
   &__noMargin {
     margin-bottom: 5px !important;
@@ -22,8 +17,8 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+  overflow-y: auto;
 
   &__notice {
     display: inline-block;
@@ -33,150 +28,77 @@
     left: 0;
     width: 360px;
     height: 100vh;
-    overflow-y: auto;
     box-sizing: border-box;
     background-color: ghostwhite;
-    @media screen and (max-width: 600px) {
-      display: none;
-    }
 
     &__content {
       padding-left: 70px;
       padding-top: 40px;
-      padding-bottom: 40px;
-      @media screen and (max-width: 600px) {
-        display: none;
+
+      &-loader {
+        margin-top: 2.5rem;
+        margin-left: 4.5rem;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: white;
       }
 
       &__wrapper {
-        padding-top: 20px;
+        padding-top: 30px;
+        padding-bottom: 30px;
         padding-left: 20px;
         padding-right: 20px;
-        padding-bottom: 20px;
         background-color: white;
         color: $dark-gray;
-        -webkit-transition: height 2s;
-        transition: height 2s;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
-        &__notice {
-          margin-left: 5px;
-          margin-right: 5px;
-          font-weight: bold;
-          color: black;
-
-          &-name {
-            margin-right: 4px;
-            font-weight: bold;
-            color: black;
-          }
+        &__tagName {
+          margin-top: 1rem;
+          color: $dark-gray;
+          font-size: 1.2rem;
+          font-weight: 900;
         }
 
-        &__list {
-          padding-top: 10px;
-          display: flex;
-          flex-direction: row;
-          font-size: 13px;
-          cursor: pointer;
+        &__tagCount {
+          color: $dark-gray;
 
-          &:hover {
-            background-color: ghostwhite;
-          }
-
-          &__bar {
-            width: 4px;
-            background-color: $sub-color;
-            margin-right: 7px;
-
-            &-comment {
-              background-color: $main-color;
-            }
+          &-number {
+            font-weight: bold;
           }
         }
       }
 
-      &__tags {
-        margin-top: 20px;
-        color: $dark-gray;
+      &__tagUser {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
         background-color: white;
-        padding-top: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        color: $dark-gray;
+        font-weight: 900;
 
-        &-title {
-          margin-left: 10px;
-          margin-top: 10px;
-        }
-
-        &__tag {
+        &__thumbArea {
+          margin-top: 5px;
           display: flex;
-          cursor: pointer;
           flex-direction: row;
-          // margin-right: 10px;
-          // margin-left: 10px;
-          border-bottom: 1px $border-color solid;
+          flex-wrap: wrap;
 
-          // &:last-child {
-          //   border-bottom: none;
-          // }
-
-          &__number {
-            flex: 0.5;
+          &-item {
+            font-size: 10px;
+            width: 50px;
             display: flex;
-            align-items: center;
             justify-content: center;
-
-            &-wrapper {
-              padding: 7px;
-              display: flex;
-              width: 100%;
-              align-items: center;
-              justify-content: center;
-              // border-right: 1px solid #cccccc;
-            }
-          }
-
-          &__content {
-            flex: 2;
-            padding-left: 5px;
-            display: flex;
             flex-direction: column;
-            justify-content: center;
-
-            &-title {
-              font-weight: bold;
-              font-size: 15px;
-              color: $main-color;
-              padding-right: 10px;
-            }
-
-            &-count {
-              font-size: 13px;
-              margin-right: 1rem;
-            }
-          }
-
-          &__next {
-            flex: 1;
-            display: flex;
             align-items: center;
-          }
-        }
-
-        &__more {
-          display: flex;
-          padding-top: 5px;
-          padding-bottom: 5px;
-          justify-content: center;
-          align-items: center;
-          font-size: 13px;
-
-          &-text {
-            cursor: pointer;
-
-            &:hover {
-              @include transition(0.3s);
-              color: $main-color;
-            }
           }
         }
       }
@@ -186,47 +108,18 @@
   &__feed {
     display: inline-table;
     width: calc(100vw - 710px);
-    padding: 0 2rem;
     height: 100vh;
+    padding: 0 2rem;
     margin-left: 360px;
-
-    @media screen and (max-width: 600px) {
-      overflow-y: scroll;
-      margin-left: 0;
-      width: 100vw;
-      display: inline-flex;
-    }
-
     padding-top: 50px;
-    padding-bottom: 7rem;
+    padding-bottom: 10rem;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     background-color: ghostwhite;
 
     &__content {
-      padding-top: 40px;
-
-      &-loading {
-        margin-top: 1rem;
-        padding-left: 5px;
-        text-align: center;
-        background-color: white;
-      }
-
-      &-isPosting {
-        display: flex;
-        justify-content: center;
-        height: 50vh;
-        align-items: center;
-      }
-
-      &-footerLoading {
-        display: flex;
-        margin-top: 4rem;
-        justify-content: center;
-        align-items: center;
-      }
+      padding-top: 20px;
 
       &__inputArea {
         padding-top: 30px;
@@ -310,17 +203,6 @@
                 @include transition(0.3s);
                 color: white;
               }
-            }
-          }
-
-          &__imagePreview {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-
-            &__image {
-              @include transition(0.3s);
-              height: 60px;
             }
           }
         }
@@ -447,14 +329,6 @@
     box-sizing: border-box;
     background-color: white;
 
-    @media screen and (max-width: 900px) {
-      width: 200px;
-    }
-
-    @media screen and (max-width: 600px) {
-      display: none;
-    }
-
     &__wrapper {
       display: flex;
       align-items: center;
@@ -511,23 +385,6 @@
           margin-right: 10px;
           cursor: pointer;
           margin-bottom: 15px;
-
-          &-login {
-            background-color: $sub-color;
-            display: inline-block;
-            border: 1px $border-color solid;
-            color: $dark-gray;
-            font-weight: 300;
-            padding: 5px 10px 5px 10px;
-            margin-right: 10px;
-            cursor: pointer;
-            margin-bottom: 15px;
-
-            &-text {
-              font-size: 13px;
-            }
-          }
-
           &:hover {
             @include transition(0.3s);
             border: 1px $dark-gray solid;
