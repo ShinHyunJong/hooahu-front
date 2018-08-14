@@ -4,14 +4,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import * as DefaultActionCreator from "../../ActionCreators/_DefaultActionCreator";
 import { NavBar } from "../../Components";
-import { Container, Row, Col } from "reactstrap";
 import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
-import ProgressiveImage from "react-progressive-image-loading";
 import nprogress from "nprogress";
 import ReactTooltip from "react-tooltip";
 import scrollToComponent from "react-scroll-to-component";
@@ -78,6 +75,8 @@ class EditorChoicePage extends Component {
     nprogress.done();
   }
 
+  componentWillUnmount() {}
+
   handleSort = index => {
     this.setState({ currentSort: index });
   };
@@ -103,16 +102,14 @@ class EditorChoicePage extends Component {
         this.setState({ isClicked: newValue, selectedConcept: newConcept });
 
         let newEditor = editorChoice.slice();
-        newEditor = _
-          .sortBy(newEditor, item => {
-            return [
-              this.state.selectedConcept.map((data, index) => {
-                return item.concept[data];
-              }),
-              item.rating
-            ];
-          })
-          .reverse();
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            this.state.selectedConcept.map((data, index) => {
+              return item.concept[data];
+            }),
+            item.rating
+          ];
+        }).reverse();
         await this.setState({ editorChoice: newEditor });
         await this.scrollToTop();
       } else {
@@ -124,16 +121,14 @@ class EditorChoicePage extends Component {
           let newConcept = [];
           newConcept.push(concept[index].value);
           let newEditor = editorChoice.slice();
-          newEditor = _
-            .sortBy(newEditor, item => {
-              return [
-                newConcept.map((data, index) => {
-                  return item.concept[data];
-                }),
-                item.rating
-              ];
-            })
-            .reverse();
+          newEditor = _.sortBy(newEditor, item => {
+            return [
+              newConcept.map((data, index) => {
+                return item.concept[data];
+              }),
+              item.rating
+            ];
+          }).reverse();
 
           // newEditor
           //   .sort(function(a, b) {
@@ -157,16 +152,14 @@ class EditorChoicePage extends Component {
           newConcept.push(concept[index].value);
           this.setState({ selectedConcept: newConcept });
           let newEditor = editorChoice.slice();
-          newEditor = _
-            .sortBy(newEditor, item => {
-              return [
-                newConcept.map((data, index) => {
-                  return item.concept[data];
-                }),
-                item.rating
-              ];
-            })
-            .reverse();
+          newEditor = _.sortBy(newEditor, item => {
+            return [
+              newConcept.map((data, index) => {
+                return item.concept[data];
+              }),
+              item.rating
+            ];
+          }).reverse();
           newValue[0].clicked = false;
           newValue[index].clicked = true;
           await this.setState({
@@ -190,16 +183,14 @@ class EditorChoicePage extends Component {
         newConcept.splice(newConcept.indexOf(concept[index].value), 1);
 
         let newEditor = editorChoice.slice();
-        newEditor = _
-          .sortBy(newEditor, item => {
-            return [
-              newConcept.map((data, index) => {
-                return item.concept[data];
-              }),
-              item.rating
-            ];
-          })
-          .reverse();
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            newConcept.map((data, index) => {
+              return item.concept[data];
+            }),
+            item.rating
+          ];
+        }).reverse();
         await this.setState({
           editorChoice: newEditor,
           selectedConcept: newConcept
@@ -222,15 +213,14 @@ class EditorChoicePage extends Component {
         this.setState({ selectedAreaValue: areaJson[index].label });
         const { editorChoice, selectedConcept } = this.state;
         let newEditor = editorChoice.slice();
-        newEditor = _
-          .sortBy(newEditor, item => {
-            return [
-              selectedConcept.map((data, index) => {
-                return item.concept[data];
-              }),
-              item.rating
-            ];
-          })
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            selectedConcept.map((data, index) => {
+              return item.concept[data];
+            }),
+            item.rating
+          ];
+        })
           .filter(choices => {
             return choices.days === this.state.selectedDayValue;
           })
@@ -244,15 +234,14 @@ class EditorChoicePage extends Component {
         this.setState({ selectedAreaValue: areaJson[index].label });
         const { editorChoice, selectedConcept } = this.state;
         let newEditor = editorChoice.slice();
-        newEditor = _
-          .sortBy(newEditor, item => {
-            return [
-              selectedConcept.map((data, index) => {
-                return item.concept[data];
-              }),
-              item.rating
-            ];
-          })
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            selectedConcept.map((data, index) => {
+              return item.concept[data];
+            }),
+            item.rating
+          ];
+        })
           .filter(choices => {
             return choices.area === areaJson[index].label;
           })
@@ -277,15 +266,14 @@ class EditorChoicePage extends Component {
         });
         const { editorChoice, selectedConcept } = this.state;
         let newEditor = editorChoice.slice();
-        newEditor = _
-          .sortBy(newEditor, item => {
-            return [
-              selectedConcept.map((data, index) => {
-                return item.concept[data];
-              }),
-              item.rating
-            ];
-          })
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            selectedConcept.map((data, index) => {
+              return item.concept[data];
+            }),
+            item.rating
+          ];
+        })
           .filter(choices => {
             return choices.area === this.state.selectedAreaValue;
           })
@@ -301,15 +289,14 @@ class EditorChoicePage extends Component {
         });
         const { editorChoice, selectedConcept } = this.state;
         let newEditor = editorChoice.slice();
-        newEditor = _
-          .sortBy(newEditor, item => {
-            return [
-              selectedConcept.map((data, index) => {
-                return item.concept[data];
-              }),
-              item.rating
-            ];
-          })
+        newEditor = _.sortBy(newEditor, item => {
+          return [
+            selectedConcept.map((data, index) => {
+              return item.concept[data];
+            }),
+            item.rating
+          ];
+        })
           .filter(choices => {
             return choices.days === dayJson[index].value;
           })
@@ -353,6 +340,7 @@ class EditorChoicePage extends Component {
     const dayJson = filterJson.day;
     const areaJson = filterJson.area;
     const { editorChoice } = this.state;
+    console.log(editorChoice);
 
     return (
       <div
@@ -706,7 +694,7 @@ class EditorChoicePage extends Component {
                         <div className="editorChoice__feed__content__lists__list__image">
                           <img
                             alt={index}
-                            src={data.image_url}
+                            src={data.image_url[0]}
                             className="editorChoice__feed__content__lists__list__image__pic"
                           />
                         </div>

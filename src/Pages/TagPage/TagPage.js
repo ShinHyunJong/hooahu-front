@@ -84,14 +84,9 @@ class TagPage extends Component {
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    const { dispatch, token, match } = this.props;
-    const tag_name = match.params.tag_name;
-    const params = { token, tag_name };
     this.setState({ selectedEC });
     this.getAllFeeds();
-    dispatch(FeedAction.getTagUser(params)).then(tagUser => {
-      this.setState(state => ({ tagUser }));
-    });
+    this.getTagRank();
   }
 
   componentDidUpdate(previousProps, previousState) {
@@ -99,6 +94,7 @@ class TagPage extends Component {
       previousProps.match.params.tag_name !== this.props.match.params.tag_name
     ) {
       this.getAllFeeds();
+      this.getTagRank();
     }
   }
 
@@ -301,6 +297,16 @@ class TagPage extends Component {
         });
       }
       this.setState(state => ({ feeds: newFeeds, tagLoading: false }));
+      nprogress.done();
+    });
+  };
+
+  getTagRank = () => {
+    const { dispatch, token, match } = this.props;
+    const tag_name = match.params.tag_name;
+    const params = { token, tag_name };
+    dispatch(FeedAction.getTagUser(params)).then(tagUser => {
+      this.setState(state => ({ tagUser }));
     });
   };
 

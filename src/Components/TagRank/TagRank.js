@@ -20,7 +20,11 @@ class DefaultComponent extends Component {
           <div className="tagRank__number-wrapper">{index + 1}</div>
         </div>
         <div className="tagRank__content">
-          <p className="tagRank__content-title">{tag.title}</p>
+          <p className="tagRank__content-title">
+            {tag.title.length > 15
+              ? tag.title.substring(0, 15) + "..."
+              : tag.title}
+          </p>
         </div>
         <div className="tagRank__next">
           <p className="tagRank__content-count">

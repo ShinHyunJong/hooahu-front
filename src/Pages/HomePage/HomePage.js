@@ -25,7 +25,7 @@ import BottomScrollListener from "react-bottom-scroll-listener";
 const defaultProps = {};
 const propTypes = {};
 
-const MyLoader = props => (
+const FeedLoader = props => (
   <div className="homePage__feed__content-loading">
     <ContentLoader
       height={160}
@@ -43,6 +43,26 @@ const MyLoader = props => (
       <circle cx="39.2" cy="45.2" r="16" />
     </ContentLoader>
   </div>
+);
+
+const TagRankLoader = props => (
+  <ContentLoader
+    height={160}
+    width={400}
+    speed={2}
+    primaryColor="#d1d1d1"
+    secondaryColor="#ecebeb"
+    {...props}
+  >
+    <circle cx="10" cy="20" r="8" />
+    <rect x="25" y="15" rx="5" ry="5" width="220" height="10" />
+    <circle cx="10" cy="50" r="8" />
+    <rect x="25" y="45" rx="5" ry="5" width="220" height="10" />
+    <circle cx="10" cy="80" r="8" />
+    <rect x="25" y="75" rx="5" ry="5" width="220" height="10" />
+    <circle cx="10" cy="110" r="8" />
+    <rect x="25" y="105" rx="5" ry="5" width="220" height="10" />
+  </ContentLoader>
 );
 
 const mapStateToProps = state => {
@@ -96,7 +116,8 @@ class HomePage extends Component {
       comment: "",
       collapse: false,
       tags: [],
-      tagRank: []
+      tagRank: [],
+      tagRankLoading: true
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -141,7 +162,8 @@ class HomePage extends Component {
       collapse,
       isPosting,
       tags,
-      tagRank
+      tagRank,
+      tagRankLoading
     } = this.state;
     const { isLogin, user } = this.props;
 
@@ -149,7 +171,7 @@ class HomePage extends Component {
       return (
         <div className="homePage">
           <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
-          <BottomScrollListener onBottom={this.handleScroll} />
+          <BottomScrollListener onBottom={this.handleScroll} offset={150} />
           <Modal
             isOpen={showModal}
             toggle={this.toggleModal}
@@ -192,8 +214,8 @@ class HomePage extends Component {
           <div className="homePage__notice">
             <div className="homePage__notice__content">
               <div className="homePage__notice__content__wrapper">
+                <p>Welcome to Hooah!U </p>
                 <p>
-                  Welcome!{" "}
                   <strong>
                     {user.first_name} {user.last_name}
                   </strong>{" "}
@@ -203,7 +225,12 @@ class HomePage extends Component {
                 <p className="homePage__notice__content__tags-title">
                   Are you tracking these?
                 </p>
-                {tagRank &&
+                {tagRankLoading ? (
+                  <div style={{ paddingLeft: 10, paddingTop: 10 }}>
+                    <TagRankLoader />
+                  </div>
+                ) : (
+                  tagRank &&
                   tagRank.slice(0, 10).map((data, index) => {
                     return (
                       <TagRank
@@ -213,7 +240,8 @@ class HomePage extends Component {
                         tag={data}
                       />
                     );
-                  })}
+                  })
+                )}
                 {!collapse ? (
                   <div className="homePage__notice__content__tags__more">
                     <p
@@ -274,8 +302,8 @@ class HomePage extends Component {
 
               {feedLoading ? (
                 <div>
-                  <MyLoader />
-                  <MyLoader />
+                  <FeedLoader />
+                  <FeedLoader />
                 </div>
               ) : isPosting ? (
                 <div className="homePage__feed__content-isPosting">
@@ -480,7 +508,7 @@ class HomePage extends Component {
     const { dispatch, token } = this.props;
     const params = { token };
     dispatch(FeedAction.getTagRank(params)).then(tagRank => {
-      this.setState({ tagRank });
+      this.setState(state => ({ tagRank, tagRankLoading: false }));
     });
   };
 
@@ -734,7 +762,7 @@ class HomePage extends Component {
         return a !== "#";
       })
       .map(tag => {
-        tag = tag.replace(/#/g, "");
+        tag = tag.replace(/#/g, "").toLowerCase();
         return `#${tag}`;
       });
     this.setState({ tags: _.uniq(hashTags) });

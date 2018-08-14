@@ -57,6 +57,8 @@ class EditorDetailPage extends Component {
       isLiked: false,
       showModal: false,
       Map: null,
+      selectedChoice: null,
+      selectedPlaces: null,
       commentList: null
     };
   }
@@ -65,7 +67,7 @@ class EditorDetailPage extends Component {
     nprogress.start();
     window.scrollTo(0, 0);
     const choice = Number(this.props.match.params.package);
-    const ecJson = ec.editorChoice;
+    const ecJson = Object.create(ec.editorChoice);
     let selectedChoiceIndex = 0;
 
     for (let i = 0; i < ecJson.length; i++) {
@@ -84,17 +86,21 @@ class EditorDetailPage extends Component {
       nprogress.done();
     });
 
-    const selectedChoice = ecJson[selectedChoiceIndex];
+    let selectedChoice = Object.create(ecJson[selectedChoiceIndex]);
     selectedChoice.image_url = selectedChoice.image_url.map((data, index) => {
       return { original: data };
     });
-    for (let i = 0; i < selectedChoice.places.length; i++) {
-      selectedChoice.places[i].image_url = selectedChoice.places[
-        i
-      ].image_url.map((data, index) => {
-        return { original: data };
-      });
+
+    let selectedPlaces = JSON.parse(JSON.stringify(selectedChoice.places));
+    for (let i = 0; i < selectedPlaces.length; i++) {
+      selectedPlaces[i].image_url = selectedPlaces[i].image_url.map(
+        (data, index) => {
+          return { original: data };
+        }
+      );
     }
+
+    this.setState(state => ({ selectedChoice, selectedPlaces }));
 
     const starLength = selectedChoice.rating;
     let starArray = [];
@@ -145,6 +151,29 @@ class EditorDetailPage extends Component {
     );
     this.setState({ Map: MapWithAMarker });
   }
+
+  // componentWillUpdate() {
+  //   const choice = Number(this.props.match.params.package);
+  //   const ecJson = ec.editorChoice;
+  //   let selectedChoiceIndex = 0;
+  //   for (let i = 0; i < ecJson.length; i++) {
+  //     if (ecJson[i].id === choice) {
+  //       selectedChoiceIndex = i;
+  //     }
+  //   }
+  //   const selectedChoice = ecJson[selectedChoiceIndex];
+  //   selectedChoice.image_url = selectedChoice.image_url.map((data, index) => {
+  //     return data;
+  //   });
+
+  //   for (let i = 0; i < selectedChoice.places.length; i++) {
+  //     selectedChoice.places[i].image_url = selectedChoice.places[
+  //       i
+  //     ].image_url.map((data, index) => {
+  //       return data;
+  //     });
+  //   }
+  // }
 
   componentDidMount() {}
 
@@ -239,19 +268,16 @@ class EditorDetailPage extends Component {
   };
 
   render() {
-    const choice = Number(this.props.match.params.package);
-    const { isLiked, Map, commentList, comment } = this.state;
-    const ecJson = ec.editorChoice;
+    const {
+      isLiked,
+      Map,
+      commentList,
+      comment,
+      selectedChoice,
+      selectedPlaces
+    } = this.state;
     const { user, isLogin } = this.props;
-    let selectedChoiceIndex = 0;
 
-    for (let i = 0; i < ecJson.length; i++) {
-      if (ecJson[i].id === choice) {
-        selectedChoiceIndex = i;
-      }
-    }
-
-    const selectedChoice = ecJson[selectedChoiceIndex];
     const starLength = selectedChoice.rating;
     let starArray = [];
     for (let i = 0; i < starLength; i++) {
@@ -652,191 +678,192 @@ class EditorDetailPage extends Component {
             </div>
             <hr className="editorDetail__hr" />
 
-            {selectedChoice.places.map((data, index) => {
-              return (
-                <div
-                  key={index}
-                  className="editorDetail__content__places__place"
-                >
-                  <div className="editorDetail__content__places__place__image">
-                    <ImageGallery
-                      items={data.image_url}
-                      showThumbnails={false}
-                      showPlayButton={false}
-                      showBullets={true}
-                    />
-                  </div>
+            {selectedPlaces &&
+              selectedPlaces.map((data, index) => {
+                return (
                   <div
-                    className="editorDetail__content__places__place__text"
-                    ref={section3 => {
-                      this.places[index] = section3;
-                    }}
+                    key={index}
+                    className="editorDetail__content__places__place"
                   >
-                    <h2 className="editorDetail__content__places__place__text__title">
-                      {String("0" + (index + 1)).slice(-2)}
-                    </h2>
-                    <h2 className="editorDetail__content__places__place__text__title__text">
-                      {data.name}
-                    </h2>
-                    <p className="editorDetail__content__places__place__text__function">
-                      {data.function}
-                    </p>
-                    <div className="editorDetail__content__places__place__text__infoArea">
-                      <div className="editorDetail__content__places__place__text__infoArea__row">
-                        <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                          <i className="xi-maker" />
-                        </span>
-                        <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                          {data.address}
-                        </span>
+                    <div className="editorDetail__content__places__place__image">
+                      <ImageGallery
+                        items={data.image_url}
+                        showThumbnails={false}
+                        showPlayButton={false}
+                        showBullets={true}
+                      />
+                    </div>
+                    <div
+                      className="editorDetail__content__places__place__text"
+                      ref={section3 => {
+                        this.places[index] = section3;
+                      }}
+                    >
+                      <h2 className="editorDetail__content__places__place__text__title">
+                        {String("0" + (index + 1)).slice(-2)}
+                      </h2>
+                      <h2 className="editorDetail__content__places__place__text__title__text">
+                        {data.name}
+                      </h2>
+                      <p className="editorDetail__content__places__place__text__function">
+                        {data.function}
+                      </p>
+                      <div className="editorDetail__content__places__place__text__infoArea">
+                        <div className="editorDetail__content__places__place__text__infoArea__row">
+                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                            <i className="xi-maker" />
+                          </span>
+                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                            {data.address}
+                          </span>
+                        </div>
+                        {data.hours === "" ? null : (
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                              <i className="xi-time-o" />
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              {data.hours}
+                            </span>
+                          </div>
+                        )}
+                        {data.homepage === "" ? null : (
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                              <i className="xi-external-link" />
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              <a href={data.homepage}>Website</a>
+                            </span>
+                          </div>
+                        )}
+                        {data.phone === "" ? null : (
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                              <i className="xi-call" />
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              {data.phone}
+                            </span>
+                          </div>
+                        )}
                       </div>
-                      {data.hours === "" ? null : (
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                            <i className="xi-time-o" />
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            {data.hours}
-                          </span>
-                        </div>
-                      )}
-                      {data.homepage === "" ? null : (
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                            <i className="xi-external-link" />
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.homepage}>Website</a>
-                          </span>
-                        </div>
-                      )}
-                      {data.phone === "" ? null : (
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                            <i className="xi-call" />
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            {data.phone}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="editorDetail__content__places__place__text__desc">
-                      <p className="editorDetail__content__places__place__text__desc__text">
-                        {'"' + data.content.sgt + '"'}
-                      </p>
-                      <hr />
-                      <p className="editorDetail__content__places__place__text__desc__text__formal">
-                        {data.content.formal}
-                      </p>
-                    </div>
+                      <div className="editorDetail__content__places__place__text__desc">
+                        <p className="editorDetail__content__places__place__text__desc__text">
+                          {'"' + data.content.sgt + '"'}
+                        </p>
+                        <hr />
+                        <p className="editorDetail__content__places__place__text__desc__text__formal">
+                          {data.content.formal}
+                        </p>
+                      </div>
 
-                    {index === 0 ? (
-                      <div className="editorDetail__content__places__place__text__infoArea">
-                        <div className="editorDetail__content__places__place__text__infoArea__container">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                            <i className="xi-map" />
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            Direction
-                          </span>
+                      {index === 0 ? (
+                        <div className="editorDetail__content__places__place__text__infoArea">
+                          <div className="editorDetail__content__places__place__text__infoArea__container">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                              <i className="xi-map" />
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              Direction
+                            </span>
+                          </div>
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <br />
+                            <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                              Area 1 :
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              <a href={data.transport.Area1.link}>
+                                {data.transport.Area1.time}
+                              </a>
+                            </span>
+                          </div>
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                              Area 2 :
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              <a href={data.transport.Area2.link}>
+                                {data.transport.Area2.time}
+                              </a>
+                            </span>
+                          </div>
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                              Area 3 :
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              <a href={data.transport.Area3.link}>
+                                {data.transport.Area3.time}
+                              </a>
+                            </span>
+                          </div>
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            <span className="editorDetail__content__places__place__text__infoArea__row__area">
+                              Area 4 :
+                            </span>
+                            <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                              <a href={data.transport.Area4.link}>
+                                {data.transport.Area4.time}
+                              </a>
+                            </span>
+                          </div>
                         </div>
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <br />
-                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                            Area 1 :
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.transport.Area1.link}>
-                              {data.transport.Area1.time}
-                            </a>
-                          </span>
-                        </div>
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                            Area 2 :
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.transport.Area2.link}>
-                              {data.transport.Area2.time}
-                            </a>
-                          </span>
-                        </div>
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                            Area 3 :
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.transport.Area3.link}>
-                              {data.transport.Area3.time}
-                            </a>
-                          </span>
-                        </div>
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          <span className="editorDetail__content__places__place__text__infoArea__row__area">
-                            Area 4 :
-                          </span>
-                          <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                            <a href={data.transport.Area4.link}>
-                              {data.transport.Area4.time}
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="editorDetail__content__places__place__text__infoArea">
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          {data.transport.time.map((type, index) => {
-                            return (
-                              <div
-                                className="editorDetail__content__places__place__text__infoArea__container"
-                                key={index}
-                              >
-                                <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                                  {this.convert(type.type)}
-                                </span>
-                                <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                                  {type.time}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                        <div className="editorDetail__content__places__place__text__infoArea__row">
-                          {data.transport.time.map((item, index) => {
-                            if (
-                              item.type !== "On Foot" &&
-                              item.type !== "Ship"
-                            ) {
+                      ) : (
+                        <div className="editorDetail__content__places__place__text__infoArea">
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            {data.transport.time.map((type, index) => {
                               return (
                                 <div
                                   className="editorDetail__content__places__place__text__infoArea__container"
                                   key={index}
                                 >
                                   <span className="editorDetail__content__places__place__text__infoArea__row__icon">
-                                    <i className="xi-map" />
+                                    {this.convert(type.type)}
                                   </span>
                                   <span className="editorDetail__content__places__place__text__infoArea__row__text">
-                                    <a
-                                      href={data.transport.link}
-                                      target="_blank"
-                                    >
-                                      Direction
-                                    </a>
+                                    {type.time}
                                   </span>
                                 </div>
                               );
-                            } else {
-                              return null;
-                            }
-                          })}
+                            })}
+                          </div>
+                          <div className="editorDetail__content__places__place__text__infoArea__row">
+                            {data.transport.time.map((item, index) => {
+                              if (
+                                item.type !== "On Foot" &&
+                                item.type !== "Ship"
+                              ) {
+                                return (
+                                  <div
+                                    className="editorDetail__content__places__place__text__infoArea__container"
+                                    key={index}
+                                  >
+                                    <span className="editorDetail__content__places__place__text__infoArea__row__icon">
+                                      <i className="xi-map" />
+                                    </span>
+                                    <span className="editorDetail__content__places__place__text__infoArea__row__text">
+                                      <a
+                                        href={data.transport.link}
+                                        target="_blank"
+                                      >
+                                        Direction
+                                      </a>
+                                    </span>
+                                  </div>
+                                );
+                              } else {
+                                return null;
+                              }
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </div>
