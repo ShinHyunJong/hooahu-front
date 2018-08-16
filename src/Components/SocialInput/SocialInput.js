@@ -75,8 +75,9 @@ class SocialInput extends Component {
       className,
       isPosting,
       tagsValue,
+      renderInput,
       onChangeTags,
-      onChangeTagsInput
+      onChangeTagInput
     } = this.props;
     return (
       <div className={cx("socialInput", className)}>
@@ -102,7 +103,8 @@ class SocialInput extends Component {
                 placeholder: "Add Tags ex) #557MPCO"
               }}
               onChange={onChangeTags}
-              onChangeInput={onChangeTagsInput}
+              renderInput={renderInput}
+              onChangeInput={onChangeTagInput}
             />
           ) : null}
         </div>

@@ -20,10 +20,18 @@ import { Bounce } from "react-activity";
 import { Modal, ModalBody, ModalFooter, Collapse } from "reactstrap";
 import _ from "lodash";
 import BottomScrollListener from "react-bottom-scroll-listener";
+import Autosuggest from "react-autosuggest";
 
 // import list from "../../Json/HotTopic.json";
 const defaultProps = {};
 const propTypes = {};
+
+const renderSuggestion = (suggestion, { query, isHighlighted }) => (
+  <div className="homePage__suggestion">
+    <p className="homePage__suggestion-title">{suggestion.title}</p>
+    <span className="homePage__suggestion-count">{suggestion.C + "posts"}</span>
+  </div>
+);
 
 const FeedLoader = props => (
   <div className="homePage__feed__content-loading">
@@ -121,7 +129,8 @@ class HomePage extends Component {
       collapse: false,
       tags: [],
       tagRank: [],
-      tagRankLoading: true
+      tagRankLoading: true,
+      suggestion: []
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -147,6 +156,48 @@ class HomePage extends Component {
     }
   }
 
+  onSuggestionsFetchRequested = ({ value }) => {
+    const inputValue = (value && value.trim().toLowerCase()) || "";
+    const inputLength = inputValue.length;
+    const { dispatch } = this.props;
+    const params = { props: this.props, tag_name: inputValue };
+
+    dispatch(FeedAction.searchTag(params)).then(tags => {
+      // let suggestion = tags.result.filter(state => {
+      //   return state.title.toLowerCase().slice(0, inputLength) === inputValue;
+      // });
+      this.setState(state => ({ suggestion: tags.result }));
+    });
+  };
+
+  autocompleteRenderInput = ({ addTag, ...props }) => {
+    const { suggestion } = this.state;
+    const handleOnChange = (e, { newValue, method }) => {
+      if (method === "enter") {
+        e.preventDefault();
+      } else {
+        props.onChange(e);
+      }
+    };
+
+    return (
+      <Autosuggest
+        ref={props.ref}
+        suggestions={suggestion}
+        shouldRenderSuggestions={value => value && value.trim().length > 0}
+        getSuggestionValue={suggestion => suggestion.title}
+        renderSuggestion={renderSuggestion}
+        inputProps={{ ...props, onChange: handleOnChange }}
+        onSuggestionSelected={(e, { suggestion }) => {
+          addTag(suggestion.title);
+        }}
+        onSuggestionsClearRequested={() => {}}
+        highlightFirstSuggestion={true}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+      />
+    );
+  };
+
   render() {
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type_filter;
@@ -169,7 +220,7 @@ class HomePage extends Component {
       tagRank,
       tagRankLoading
     } = this.state;
-    const { isLogin, user } = this.props;
+    const { isLogin, user, dispatch } = this.props;
 
     if (isLogin) {
       return (
@@ -221,7 +272,7 @@ class HomePage extends Component {
                 <p>Welcome to Hooah!U </p>
                 <p>
                   <strong>
-                    {user.first_name} {user.last_name}
+                    {user && user.first_name} {user && user.last_name}
                   </strong>{" "}
                 </p>
               </div>
@@ -299,9 +350,10 @@ class HomePage extends Component {
                 onChange={this.handleText}
                 tagsValue={tags}
                 onChangeTags={this.handleTags}
-                onChangeTagsInput={tags => this.setState({ tags })}
+                onChangeTagInput={tag => this.setState({ tag })}
                 onClick={this.handlePostFeed}
                 value={this.state.feedText}
+                renderInput={this.autocompleteRenderInput}
               />
 
               {feedLoading ? (
@@ -482,9 +534,9 @@ class HomePage extends Component {
   };
 
   getAllFeed = (count, typeIndex) => {
-    const { token, dispatch } = this.props;
+    const { dispatch } = this.props;
     const index = count;
-    const params = { token, index };
+    const params = { props: this.props, index };
     this.setState(state => ({
       footerLoading: typeIndex === 2 ? true : false,
       isPosting: typeIndex === 0 ? true : false // 맨처음 로딩인지, 필터링 로딩인지
@@ -528,8 +580,8 @@ class HomePage extends Component {
     window.scrollTo(0, 0);
     const { isLogin } = this.props;
     const params = {
-      token: this.props.token,
       type: typeIndex,
+      props: this.props,
       index: 0
     };
     if (!isLogin) {

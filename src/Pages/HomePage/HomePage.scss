@@ -12,6 +12,29 @@
     cursor: pointer;
   }
 
+  &__suggestion {
+    color: $dark-gray;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+
+    &-title {
+      font-weight: 700;
+
+      &:hover {
+        color: $main-color;
+      }
+    }
+
+    &-count {
+      font-weight: 300;
+    }
+  }
+
   &__welcome {
     margin-top: 5rem;
   }

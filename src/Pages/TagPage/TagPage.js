@@ -356,27 +356,29 @@ class TagPage extends Component {
   getAllFeeds = () => {
     const { match, dispatch, token } = this.props;
     const tag_name = match.params.tag_name;
-    const params = { tag_name, token, index: 0 };
+    const params = { tag_name, token, index: 0, props: this.props, all: 1 };
     dispatch(FeedAction.getFeedsByTagName(params)).then(feeds => {
-      const newFeeds = feeds.result.slice();
-      const newTagImage = [];
-      for (let i = 0; i < newFeeds.length; i++) {
-        newFeeds[i].images.map((data, index) => {
-          newTagImage.push(data.img_url);
-        });
-        if (newFeeds[i].isLiked) {
-          newFeeds[i].isLiked = true;
+      dispatch(FeedAction.getImageByTagName(params)).then(tagImage => {
+        const newFeeds = feeds.result.slice();
+        const newTagImage = [];
+        for (let i = 0; i < newFeeds.length; i++) {
+          if (newFeeds[i].isLiked) {
+            newFeeds[i].isLiked = true;
+          }
+          newFeeds[i].images = feeds.result[i].images.map((data, index) => {
+            return { original: data.img_url };
+          });
         }
-        newFeeds[i].images = feeds.result[i].images.map((data, index) => {
-          return { original: data.img_url };
+        tagImage.result.map((data, index) => {
+          return newTagImage.push(data.img_url);
         });
-      }
-      this.setState(state => ({
-        feeds: newFeeds,
-        tagLoading: false,
-        tagImage: newTagImage
-      }));
-      nprogress.done();
+        this.setState(state => ({
+          feeds: newFeeds,
+          tagLoading: false,
+          tagImage: newTagImage
+        }));
+        nprogress.done();
+      });
     });
   };
 

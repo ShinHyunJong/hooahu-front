@@ -41,15 +41,17 @@ const mapStateToProps = state => {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
   componentWillMount() {
-    const { token } = this.props;
+    const { token, dispatch, history } = this.props;
+    const params = { props: this.props };
     if (token === null || token === undefined) {
-      this.props.history.push({
+      history.push({
         pathname: "/"
       });
     } else {
-      this.props.dispatch(UserAction.getUser(token));
+      dispatch(UserAction.getUser(params));
     }
   }
 

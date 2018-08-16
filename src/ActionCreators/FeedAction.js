@@ -1,4 +1,7 @@
 import { ServerEndPoint } from "../Configs/Server";
+import * as Request from "../Utils/WebRequest";
+
+export const TOKEN_EXPIRED = "TOKEN_EXPIRED";
 
 export const SUCCEED_TO_GET_FEED = "SUCCEED_TO_GET_FEED";
 export const FAILED_TO_GET_FEED = "FAILED_TO_GET_FEED";
@@ -6,6 +9,11 @@ export const FAILED_TO_GET_FEED = "FAILED_TO_GET_FEED";
 export const SUCCEED_TO_GET_FEED_BY_TAG_NAME =
   "SUCCEED_TO_GET_FEED_BY_TAG_NAME";
 export const FAILED_TO_GET_FEED_BY_TAG_NAME = "FAILED_TO_GET_FEED_BY_TAG_NAME";
+
+export const SUCCEED_TO_GET_IMAGE_BY_TAG_NAME =
+  "SUCCEED_TO_GET_IMAGE_BY_TAG_NAME";
+export const FAILED_TO_GET_IMAGE_BY_TAG_NAME =
+  "FAILED_TO_GET_IMAGE_BY_TAG_NAME";
 
 export const SUCCEED_TO_POST_FEED = "SUCCEED_TO_POST_FEED";
 export const FAILED_TO_POST_FEED = "FAILED_TO_POST_FEED";
@@ -25,31 +33,32 @@ export const FAILED_TO_GET_TAG_RANK = "FAILED_TO_GET_TAG_RANK";
 export const SUCCEED_TO_GET_TAG_USER = "SUCCEED_TO_GET_TAG_USER";
 export const FAILED_TO_GET_TAG_USER = "FAILED_TO_GET_TAG_USER";
 
+export const SUCCEED_TO_SEARCH_TAG = "SUCCEED_TO_SEARCH_TAG";
+export const FAILED_TO_SEARCH_TAG = "FAILED_TO_SEARCH_TAG";
+
 export const getAllFeed = params => {
   return async dispatch => {
     try {
-      let response = await fetch(
-        ServerEndPoint + `api/post/all?index=${params.index}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "x-access-token": params.token
-          }
+      let response = Request.getData(
+        `api/post/all?index=${params.index}`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({ type: SUCCEED_TO_GET_FEED, payload: result });
+            return result;
         }
-      );
-      let responseJson = await response.json();
-      await dispatch({
-        type: SUCCEED_TO_GET_FEED,
-        payload: responseJson
       });
-      return responseJson;
+      return response;
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_FEED,
         payload: { data: "NETWORK_ERROR" }
       });
+      console.error(error);
     }
   };
 };
@@ -57,29 +66,26 @@ export const getAllFeed = params => {
 export const getFeed = params => {
   return async dispatch => {
     try {
-      let response = await fetch(
-        ServerEndPoint +
-          `api/post?post_type=${params.type}&index=${params.index}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "x-access-token": params.token
-          }
+      let response = Request.getData(
+        `api/post?post_type=${params.type}&index=${params.index}`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({ type: SUCCEED_TO_GET_FEED, payload: result });
+            return result;
         }
-      );
-      let responseJson = await response.json();
-      await dispatch({
-        type: SUCCEED_TO_GET_FEED,
-        payload: responseJson
       });
-      return responseJson;
+      return response;
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_FEED,
         payload: { data: "NETWORK_ERROR" }
       });
+      console.error(error);
     }
   };
 };
@@ -87,29 +93,93 @@ export const getFeed = params => {
 export const getFeedsByTagName = params => {
   return async dispatch => {
     try {
-      let response = await fetch(
-        ServerEndPoint +
-          `api/post/tag?title=${params.tag_name}&index=${params.index}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "x-access-token": params.token
-          }
+      let response = Request.getData(
+        `api/post/tag?title=${params.tag_name}&index=${
+          params.index
+        }&post_type=${1}`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({
+              type: SUCCEED_TO_GET_FEED_BY_TAG_NAME,
+              payload: result
+            });
+            return result;
         }
-      );
-      let responseJson = await response.json();
-      await dispatch({
-        type: SUCCEED_TO_GET_FEED_BY_TAG_NAME,
-        payload: responseJson
       });
-      return responseJson;
+      return response;
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_FEED_BY_TAG_NAME,
         payload: { data: "NETWORK_ERROR" }
       });
+      console.error(error);
+    }
+  };
+};
+
+export const searchTag = params => {
+  return async dispatch => {
+    try {
+      let response = Request.getData(
+        `api/post/search/tag?title=${
+          params.tag_name === "" ? null : params.tag_name
+        }`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({
+              type: SUCCEED_TO_SEARCH_TAG,
+              payload: result
+            });
+            return result;
+        }
+      });
+      return response;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_SEARCH_TAG,
+        payload: { data: "NETWORK_ERROR" }
+      });
+      console.error(error);
+    }
+  };
+};
+
+export const getImageByTagName = params => {
+  return async dispatch => {
+    try {
+      let response = Request.getData(
+        `api/post/tag/image?title=${params.tag_name}&all=${params.all}`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({
+              type: SUCCEED_TO_GET_IMAGE_BY_TAG_NAME,
+              payload: result
+            });
+            return result;
+        }
+      });
+      return response;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_GET_IMAGE_BY_TAG_NAME,
+        payload: { data: "NETWORK_ERROR" }
+      });
+      console.error(error);
     }
   };
 };
