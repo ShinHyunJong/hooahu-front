@@ -76,7 +76,8 @@ class UserPage extends Component {
       selectedPost: 0,
       dropdownOpen: false,
       selectedPostType: "Walkie Talkie",
-      feedLoading: true
+      feedLoading: true,
+      feeds: []
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -100,6 +101,16 @@ class UserPage extends Component {
     );
 
     this.setState({ selectedEC });
+
+    dispatch(UserAction.getFeedByUserID(params)).then(value => {
+      const userFeeds = value.slice();
+      for (let i = 0; i < userFeeds.length; i++) {
+        userFeeds[i].images = value[i].images.map((data, index) => {
+          return { original: data.img_url };
+        });
+      }
+      this.setState({ feeds: [userFeeds] });
+    });
   }
 
   componentDidMount() {
@@ -113,7 +124,8 @@ class UserPage extends Component {
       selectedPost,
       selectedFeed,
       user,
-      feedLoading
+      feedLoading,
+      feeds
     } = this.state;
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
@@ -152,9 +164,9 @@ class UserPage extends Component {
 
         <div className="userPage__feed">
           <div className="userPage__feed__content">
-            {/* <Post
-
-            /> */}
+            {feeds.map(data => {
+              return <Post feed={data} />;
+            })}
           </div>
         </div>
         <div className="userPage__filter">
