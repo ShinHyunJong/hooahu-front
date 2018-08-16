@@ -31,9 +31,22 @@
     box-sizing: border-box;
     background-color: ghostwhite;
 
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+
     &__content {
       padding-left: 70px;
       padding-top: 40px;
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
 
       &-loader {
         margin-top: 2.5rem;
@@ -127,6 +140,7 @@
     display: inline-table;
     width: calc(100vw - 710px);
     padding: 0 2rem;
+    height: 100vh;
     margin-left: 360px;
     padding-top: 50px;
     padding-bottom: 10rem;
@@ -135,8 +149,64 @@
     box-sizing: border-box;
     background-color: ghostwhite;
 
-    &__content {
+    @media screen and (max-width: 900px) {
+      overflow-y: scroll;
+      margin-left: 0;
+      width: 100vw;
+      display: inline-flex;
+    }
+    @media screen and (max-width: 600px) {
+      overflow-y: scroll;
+      margin-left: 0;
+      width: 100vw;
+      display: inline-flex;
+    }
+
+    &__userinfo {
+      display: none;
       padding-top: 40px;
+      box-sizing: border-box;
+      background-color: ghostwhite;
+      @media screen and (max-width: 900px) {
+        display: inline-table;
+      }
+
+      &__wrapper {
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 70px;
+        background-color: white;
+        display: flex;
+
+        &-thumb {
+          align-content: center;
+        }
+
+        &__text {
+          padding-left: 20px;
+
+          &-info {
+            margin-top: 0.7rem;
+            font-weight: bold;
+            color: black;
+          }
+        }
+      }
+    }
+
+    &__content {
+      padding-top: 20px;
+      @media screen and (max-width: 900px) {
+        padding-top: 3px;
+      }
+
+      &-loading {
+        margin-top: 1rem;
+        padding-left: 5px;
+        text-align: center;
+        background-color: white;
+      }
 
       &__inputArea {
         padding-top: 30px;
@@ -345,6 +415,14 @@
     height: 100vh;
     box-sizing: border-box;
     background-color: white;
+
+    // @media screen and (max-width: 900px) {
+    //   width: 200px;
+    // }
+
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
 
     &__wrapper {
       display: flex;

@@ -25,7 +25,7 @@ import {
 const defaultProps = {};
 const propTypes = {};
 
-const MyLoader = props => (
+const UserInfoLoader = props => (
   <div className="userPage__notice__content-loader">
     <ContentLoader
       height={330}
@@ -39,6 +39,26 @@ const MyLoader = props => (
       <rect x="110" y="270" rx="3" ry="3" width="190" height="15" />
       <rect x="45" y="310" rx="3" ry="3" width="300" height="10" />
       <circle cx="200" cy="80" r="80" />
+    </ContentLoader>
+  </div>
+);
+
+const UserFeedLoader = props => (
+  <div className="userPage__feed__content-loading">
+    <ContentLoader
+      height={160}
+      width={400}
+      speed={2}
+      primaryColor="#a8a8a8"
+      secondaryColor="#ecebeb"
+      {...props}
+    >
+      <rect x="69" y="33" rx="3" ry="3" width="117" height="5" />
+      <rect x="69" y="51" rx="3" ry="3" width="85" height="5" />
+      <rect x="15.02" y="81.63" rx="3" ry="3" width="320" height="5" />
+      <rect x="15" y="98" rx="3" ry="3" width="350" height="5" />
+      <rect x="15" y="116" rx="3" ry="3" width="201" height="5" />
+      <circle cx="39.2" cy="45.2" r="16" />
     </ContentLoader>
   </div>
 );
@@ -89,25 +109,20 @@ class UserPage extends Component {
   }
 
   componentWillMount() {
-    const { match, dispatch, token } = this.props;
     nprogress.start();
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
-    const user_id = Number(match.params.user_id);
-    const params = { user_id, token };
     this.setState({ selectedEC });
 
-    dispatch(UserAction.getUserByUserID(params)).then(user => {
-      dispatch(UserAction.getFeedByUserID(params)).then(value => {
-        const userFeeds = value.slice();
-        for (let i = 0; i < userFeeds.length; i++) {
-          userFeeds[i].images = value[i].images.map((data, index) => {
-            return { original: data.img_url };
-          });
-        }
-        this.setState({ user, feeds: userFeeds, feedLoading: false });
-      });
-    });
+    this.getUserFeed();
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (
+      previousProps.match.params.user_id !== this.props.match.params.user_id
+    ) {
+      this.getUserFeed();
+    }
   }
 
   componentDidMount() {
@@ -131,7 +146,7 @@ class UserPage extends Component {
         <NavBar listClassName="userPage__tabBar__list" />
         <div className="userPage__notice">
           {feedLoading ? (
-            <MyLoader />
+            <UserInfoLoader />
           ) : (
             <div className="userPage__notice__content">
               <div className="userPage__notice__content__wrapper">
@@ -160,11 +175,47 @@ class UserPage extends Component {
         </div>
 
         <div className="userPage__feed">
+          <div>
+            {feedLoading ? (
+              <UserFeedLoader />
+            ) : (
+              <div className="userPage__feed__userinfo">
+                <div className="userPage__feed__userinfo__wrapper">
+                  <Thumb
+                    className="userPage__feed__userinfo__wrapper-thumb"
+                    size={70}
+                    src={user && user.profile_img}
+                    fontSize={60}
+                  />
+                  <div className="userPage__feed__userinfo__wrapper__text">
+                    <div className="userPage__feed__userinfo__wrapper__text-name">
+                      <p>{`${user && user.first_name} ${user &&
+                        user.last_name}`}</p>
+                    </div>
+                    <div className="userPage__feed__userinfo__wrapper__text-info">
+                      {user && user.type === "Civ" ? (
+                        <p>{user && user.c_type}</p>
+                      ) : (
+                        <p>Military Personnel</p>
+                      )}
+                    </div>
+                    <div className="userPage__feed__userinfo__wrapper__text-area">
+                      {user && user.area}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="userPage__feed__content">
-            {feeds &&
+            {feedLoading ? (
+              <UserFeedLoader />
+            ) : (
+              feeds &&
               feeds.map((data, index) => {
                 return <Post key={index} feed={data} />;
-              })}
+              })
+            )}
           </div>
         </div>
         <div className="userPage__filter">
@@ -243,6 +294,24 @@ class UserPage extends Component {
   handleEditor = id => {
     this.props.history.push({
       pathname: "/editor_choice/" + id
+    });
+  };
+
+  getUserFeed = () => {
+    const { match, dispatch, token } = this.props;
+    const user_id = Number(match.params.user_id);
+    const params = { user_id, token };
+
+    dispatch(UserAction.getUserByUserID(params)).then(user => {
+      dispatch(UserAction.getFeedByUserID(params)).then(value => {
+        const userFeeds = value.slice();
+        for (let i = 0; i < userFeeds.length; i++) {
+          userFeeds[i].images = value[i].images.map((data, index) => {
+            return { original: data.img_url };
+          });
+        }
+        this.setState({ user, feeds: userFeeds, feedLoading: false });
+      });
     });
   };
 }
