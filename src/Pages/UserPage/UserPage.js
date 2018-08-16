@@ -95,21 +95,18 @@ class UserPage extends Component {
     const selectedEC = ec.editorChoice[randomPackage];
     const user_id = Number(match.params.user_id);
     const params = { user_id, token };
-
-    dispatch(UserAction.getUserByUserID(params)).then(user =>
-      this.setState({ user, feedLoading: false })
-    );
-
     this.setState({ selectedEC });
 
-    dispatch(UserAction.getFeedByUserID(params)).then(value => {
-      const userFeeds = value.slice();
-      for (let i = 0; i < userFeeds.length; i++) {
-        userFeeds[i].images = value[i].images.map((data, index) => {
-          return { original: data.img_url };
-        });
-      }
-      this.setState({ feeds: [userFeeds] });
+    dispatch(UserAction.getUserByUserID(params)).then(user => {
+      dispatch(UserAction.getFeedByUserID(params)).then(value => {
+        const userFeeds = value.slice();
+        for (let i = 0; i < userFeeds.length; i++) {
+          userFeeds[i].images = value[i].images.map((data, index) => {
+            return { original: data.img_url };
+          });
+        }
+        this.setState({ user, feeds: userFeeds, feedLoading: false });
+      });
     });
   }
 
@@ -164,9 +161,10 @@ class UserPage extends Component {
 
         <div className="userPage__feed">
           <div className="userPage__feed__content">
-            {feeds.map(data => {
-              return <Post feed={data} />;
-            })}
+            {feeds &&
+              feeds.map((data, index) => {
+                return <Post key={index} feed={data} />;
+              })}
           </div>
         </div>
         <div className="userPage__filter">

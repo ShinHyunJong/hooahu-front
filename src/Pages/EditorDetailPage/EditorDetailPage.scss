@@ -23,7 +23,7 @@
 
 .editorDetail {
   &__carousel {
-    width: 520px;
+    width: 100%;
   }
 
   &__modal {
@@ -64,6 +64,10 @@
     right: 5vh;
     top: 25vh;
 
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+
     &__icon {
       color: $dark-gray;
       font-size: 1.7rem;
@@ -89,6 +93,7 @@
     margin-left: 100px;
     margin-right: 100px;
   }
+
   &__content {
     padding-top: 60px;
     background-color: ghostwhite;
@@ -98,9 +103,17 @@
       display: flex;
       flex-direction: row;
 
+      @media screen and (max-width: 600px) {
+        flex-direction: column;
+      }
+
       &__text {
         flex: 1;
         padding: 100px 100px 50px 100px;
+
+        @media screen and (max-width: 600px) {
+          padding: 20px;
+        }
 
         &__title {
           font-weight: bold;
@@ -275,6 +288,10 @@
         flex: 1;
         padding: 120px 100px 150px 0px;
 
+        @media screen and (max-width: 600px) {
+          padding: 20px;
+        }
+
         &__tabs {
           border-radius: 0px;
 
@@ -300,6 +317,10 @@
         padding-left: 100px;
         display: flex;
 
+        @media screen and (max-width: 600px) {
+          padding: 20px 20px 0px 20px;
+        }
+
         &__text {
           font-weight: 300;
           color: $dark-gray;
@@ -310,6 +331,9 @@
       &__place {
         display: flex;
         flex-direction: row;
+        @media screen and (max-width: 600px) {
+          flex-direction: column;
+        }
 
         &__image {
           flex: 1;
@@ -317,11 +341,21 @@
           justify-content: center;
           align-items: center;
           padding-left: 100px;
+
+          @media screen and (max-width: 600px) {
+            padding: 0px 20px 20px 20px;
+            width: 100%;
+          }
         }
 
         &__text {
           flex: 1;
           padding: 50px 100px 100px 100px;
+
+          @media screen and (max-width: 600px) {
+            padding: 20px;
+            width: 100%;
+          }
 
           &__title {
             color: $gray;
