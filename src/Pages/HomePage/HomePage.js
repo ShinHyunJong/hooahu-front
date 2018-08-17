@@ -28,7 +28,9 @@ const propTypes = {};
 
 const renderSuggestion = (suggestion, { query, isHighlighted }) => (
   <div className="homePage__suggestion">
-    <p className="homePage__suggestion-title">{suggestion.title}</p>
+    <p className="homePage__suggestion-title" isHighlighted>
+      {suggestion.title}
+    </p>
     <span className="homePage__suggestion-count">{suggestion.C + "posts"}</span>
   </div>
 );
