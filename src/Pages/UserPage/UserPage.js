@@ -217,6 +217,11 @@ class UserPage extends Component {
                 <div className="userPage__notice__content__wrapper__area">
                   {user && user.area}
                 </div>
+                <div className="userPage__feed__userinfo__wrapper__button">
+                  {user.id == this.props.user.id ? (
+                    <button>Edit Profile</button>
+                  ) : null}
+                </div>
               </div>
             </div>
           )}
