@@ -8,6 +8,7 @@ import { NavBar } from "../../Components";
 import { Container, Row, Col } from "reactstrap";
 import filterJson from "../../Json/filter";
 import ec from "../../Json/ec";
+import Post from "../../Json/Post";
 import cx from "classnames";
 import NumberFormat from "react-number-format";
 import ProgressiveImage from "react-progressive-image-loading";
@@ -35,9 +36,19 @@ class GuidePage extends Component {
   componentDidUpdate() {}
 
   render() {
+    const postJson = Post.post;
+    console.log(postJson);
+    const objectArray = [
+      { name: "서그림", age: "22" },
+      { name: "윤지우", age: "24" },
+      { name: "신현종", age: "26" }
+    ];
+    console.log(objectArray);
+    console.log(objectArray.length);
     return (
       <div className="guidePage">
-        <NavBar isActive="guide" />This is Guide Redux Page
+        <NavBar isActive="guide" />
+        This is Guide Redux Page
         <div className="guidePage__notice">
           <div className="guidePage__notice__content">
             <div className="guidePage__notice__content__wrapper">
@@ -84,6 +95,18 @@ class GuidePage extends Component {
                   <p>Area & Maps</p>
                 </div>
               </div>
+              {objectArray
+                .filter(a => {
+                  return a.name !== "신현종";
+                })
+                .map((data, index) => {
+                  return (
+                    <div key={index}>
+                      <p>{data.name}</p>
+                      <span>{data.age}</span>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>

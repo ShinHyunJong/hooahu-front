@@ -24,12 +24,14 @@ const mapStateToProps = state => {
 class DefaultPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
     return (
       <div className="defaultPage">
-        <NavBar />This is Default Redux Page
+        <NavBar />
+        This is Default Redux Page
       </div>
     );
   }

@@ -9,14 +9,11 @@ const propTypes = {};
 class DefaultPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
-    return (
-      <div>
-				This is Default Page
-      </div>
-    );
+    return <div>This is Default Page</div>;
   }
 }
 

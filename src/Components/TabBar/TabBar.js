@@ -10,6 +10,7 @@ const propTypes = {};
 class TabBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
