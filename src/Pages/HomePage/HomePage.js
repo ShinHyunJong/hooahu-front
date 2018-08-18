@@ -28,9 +28,7 @@ const propTypes = {};
 
 const renderSuggestion = (suggestion, { query, isHighlighted }) => (
   <div className="homePage__suggestion">
-    <p className="homePage__suggestion-title" isHighlighted>
-      {suggestion.title}
-    </p>
+    <p className="homePage__suggestion-title">{suggestion.title}</p>
     <span className="homePage__suggestion-count">{suggestion.C + "posts"}</span>
   </div>
 );
@@ -162,13 +160,16 @@ class HomePage extends Component {
     const inputValue = (value && value.trim().toLowerCase()) || "";
     const inputLength = inputValue.length;
     const { dispatch } = this.props;
-    const params = { props: this.props, tag_name: inputValue };
+    let finalValue = inputValue.replace(/\#/g, "");
+    const params = { props: this.props, tag_name: finalValue };
 
-    dispatch(FeedAction.searchTag(params)).then(tags => {
+    dispatch(FeedAction.searchTag(params)).then(suggestion => {
       // let suggestion = tags.result.filter(state => {
       //   return state.title.toLowerCase().slice(0, inputLength) === inputValue;
       // });
-      this.setState(state => ({ suggestion: tags.result }));
+
+      console.log(suggestion);
+      this.setState(state => ({ suggestion: suggestion.result }));
     });
   };
 
@@ -194,7 +195,7 @@ class HomePage extends Component {
           addTag(suggestion.title);
         }}
         onSuggestionsClearRequested={() => {}}
-        highlightFirstSuggestion={true}
+        highlightFirstSuggestion
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
       />
     );
@@ -513,8 +514,8 @@ class HomePage extends Component {
         this.getAllFeed(index, 2);
       } else {
         const params = {
-          token,
           type: selectedPost,
+          props: this.props,
           index
         };
         dispatch(FeedAction.getFeed(params)).then(value => {
@@ -852,16 +853,18 @@ class HomePage extends Component {
 
   handleSignIn = () => {
     const { email, password, isEmpty } = this.state;
+
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
     const params = { email, password };
     if (!isEmpty) {
       this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+        const token = { props: { token: value } };
         if (value === "failed") {
           this.setState({ isValid: false });
         } else {
           this.setState({ isValid: true });
-          await this.props.dispatch(UserAction.getUser(value));
+          await this.props.dispatch(UserAction.getUser(token));
           await this.props.history.push({
             pathname: "/"
           });
