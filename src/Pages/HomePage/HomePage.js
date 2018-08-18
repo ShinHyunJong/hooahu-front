@@ -625,6 +625,7 @@ class HomePage extends Component {
       if (data.id === selectedPostIndex) {
         data.comments.push({
           content: comment,
+          user_id: user.id,
           post_id: selectedPostIndex,
           id: selectedComment.length,
           nickname: user.nickname,

@@ -65,7 +65,13 @@ class Thumb extends Component {
             marginTop: marginTop
           }}
         >
-          <img className="thumb__image" width={size} height={size} src={src} />
+          <img
+            className="thumb__image"
+            width={size}
+            height={size}
+            src={src}
+            alt="profile"
+          />
         </span>
       );
     }

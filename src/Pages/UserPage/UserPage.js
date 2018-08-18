@@ -209,9 +209,10 @@ class UserPage extends Component {
           </div>
           <div className="userPage__feed__content">
             {feedLoading ? (
-              <UserFeedLoader />
+              <div style={{ marginTop: 20 }}>
+                <UserFeedLoader />
+              </div>
             ) : (
-              feeds &&
               feeds.map((data, index) => {
                 return <Post key={index} feed={data} />;
               })
@@ -306,7 +307,7 @@ class UserPage extends Component {
       dispatch(UserAction.getFeedByUserID(params)).then(value => {
         const userFeeds = value.slice();
         for (let i = 0; i < userFeeds.length; i++) {
-          userFeeds[i].images = value[i].images.map((data, index) => {
+          userFeeds[i].images = userFeeds[i].images.map((data, index) => {
             return { original: data.img_url };
           });
         }

@@ -15,6 +15,7 @@ const styles = {
     margin: 0
   }
 };
+
 let option = {
   title: true,
   shortFormat: true,
@@ -25,33 +26,8 @@ let option = {
 class Post extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
-
-  handlePostType = postType => {
-    if (postType === 1) {
-      return "Walkie Takie";
-    } else if (postType === 2) {
-      return "Question";
-    } else if (postType === 3) {
-      return "Selling/Giving Away";
-    } else if (postType === 4) {
-      return "HangOut";
-    } else if (postType === 5) {
-      return "Area1";
-    } else if (postType === 6) {
-      return "Area2";
-    } else if (postType === 7) {
-      return "Area3";
-    } else if (postType === 8) {
-      return "Area4";
-    } else if (postType === 9) {
-      return "KATUSA";
-    } else if (postType === 10) {
-      return "Ville Channel";
-    } else {
-      return "Walkie Takie";
-    }
-  };
 
   render() {
     const {
@@ -196,6 +172,32 @@ class Post extends Component {
       </div>
     );
   }
+
+  handlePostType = postType => {
+    if (postType === 1) {
+      return "Walkie Takie";
+    } else if (postType === 2) {
+      return "Question";
+    } else if (postType === 3) {
+      return "Selling/Giving Away";
+    } else if (postType === 4) {
+      return "HangOut";
+    } else if (postType === 5) {
+      return "Area1";
+    } else if (postType === 6) {
+      return "Area2";
+    } else if (postType === 7) {
+      return "Area3";
+    } else if (postType === 8) {
+      return "Area4";
+    } else if (postType === 9) {
+      return "KATUSA";
+    } else if (postType === 10) {
+      return "Ville Channel";
+    } else {
+      return "Walkie Takie";
+    }
+  };
 }
 
 Post.defaultProps = defaultProps;
