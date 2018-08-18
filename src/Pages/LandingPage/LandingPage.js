@@ -3,22 +3,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col } from "reactstrap";
-import filterJson from "../../Json/filter";
-import ec from "../../Json/ec";
-import cx from "classnames";
-import NumberFormat from "react-number-format";
-import * as AuthAction from "../../ActionCreators/AuthAction";
-import * as UserAction from "../../ActionCreators/UserAction";
-import {
-  NavBar,
-  BoxList,
-  Post,
-  Thumb,
-  SocialInput,
-  RoundInput
-} from "../../Components";
-import ProgressiveImage from "react-progressive-image-loading";
+import { NavBar, RoundInput } from "../../Components";
 import { withRouter } from "react-router-dom"; // Material UI Provider for React
 
 const defaultProps = {};
