@@ -5,15 +5,16 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
+import * as FeedAction from "../../ActionCreators/FeedAction";
 import * as UserAction from "../../ActionCreators/UserAction";
-import { NavBar, Post, Thumb } from "../../Components";
+import { NavBar, Post, Thumb, SocialInput, Comment } from "../../Components";
 import ec from "../../Json/ec";
 import nprogress from "nprogress";
 import filterJson from "../../Json/filter";
 import cx from "classnames";
 import ContentLoader from "react-content-loader";
 import ProgressiveImage from "react-progressive-image";
-import Textarea from "react-textarea-autosize";
+import { Modal, ModalBody, ModalFooter } from "reactstrap";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -94,10 +95,14 @@ class UserPage extends Component {
       selectedEC: [],
       selectedFeed: 0,
       selectedPost: 0,
+      selectedComment: [],
       dropdownOpen: false,
       selectedPostType: "Walkie Talkie",
       feedLoading: true,
-      feeds: []
+      feeds: [],
+      showModal: false,
+      comment: "",
+      isPosting: false
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -135,15 +140,58 @@ class UserPage extends Component {
       selectedEC,
       selectedPost,
       selectedFeed,
+      selectedComment,
       user,
       feedLoading,
-      feeds
+      feeds,
+      showModal,
+      comment,
+      isPosting
     } = this.state;
     const feedType = filterJson.feed_type;
     const postType = filterJson.post_type;
     return (
       <div className="userPage">
         <NavBar listClassName="userPage__tabBar__list" />
+        <Modal
+          isOpen={showModal}
+          toggle={this.toggleModal}
+          wrapClassName="hooahu__modal"
+          size="lg"
+          modalTransition={{ timeout: 20 }}
+          backdropTransition={{ timeout: 10 }}
+          centered={true}
+        >
+          <ModalBody>
+            <div className="editorDetail__modal">
+              <div className="editorDetail__modal__comment">
+                <Comment
+                  isFeed
+                  comment={selectedComment}
+                  onClick={this.handleUser}
+                />
+              </div>
+              <SocialInput
+                className="editorDetail__modal__input"
+                user={user}
+                value={comment}
+                isLogin={isLogin}
+                isPosting={isPosting}
+                onChange={this.handleInput}
+                placeholder="Leave a comment"
+                onClick={this.handlePostComment}
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <span
+              onClick={this.toggleModal}
+              className="editorDetail__modal__close"
+            >
+              <i className="xi-close" />
+            </span>
+          </ModalFooter>
+        </Modal>
         <div className="userPage__notice">
           {feedLoading ? (
             <UserInfoLoader />
@@ -214,7 +262,19 @@ class UserPage extends Component {
               </div>
             ) : (
               feeds.map((data, index) => {
-                return <Post key={index} feed={data} />;
+                return (
+                  <Post
+                    key={index}
+                    feed={data}
+                    onClickTag={this.handleTag}
+                    onClickThumb={this.handleUser}
+                    onClickUser={this.handleUser}
+                    onClickComment={this.handleComment}
+                    onClickCommentUser={this.handleUser}
+                    onClickLike={id => this.handleLike(id, index)}
+                    onClickDisLike={id => this.handleDisLike(id, index)}
+                  />
+                );
               })
             )}
           </div>
@@ -295,6 +355,86 @@ class UserPage extends Component {
   handleEditor = id => {
     this.props.history.push({
       pathname: "/editor_choice/" + id
+    });
+  };
+
+  handleTag = name => {
+    name = name.substring(1);
+    const { history } = this.props;
+    history.push({
+      pathname: "/tag/" + name
+    });
+  };
+
+  handleUser = user_id => {
+    const { history } = this.props;
+    history.push({
+      pathname: "/@" + user_id
+    });
+  };
+
+  handleComment = (id, comments) => {
+    this.setState(state => ({
+      selectedPostIndex: id,
+      selectedComment: comments
+      // showModal: true
+    }));
+    this.toggleModal();
+  };
+
+  handleLike = (id, index) => {
+    const { dispatch, token } = this.props;
+    const { feeds } = this.state;
+    const params = { token, post_id: id };
+    const newFeeds = feeds.slice();
+    newFeeds[index].isLiked = true;
+    newFeeds[index].like_cnt += 1;
+    this.setState(state => ({ feeds: newFeeds }));
+    dispatch(FeedAction.postLike(params));
+  };
+
+  handleDisLike = (id, index) => {
+    const { dispatch, token } = this.props;
+    const params = { token, post_id: id };
+    const { feeds } = this.state;
+    const newFeeds = feeds.slice();
+    newFeeds[index].isLiked = false;
+    newFeeds[index].like_cnt -= 1;
+    this.setState(state => ({ feeds: newFeeds }));
+    dispatch(FeedAction.disLike(params));
+  };
+
+  toggleModal = () => {
+    this.setState(state => ({
+      showModal: !this.state.showModal
+    }));
+  };
+
+  handleInput = e => {
+    this.setState({ comment: e.target.value });
+  };
+
+  handlePostComment = () => {
+    const { dispatch, token, user } = this.props;
+    const { comment, selectedPostIndex, selectedComment, feeds } = this.state;
+    const newFeed = feeds.slice();
+    newFeed.map((data, index) => {
+      if (data.id === selectedPostIndex) {
+        data.comments.push({
+          content: comment,
+          user_id: user.id,
+          post_id: selectedPostIndex,
+          id: selectedComment.length,
+          nickname: user.nickname,
+          created_at: new Date()
+        });
+      }
+    });
+
+    const params = { post_id: selectedPostIndex, content: comment, token };
+    this.setState(state => ({ isPosting: true, feeds: newFeed }));
+    dispatch(FeedAction.postComment(params)).then(value => {
+      this.setState(state => ({ isPosting: false, comment: "" }));
     });
   };
 
