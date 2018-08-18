@@ -737,6 +737,7 @@ class HomePage extends Component {
       this.props.dispatch(FeedAction.postFeed(params)).then(value => {
         const frontParams = {
           id: value.newPostId,
+          user_id: user.id,
           content: feedText,
           post_type: selectedPostTypeIndex,
           images,
