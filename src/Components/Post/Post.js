@@ -67,7 +67,7 @@ class Post extends Component {
                     ? feed && feed.user[0].nickname
                     : feed && feed.nickname}
                 </strong>
-                {"in " + this.handlePostType(feed.postType)}
+                {"in " + this.handlePostType(feed.post_type)}
               </p>
               <p className="post__header__userInfo__nameArea__time">
                 {feed && moment(feed.created_at).fromNow()}
