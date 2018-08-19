@@ -11,6 +11,7 @@ const propTypes = {};
 class Comment extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {

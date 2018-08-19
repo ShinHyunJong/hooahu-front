@@ -12,18 +12,11 @@ const propTypes = {};
 class RoundButton extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
-    let {
-      icon,
-      text,
-      iconClassName,
-      textClassName,
-      className,
-      onClick,
-      disabled
-    } = this.props;
+    let { text, textClassName, className, onClick, disabled } = this.props;
     return (
       <div className="roundButton">
         <Button
