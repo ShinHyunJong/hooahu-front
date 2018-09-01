@@ -1,5 +1,5 @@
 /*
-* Author: @nayunhwan (github.com/nayunhwan)
+* Author: @ShinHynJong (github.com/ShinHyunJong)
 * Email: nayunhwan.dev@mgail.com
 */
 import {
