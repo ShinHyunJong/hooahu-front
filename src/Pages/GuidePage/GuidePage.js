@@ -5,13 +5,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { NavBar } from "../../Components";
-import { Container, Row, Col } from "reactstrap";
-import filterJson from "../../Json/filter";
-import ec from "../../Json/ec";
-import Post from "../../Json/Post";
 import cx from "classnames";
-import NumberFormat from "react-number-format";
-import ProgressiveImage from "react-progressive-image-loading";
 
 const defaultProps = {};
 const propTypes = {};
@@ -25,7 +19,16 @@ class GuidePage extends Component {
     super(props);
     this.state = {
       input: "",
-      data: []
+      data: [],
+      selectedKey: "usfk",
+      tabs: [
+        { key: "usfk", name: "USFK Personnel" },
+        { key: "local", name: "Local Community" },
+        { key: "busi", name: "Business" },
+        { key: "korea", name: "About Korea" },
+        { key: "trans", name: "Public Transportation" },
+        { key: "area", name: "Area & Maps" }
+      ]
     };
   }
 
@@ -36,15 +39,7 @@ class GuidePage extends Component {
   componentDidUpdate() {}
 
   render() {
-    const postJson = Post.post;
-    console.log(postJson);
-    const objectArray = [
-      { name: "서그림", age: "22" },
-      { name: "윤지우", age: "24" },
-      { name: "신현종", age: "26" }
-    ];
-    console.log(objectArray);
-    console.log(objectArray.length);
+    const { tabs, selectedKey } = this.state;
     return (
       <div className="guidePage">
         <NavBar isActive="guide" />
@@ -62,73 +57,39 @@ class GuidePage extends Component {
                 }}
               >
                 <p>Welcome!</p>
-                <p>Learn how to use Hooah!U smarter!</p>
+                <p>
+                  Learn how to use <b>Hooah!U</b> smarter!
+                </p>
               </div>
               <hr />
-              <div className="guidePage__notice__content__wrapper__itemContainer">
-                <div className="guidePage__notice__content__wrapper__itemContainer__item">
-                  <p>USFK Personnel</p>
-                </div>
-              </div>
-              <div className="guidePage__notice__content__wrapper__itemContainer">
-                <div className="guidePage__notice__content__wrapper__itemContainer__item">
-                  <p>Local Community</p>
-                </div>
-              </div>
-              <div className="guidePage__notice__content__wrapper__itemContainer">
-                <div className="guidePage__notice__content__wrapper__itemContainer__item">
-                  <p>Business</p>
-                </div>
-              </div>
-              <div className="guidePage__notice__content__wrapper__itemContainer">
-                <div className="guidePage__notice__content__wrapper__itemContainer__item">
-                  <p>About Korea</p>
-                </div>
-              </div>
-              <div className="guidePage__notice__content__wrapper__itemContainer">
-                <div className="guidePage__notice__content__wrapper__itemContainer__item">
-                  <p>Public Transportation</p>
-                </div>
-              </div>
-              <div className="guidePage__notice__content__wrapper__itemContainer">
-                <div className="guidePage__notice__content__wrapper__itemContainer__item">
-                  <p>Area & Maps</p>
-                </div>
-              </div>
-              {objectArray
-                .filter(a => {
-                  return a.name !== "신현종";
-                })
-                .map((data, index) => {
-                  return (
-                    <div key={index}>
+              {tabs.map(data => {
+                return (
+                  <div
+                    key={data.key}
+                    className={cx(
+                      "guidePage__notice__content__wrapper__itemContainer",
+                      {
+                        "guidePage__notice__content__wrapper__itemContainer-active":
+                          selectedKey === data.key
+                      }
+                    )}
+                    onClick={() => this.handleClick(data.key)}
+                  >
+                    <div className="guidePage__notice__content__wrapper__itemContainer__item">
                       <p>{data.name}</p>
-                      <span>{data.age}</span>
                     </div>
-                  );
-                })}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
         <div className="guidePage__feed">
           <div className="guidePage__feed__content">
             <div className="guidePage__feed__content__header">
-              <h4
-                style={this.state.input.length > 10 ? { color: "red" } : null}
-              >
-                How to use Hooah!U smarter for USFK Personnel
-              </h4>
-              <input placeholder="test" onChange={this.handleInput} />
-              <div>{this.state.input}</div>
+              {this.renderBody()}
             </div>
             <hr />
-          </div>
-        </div>
-        <div className="guidePage__filter">
-          <div className="guidePage__filter__wrapper">
-            <div className="guidePage__filter__content">
-              <h2>haha</h2>
-            </div>
           </div>
         </div>
       </div>
@@ -137,6 +98,29 @@ class GuidePage extends Component {
 
   handleInput = e => {
     this.setState({ input: e.target.value });
+  };
+
+  handleClick = param => {
+    this.setState({ selectedKey: param });
+  };
+
+  renderBody = () => {
+    switch (this.state.selectedKey) {
+      case "usfk":
+        return <h4>How to use Hooah!U smarter for USFK Personnel</h4>;
+      case "local":
+        return <h4>How to use Hooah!U smarter for Local Community</h4>;
+      case "busi":
+        return <h4>How to use Hooah!U smarter for Business</h4>;
+      case "korea":
+        return <h4>How to use Hooah!U smarter for About Korea</h4>;
+      case "trans":
+        return <h4>How to use Hooah!U smarter for Public Transportation</h4>;
+      case "area":
+        return <h4>How to use Hooah!U smarter for Area & Maps</h4>;
+      default:
+        return null;
+    }
   };
 }
 
