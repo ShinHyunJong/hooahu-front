@@ -1,6 +1,5 @@
 /*
 * Author: @ShinHynJong (github.com/ShinHyunJong)
-* Email: nayunhwan.dev@mgail.com
 */
 import {
   SUCCEED_TO_SIGNUP,
