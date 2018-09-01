@@ -11,7 +11,8 @@ import {
 
 import {
   SUCCEED_TO_GET_USER,
-  SUCCEED_TO_GET_USER_BY_USER_ID
+  SUCCEED_TO_GET_USER_BY_USER_ID,
+  TOKEN_EXPIRED
 } from "../ActionCreators/UserAction";
 import { SUCCEED_TO_GET_FEED } from "../ActionCreators/FeedAction";
 
@@ -28,6 +29,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case TOKEN_EXPIRED:
+      return Object.assign({}, state, {
+        token: null,
+        isLogin: false
+      });
     case SUCCEED_TO_SIGNUP:
       localStorage.setItem("token", action.payload);
       return Object.assign({}, state, {

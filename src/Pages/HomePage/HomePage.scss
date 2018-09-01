@@ -54,7 +54,7 @@
     position: fixed;
     z-index: 0;
     left: 0;
-    width: 360px;
+    width: 460px;
     height: 100vh;
     overflow-y: auto;
     box-sizing: border-box;
@@ -64,7 +64,7 @@
     }
 
     &__content {
-      padding-left: 70px;
+      padding-left: 170px;
       padding-top: 40px;
       padding-bottom: 40px;
       @media screen and (max-width: 600px) {
@@ -210,10 +210,10 @@
 
   &__feed {
     display: inline-table;
-    width: calc(100vw - 710px);
+    width: calc(100vw - 810px);
     padding: 0 2rem;
     height: 100vh;
-    margin-left: 360px;
+    margin-left: 460px;
 
     @media screen and (max-width: 600px) {
       overflow-y: scroll;
