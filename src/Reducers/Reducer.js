@@ -1,6 +1,5 @@
 /*
-* Author: @nayunhwan (github.com/nayunhwan)
-* Email: nayunhwan.dev@mgail.com
+* Author: @ShinHynJong (github.com/ShinHyunJong)
 */
 import {
   SUCCEED_TO_SIGNUP,
