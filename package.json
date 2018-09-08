@@ -59,6 +59,7 @@
     "react-content-loader": "^3.1.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.4.2",
+    "react-facebook-login": "^4.1.0",
     "react-file-input": "^0.2.5",
     "react-file-input-previews-base64": "^1.0.6",
     "react-flip-move": "^3.0.2",

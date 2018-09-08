@@ -5,6 +5,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavBar, RoundInput } from "../../Components";
 import { withRouter } from "react-router-dom"; // Material UI Provider for React
+import ReactDOM from "react-dom";
+import FacebookLogin from "react-facebook-login";
 
 const defaultProps = {};
 const propTypes = {};
@@ -13,6 +15,9 @@ const mapStateToProps = state => {
   return {
     actionResult: state.reducer.actionResult
   };
+};
+const responseFacebook = response => {
+  console.log(response);
 };
 
 class LandingPage extends Component {
@@ -80,6 +85,15 @@ class LandingPage extends Component {
                 <button onClick={onClickSign} disabled={isEmpty}>
                   Log In
                 </button>
+              </div>
+              <div>
+                <FacebookLogin
+                  appId="1088597931155576"
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  icon="fa-facebook-square"
+                />
               </div>
             </div>
 
