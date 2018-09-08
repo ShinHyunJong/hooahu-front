@@ -45,7 +45,8 @@ export const getAllFeed = params => {
       ).then(result => {
         switch (result) {
           case "token_expired":
-            return dispatch({ type: TOKEN_EXPIRED });
+            dispatch({ type: TOKEN_EXPIRED });
+            return "token_expired";
 
           default:
             dispatch({ type: SUCCEED_TO_GET_FEED, payload: result });
@@ -309,25 +310,28 @@ export const disLike = params => {
 export const getTagRank = params => {
   return async dispatch => {
     try {
-      let response = await fetch(ServerEndPoint + "api/post/tag/rank", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "x-access-token": params.token
+      let response = Request.getData(`api/post/tag/rank`, params).then(
+        result => {
+          switch (result) {
+            case "token_expired":
+              return dispatch({ type: TOKEN_EXPIRED });
+
+            default:
+              dispatch({
+                type: SUCCEED_TO_GET_TAG_RANK,
+                payload: result.result
+              });
+              return result.result;
+          }
         }
-      });
-      let responseJson = await response.json();
-      await dispatch({
-        type: SUCCEED_TO_GET_TAG_RANK,
-        payload: responseJson.result
-      });
-      return responseJson.result;
+      );
+      return response;
     } catch (error) {
       dispatch({
         type: FAILED_TO_GET_TAG_RANK,
         payload: { data: "NETWORK_ERROR" }
       });
+      console.error(error);
     }
   };
 };
