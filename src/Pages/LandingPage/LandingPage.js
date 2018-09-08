@@ -16,6 +16,7 @@ const mapStateToProps = state => {
     actionResult: state.reducer.actionResult
   };
 };
+
 const responseFacebook = response => {
   console.log(response);
 };

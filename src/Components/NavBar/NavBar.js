@@ -125,6 +125,18 @@ class NavBar extends Component {
     });
   };
 
+  handlePrivacy = () => {
+    this.props.history.push({
+      pathname: "/privacypolicy"
+    });
+  };
+
+  handleTerms = () => {
+    this.props.history.push({
+      pathname: "/termsofsevice"
+    });
+  };
+
   render() {
     const { isLogin, isActive, user, isStart } = this.props;
     return (
@@ -205,6 +217,12 @@ class NavBar extends Component {
                       <DropdownItem>Business Solution</DropdownItem>
                     ) : null}
                     <DropdownItem>About</DropdownItem>
+                    <DropdownItem onClick={this.handlePrivacy}>
+                      Privacy Policy
+                    </DropdownItem>
+                    <DropdownItem onClick={this.handleTerms}>
+                      Terms of Service
+                    </DropdownItem>
                     <DropdownItem divider />
                     {isLogin === true ? (
                       <DropdownItem onClick={this.handleAuth}>
