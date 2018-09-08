@@ -49,7 +49,7 @@ class App extends Component {
     const params = { props: this.props };
     if (token === null || token === undefined || !isLogin) {
       history.push({
-        pathname: "/"
+        pathname: "/signup"
       });
     } else {
       dispatch(UserAction.getUser(params));
