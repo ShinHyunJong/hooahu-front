@@ -24,10 +24,11 @@ class GuidePage extends Component {
       tabs: [
         { key: "usfk", name: "USFK Personnel" },
         { key: "local", name: "Local Community" },
-        { key: "busi", name: "Business" },
+        { key: "busi", name: "Business Owner" },
         { key: "korea", name: "About Korea" },
         { key: "trans", name: "Public Transportation" },
-        { key: "area", name: "Area & Maps" }
+        { key: "area", name: "Area & Maps" },
+        { key: "emer", name: "Emergency" }
       ]
     };
   }
@@ -111,13 +112,15 @@ class GuidePage extends Component {
       case "local":
         return <h4>How to use Hooah!U smarter for Local Community</h4>;
       case "busi":
-        return <h4>How to use Hooah!U smarter for Business</h4>;
+        return <h4>How to use Hooah!U smarter for Business Owner</h4>;
       case "korea":
         return <h4>How to use Hooah!U smarter for About Korea</h4>;
       case "trans":
         return <h4>How to use Hooah!U smarter for Public Transportation</h4>;
       case "area":
         return <h4>How to use Hooah!U smarter for Area & Maps</h4>;
+      case "emer":
+        return <h4>How to use Hooah!U smarter for Emergency</h4>;
       default:
         return null;
     }
