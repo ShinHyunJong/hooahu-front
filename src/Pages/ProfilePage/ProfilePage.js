@@ -5,6 +5,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { NavBar } from "../../Components";
+import { Container, Row, Col } from "reactstrap";
+import filterJson from "../../Json/filter";
+import ec from "../../Json/ec";
+import cx from "classnames";
+import NumberFormat from "react-number-format";
+import ProgressiveImage from "react-progressive-image-loading";
 
 const defaultProps = {};
 const propTypes = {};
@@ -15,7 +21,7 @@ const mapStateToProps = state => {
   };
 };
 
-class ProfilePage extends Component {
+class DefaultPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -31,7 +37,7 @@ class ProfilePage extends Component {
   }
 }
 
-ProfilePage.defaultProps = defaultProps;
-ProfilePage.propTypes = propTypes;
+DefaultPage.defaultProps = defaultProps;
+DefaultPage.propTypes = propTypes;
 
-export default connect(mapStateToProps)(ProfilePage);
+export default connect(mapStateToProps)(DefaultPage);
