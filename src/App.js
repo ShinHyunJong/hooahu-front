@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  withRouter
+  withRouter,
+  Switch
 } from "react-router-dom"; // Material UI Provider for React
 
 import { connect } from "react-redux";
@@ -44,9 +45,9 @@ class App extends Component {
     this.state = {};
   }
   componentWillMount() {
-    const { token, dispatch, history } = this.props;
+    const { token, dispatch, history, isLogin } = this.props;
     const params = { props: this.props };
-    if (token === null || token === undefined) {
+    if (token === null || token === undefined || !isLogin) {
       history.push({
         pathname: "/"
       });
@@ -60,14 +61,16 @@ class App extends Component {
       <div>
         <Route exact path="/" component={HomePage} />
         <Route path="/@:user_id" component={UserPage} />
-        <Route exact path="/signup" component={SignUpPage} />
-        <Route path="/signup/choose" component={SignUpChoose} />
-        <Route path="/signup/email" component={SignUpEmail} />
-        <Route path="/signup/username" component={SignUpUserName} />
-        <Route path="/signup/civ" component={SignUpCiv} />
-        <Route path="/signup/unit" component={SignUpUnit} />
-        <Route path="/signup/business" component={SignUpBusiness} />
-        <Route path="/signup/reason" component={SignUpWork} />
+        <Switch>
+          <Route exact path="/signup" component={SignUpPage} />
+          <Route path="/signup/choose" component={SignUpChoose} />
+          <Route path="/signup/email" component={SignUpEmail} />
+          <Route path="/signup/username" component={SignUpUserName} />
+          <Route path="/signup/civ" component={SignUpCiv} />
+          <Route path="/signup/unit" component={SignUpUnit} />
+          <Route path="/signup/business" component={SignUpBusiness} />
+          <Route path="/signup/reason" component={SignUpWork} />
+        </Switch>
         <Route exact path="/editor_choice" component={EditorChoicePage} />
         <Route path="/editor_choice/:package" component={EditorDetailPage} />
         <Route exact path="/guide" component={GuidePage} />

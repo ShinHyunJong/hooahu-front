@@ -52,6 +52,11 @@
           align-items: center;
           margin-bottom: 10px;
 
+          &-active {
+            color: $sub-color;
+            border-left: 4px solid $sub-color;
+          }
+
           &:hover {
             @include transition(0.3s);
             color: $sub-color;

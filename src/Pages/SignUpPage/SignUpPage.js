@@ -94,6 +94,17 @@ class SignUpPage extends Component {
               />
             </div> */}
             <div className="signUp__content__title__buttonArea">
+              <Link to="/">
+                <RoundButton
+                  text="Sign In"
+                  icon="xi-mail"
+                  className="signUp__content__title__button"
+                  textClassName="signUp__content__title__text"
+                  iconClassName="signUp__content__title__icon"
+                />
+              </Link>
+            </div>
+            <div className="signUp__content__title__buttonArea">
               <Link to="/signup/choose">
                 <RoundButton
                   text="Sign Up With Email"
