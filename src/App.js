@@ -31,8 +31,7 @@ import {
   GuidePage,
   TagPage
 } from "./Pages/";
-import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage/PrivacyPolicyPage";
-import TermsOfServicePage from "./Pages/TermsOfServicePage/TermsOfServicePage";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 const mapStateToProps = state => {
   return {
@@ -62,17 +61,16 @@ class App extends Component {
     return (
       <div className="app">
         <Route exact path="/" component={HomePage} />
-        <Route path="/@:user_id" component={UserPage} />
-        <Switch>
-          <Route exact path="/signup" component={SignUpPage} />
-          <Route path="/signup/choose" component={SignUpChoose} />
-          <Route path="/signup/email" component={SignUpEmail} />
-          <Route path="/signup/username" component={SignUpUserName} />
-          <Route path="/signup/civ" component={SignUpCiv} />
-          <Route path="/signup/unit" component={SignUpUnit} />
-          <Route path="/signup/business" component={SignUpBusiness} />
-          <Route path="/signup/reason" component={SignUpWork} />
-        </Switch>
+        <Route exact path="/@:user_id" component={UserPage} />
+        <Route path="/@:user_id/profile" component={ProfilePage} />
+        <Route exact path="/signup" component={SignUpPage} />
+        <Route path="/signup/choose" component={SignUpChoose} />
+        <Route path="/signup/email" component={SignUpEmail} />
+        <Route path="/signup/username" component={SignUpUserName} />
+        <Route path="/signup/civ" component={SignUpCiv} />
+        <Route path="/signup/unit" component={SignUpUnit} />
+        <Route path="/signup/business" component={SignUpBusiness} />
+        <Route path="/signup/reason" component={SignUpWork} />
         <Route exact path="/editor_choice" component={EditorChoicePage} />
         <Route path="/editor_choice/:package" component={EditorDetailPage} />
         <Route exact path="/guide" component={GuidePage} />
