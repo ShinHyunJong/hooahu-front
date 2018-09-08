@@ -156,6 +156,12 @@ class HomePage extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.isLogin && !this.props.isLogin) {
+      nprogress.done();
+    }
+  }
+
   onSuggestionsFetchRequested = ({ value }) => {
     const inputValue = (value && value.trim().toLowerCase()) || "";
     const inputLength = inputValue.length;
@@ -168,7 +174,6 @@ class HomePage extends Component {
       //   return state.title.toLowerCase().slice(0, inputLength) === inputValue;
       // });
 
-      console.log(suggestion);
       this.setState(state => ({ suggestion: suggestion.result }));
     });
   };

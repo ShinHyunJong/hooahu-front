@@ -44,9 +44,9 @@ class App extends Component {
     this.state = {};
   }
   componentWillMount() {
-    const { token, dispatch, history } = this.props;
+    const { token, dispatch, history, isLogin } = this.props;
     const params = { props: this.props };
-    if (token === null || token === undefined) {
+    if (token === null || token === undefined || !isLogin) {
       history.push({
         pathname: "/"
       });
