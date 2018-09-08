@@ -149,7 +149,6 @@ class HomePage extends Component {
     if (isLogin) {
       this.setState({ selectedEC, feedLoading: true });
       this.getAllFeed(0, 1);
-      this.getTagRank();
     } else {
       this.setState({ selectedEC });
       nprogress.done();
@@ -550,31 +549,30 @@ class HomePage extends Component {
       isPosting: typeIndex === 0 ? true : false // 맨처음 로딩인지, 필터링 로딩인지
     }));
     dispatch(FeedAction.getAllFeed(params)).then(value => {
-      const newFeeds = value.result.slice();
-      for (let i = 0; i < newFeeds.length; i++) {
-        if (newFeeds[i].isLiked) {
-          newFeeds[i].isLiked = true;
+      if (value === "token_expired") {
+        nprogress.done();
+      } else {
+        const newFeeds = value.result.slice();
+        for (let i = 0; i < newFeeds.length; i++) {
+          if (newFeeds[i].isLiked) {
+            newFeeds[i].isLiked = true;
+          }
+          newFeeds[i].images = value.result[i].images.map((data, index) => {
+            return { original: data.img_url };
+          });
         }
-        newFeeds[i].images = value.result[i].images.map((data, index) => {
-          return { original: data.img_url };
+        this.setState(state => ({
+          feeds: typeIndex === 2 ? [...state.feeds, ...newFeeds] : newFeeds,
+          feedLoading: false,
+          isPosting: false,
+          index: value.nextIndex,
+          footerLoading: value.result.length < 20 ? false : true
+        }));
+        dispatch(FeedAction.getTagRank(params)).then(tagRank => {
+          this.setState(state => ({ tagRank, tagRankLoading: false }));
+          nprogress.done();
         });
       }
-      this.setState(state => ({
-        feeds: typeIndex === 2 ? [...state.feeds, ...newFeeds] : newFeeds,
-        feedLoading: false,
-        isPosting: false,
-        index: value.nextIndex,
-        footerLoading: value.result.length < 20 ? false : true
-      }));
-      nprogress.done();
-    });
-  };
-
-  getTagRank = () => {
-    const { dispatch, token } = this.props;
-    const params = { token };
-    dispatch(FeedAction.getTagRank(params)).then(tagRank => {
-      this.setState(state => ({ tagRank, tagRankLoading: false }));
     });
   };
 
@@ -878,7 +876,6 @@ class HomePage extends Component {
           nprogress.start();
           this.setState({ selectedEC, feedLoading: true });
           this.getAllFeed(0, 1);
-          this.getTagRank();
         }
       });
     }

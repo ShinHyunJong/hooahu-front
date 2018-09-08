@@ -13,7 +13,7 @@ export const getData = async (url, params) => {
     let responseJson = await response.json();
     if (response.status === 403) {
       params.props.history.replace({
-        pathname: "/"
+        pathname: "/signup"
       });
       return "token_expired";
     } else {
