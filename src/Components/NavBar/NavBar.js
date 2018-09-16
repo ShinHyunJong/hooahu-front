@@ -19,6 +19,7 @@ import {
 import cx from "classnames";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Search } from "semantic-ui-react";
 import * as AuthAction from "../../ActionCreators/AuthAction";
 import { Thumb } from "../";
 import { confirmAlert } from "react-confirm-alert";
@@ -126,13 +127,29 @@ class NavBar extends Component {
   };
 
   render() {
-    const { isLogin, isActive, user, isStart } = this.props;
+    const {
+      isLogin,
+      isActive,
+      user,
+      isStart,
+      onChangeSearch,
+      onPressSearch,
+      searchValue
+    } = this.props;
     return (
       <Navbar className="navBar" light expand="md" fixed="top">
         <NavbarBrand className="navBar__logo" onClick={this.handleHome}>
           <img src={MainLogo} width={130} />
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
+        <div className="navBar__search">
+          <input
+            placeholder="Search..."
+            value={searchValue}
+            onChange={onChangeSearch}
+            onKeyPress={onPressSearch}
+          />
+        </div>
         <Collapse isOpen={this.state.isOpen} navbar>
           {this.props.menuVisible === true ? null : (
             <Nav className={cx("ml-auto", "navBar__items")} navbar>

@@ -130,7 +130,8 @@ class HomePage extends Component {
       tags: [],
       tagRank: [],
       tagRankLoading: true,
-      suggestion: []
+      suggestion: [],
+      search: ""
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -232,7 +233,12 @@ class HomePage extends Component {
     if (isLogin) {
       return (
         <div className="homePage">
-          <NavBar isActive="feed" listClassName="homePage__tabBar__list" />
+          <NavBar
+            isActive="feed"
+            listClassName="homePage__tabBar__list"
+            onChangeSearch={this.onChangeSearch}
+            onPressSearch={this.onPressSearch}
+          />
           <BottomScrollListener onBottom={this.handleScroll} offset={150} />
           <Modal
             isOpen={showModal}
@@ -508,6 +514,19 @@ class HomePage extends Component {
       );
     }
   }
+
+  onChangeSearch = e => {
+    this.setState({ search: e.target.value });
+  };
+
+  onPressSearch = e => {
+    console.log("123123");
+    const { history } = this.props;
+    const { search } = this.state;
+    if (e.key === "Enter") {
+      history.push({ pathname: "/search", search: `?keyword=${search}` });
+    }
+  };
 
   handleScroll = () => {
     const { dispatch, token } = this.props;

@@ -17,6 +17,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import "react-tagsinput/react-tagsinput.css";
 // Main SCSS
 import "./index.scss";
+import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-image-lightbox/style.css";
 

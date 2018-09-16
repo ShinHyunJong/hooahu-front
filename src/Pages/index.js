@@ -21,6 +21,7 @@ import EditorDetailPage from "./EditorDetailPage/EditorDetailPage";
 import UserPage from "./UserPage/UserPage";
 import GuidePage from "./GuidePage/GuidePage";
 import TagPage from "./TagPage/TagPage";
+import SearchPage from "./SearchPage/SearchPage";
 
 export {
   DefaultPage,
@@ -35,6 +36,7 @@ export {
   SignUpCiv,
   SignUpBusiness,
   SignUpWork,
+  SearchPage,
   EditorChoicePage,
   EditorDetailPage,
   UserPage,
