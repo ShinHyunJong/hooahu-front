@@ -49,6 +49,8 @@ class SignUpUnit extends Component {
   };
 
   handleNext = () => {
+    console.log(this.props.location.state);
+
     const unit = unitJson.data;
     const {
       email,
@@ -57,40 +59,81 @@ class SignUpUnit extends Component {
       last,
       nick,
       type,
-      c_type
+      c_type,
+      fbLogin
     } = this.props.location.state;
-    if (c_type === undefined || c_type === null) {
-      this.props.history.push({
-        pathname: "/signup/reason",
-        state: {
-          email: email,
-          password: password,
-          first: first,
-          last: last,
-          nick: nick,
-          type: type,
-          c_type: "",
-          w_type: "",
-          area: unit[this.state.selectedArea].area,
-          camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
-        }
-      });
+    if (fbLogin) {
+      if (c_type === undefined || c_type === null) {
+        this.props.history.push({
+          pathname: "/signup/reason",
+          state: {
+            fbLogin: fbLogin,
+            email: email,
+            password: null,
+            first: first,
+            last: last,
+            nick: nick,
+            type: type,
+            c_type: "",
+            w_type: "",
+            area: unit[this.state.selectedArea].area,
+            camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
+          }
+        });
+      } else {
+        this.props.history.push({
+          pathname: "/signup/reason",
+          state: {
+            isfbLogin: true,
+            fbID: fbLogin.userID,
+            fbImage: fbLogin.picture,
+            email: fbLogin.email,
+            password: "",
+            first: fbLogin.name,
+            last: "",
+            nick: fbLogin.name,
+            type: type,
+            c_type: c_type,
+            w_type: "",
+            area: unit[this.state.selectedArea].area,
+            camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
+          }
+        });
+      }
     } else {
-      this.props.history.push({
-        pathname: "/signup/reason",
-        state: {
-          email: email,
-          password: password,
-          first: first,
-          last: last,
-          nick: nick,
-          type: type,
-          c_type: c_type,
-          w_type: "",
-          area: unit[this.state.selectedArea].area,
-          camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
-        }
-      });
+      if (c_type === undefined || c_type === null) {
+        this.props.history.push({
+          pathname: "/signup/reason",
+          state: {
+            email: email,
+            password: password,
+            first: first,
+            last: last,
+            nick: nick,
+            type: type,
+            c_type: "",
+            w_type: "",
+            area: unit[this.state.selectedArea].area,
+            camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
+          }
+        });
+      } else {
+        this.props.history.push({
+          pathname: "/signup/reason",
+          state: {
+            email: email,
+            password: password,
+            first: first,
+            last: last,
+            nick: nick,
+            type: type,
+            c_type: c_type,
+            w_type: "",
+            area: unit[this.state.selectedArea].area,
+            camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
+          }
+        });
+      }
     }
   };
 

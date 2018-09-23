@@ -5,7 +5,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavBar, RoundInput } from "../../Components";
 import { withRouter } from "react-router-dom"; // Material UI Provider for React
-import FacebookLogin from "react-facebook-login";
 
 const defaultProps = {};
 const propTypes = {};
@@ -19,12 +18,6 @@ const mapStateToProps = state => {
 class LandingPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userID: "",
-      name: "",
-      email: "",
-      picture: ""
-    };
   }
 
   render() {
@@ -84,15 +77,6 @@ class LandingPage extends Component {
                   Log In
                 </button>
               </div>
-              <div>
-                <FacebookLogin
-                  appId="1974817842817382"
-                  autoLoad={true}
-                  fields="name,email,picture"
-                  onClick={this.componentClicked}
-                  callback={this.responseFacebook}
-                />
-              </div>
             </div>
 
             <div className="landingPage__welcome__signin__help">
@@ -115,19 +99,6 @@ class LandingPage extends Component {
     if (e.key === "Enter") {
       this.props.onClickSign();
     }
-  };
-
-  componentClicked = () => {
-    console.log("clicked");
-  };
-
-  responseFacebook = response => {
-    this.setState({
-      userID: response.userID,
-      name: response.name,
-      email: response.email,
-      picture: response.picture.data.url
-    });
   };
 }
 

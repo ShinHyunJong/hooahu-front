@@ -56,23 +56,43 @@ class SignUpChoose extends Component {
   };
 
   handleNext = () => {
-    if (this.state.status === "Military") {
-      this.props.history.push({
-        pathname: "/signup/email",
-        state: { type: this.state.status }
-      });
+    const { location } = this.props;
+    if (location.state === undefined) {
+      console.log(this.state.status);
+      if (this.state.status === "Military") {
+        this.props.history.push({
+          pathname: "/signup/email",
+          state: { type: this.state.status }
+        });
+      } else {
+        this.props.history.push({
+          pathname: "/signup/civ",
+          state: { type: this.state.status }
+        });
+      }
     } else {
-      this.props.history.push({
-        pathname: "/signup/civ",
-        state: { type: this.state.status }
-      });
+      if (this.state.status === "Military") {
+        this.props.history.push({
+          pathname: "/signup/unit",
+          state: {
+            type: this.state.status,
+            fbLogin: location.state.fbLogin
+          }
+        });
+      } else {
+        this.props.history.push({
+          pathname: "/signup/civ",
+          state: { type: this.state.status, fbLogin: location.state.fbLogin }
+        });
+      }
     }
   };
 
   componentDidMount() {}
 
   render() {
-    console.log(this.state.status);
+    // console.log(this.state.status);
+    console.log(this.props.location);
     return (
       <div>
         <Container className="signUpChoose">
