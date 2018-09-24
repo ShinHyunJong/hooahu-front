@@ -20,10 +20,15 @@ class GuidePage extends Component {
     this.state = {
       input: "",
       data: [],
-      selectedKey: "contact",
+      selectedKey: "holi",
       tabs: [
         { key: "menu", name: "Menu Guide" },
-        { key: "travel", name: "Travel Guide" },
+        // { key: "travel", name: "Travel Guide" },
+        { key: "service", name: "Helpful Service" },
+        { key: "trans", name: "Public Transport" },
+        { key: "holi", name: "Holidays & Hours" },
+        { key: "area", name: "Areas & Maps" },
+        { key: "emer", name: "Emergency" },
         { key: "korea", name: "About Korea" },
         { key: "contact", name: "Business Inquires (Contact Us)" }
       ]
@@ -110,8 +115,16 @@ class GuidePage extends Component {
     switch (this.state.selectedKey) {
       case "menu":
         return <h4>General Guide About Hooah!U's Service</h4>;
-      case "travel":
-        return <h4>travel</h4>;
+      case "service":
+        return <h4>Helpful Service</h4>;
+      case "trans":
+        return <h4>General Information on Public Transportation</h4>;
+      case "holi":
+        return <h4>Holidays & Hours</h4>;
+      case "area":
+        return <h4>Four Areas and Major Cities in them</h4>;
+      case "emer":
+        return <h4>Emergency</h4>;
       case "korea":
         return <h4>Basics of Korea</h4>;
       case "contact":
@@ -160,6 +173,368 @@ class GuidePage extends Component {
         );
       case "travel":
         return <div className="guidePage__feed__content__body-travel" />;
+      case "service":
+        return (
+          <div className="guidePage__feed__content__body-service">
+            <h5>Travel Hotline (24hours call service center)</h5>
+            <h6>Dial : 1330</h6>
+            <p>
+              1330은 한국관광공사 산하에서 운영되고 있는 여행 핫 라인 서비스로
+              여행과 관련해 발생할 수 있는 거의 모든 상황에 대해 지원을 해주고
+              통역까지 도와줌. 여행 코스부터 환불 등에 필요한 통역 지원까지
+              제공되며 가령 여권을 잃어버렸거나 하는 경우에도 1330 서비스를
+              이용할 수 있음. 전화 연결 시 맨 처음에는 한국어로 안내가 되어
+              영어를 듣기 위해서는 조금 기다려야 함. 기다리기 싫은 경우는 바로
+              2번을 눌러 영어로 서비스를 받을 수 있음.
+            </p>
+            <h5>Visit Korea</h5>
+            한국관광공사에서 운영하는 공식 여행정보 사이트. 여행관련 정보들이
+            상당히 자세히 나와있으며 최신 업데이트로 유지되므로 참고하면 좋을
+            것. <br />
+            <br />
+            1) App : Visit Korea : Official Guide <br />
+            2) Web :{" "}
+            <a href="https://english.visitkorea.or.kr/enu/TRV/TRV_MAIN.jsp">
+              https://english.visitkorea.or.kr/enu/TRV/TRV_MAIN.jsp
+            </a>
+          </div>
+        );
+      case "trans":
+        return (
+          <div className="guidePage__feed__content__body-trans">
+            <h5>Subway</h5>
+            <p>
+              Subway is definitely Korea’s most used public transportation. It’s
+              available in five major cities (Seoul, Busan, Daegu, Gwangju and
+              Daejeon) and you can practically get anywhere with it. You can
+              also get to areas near Seoul with Shinbundang Line, Gyeongchun
+              Line, Gyeongui-Jungang Line, Ever Line (the line to Everland!),
+              Uisinseol Line, and more coming up.
+            </p>
+
+            <h6>Subway Fare</h6>
+            <p>
+              <img
+                src="https://hooahu.agit.io/secure_link?sub=group&key=300113685&h=%2FHdx31AHF38nbOS52o9yGIYMJjU%3D&act=download&ref=302357423&url=https%3A%2F%2Fmud-kage.kakao.com%2Fdna%2FxOEFG%2FbtqoF6cHicb%2Fcipfv3c2q99ngqpavsiyxz%2Fo.png"
+                alt="GuidePage_fig"
+              />
+            </p>
+
+            <h6>How to purchase transportation card</h6>
+            <p>
+              Passengers can buy either a Single Journey Ticket or a
+              rechargeable card (T-money, Cashbee or MPASS, etc.) at the ticket
+              vending machine next to the ticket barrier. Both are only
+              purchased by cash and you have to pay an additional ₩ 500 for
+              security deposit. The deposit can be received when returning the
+              card through the separate machine, (installed next to the ticket
+              vending machine) after use.
+            </p>
+
+            <h6>Subway Lockers</h6>
+            <p>
+              If you have too much stuff with you and want to go around with
+              your hands free, subway lockers are there for you. Locker fees and
+              storage hours may vary depending on the terms and conditions of
+              each facility and instructions are provided in multiple languages.
+              <ul>
+                <li>Basic storage time: 2-4 hours</li>
+                <li>
+                  Fees: Small locker: ₩ 2,000 / Medium locker: ₩ 3,000 / Large
+                  locker: ₩ 4,000 <br />
+                  <span>
+                    ※ Fees may differ in each subway station. Additional fees
+                    may be charged when basic storage time is exceeded.
+                  </span>
+                </li>
+                <li>
+                  Payment: All lockers accept payment with a transportation
+                  card, while some lockers also accept payment in cash.
+                </li>
+              </ul>
+            </p>
+
+            <h5>Bus</h5>
+
+            <h6>City Bus</h6>
+            <p>
+              <img
+                src="https://hooahu.agit.io/secure_link?sub=group&key=300113685&h=YGx40WzJ1ngr7WSBrJBbF5hxe6M%3D&act=download&ref=302357422&url=https%3A%2F%2Fmud-kage.kakao.com%2Fdna%2F7QIKF%2FbtqoKI2vVeD%2Fajgpk44s6l9brsmwjebhxz%2Fo.png"
+                alt="GuidePage_fig"
+              />
+            </p>
+            <p>
+              City bus is another convenient way to go around Seoul. Buses in
+              Seoul are classified by color: blue buses go on major roads and
+              run for relatively long distances; green buses go for shorter
+              distances and carry travelers between transfer points (i.e. subway
+              stations and longer bus routes); red buses are express buses that
+              go from Seoul to suburban areas; yellow buses operate on a closed
+              circuit within a district of Seoul. <br />
+              <a href="https://en.wikipedia.org/wiki/Seoul_Buses">
+                Wikepedia : https://en.wikipedia.org/wiki/Seoul_Buses
+              </a>
+            </p>
+            <p>
+              <img
+                src="https://hooahu.agit.io/secure_link?sub=group&key=300113685&h=HgpNMGHSUgkAFaeaeyZvmn5Q820%3D&act=download&ref=302357424&url=https%3A%2F%2Fmud-kage.kakao.com%2Fdna%2FchDDhn%2FbtqoJ6Cyxfn%2Fiduat6on6b0u3unlhih9xz%2Fo.png"
+                alt="GuidePage_fig"
+              />
+            </p>
+
+            <h6>Express Bus</h6>
+            <p>
+              Express buses run on expressways and make stop at a rest area but
+              seldom make a stopover in a city other than its destination.
+              Different fares apply for ilban (regular or standard) and udeung
+              (luxury) buses. Udeung buses offer additional comfort with wider
+              seats.
+              <ul>
+                <li>
+                  Express Bus Terminals in Seoul <br />
+                  Seoul Express Bus Terminal (Gyeongbu / Yeongdong Line) <br />
+                  Central City Express Bus Terminal (Honam Line)
+                </li>
+                <li>
+                  Express Bus Ticket Reservation and Schedule <br />
+                  <a href="https://www.hticket.co.kr/main.do">
+                    https://www.hticket.co.kr/main.do
+                  </a>
+                  <br />
+                  <span>
+                    ※ Available only in Korean before Seollal or Chuseok
+                    holidays
+                  </span>
+                </li>
+              </ul>
+            </p>
+
+            <h6>Intercity Bus</h6>
+            <p>
+              Intercity buses usually make stopovers at smaller cities while on
+              its way from one region to another region. An intercity bus that
+              runs directly from one region to its destination without any
+              stopover is referred to as jikhaeng (direct route) or mujeongcha
+              (non-stop). Ticket price for nighttime buses that run late at
+              night usually cost more than daytime buses.
+              <ul>
+                <li>
+                  Intercity Bus Terminals in Seoul <br />
+                  Seoul Nambu Terminal <br />
+                  Sangbong Terminal
+                </li>
+                <li>
+                  Intercity Bus Ticket Reservation and Schedule <br />
+                  <a href="www.bustago.or.kr">www.bustago.or.kr</a>
+                  <br />
+                  <a href="txbus.t-money.co.kr">txbus.t-money.co.kr</a>
+                </li>
+                <li>
+                  Jonghap Express Bus Terminals in Seoul (Both express and
+                  intercity) <br />
+                  Dong Seoul Jonghap Terminal <br />
+                  <a href="www.ti21.co.kr">www.ti21.co.kr (Korean only)</a>
+                </li>
+              </ul>
+            </p>
+
+            <h5>Taxi</h5>
+
+            <h6>Taxis in Korea, the fastest and most convenient</h6>
+            <p>
+              In Korea, there are plentiful of taxis and they are clean, safe,
+              and above all, inexpensive. They can be found at taxi stands in
+              most busy city areas or hailed on the streets. There are also call
+              taxis that can be requested by phone. However, call taxis are
+              slightly more expensive than the taxis you flag down on the
+              street. An increasing number of taxi drivers nowadays speak some
+              English, which may be helpful for first-time visitors. <br />
+              <br />
+              While virtually all taxis operating in the Seoul area accept
+              credit cards or pre-paid public transportation cards (T-money
+              card), it is possible that some taxis in the outlying or isolated
+              regions may request cash only. Keep this in mind and make sure to
+              have some cash (in KRW) with you if you plan to use a cab in
+              remote areas. The taxi fare is calculated by distance and time.
+              Basic fares can slightly vary from region to region.
+            </p>
+
+            <h6>Basic fare</h6>
+            <p>2,800-3,000won</p>
+
+            <h6>Region</h6>
+            <p>Varies by region.</p>
+
+            <h6>Additional Fare by Meter</h6>
+            <p>Fare calculated by distance travelled.</p>
+
+            <h6>Details</h6>
+            <p>
+              In Seoul, Gyeonggi, Incheon and Busan, a surcharge of 20% applies
+              during late-night hours (midnight-4am) and in the suburbs (N/A for
+              other cities).
+            </p>
+
+            <h6>International Taxis</h6>
+            <p>
+              Korea offers special international taxis, which are driven by taxi
+              drivers who can speak one or more foreign languages: English,
+              Japanese or Chinese.
+            </p>
+
+            <p>
+              <img
+                src="https://hooahu.agit.io/secure_link?sub=group&key=300113685&h=n8yvKZBN3L3EvFl1G4%2FLfvnDM1g%3D&act=download&ref=302357418&url=https%3A%2F%2Fmud-kage.kakao.com%2Fdna%2FbDihW%2FbtqoIeuxoj0%2Fh6wkld4gmey3aab4704lxz%2Fo.jpg"
+                alt="GuidePage_fig"
+              />
+              <a href="https://english.visitkorea.or.kr/enu/TRP/TP_ENG_7.jsp">
+                Visitkorea Taxi :
+                https://english.visitkorea.or.kr/enu/TRP/TP_ENG_7.jsp
+              </a>
+            </p>
+          </div>
+        );
+      case "holi":
+        return (
+          <div className="guidePage__feed__content__body-holi">
+            <h5>National Holiday</h5>
+            <p>
+              Koreans officially follow the Gregorian calendar, even though
+              there are a few holidays that are based on the lunar calendar.
+              During the official holidays, offices and banks are closed but
+              palaces, museums, most restaurants, department stores, and
+              amusement facilities are open. <b>Seollal</b> and <b>Chuseok</b>{" "}
+              are the most important traditional holidays for Koreans, so
+              millions of people visit their hometowns to celebrate with their
+              families during these times. On Seollal, Koreans hold a memorial
+              service for their ancestors and perform sebae, a formal bow of
+              respect to their elders as a New Year's greeting.
+            </p>
+
+            <h5>Usual Business Hours</h5>
+            <h6>Banks</h6>
+            <p>
+              Weekdays: 09:00 – 16:00 <br />
+              Weekends and National Holidays: Closed
+            </p>
+
+            <h6>Government Offices and Organizations</h6>
+            <p>
+              Weekdays: 09:00 – 18:00 <br />
+              Weekends and National Holidays: Closed
+            </p>
+
+            <h6>Post Offices</h6>
+            <p>
+              Weekdays: 09:00 – 18:00 <br />
+              Public Holidays: Closed <br />
+              Nationwide list:{" "}
+              <a href="www.koreapost.go.kr">
+                www.koreapost.go.kr (Korean, English)
+              </a>
+              <br />
+              List of post offices in Seoul:{" "}
+              <a href="english.seoul.go.kr">english.seoul.go.kr (English)</a>
+            </p>
+
+            <h6>Foreign Diplomatic Missions</h6>
+            <p>
+              Weekdays: Hours vary, <br /> please see the following link for
+              more information >>{" "}
+              <a href="http://www.mofat.go.kr/ENG/main/index.jsp">
+                Ministry of Foreign Affairs and Trade (English)
+              </a>
+              <br />
+              Weekends and National Holidays: Closed
+            </p>
+
+            <h6>Department Stores</h6>
+            <p>
+              10:30 – 20:00 <br />
+              Typically one day a month (usually a Monday) department stores are
+              closed to the public. However, closings will vary according to
+              each store.
+            </p>
+          </div>
+        );
+      case "area":
+        return (
+          <div className="guidePage__feed__content__body-area">
+            <p>
+              <img
+                src="https://hooahu.agit.io/secure_link?sub=group&key=300113685&h=il0F6c5m2q5Cb8yvOms%2FgqV9i%2Bg%3D&act=download&ref=302357419&url=https%3A%2F%2Fmud-kage.kakao.com%2Fdna%2FNUfP5%2FbtqoJw9j4uD%2Feou1t1cp0ux2oeunz8ruxz%2Fo.png"
+                alt="GuidePage_fig"
+              />
+            </p>
+          </div>
+        );
+      case "emer":
+        return (
+          <div className="guidePage__feed__content__body-emer">
+            <h5>DIALING DSN FROM NON-DSN (EX: FROM CELLPHONE)</h5>
+            <p>
+              Casey: 0505-730-XXXX (LAST 4 DSN) <br />
+              Red Cloud: 0505-732-XXXX <br />
+              Stanley: 0505-732-XXXX <br />
+              Yongsan: 05033-LAST 6 OF DSN <br />
+              Humphreys: 0503-353-XXXX / 0503-354-XXXX (If DSN prefix w/ 754)
+              <br />
+              Daegu: 05033-LAST 6 OF DSN
+            </p>
+
+            <h5>AMBULANCE</h5>
+            <p>
+              Off Post: 119 <br />
+              On Post: 911
+            </p>
+
+            <h5>MILLITARY POLICE (ON-POST / OFF-POST)</h5>
+            <p>
+              Casey: 730-4417 / 0505-730-4417 <br />
+              Red Cloud: 732-6693 / 0505-732-6693 <br />
+              Stanley: 732-5310 / 0505-732-5310 <br />
+              Yongsan: 315-724-3004 / 05033-24-3004 <br />
+              Hannam Village: 315-723-9131 / 05033-23-9131 <br />
+              Humphreys: 753-3111 / 0503-353-3111 <br />
+              Daegu: 764-4141 / 0503-364-4141
+            </p>
+
+            <h5>IF EMERGENCY AND YOU HAVE AVAILABLE TAXI NEAR YOU</h5>
+            <h6>SHOW DRIVER</h6>
+            <p>
+              To nearest train station: 가까운 기차역으로 데려다 주세요.
+              <br />
+              To nearest subway station: 가까운 지하철역으로 데려다 주세요.
+              <br />
+              To nearest bus main-station(hub): 가까운 버스터미널로 데려다
+              주세요. <br />
+              To nearest hospital: 가까운 병원으로 데려다 주세요. 급합니다.
+              <br />
+              To nearest Korean police station: 가까운 경찰서로 데려다 주세요.
+            </p>
+
+            <h5>EMERGENCY CALL (OFF POST)</h5>
+            <p>
+              Police Department Tel: 112 <br />
+              Fire Department Tel: 119 <br />
+              Medical Emergencies Tel: 1339
+            </p>
+
+            <h5>1330 KOREA TRAVEL HOTLINE (MULTILINGUAL ASSISTANCE)</h5>
+            <p>
+              The 1330 Korea Travel Hotline, operated by the Korea Tourism
+              Organization, is a one-stop helpline available as a public service
+              for both local and international travelers. Click{" "}
+              <a
+                className="here"
+                href="http://english.visitkorea.or.kr/enu/TRV/TV_ENG_3_1.jsp"
+              >
+                here
+              </a>{" "}
+              to learn more.
+            </p>
+          </div>
+        );
       case "korea":
         return (
           <div className="guidePage__feed__content__body-korea">

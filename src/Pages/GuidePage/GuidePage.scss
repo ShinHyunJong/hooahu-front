@@ -104,15 +104,46 @@
           border-bottom: 2px solid $sub-color;
           padding-bottom: 2px;
         }
+        & h6 {
+          font-weight: bolder;
+        }
         & p {
           margin-bottom: 1.5rem;
         }
 
         &-menu {
-          & h6 {
-            font-weight: bolder;
+          & span {
+            text-decoration: underline;
+          }
+        }
+
+        &-trans {
+          &h6 {
+            font-size: 120%;
           }
           & span {
+            color: red;
+          }
+          & img {
+            width: 90%;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+
+        &-area {
+          & img {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+
+        &-emer {
+          & h5 {
+            border-bottom: 2px solid red;
+          }
+          & a.here {
             text-decoration: underline;
           }
         }
