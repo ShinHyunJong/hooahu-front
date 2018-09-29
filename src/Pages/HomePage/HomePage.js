@@ -520,7 +520,6 @@ class HomePage extends Component {
   };
 
   onPressSearch = e => {
-    console.log("123123");
     const { history } = this.props;
     const { search } = this.state;
     if (e.key === "Enter") {

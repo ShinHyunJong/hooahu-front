@@ -36,6 +36,9 @@ export const FAILED_TO_GET_TAG_USER = "FAILED_TO_GET_TAG_USER";
 export const SUCCEED_TO_SEARCH_TAG = "SUCCEED_TO_SEARCH_TAG";
 export const FAILED_TO_SEARCH_TAG = "FAILED_TO_SEARCH_TAG";
 
+export const SUCCEED_TO_SEARCH_USER = "SUCCEED_TO_SEARCH_USER";
+export const FAILED_TO_SEARCH_USER = "FAILED_TO_SEARCH_USER";
+
 export const getAllFeed = params => {
   return async dispatch => {
     try {
@@ -361,6 +364,36 @@ export const getTagUser = params => {
         type: FAILED_TO_GET_TAG_USER,
         payload: { data: "NETWORK_ERROR" }
       });
+    }
+  };
+};
+
+export const searchUser = params => {
+  return async dispatch => {
+    try {
+      let response = Request.getData(
+        `api/post/search/user?title=${params.keyword}`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({
+              type: SUCCEED_TO_SEARCH_USER,
+              payload: result.result
+            });
+            return result.result;
+        }
+      });
+      return response;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_SEARCH_USER,
+        payload: { data: "NETWORK_ERROR" }
+      });
+      console.error(error);
     }
   };
 };
