@@ -40,6 +40,11 @@ class SignUpUnit extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log("SignUpUnit -- component did mount");
+    console.log(this.props.location.state);
+  }
+
   handleArea = (event, key, value) => {
     this.setState({ selectedArea: value });
   };
@@ -50,7 +55,6 @@ class SignUpUnit extends Component {
 
   handleNext = () => {
     console.log(this.props.location.state);
-
     const unit = unitJson.data;
     const {
       email,
@@ -63,17 +67,19 @@ class SignUpUnit extends Component {
       fbLogin
     } = this.props.location.state;
     if (fbLogin) {
+      //페이스북 로그인 시
       if (c_type === undefined || c_type === null) {
         this.props.history.push({
           pathname: "/signup/reason",
           state: {
-            fbLogin: fbLogin,
-            email: email,
+            email: fbLogin.email,
             password: null,
-            first: first,
-            last: last,
-            nick: nick,
+            first: fbLogin.name,
+            last: null,
+            nick: fbLogin.name,
             type: type,
+            picture: fbLogin.picture.data.url,
+            fbToken: fbLogin.accessToken,
             c_type: "",
             w_type: "",
             area: unit[this.state.selectedArea].area,
@@ -84,14 +90,13 @@ class SignUpUnit extends Component {
         this.props.history.push({
           pathname: "/signup/reason",
           state: {
-            isfbLogin: true,
-            fbID: fbLogin.userID,
-            fbImage: fbLogin.picture,
             email: fbLogin.email,
-            password: "",
+            password: password,
             first: fbLogin.name,
-            last: "",
+            last: null,
             nick: fbLogin.name,
+            picture: fbLogin.picture.data.url,
+            fbToken: fbLogin.accessToken,
             type: type,
             c_type: c_type,
             w_type: "",
@@ -113,6 +118,8 @@ class SignUpUnit extends Component {
             type: type,
             c_type: "",
             w_type: "",
+            picture: null,
+            fbToken: null,
             area: unit[this.state.selectedArea].area,
             camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
           }
@@ -129,6 +136,8 @@ class SignUpUnit extends Component {
             type: type,
             c_type: c_type,
             w_type: "",
+            picture: null,
+            fbToken: null,
             area: unit[this.state.selectedArea].area,
             camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
           }

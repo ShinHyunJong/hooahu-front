@@ -71,6 +71,7 @@ class SignUpChoose extends Component {
         });
       }
     } else {
+      //페이스북 로그인 시
       if (this.state.status === "Military") {
         this.props.history.push({
           pathname: "/signup/unit",
@@ -88,11 +89,13 @@ class SignUpChoose extends Component {
     }
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log("SignUpChoose --component Did Mount");
+    console.log(this.props.location);
+  }
 
   render() {
     // console.log(this.state.status);
-    console.log(this.props.location);
     return (
       <div>
         <Container className="signUpChoose">

@@ -56,7 +56,8 @@ class SignUpPage extends Component {
       password: "",
       userID: "",
       name: "",
-      picture: ""
+      picture: "",
+      fbLogin: {}
     };
   }
 
@@ -163,26 +164,26 @@ class SignUpPage extends Component {
   };
 
   componentClicked = () => {
-    console.log("clicked");
-  };
-
-  responseFacebook = response => {
-    console.log(response);
-    if (response.email === undefined || response.email === "") {
-      response.email = response.userID + "@facebook.com";
-    }
+    console.log("$$$ SignUpPage 클릭");
+    console.log(this.state.fbLogin);
+    const { fbLogin } = this.state;
     const { history } = this.props;
     history.push({
       pathname: "/signup/choose",
       state: {
-        fbLogin: {
-          email: response.email,
-          userID: response.userID,
-          name: response.name,
-          picture: response.picture.data.url
-        }
+        fbLogin
       }
     });
+  };
+
+  responseFacebook = response => {
+    if (response.email === undefined || response.email === "") {
+      response.email = response.userID + "@facebook.com";
+      const fbLogin = response;
+      this.setState({ fbLogin });
+    } else {
+      this.setState({ fbLogin: response });
+    }
   };
 }
 
