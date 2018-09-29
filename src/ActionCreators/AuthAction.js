@@ -9,6 +9,8 @@ export const FAILED_TO_SIGNUP = "FAILED_TO_SIGNUP";
 export const SUCCEED_TO_SIGNOUT = "SUCCEED_TO_SIGNOUT";
 
 export const postSignUp = params => {
+  console.log("AuthAction");
+  console.log(params);
   return async dispatch => {
     try {
       let response = await fetch(ServerEndPoint + "api/auth/register", {

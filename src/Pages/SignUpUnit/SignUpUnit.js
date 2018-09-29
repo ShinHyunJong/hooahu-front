@@ -73,9 +73,9 @@ class SignUpUnit extends Component {
           pathname: "/signup/reason",
           state: {
             email: fbLogin.email,
-            password: null,
+            password: "",
             first: fbLogin.name,
-            last: null,
+            last: "",
             nick: fbLogin.name,
             type: type,
             picture: fbLogin.picture.data.url,
@@ -91,9 +91,9 @@ class SignUpUnit extends Component {
           pathname: "/signup/reason",
           state: {
             email: fbLogin.email,
-            password: password,
+            password: "",
             first: fbLogin.name,
-            last: null,
+            last: "",
             nick: fbLogin.name,
             picture: fbLogin.picture.data.url,
             fbToken: fbLogin.accessToken,
@@ -118,8 +118,8 @@ class SignUpUnit extends Component {
             type: type,
             c_type: "",
             w_type: "",
-            picture: null,
-            fbToken: null,
+            picture: "",
+            fbToken: "",
             area: unit[this.state.selectedArea].area,
             camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
           }
@@ -136,8 +136,8 @@ class SignUpUnit extends Component {
             type: type,
             c_type: c_type,
             w_type: "",
-            picture: null,
-            fbToken: null,
+            picture: "",
+            fbToken: "",
             area: unit[this.state.selectedArea].area,
             camp: unit[this.state.selectedArea].unit[this.state.selectedUnit]
           }
