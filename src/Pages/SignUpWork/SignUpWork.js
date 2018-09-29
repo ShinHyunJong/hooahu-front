@@ -89,7 +89,8 @@ class SignUpWork extends Component {
       reason: this.state.status
     };
     this.props.dispatch(AuthAction.postSignUp(params)).then(async value => {
-      await this.props.dispatch(UserAction.getUser(value));
+      const params = { props: { token: value } };
+      await this.props.dispatch(UserAction.getUser(params));
       await this.props.history.replace({
         pathname: "/"
       });
