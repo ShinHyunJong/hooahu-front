@@ -20,7 +20,7 @@ class GuidePage extends Component {
     this.state = {
       input: "",
       data: [],
-      selectedKey: "holi",
+      selectedKey: "",
       tabs: [
         { key: "menu", name: "Menu Guide" },
         // { key: "travel", name: "Travel Guide" },
@@ -89,15 +89,30 @@ class GuidePage extends Component {
           </div>
         </div>
         <div className="guidePage__feed">
-          <div className="guidePage__feed__content">
-            <div className="guidePage__feed__content__header">
-              {this.renderHead()}
+          {selectedKey === "" ? (
+            <div className="guidePage__feed__main">
+              <div className="guidePage__feed__main__box">
+                
+                <h4>Travelers</h4>
+              </div>
+              <div className="guidePage__feed__main__box">
+                <h4>Community Members & Leaders</h4>
+              </div>
+              <div className="guidePage__feed__main__box">
+                <h4>Business Owners</h4>
+              </div>
             </div>
-            <hr />
-            <div className="guidePage__feed__content__body">
-              {this.renderBody()}
+          ) : (
+            <div className="guidePage__feed__content">
+              <div className="guidePage__feed__content__header">
+                {this.renderHead()}
+              </div>
+              <hr />
+              <div className="guidePage__feed__content__body">
+                {this.renderBody()}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );

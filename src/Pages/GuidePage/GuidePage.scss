@@ -84,6 +84,18 @@
     align-items: center;
     box-sizing: border-box;
     background-color: ghostwhite;
+
+    &__main {
+      display: flex;
+      justify-content: space-between;
+      &__box {
+        width: 30%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
     &__content {
       padding-top: 40px;
       background-color: white;
