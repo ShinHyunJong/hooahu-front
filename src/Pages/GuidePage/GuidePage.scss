@@ -88,7 +88,6 @@
     &__main {
       display: flex;
       justify-content: space-between;
-<<<<<<< HEAD
       flex-wrap: wrap;
 
       &__box {
@@ -117,13 +116,6 @@
         padding: 20px;
         margin-top: 20px;
         border-top: 2px solid black;
-=======
-      &__box {
-        width: 30%;
-        background-color: white;
-        display: flex;
-        justify-content: center;
->>>>>>> guidePage_content
       }
     }
 

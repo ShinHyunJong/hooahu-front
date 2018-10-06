@@ -92,7 +92,6 @@ class GuidePage extends Component {
           {selectedKey === "" ? (
             <div className="guidePage__feed__main">
               <div className="guidePage__feed__main__box">
-<<<<<<< HEAD
                 <h4>Travelers</h4>
                 <h5>HOOAH!U and Travel-holics</h5>
                 <h5>
@@ -116,16 +115,6 @@ class GuidePage extends Component {
               </div>
               <div className="guidePage__feed__main__title">
                 <h3>CONNECTED</h3>
-=======
-                
-                <h4>Travelers</h4>
-              </div>
-              <div className="guidePage__feed__main__box">
-                <h4>Community Members & Leaders</h4>
-              </div>
-              <div className="guidePage__feed__main__box">
-                <h4>Business Owners</h4>
->>>>>>> guidePage_content
               </div>
             </div>
           ) : (
