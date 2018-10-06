@@ -88,11 +88,34 @@
     &__main {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+
       &__box {
-        width: 30%;
+        width: 32%;
         background-color: white;
-        display: flex;
-        justify-content: center;
+        text-align: center;
+        padding: 20px;
+
+        & h4 {
+          font-size: 150%;
+          font-weight: bold;
+          padding-bottom: 15px;
+          margin-bottom: 15px;
+          border-bottom: 1.5px solid $sub-color;
+        }
+
+        & h5 span {
+          font-size: 150%;
+          font-weight: bold;
+        }
+      }
+
+      &__title {
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        margin-top: 20px;
+        border-top: 2px solid black;
       }
     }
 
