@@ -203,8 +203,7 @@ class UserPage extends Component {
                   fontSize={60}
                 />
                 <div className="userPage__notice__content__wrapper__name">
-                  <p>{`${user && user.first_name} ${user &&
-                    user.last_name}`}</p>
+                  <p>{`${user && user.full_name}`}</p>
                 </div>
                 <div className="userPage__notice__content__wrapper__info">
                   {user && user.type === "Civ" ? (
