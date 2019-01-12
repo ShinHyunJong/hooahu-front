@@ -69,7 +69,7 @@
   }
 
   &__feed {
-    width: calc(100vw - 710px);
+    width: calc(100vw - 30vw);
     padding: 0 2rem;
     margin-left: 360px;
     @media screen and (max-width: 600px) {
@@ -84,6 +84,41 @@
     align-items: center;
     box-sizing: border-box;
     background-color: ghostwhite;
+
+    &__main {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      &__box {
+        width: 32%;
+        background-color: white;
+        text-align: center;
+        padding: 20px;
+
+        & h4 {
+          font-size: 150%;
+          font-weight: bold;
+          padding-bottom: 15px;
+          margin-bottom: 15px;
+          border-bottom: 1.5px solid $sub-color;
+        }
+
+        & h5 span {
+          font-size: 150%;
+          font-weight: bold;
+        }
+      }
+
+      &__title {
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        margin-top: 20px;
+        border-top: 2px solid black;
+      }
+    }
+
     &__content {
       padding-top: 40px;
       background-color: white;
@@ -93,6 +128,86 @@
       &__header {
         padding-left: 1rem;
         font-weight: bold;
+      }
+
+      &__body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 1rem;
+
+        & h5 {
+          border-bottom: 2px solid $sub-color;
+          padding-bottom: 2px;
+        }
+        & h6 {
+          font-weight: bolder;
+        }
+        & p {
+          margin-bottom: 1.5rem;
+        }
+
+        &-menu {
+          & span {
+            text-decoration: underline;
+          }
+        }
+
+        &-trans {
+          &h6 {
+            font-size: 120%;
+          }
+          & span {
+            color: red;
+          }
+          & img {
+            width: 90%;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+
+        &-area {
+          & img {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+
+        &-emer {
+          & h5 {
+            border-bottom: 2px solid red;
+          }
+          & a.here {
+            text-decoration: underline;
+          }
+        }
+
+        &-korea {
+          &__fig56 img {
+            width: 50%;
+            padding: 0 1rem;
+          }
+
+          &__fig7 img {
+            width: 90%;
+            display: block;
+            margin: 0 auto;
+            padding-top: 1rem;
+          }
+        }
+
+        &-contact {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-size: 115%;
+
+          & q {
+            font-weight: bold;
+            margin-bottom: 25px;
+          }
+        }
       }
     }
   }
