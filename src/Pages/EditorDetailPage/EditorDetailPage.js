@@ -81,9 +81,14 @@ class EditorDetailPage extends Component {
       id: Number(this.props.match.params.package),
       token
     };
-    this.props.dispatch(ChoiceAction.getChoiceComment(params)).then(value => {
-      this.setState({ commentList: value.reverse() });
-      nprogress.done();
+    this.props.dispatch(ChoiceAction.getLikeChocieCheck(params)).then(like => {
+      if (like.isChoiceLiked) {
+        this.setState({ isLiked: true });
+      }
+      this.props.dispatch(ChoiceAction.getChoiceComment(params)).then(value => {
+        this.setState({ commentList: value.reverse() });
+        nprogress.done();
+      });
     });
 
     let selectedChoice = Object.create(ecJson[selectedChoiceIndex]);
@@ -210,14 +215,22 @@ class EditorDetailPage extends Component {
   };
 
   handleLike = () => {
+    const { token } = this.props;
+    const params = {
+      id: Number(this.props.match.params.package),
+      token
+    };
     if (this.props.isLogin === false) {
       this.props.history.push({
         pathname: "/signup"
       });
     } else {
-      this.state.isLiked === false
-        ? this.setState({ isLiked: true })
-        : this.setState({ isLiked: false });
+      if (!this.state.isLiked) {
+        this.setState({ isLiked: true });
+        this.props.dispatch(ChoiceAction.postLikeChocie(params));
+      } else {
+        this.setState({ isLiked: false });
+      }
     }
   };
 
