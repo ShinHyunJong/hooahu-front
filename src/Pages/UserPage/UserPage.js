@@ -240,7 +240,7 @@ class UserPage extends Component {
                   />
                   <div className="userPage__feed__userinfo__wrapper__text">
                     <div className="userPage__feed__userinfo__wrapper__text-name">
-                      <p>{`${user && user.fullname}`}</p>
+                      <p>{`${user && user.full_name}`}</p>
                     </div>
                     <div className="userPage__feed__userinfo__wrapper__text-info">
                       {user && user.type === "Civ" ? (
