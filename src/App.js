@@ -31,6 +31,8 @@ import {
   GuidePage,
   TagPage
 } from "./Pages/";
+import PrivacyPolicyPage from "./Pages/PrivacyPolicyPage/PrivacyPolicyPage";
+import TermsOfServicePage from "./Pages/TermsOfServicePage/TermsOfServicePage";
 
 const mapStateToProps = state => {
   return {
@@ -75,6 +77,8 @@ class App extends Component {
         <Route path="/editor_choice/:package" component={EditorDetailPage} />
         <Route exact path="/guide" component={GuidePage} />
         <Route exact path="/tag/:tag_name" component={TagPage} />
+        <Route exact path="/privacypolicy" component={PrivacyPolicyPage} />
+        <Route exact path="/termsofsevice" component={TermsOfServicePage} />
       </div>
     );
   }

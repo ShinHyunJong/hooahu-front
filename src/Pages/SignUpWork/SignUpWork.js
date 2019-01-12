@@ -61,7 +61,9 @@ class SignUpWork extends Component {
       c_type,
       w_type,
       area,
-      camp
+      camp,
+      picture,
+      fbToken
     } = this.props.location.state;
 
     console.log("이메일 :" + email);
@@ -74,6 +76,8 @@ class SignUpWork extends Component {
     console.log("w타입 :" + w_type);
     console.log("Area :" + area);
     console.log("Camp :" + camp);
+    console.log("picture :" + picture);
+    console.log("fbToken :" + fbToken);
 
     const params = {
       first_name: first,
@@ -81,6 +85,8 @@ class SignUpWork extends Component {
       nickname: nick,
       email: email,
       password: password,
+      picture: picture,
+      fbToken: fbToken,
       type: type,
       c_type: c_type,
       w_type: w_type,
@@ -88,6 +94,7 @@ class SignUpWork extends Component {
       camp: camp,
       reason: this.state.status
     };
+    console.log(params);
     this.props.dispatch(AuthAction.postSignUp(params)).then(async value => {
       const params = { props: { token: value } };
       await this.props.dispatch(UserAction.getUser(params));
