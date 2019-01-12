@@ -6,42 +6,61 @@ import { connect } from "react-redux";
 
 import { NavBar } from "../../Components";
 
+import * as AuthAction from "../../ActionCreators/AuthAction";
+
 const defaultProps = {};
 const propTypes = {};
 
 const mapStateToProps = state => {
   return {
     actionResult: state.reducer.actionResult,
-    user: state.reducer.user
+    user: state.reducer.user,
+    token: state.reducer.token
   };
 };
 
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      nickname: ""
+    };
   }
 
   render() {
-    const user = this.props;
+    // console.log(this.props.user);
+    const { user } = this.props;
     return (
       <div className="profilePage">
         <NavBar />
-        <div>(여백)</div>
-        <div>(여백)</div>
-        <div>(여백)</div>
-        <div>이메일 : {user && user.email}</div>
-        <div>비밀번호 : </div>
-        <div>이름 : </div>
-        <div>닉네임 : </div>
-        <div>타입 : </div>
-        <div>c타입 : </div>
-        <div>w타입 : </div>
-        <div>Area : </div>
-        <div>Camp : </div>
+        <div className="profilePage__editForm">
+          <label>
+            Nickname{" "}
+            <input
+              type="text"
+              name="nickname"
+              placeholder="닉네임"
+              defaultValue={user && user.nickname}
+              onChange={e => this.setState({ nickname: e.target.value })}
+            />
+          </label>
+          <button value="Submit" onClick={this.onClickChangeUsername}>
+            닉네임변경
+          </button>
+        </div>
       </div>
     );
   }
+
+  onClickChangeUsername = () => {
+    const params = {
+      props: this.props,
+      body: {
+        nickname: this.state.nickname
+      }
+    };
+    this.props.dispatch(AuthAction.postChangeUsername(params));
+  };
 }
 
 ProfilePage.defaultProps = defaultProps;

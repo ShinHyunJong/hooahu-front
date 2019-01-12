@@ -6,4 +6,8 @@
 @import "../../mixin.scss";
 
 .profilePage {
+  &__editForm {
+    margin-top: 60px;
+    margin-left: 2rem;
+  }
 }
