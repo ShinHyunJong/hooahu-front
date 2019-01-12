@@ -94,6 +94,7 @@ class SignUpWork extends Component {
       camp: camp,
       reason: this.state.status
     };
+    console.log(params);
     this.props.dispatch(AuthAction.postSignUp(params)).then(async value => {
       const params = { props: { token: value } };
       await this.props.dispatch(UserAction.getUser(params));

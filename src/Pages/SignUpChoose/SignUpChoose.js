@@ -58,7 +58,7 @@ class SignUpChoose extends Component {
   handleNext = () => {
     const { location } = this.props;
     if (location.state === undefined) {
-      console.log(this.state.status);
+      //일반 로그인
       if (this.state.status === "Military") {
         this.props.history.push({
           pathname: "/signup/email",

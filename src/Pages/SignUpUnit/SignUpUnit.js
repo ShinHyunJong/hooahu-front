@@ -68,6 +68,7 @@ class SignUpUnit extends Component {
     } = this.props.location.state;
     if (fbLogin) {
       //페이스북 로그인 시
+      // 군인 일 경우
       if (c_type === undefined || c_type === null) {
         this.props.history.push({
           pathname: "/signup/reason",
@@ -87,6 +88,7 @@ class SignUpUnit extends Component {
           }
         });
       } else {
+        //일반인일 경우
         this.props.history.push({
           pathname: "/signup/reason",
           state: {
