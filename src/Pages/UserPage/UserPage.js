@@ -118,7 +118,6 @@ class UserPage extends Component {
     const randomPackage = Math.floor(Math.random() * 26);
     const selectedEC = ec.editorChoice[randomPackage];
     this.setState({ selectedEC });
-
     this.getUserFeed();
   }
 
@@ -242,8 +241,7 @@ class UserPage extends Component {
                   />
                   <div className="userPage__feed__userinfo__wrapper__text">
                     <div className="userPage__feed__userinfo__wrapper__text-name">
-                      <p>{`${user && user.first_name} ${user &&
-                        user.last_name}`}</p>
+                      <p>{`${user && user.fullname}`}</p>
                     </div>
                     <div className="userPage__feed__userinfo__wrapper__text-info">
                       {user && user.type === "Civ" ? (
@@ -449,6 +447,8 @@ class UserPage extends Component {
     const params = { user_id, token };
 
     dispatch(UserAction.getUserByUserID(params)).then(user => {
+      console.log("sdfdf");
+      console.log(user);
       dispatch(UserAction.getFeedByUserID(params)).then(value => {
         const userFeeds = value.slice();
         for (let i = 0; i < userFeeds.length; i++) {
