@@ -4,6 +4,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavBar, RoundInput } from "../../Components";
+import * as AuthAction from "../../ActionCreators/AuthAction";
+import * as UserAction from "../../ActionCreators/UserAction";
+
 import { withRouter } from "react-router-dom"; // Material UI Provider for React
 import FacebookLogin from "react-facebook-login";
 
@@ -21,7 +24,8 @@ class LandingPage extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      fbLogin: {}
     };
   }
 
@@ -86,7 +90,7 @@ class LandingPage extends Component {
                 appId="1974817842817382"
                 autoLoad={true}
                 fields="name,email,picture"
-                onClick={this.handleFbClicked}
+                callback={this.responseFacebook}
                 textButton="Facebook Login"
                 className="signUp__content__title__buttonF"
                 textClassName="signUp__content__title__textF"
@@ -116,7 +120,20 @@ class LandingPage extends Component {
     }
   };
 
-  handleFbClicked = () => {};
+  responseFacebook = response => {
+    const params = { is_facebook: true, access_token: response.accessToken };
+    this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
+      const token = { props: { token: value } };
+      if (value === "failed") {
+        return null;
+      } else {
+        await this.props.dispatch(UserAction.getUser(token));
+        await this.props.history.push({
+          pathname: "/"
+        });
+      }
+    });
+  };
 }
 
 LandingPage.defaultProps = defaultProps;
