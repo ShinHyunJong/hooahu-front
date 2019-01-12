@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavBar, RoundInput } from "../../Components";
 import { withRouter } from "react-router-dom"; // Material UI Provider for React
+import FacebookLogin from "react-facebook-login";
 
 const defaultProps = {};
 const propTypes = {};
@@ -81,6 +82,16 @@ class LandingPage extends Component {
                   Log In
                 </button>
               </div>
+              <FacebookLogin
+                appId="1974817842817382"
+                autoLoad={true}
+                fields="name,email,picture"
+                onClick={this.handleFbClicked}
+                textButton="Facebook Login"
+                className="signUp__content__title__buttonF"
+                textClassName="signUp__content__title__textF"
+                iconClassName="signUp__content__title__iconF"
+              />
             </div>
 
             <div className="landingPage__welcome__signin__help">
@@ -104,6 +115,8 @@ class LandingPage extends Component {
       this.props.onClickSign();
     }
   };
+
+  handleFbClicked = () => {};
 }
 
 LandingPage.defaultProps = defaultProps;

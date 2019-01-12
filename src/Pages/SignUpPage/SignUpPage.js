@@ -12,6 +12,7 @@ import { NavBar, RoundButton, RoundInput } from "../../Components";
 import { Container, Row, Col, Button } from "reactstrap";
 import TextField from "material-ui/TextField";
 import { RadioButton, RadioButtonGroup } from "material-ui/RadioButton";
+import FacebookLogin from "react-facebook-login";
 
 const defaultProps = {};
 const propTypes = {};
@@ -52,7 +53,11 @@ class SignUpPage extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      userID: "",
+      name: "",
+      picture: "",
+      fbLogin: {}
     };
   }
 
@@ -117,15 +122,17 @@ class SignUpPage extends Component {
             </div>
             <div className="signUp__content__title">
               <div className="signUp__content__title__buttonArea">
-                <Link to="/signup/username">
-                  <RoundButton
-                    text="Sign up with Facebook"
-                    icon="xi-facebook-official"
-                    className="signUp__content__title__buttonF"
-                    textClassName="signUp__content__title__textF"
-                    iconClassName="signUp__content__title__iconF"
-                  />
-                </Link>
+                <FacebookLogin
+                  appId="1974817842817382"
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  onClick={this.componentClicked}
+                  callback={this.responseFacebook}
+                  textButton="Sign up with Facebook"
+                  className="signUp__content__title__buttonF"
+                  textClassName="signUp__content__title__textF"
+                  iconClassName="signUp__content__title__iconF"
+                />
               </div>
             </div>
           </Row>
@@ -154,6 +161,29 @@ class SignUpPage extends Component {
         });
       }
     });
+  };
+
+  componentClicked = () => {
+    console.log("$$$ SignUpPage 클릭");
+    console.log(this.state.fbLogin);
+    const { fbLogin } = this.state;
+    const { history } = this.props;
+    history.push({
+      pathname: "/signup/choose",
+      state: {
+        fbLogin
+      }
+    });
+  };
+
+  responseFacebook = response => {
+    if (response.email === undefined || response.email === "") {
+      response.email = response.userID + "@facebook.com";
+      const fbLogin = response;
+      this.setState({ fbLogin });
+    } else {
+      this.setState({ fbLogin: response });
+    }
   };
 }
 

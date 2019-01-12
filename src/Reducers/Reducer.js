@@ -1,6 +1,6 @@
 /*
-* Author: @ShinHynJong (github.com/ShinHyunJong)
-*/
+ * Author: @ShinHynJong (github.com/ShinHyunJong)
+ */
 import {
   SUCCEED_TO_SIGNUP,
   SUCCEED_TO_SIGNIN,
@@ -21,7 +21,7 @@ const initialState = {
   data: "",
   token: localStorage.getItem("token"),
   isLogin: !!localStorage.getItem("token"),
-  user: [],
+  user: {},
   userById: [],
   feeds: null
 };

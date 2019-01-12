@@ -43,13 +43,25 @@ class SignUpCiv extends Component {
   };
 
   handleNext = () => {
-    this.props.history.push({
-      pathname: "/signup/email",
-      state: {
-        type: this.props.location.state.type,
-        c_type: this.state.status
-      }
-    });
+    const { location } = this.props;
+    if (location.state.fbLogin) {
+      this.props.history.push({
+        pathname: "/signup/unit",
+        state: {
+          type: this.props.location.state.type,
+          c_type: this.state.status,
+          fbLogin: location.state.fbLogin
+        }
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/signup/email",
+        state: {
+          type: this.props.location.state.type,
+          c_type: this.state.status
+        }
+      });
+    }
   };
 
   render() {

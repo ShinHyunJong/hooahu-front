@@ -9,6 +9,8 @@ export const FAILED_TO_SIGNUP = "FAILED_TO_SIGNUP";
 export const SUCCEED_TO_SIGNOUT = "SUCCEED_TO_SIGNOUT";
 
 export const postSignUp = params => {
+  console.log("AuthAction");
+  console.log(params);
   return async dispatch => {
     try {
       let response = await fetch(ServerEndPoint + "api/auth/register", {
@@ -18,8 +20,7 @@ export const postSignUp = params => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          first_name: params.first_name,
-          last_name: params.last_name,
+          full_name: params.first_name + " " + params.last_name,
           nickname: params.nickname,
           email: params.email,
           password: params.password,
@@ -28,7 +29,10 @@ export const postSignUp = params => {
           w_type: params.w_type,
           area: params.area,
           camp: params.camp,
-          reason: params.reason
+          reason: params.reason,
+          profile_url: params.picture === "" ? "" : params.picture,
+          is_facebook: params.fbToken === "" ? false : true,
+          access_token: params.fbToken === "" ? "" : params.fbToken
         })
       });
       let responseJson = await response.json();
@@ -58,7 +62,9 @@ export const postSignIn = params => {
         },
         body: JSON.stringify({
           email: params.email,
-          password: params.password
+          password: params.password,
+          is_facebook: true,
+          access_token: params.access_token
         })
       });
       if (response.status === 406) {

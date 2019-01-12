@@ -56,23 +56,46 @@ class SignUpChoose extends Component {
   };
 
   handleNext = () => {
-    if (this.state.status === "Military") {
-      this.props.history.push({
-        pathname: "/signup/email",
-        state: { type: this.state.status }
-      });
+    const { location } = this.props;
+    if (location.state === undefined) {
+      //일반 로그인
+      if (this.state.status === "Military") {
+        this.props.history.push({
+          pathname: "/signup/email",
+          state: { type: this.state.status }
+        });
+      } else {
+        this.props.history.push({
+          pathname: "/signup/civ",
+          state: { type: this.state.status }
+        });
+      }
     } else {
-      this.props.history.push({
-        pathname: "/signup/civ",
-        state: { type: this.state.status }
-      });
+      //페이스북 로그인 시
+      if (this.state.status === "Military") {
+        this.props.history.push({
+          pathname: "/signup/unit",
+          state: {
+            type: this.state.status,
+            fbLogin: location.state.fbLogin
+          }
+        });
+      } else {
+        this.props.history.push({
+          pathname: "/signup/civ",
+          state: { type: this.state.status, fbLogin: location.state.fbLogin }
+        });
+      }
     }
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log("SignUpChoose --component Did Mount");
+    console.log(this.props.location);
+  }
 
   render() {
-    console.log(this.state.status);
+    // console.log(this.state.status);
     return (
       <div>
         <Container className="signUpChoose">
