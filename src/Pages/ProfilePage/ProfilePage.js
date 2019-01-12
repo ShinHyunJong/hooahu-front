@@ -23,14 +23,14 @@ class ProfilePage extends Component {
   }
 
   render() {
-    const user = this.state;
+    const user = this.props;
     return (
       <div className="profilePage">
         <NavBar />
         <div>(여백)</div>
         <div>(여백)</div>
         <div>(여백)</div>
-        <div>이메일 : {user.email}</div>
+        <div>이메일 : {user && user.email}</div>
         <div>비밀번호 : </div>
         <div>이름 : </div>
         <div>닉네임 : </div>
