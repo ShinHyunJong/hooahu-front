@@ -387,9 +387,9 @@ class EditorChoicePage extends Component {
                             })}
                           <div className="editorChoice__feed__content__lists__list__text__more">
                             {data.places.length - placeCount === 0 ? null : data
-                              .places.length -
-                              placeCount ===
-                            1 ? (
+                                .places.length -
+                                placeCount ===
+                              1 ? (
                               <span>
                                 +{data.places.length - placeCount} more place
                               </span>
