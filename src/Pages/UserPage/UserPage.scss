@@ -13,7 +13,7 @@
   &__noMargin {
     margin-bottom: 5px !important;
   }
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
@@ -23,10 +23,11 @@
   &__notice {
     display: inline-block;
     padding-top: 50px;
+    padding-left: 10%;
     position: fixed;
     z-index: 0;
     left: 0;
-    width: 360px;
+    width: 30%;
     height: 100vh;
     box-sizing: border-box;
     background-color: ghostwhite;
@@ -39,7 +40,6 @@
     }
 
     &__content {
-      padding-left: 70px;
       padding-top: 40px;
       @media screen and (max-width: 900px) {
         display: none;
@@ -138,10 +138,10 @@
 
   &__feed {
     display: inline-table;
-    width: calc(100vw - 710px);
+    width: 40%;
     padding: 0 2rem;
     height: 100vh;
-    margin-left: 360px;
+    margin-left: 30%;
     padding-top: 50px;
     padding-bottom: 10rem;
     flex-direction: column;
@@ -408,10 +408,12 @@
   &__filter {
     display: inline-block;
     padding-top: 50px;
+    padding-right: 5%;
     position: fixed;
     z-index: 0;
     right: 0;
-    width: 350px;
+    width: 30%;
+    // padding-right: 10%;
     height: 100vh;
     box-sizing: border-box;
     background-color: white;

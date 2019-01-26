@@ -79,9 +79,10 @@ class EditorDetailPage extends Component {
     const { token } = this.props;
     const params = {
       id: Number(this.props.match.params.package),
+      props: this.props,
       token
     };
-    this.props.dispatch(ChoiceAction.getLikeChocieCheck(params)).then(like => {
+    this.props.dispatch(ChoiceAction.getLikeChoiceCheck(params)).then(like => {
       if (like.isChoiceLiked) {
         this.setState({ isLiked: true });
       }
@@ -215,10 +216,9 @@ class EditorDetailPage extends Component {
   };
 
   handleLike = () => {
-    const { token } = this.props;
     const params = {
       id: Number(this.props.match.params.package),
-      token
+      props: this.props
     };
     if (this.props.isLogin === false) {
       this.props.history.push({
@@ -227,9 +227,10 @@ class EditorDetailPage extends Component {
     } else {
       if (!this.state.isLiked) {
         this.setState({ isLiked: true });
-        this.props.dispatch(ChoiceAction.postLikeChocie(params));
+        this.props.dispatch(ChoiceAction.postLikeChoice(params));
       } else {
         this.setState({ isLiked: false });
+        this.props.dispatch(ChoiceAction.postDislikeChoice(params));
       }
     }
   };
