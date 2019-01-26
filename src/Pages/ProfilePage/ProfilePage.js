@@ -3,6 +3,13 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import unitJson from "../../Json/unit";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 import { NavBar } from "../../Components";
 
@@ -22,37 +29,80 @@ const mapStateToProps = state => {
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
+    this.toggle = this.toggle.bind(this);
     this.state = {
-      nickname: ""
+      dropdownOpen: false,
+      nickname: "",
+      area: ""
     };
+  }
+
+  componentDidMount() {
+    console.log(this.props);
   }
 
   render() {
     // console.log(this.props.user);
     const { user } = this.props;
+    const unit = unitJson.data;
     return (
       <div className="profilePage">
         <NavBar />
         <div className="profilePage__editForm">
-          <label>
+          <div>
             Nickname{" "}
             <input
               type="text"
               name="nickname"
-              placeholder="닉네임"
+              placeholder="NICKNAME"
               defaultValue={user && user.nickname}
               onChange={e => this.setState({ nickname: e.target.value })}
             />
-          </label>
-          <button value="Submit" onClick={this.onClickChangeUsername}>
-            닉네임변경
+          </div>
+          <div>
+            Area
+            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+              <DropdownToggle caret>{this.state.area}</DropdownToggle>
+              <DropdownMenu>
+                {unit.map((data, index) => {
+                  return (
+                    <DropdownItem
+                      onClick={() => this.setState({ area: data.area })}
+                    >
+                      {data.area}
+                    </DropdownItem>
+                  );
+                })}
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          {/* <div>
+            Unit
+            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+              <DropdownToggle caret>Unit</DropdownToggle>
+              <DropdownMenu>
+                {unit.map((data, index) => {
+                  return <DropdownItem>{data.area}</DropdownItem>;
+                })}
+              </DropdownMenu>
+            </Dropdown>
+          </div> */}
+          <br />
+          <button value="Submit" onClick={this.onClickChange}>
+            프로필 정보 변경
           </button>
         </div>
       </div>
     );
   }
 
-  onClickChangeUsername = () => {
+  toggle() {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
+  }
+
+  onClickChange = () => {
     const params = {
       props: this.props,
       body: {
