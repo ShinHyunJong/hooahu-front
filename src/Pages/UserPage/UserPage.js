@@ -268,6 +268,7 @@ class UserPage extends Component {
                   <Post
                     key={index}
                     feed={data}
+                    user={user}
                     onClickTag={this.handleTag}
                     onClickThumb={this.handleUser}
                     onClickUser={this.handleUser}

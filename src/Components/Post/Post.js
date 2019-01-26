@@ -7,6 +7,12 @@ import moment from "moment";
 import NumericLabel from "react-pretty-numbers";
 import { Thumb, Comment } from "../";
 import ImageGallery from "react-image-gallery";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 const defaultProps = {};
 const propTypes = {};
@@ -26,11 +32,18 @@ let option = {
 class Post extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dropdownOpen: false
+    };
   }
+
+  toggle = () => {
+    this.setState(prevState => ({ dropdownOpen: !prevState.dropdownOpen }));
+  };
 
   render() {
     const {
+      user,
       feed,
       index,
       isTag,
@@ -40,8 +53,10 @@ class Post extends Component {
       onClickUser,
       onClickTag,
       onClickThumb,
-      onClickCommentUser
+      onClickCommentUser,
+      onClickDelete
     } = this.props;
+
     return (
       <div className="post">
         <div className="post__header">
@@ -74,11 +89,20 @@ class Post extends Component {
               </p>
             </div>
           </div>
-          <div className="post__header__option">
-            <span className="post__header__option__icon">
-              <i className="xi-ellipsis-h" />
-            </span>
-          </div>
+          {user.id === feed.user_id ? (
+            <div className="post__header__option">
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <DropdownToggle tag="span">
+                  <span className="post__header__option__icon">
+                    <i className="xi-ellipsis-h" />
+                  </span>
+                </DropdownToggle>
+                <DropdownMenu onClick={() => onClickDelete(feed.id)}>
+                  <DropdownItem>delete</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          ) : null}
         </div>
         <div className="post__body">
           <div className="post__body__image">

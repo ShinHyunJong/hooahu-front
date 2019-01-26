@@ -177,6 +177,13 @@ class HomePage extends Component {
     });
   };
 
+  onClickDelete = feed_id => {
+    const params = { props: this.props, id: feed_id };
+    this.props.dispatch(FeedAction.deleteFeed(params)).then(() => {
+      this.getAllFeed(0, 1);
+    });
+  };
+
   autocompleteRenderInput = ({ addTag, ...props }) => {
     const { suggestion } = this.state;
     const handleOnChange = (e, { newValue, method }) => {
@@ -376,6 +383,7 @@ class HomePage extends Component {
                   return (
                     <Post
                       feed={data}
+                      user={user}
                       key={index}
                       index={index}
                       onClickTag={this.handleTag}
@@ -385,6 +393,7 @@ class HomePage extends Component {
                       onClickCommentUser={this.handleUser}
                       onClickLike={id => this.handleLike(id, index)}
                       onClickDisLike={id => this.handleDisLike(id, index)}
+                      onClickDelete={this.onClickDelete}
                     />
                   );
                 })
@@ -539,6 +548,13 @@ class HomePage extends Component {
   };
 
   getAllFeed = (count, typeIndex) => {
+    /**
+     * typeIndex
+     * 0: 포스팅 로딩
+     * 1:
+     * 2: 스크롤
+     * count => back 호출시 index
+     */
     const { dispatch } = this.props;
     const index = count;
     const params = { props: this.props, index };

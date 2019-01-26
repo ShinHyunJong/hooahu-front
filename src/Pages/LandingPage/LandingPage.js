@@ -25,7 +25,7 @@ class LandingPage extends Component {
     this.state = {
       email: "",
       password: "",
-      fbLogin: {}
+      accessToken: ""
     };
   }
 
@@ -91,6 +91,7 @@ class LandingPage extends Component {
                 autoLoad={true}
                 fields="name,email,picture"
                 callback={this.responseFacebook}
+                onClick={this.componentClicked}
                 textButton="Facebook Login"
                 className="signUp__content__title__buttonF"
                 textClassName="signUp__content__title__textF"
@@ -121,7 +122,14 @@ class LandingPage extends Component {
   };
 
   responseFacebook = response => {
-    const params = { is_facebook: true, access_token: response.accessToken };
+    localStorage.setItem("hooahu-facebook-token", response.accessToken);
+  };
+
+  componentClicked = () => {
+    const params = {
+      is_facebook: true,
+      access_token: localStorage.getItem("hooahu-facebook-token")
+    };
     this.props.dispatch(AuthAction.postSignIn(params)).then(async value => {
       const token = { props: { token: value } };
       if (value === "failed") {
