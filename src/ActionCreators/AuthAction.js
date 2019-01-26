@@ -1,7 +1,13 @@
 import { ServerEndPoint } from "../Configs/Server";
+import * as Request from "../Utils/WebRequest";
+export const TOKEN_EXPIRED = "TOKEN_EXPIRED";
 
 export const SUCCEED_TO_SIGNIN = "SUCCEED_TO_SIGNIN";
 export const FAILED_TO_SIGNIN = "FAILED_TO_SIGNIN";
+
+export const SUCCEED_TO_POST_CHANGE_USERNAME =
+  "SUCCEED_TO_POST_CHANGE_USERNAME";
+export const FAILED_TO_POST_CHANGE_USERNAME = "FAILED_TO_POST_CHANGE_USERNAME";
 
 export const SUCCEED_TO_SIGNUP = "SUCCEED_TO_SIGNUP";
 export const FAILED_TO_SIGNUP = "FAILED_TO_SIGNUP";
@@ -44,6 +50,35 @@ export const postSignUp = params => {
         type: FAILED_TO_SIGNUP,
         payload: { data: "NETWORK_ERROR" }
       });
+    }
+  };
+};
+
+export const postChangeUsername = params => {
+  return async dispatch => {
+    try {
+      let response = Request.postData(`api/user/update/nickname`, params).then(
+        result => {
+          switch (result) {
+            case "token_expired":
+              return dispatch({ type: TOKEN_EXPIRED });
+
+            default:
+              dispatch({
+                type: SUCCEED_TO_POST_CHANGE_USERNAME,
+                payload: result
+              });
+              return result;
+          }
+        }
+      );
+      return response;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_POST_CHANGE_USERNAME,
+        payload: { data: "NETWORK_ERROR" }
+      });
+      console.error(error);
     }
   };
 };
