@@ -217,7 +217,7 @@ class UserPage extends Component {
                 </div>
                 <div className="userPage__feed__userinfo__wrapper__button">
                   {user.id == this.props.user.id ? (
-                    <button>Edit Profile</button>
+                    <button onClick={this.handleProfile}>Edit Profile</button>
                   ) : null}
                 </div>
               </div>
@@ -438,6 +438,12 @@ class UserPage extends Component {
     this.setState(state => ({ isPosting: true, feeds: newFeed }));
     dispatch(FeedAction.postComment(params)).then(value => {
       this.setState(state => ({ isPosting: false, comment: "" }));
+    });
+  };
+
+  handleProfile = () => {
+    this.props.history.push({
+      pathname: "/@" + this.props.user.id + "/profile/"
     });
   };
 
