@@ -21,7 +21,9 @@ const initialState = {
   data: "",
   token: localStorage.getItem("token"),
   isLogin: !!localStorage.getItem("token"),
-  user: {},
+  user: {
+    id: 0
+  },
   userById: [],
   feeds: null
 };

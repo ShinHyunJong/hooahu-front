@@ -18,6 +18,9 @@ export const FAILED_TO_GET_IMAGE_BY_TAG_NAME =
 export const SUCCEED_TO_POST_FEED = "SUCCEED_TO_POST_FEED";
 export const FAILED_TO_POST_FEED = "FAILED_TO_POST_FEED";
 
+export const SUCCEED_TO_DELETE_FEED = "SUCCEED_TO_DELETE_FEED";
+export const FAILED_TO_DELETE_FEED = "FAILED_TO_DELETE_FEED";
+
 export const SUCCEED_TO_POST_COMMENT = "SUCCEED_TO_POST_COMMENT";
 export const FAILED_TO_POST_COMMENT = "FAILED_TO_POST_COMMENT";
 
@@ -213,6 +216,33 @@ export const postFeed = params => {
         type: FAILED_TO_POST_FEED,
         payload: { data: "NETWORK_ERROR" }
       });
+    }
+  };
+};
+
+export const deleteFeed = params => {
+  return async dispatch => {
+    try {
+      let response = Request.postData(
+        `api/post/delete/${params.id}`,
+        params
+      ).then(result => {
+        switch (result) {
+          case "token_expired":
+            return dispatch({ type: TOKEN_EXPIRED });
+
+          default:
+            dispatch({ type: SUCCEED_TO_DELETE_FEED, payload: result });
+            return result;
+        }
+      });
+      return response;
+    } catch (error) {
+      dispatch({
+        type: FAILED_TO_DELETE_FEED,
+        payload: { data: "NETWORK_ERROR" }
+      });
+      console.error(error);
     }
   };
 };
